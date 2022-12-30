@@ -1,0 +1,110 @@
+// 預設變數覆蓋需要在導入Bootstrap之前
+
+/* 顏色 */
+$main: #FFB905;
+$secondary: #FCFAF2;
+$textColor: #734338;
+$hoverColor: #FF9B05;
+/* hover-text用BS5的light */
+/* 錯誤訊息用BS5的danger */
+/* 成功訊息用BS5的success */
+
+// 導入Bootstrap
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
+@import '~bootstrap/scss/bootstrap.scss';
+
+// 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
+// https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/
+
+body {
+    font-family: 'Noto Sans TC', sans-serif;
+}
+
+/* 字型、字體大小 */
+.h1 {
+    font-size: 56px;
+}
+
+.h2 {
+    font-size: 42px;
+}
+
+.h3 {
+    font-size: 32px;
+}
+
+.h4 {
+    font-size: 24px;
+}
+
+.h5 {
+    font-size: 20px;
+}
+
+.h3 {
+    font-size: 18px;
+}
+
+.my-p {
+    font-size: 16px;
+}
+
+.my-p-small {
+    font-size: 12px;
+}
+
+/* Effect */
+.my-border-radius {
+    border-radius: 10px;
+}
+
+/* 元件 */
+.my-btn {
+    padding: 15px 15px;
+    border-radius: 10px;
+    text-align: center;
+    background: var(--main);
+
+}
+
+.my-filled-btn {
+    padding: 15px 0;
+    border-radius: 10px;
+    width: 100%;
+    text-align: center;
+    background: var(--main);
+
+}
+
+.products-card {
+    width: 900px;
+    height: 250px;
+    border: 1px solid var(--textColor);
+    padding: 20px;
+}
+
+.service-tag {
+    padding: 10px 40px;
+}
+
+.icon {
+    height: 30px;
+}
+
+.icon-small {
+    height: 16px;
+}
+
+.small-card {
+    width: 260px;
+    height: 350px;
+    padding: 20px;
+    border: 1px solid var(--textColor);
+}
+
+
+/* 商品頁專用 */
+.title-underline {
+    box-shadow: inset 0px -13px 0px var(--main);
+    padding: 0px;
+}
