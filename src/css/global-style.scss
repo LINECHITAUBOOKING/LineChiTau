@@ -32,34 +32,42 @@ body {
 /* 字型、字體大小 */
 .h1 {
   font-size: $fs-1;
+  color: $textColor;
 }
 
 .h2 {
   font-size: $fs-2;
+  color: $textColor;
 }
 
 .h3 {
   font-size: $fs-3;
+  color: $textColor;
 }
 
 .h4 {
   font-size: $fs-4;
+  color: $textColor;
 }
 
 .h5 {
   font-size: $fs-5;
+  color: $textColor;
 }
 
 .h6 {
   font-size: $fs-6;
+  color: $textColor;
 }
 
 .my-p {
   font-size: $p;
+  color: $textColor;
 }
 
 .my-p-small {
   font-size: $p-small;
+  color: $textColor;
 }
 
 /* Effect */

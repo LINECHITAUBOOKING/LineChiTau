@@ -1,3 +1,11 @@
+@import url(../../css/global-style.scss);
+
+.container-fluid {
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  flex-direction: column;
+}
 .footer {
   align-items: flex-start;
   background-color: var(--bianca);
@@ -5,9 +13,9 @@
   flex: 1;
   gap: 120px;
   justify-content: center;
-  
+
   padding: 60px 0px;
-  width: 1920px;
+  width: 100%;
   .logo {
     height: 120px;
     min-width: 284px;
@@ -26,7 +34,6 @@
       left: 0;
       letter-spacing: 0;
       line-height: normal;
-      position: absolute;
       top: 0;
     }
     .sub-title {
@@ -45,6 +52,5 @@
         min-height: 21px;
       }
     }
-    
   }
 }

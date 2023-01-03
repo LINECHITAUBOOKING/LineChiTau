@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from './logo.svg';
+import cart from './cart.svg';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 /* const svgpic = [
@@ -44,26 +45,32 @@ const Navbar = () => {
           <div className="signbtn-item">
             <div className="login">
               <div className="overlap-group">
-                <div className="rectangle-73-2" />
-                <div className="text-1 valign-text-middle notosans-semi-bold-old-copper-24px">
+                {/* <div className="rectangle-73-2" /> */}
+                {/* <div className="text-1 valign-text-middle notosans-semi-bold-old-copper-24px">
                   登出
-                </div>
+                </div> */}
+                <button className="my-btn h4">登出</button>
               </div>
             </div>
           </div>
           <div className="signbtn-item">
             <div className="login">
               <div className="overlap-group">
-                <div className="rectangle-73-2" />
+                {/*  <div className="rectangle-73-2" />
                 <div className="text-1 valign-text-middle notosans-semi-bold-old-copper-24px">
                   註冊
-                </div>
+                </div> */}
+                <button className="my-btn h4">註冊</button>
               </div>
             </div>
           </div>
-          <div className="cart-signbtn">
-            <div className="cart-cart">
-              <img className="vector" src="vector-1.svg" alt="Vector" />
+          <div className="signbtn-item">
+            <div className="login">
+              <div className="overlap-group">
+                <button className="my-btn h4 cart">
+                  <span class="material-symbols-outlined">shopping_cart</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
