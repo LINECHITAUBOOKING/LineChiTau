@@ -23,54 +23,57 @@ const svgpics = svgpic.map((item) => require('../../images/' + item + '.svg'));
 const pngpic = ['facebook', 'instagram', 'mask', 'pic1', 'pic2', 'telegram'];
 const pngpics = pngpic.map((item) => require('../../images/' + item + '.png')); */
 const Navbar = () => {
+  let toLink = '';
+  const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
+
   return (
     <div className="container-fluid">
-      <div className="navbar">
-        <div className="logo-2">
-          <div className="logo-3">
-            <div className="logo-container-logo">
-              <img className="logo-4" src={logo} alt="logo" />
-            </div>
-          </div>
+      <div className="navbar d-flex align-items-center justify-content-around">
+        <div>
+          <img className="logo" src={logo} alt="logo" />
         </div>
-        <div className="navbar-btn">
-          <p className="text-2 valign-text-middle notosans-semi-bold-old-copper-24px">
-            <Link to="/ticket">旅遊行程</Link>
-            <Link to="/travel">票卷活動</Link>
-            <Link to="/">訂房住宿</Link>
-            <Link to="/profile">會員中心</Link>
-          </p>
-        </div>
-        <div className="signbtn">
-          <div className="signbtn-item">
-            <div className="login">
-              <div className="overlap-group">
-                {/* <div className="rectangle-73-2" /> */}
-                {/* <div className="text-1 valign-text-middle notosans-semi-bold-old-copper-24px">
-                  登出
-                </div> */}
-                <button className="my-btn h4">登出</button>
-              </div>
-            </div>
+        <ul className="navbar-btn list-unstyled d-flex justify-content-around align-items-center mx-2">
+          {linkList.map((list, index) => {
+            switch (list) {
+              case '旅遊行程':
+                toLink = '/travel';
+                break;
+              case '票卷活動':
+                toLink = '/ticket';
+                break;
+              case '訂房住宿':
+                toLink = '/';
+                break;
+              case '會員中心':
+                toLink = '/profile';
+                break;
+              default:
+                toLink = '/404';
+                break;
+            }
+            return (
+              <>
+                <li className="mx-3" key={index}>
+                  <Link className="h4 text-decoration-none" to={toLink}>
+                    {list}
+                  </Link>
+                </li>
+              </>
+            );
+          })}
+        </ul>
+        <div className="d-flex">
+          <div>
+            <button className="my-btn h4 mx-2">登出</button>
           </div>
-          <div className="signbtn-item">
-            <div className="login">
-              <div className="overlap-group">
-                {/*  <div className="rectangle-73-2" />
-                <div className="text-1 valign-text-middle notosans-semi-bold-old-copper-24px">
-                  註冊
-                </div> */}
-                <button className="my-btn h4">註冊</button>
-              </div>
-            </div>
+          <div>
+            <button className="my-btn h4 mx-2">註冊</button>
           </div>
-          <div className="signbtn-item">
-            <div className="login">
-              <div className="overlap-group">
-                <button className="my-btn h4 cart">
-                  <span class="material-symbols-outlined">shopping_cart</span>
-                </button>
-              </div>
+          <div>
+            <div>
+              <button className="my-btn h4 cart mx-2">
+                <span class="material-symbols-outlined">shopping_cart</span>
+              </button>
             </div>
           </div>
         </div>
