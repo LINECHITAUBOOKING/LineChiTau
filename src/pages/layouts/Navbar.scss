@@ -1,0 +1,126 @@
+.inline {
+  display: inline-block;
+}
+.container-fluid{
+  display: flex;
+  padding: 0;
+  justify-content: center;
+  flex-direction: column;
+  .navbar {
+    align-items: center;
+    background-color: var(--bianca);
+    display: flex;
+    gap: 150px;
+    /* padding: 0px 235.5px;
+    width: fit-content; */
+    justify-content: center;
+    width: 1920px;
+    .logo-2 {
+      height: 120px;
+      min-width: 284px;
+      .logo-3 {
+        align-items: flex-start;
+        display: flex;
+        min-width: 284px;
+        .logo-container-logo {
+          height: 145px;
+          margin-top: 0;
+          position: relative;
+          width: 284px;
+          .logo-4 {
+            width: 284px;
+            height: 120px;
+            margin-top: 10px;
+            /* Inside auto layout */
+  
+            flex: none;
+            order: 0;
+            flex-grow: 0;
+          }
+        }
+      }
+    }
+    .navbar-btn {
+      height: 75px;
+      min-width: 565px;
+      position: relative;
+      .text-2 {
+        left: 0;
+        letter-spacing: 0;
+        line-height: normal;
+        position: absolute;
+        text-align: center;
+        top: -1px;
+        width: 565px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        a {
+          text-decoration: none;
+          color: var(--old-copper);
+        }
+      }
+    }
+    .signbtn {
+      align-items: flex-start;
+      display: flex;
+      width: fit-content;
+      .signbtn-item {
+        height: 75px;
+        min-width: 100px;
+        .login {
+          align-items: flex-start;
+          display: flex;
+          min-width: 100px;
+          .overlap-group {
+            height: 75px;
+            position: relative;
+            width: 100px;
+            .rectangle-73-2 {
+              background-color: var(--gold);
+              border-radius: 10px;
+              height: 66px;
+              left: 15px;
+              position: absolute;
+              top: 3px;
+              width: 68px;
+            }
+            .text-1 {
+              height: 75px;
+              left: 0;
+              letter-spacing: 0;
+              line-height: normal;
+              position: absolute;
+              text-align: center;
+              top: 0;
+              width: 100px;
+            }
+          }
+        }
+      }
+      .cart-signbtn {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 4.5px 16.17px;
+        width: fit-content;
+        .cart-cart {
+          background-color: var(--gold);
+          border-radius: 10px;
+          height: 66px;
+          min-width: 67.65px;
+          position: relative;
+          .vector {
+            height: 40px;
+            left: 14px;
+            position: absolute;
+            top: 13px;
+            width: 39px;
+          }
+        }
+      }
+    }
+  }
+}
+

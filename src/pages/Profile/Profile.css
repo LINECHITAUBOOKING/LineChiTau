@@ -24,10 +24,11 @@
   flex-direction: column;
   gap: 50px;
   height: 100vh;
-  min-height: 1504px;
+  /* min-height: 1504px; */
   min-width: 1920px;
   overflow: hidden;
   width: 100%;
+  margin: 20px 0;
 }
 
 .hidden,
@@ -43,10 +44,9 @@
   flex: 1;
   gap: 120px;
   justify-content: center;
-  margin-left: -4.5px;
-  margin-right: -4.5px;
-  padding: 61px 55px 0px;
-  width: 1929px;
+  
+  padding: 60px 0px;
+  width: 1920px;
 }
 
 .footer-item2 {
@@ -292,48 +292,46 @@
   flex-grow: 0;
 }
 .logo-5 {
-  height: 145px;
+  height: 120px;
   left: 0;
   object-fit: cover;
-  position: absolute;
   top: 0;
-  width: 202px;
 }
 
-.navbar {
+/* .navbar {
   align-items: center;
   background-color: var(--bianca);
   display: flex;
   gap: 150px;
   padding: 0px 235.5px;
   width: fit-content;
-}
+} */
 
-.logo-2 {
+/* .logo-2 {
   height: 120px;
   min-width: 284px;
-}
+} */
 
-.logo-3 {
+/* .logo-3 {
   align-items: flex-start;
   display: flex;
   min-width: 284px;
-}
+} */
 
-.logo-container-logo {
+/* .logo-container-logo {
   height: 145px;
   margin-top: 0;
   position: relative;
   width: 284px;
-}
+} */
 
-.navbar-btn {
+/* .navbar-btn {
   height: 75px;
   min-width: 565px;
   position: relative;
-}
+} */
 
-.text-2 {
+/* .text-2 {
   left: 0;
   letter-spacing: 0;
   line-height: normal;
@@ -341,32 +339,32 @@
   text-align: center;
   top: -1px;
   width: 565px;
-}
+} */
 
-.signbtn {
+/* .signbtn {
   align-items: flex-start;
   display: flex;
   width: fit-content;
-}
+} */
 
-.signbtn-item {
+/* .signbtn-item {
   height: 75px;
   min-width: 100px;
-}
+} */
 
-.login {
+/* .login {
   align-items: flex-start;
   display: flex;
   min-width: 100px;
-}
+} */
 
-.overlap-group {
+/* .overlap-group {
   height: 75px;
   position: relative;
   width: 100px;
-}
+} */
 
-.text-1 {
+/* .text-1 {
   height: 75px;
   left: 0;
   letter-spacing: 0;
@@ -375,7 +373,7 @@
   text-align: center;
   top: 0;
   width: 100px;
-}
+} */
 
 .rectangle-73-1 {
   height: 66px;
@@ -385,7 +383,7 @@
   width: 68px;
 }
 
-.rectangle-73-2 {
+/* .rectangle-73-2 {
   background-color: var(--gold);
   border-radius: 10px;
   height: 66px;
@@ -393,32 +391,32 @@
   position: absolute;
   top: 3px;
   width: 68px;
-}
+} */
 
-.cart-signbtn {
+/* .cart-signbtn {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 4.5px 16.17px;
   width: fit-content;
-}
+} */
 
-.cart-cart {
+/* .cart-cart {
   background-color: var(--gold);
   border-radius: 10px;
   height: 66px;
   min-width: 67.65px;
   position: relative;
-}
+} */
 
-.vector {
+/* .vector {
   height: 40px;
   left: 14px;
   position: absolute;
   top: 13px;
   width: 39px;
-}
+} */
 
 .main {
   align-items: flex-end;

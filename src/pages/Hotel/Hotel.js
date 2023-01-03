@@ -1,12 +1,7 @@
 import React from 'react';
-import Navbar from '../layouts/Navbar';
 
 const Hotel = () => {
-  return (
-    <>
-      <Navbar />
-    </>
-  );
+  return <></>;
 };
 
 export default Hotel;

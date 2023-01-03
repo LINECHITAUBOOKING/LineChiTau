@@ -1,11 +1,10 @@
 import React from 'react';
 import Navbar from '../layouts/Navbar';
-import './Profile.css';
+// import './Profile.css';
 
 const Profile = () => {
   return (
     <div className="profile screen">
-      <Navbar />
       <div className="main">
         <div className="sidebar">
           <div className="user-pic">
@@ -323,7 +322,7 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      <div className="footer">
+     {/*  <div className="footer">
         <div className="frame-2608868">
           <div className="group-37060">
             <div className="logo-container-group-37060">
@@ -403,7 +402,7 @@ const Profile = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
