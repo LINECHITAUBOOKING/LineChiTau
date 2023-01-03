@@ -21,7 +21,7 @@ function App() {
           <Route path="/travel" element={<Travel />} />
           <Route path="/ticket" element={<Ticket />} />
         </Routes>
-        
+
         <Footer />
       </BrowserRouter>
     </>
