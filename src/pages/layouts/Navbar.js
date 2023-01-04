@@ -10,11 +10,11 @@ const Navbar = () => {
 
   return (
     <div className="container-fluid">
-      <div className="navbar d-flex align-items-center justify-content-around m-auto">
-        <div>
+      <div className="navbar d-flex align-items-center justify-content-around m-auto p-0">
+        <div className='logo-box'>
           <img className="logo" src={logo} alt="logo" />
         </div>
-        <ul className="navbar-btn list-unstyled d-flex justify-content-around align-items-center mx-2">
+        <ul className="navbar-btn list-unstyled d-flex justify-content-around align-items-center m-0">
           {linkList.map((list, index) => {
             switch (list) {
               case '旅遊行程':
@@ -36,7 +36,7 @@ const Navbar = () => {
             return (
               <>
                 <li className="mx-3" key={index}>
-                  <Link className="h4 text-decoration-none" to={toLink}>
+                  <Link className="h5 text-decoration-none" to={toLink}>
                     {list}
                   </Link>
                 </li>
@@ -46,14 +46,14 @@ const Navbar = () => {
         </ul>
         <div className="d-flex">
           <div>
-            <button className="my-btn h4 mx-2">登出</button>
+            <button className="my-btn h6 mx-2">登出</button>
           </div>
           <div>
-            <button className="my-btn h4 mx-2">註冊</button>
+            <button className="my-btn h6 mx-2">註冊</button>
           </div>
           <div>
             <div>
-              <button className="my-btn h4 cart mx-2">
+              <button className="my-btn h6 cart mx-2">
                 <span class="material-symbols-outlined">shopping_cart</span>
               </button>
             </div>

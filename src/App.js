@@ -14,7 +14,6 @@ function App() {
     <>
       <BrowserRouter>
         <Navbar />
-
         <Routes>
           <Route path="/" element={<Hotel />} />
           <Route path="/profile" element={<Profile />} />

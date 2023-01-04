@@ -1,7 +1,10 @@
 import React from 'react';
+import HotelBanner from './HotelConponent/HotelBanner/HotelBanner'
 
 const Hotel = () => {
-  return <></>;
+  return <>
+    <HotelBanner />
+  </>;
 };
 
 export default Hotel;
