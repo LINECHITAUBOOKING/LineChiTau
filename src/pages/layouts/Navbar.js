@@ -3,32 +3,14 @@ import logo from './logo.svg';
 import cart from './cart.svg';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
-/* const svgpic = [
-  'cupon', //0
-  'dot-h', //1
-  'dot', //2
-  'index', //3
-  'line', //4
-  'location', //5
-  'logo', //6
-  'logout', //7
-  'message', //8
-  'mylove', //9
-  'pay', //10
-  'setting', //11
-];
 
-const svgpics = svgpic.map((item) => require('../../images/' + item + '.svg'));
-
-const pngpic = ['facebook', 'instagram', 'mask', 'pic1', 'pic2', 'telegram'];
-const pngpics = pngpic.map((item) => require('../../images/' + item + '.png')); */
 const Navbar = () => {
   let toLink = '';
   const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
 
   return (
     <div className="container-fluid">
-      <div className="navbar d-flex align-items-center justify-content-around">
+      <div className="navbar d-flex align-items-center justify-content-around m-auto">
         <div>
           <img className="logo" src={logo} alt="logo" />
         </div>
