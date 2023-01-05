@@ -1,20 +1,31 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import line from './images/line.svg';
 import mask from './images/mask.png';
 import './Sidebar.scss';
 const svgpic = [
-  'cupon', //0
-  'index-pic', //1
-  'line', //2
-  'logout', //3
-  'message', //4
-  'mylove', //5
-  'pay', //6
-  'setting', //7
+  'index-pic', //0
+  'cupon', //1
+  'mylove', //2
+  'message', //3
+  'pay', //4
+  'setting', //5
+  'logout', //6
 ];
 
 const svgpics = svgpic.map((item) => require('./images/' + item + '.svg'));
+
+let toLink = '';
+const linkList = [
+  '訂單',
+  '我的優惠券',
+  '我的最愛',
+  '訊息',
+  '支付',
+  '設定',
+  '登出',
+];
+
 const Sidebatr = () => {
   return (
     <div className="sidebar">
@@ -33,7 +44,7 @@ const Sidebatr = () => {
             426
           </div>
         </div>
-        <img className="line" src={svgpics[2]} alt="Line 2" />
+        <img className="line" src={line} alt="Line 2" />
         <div className="side-point-item">
           <div className="overview microsoftjhenghei-regular-normal-old-copper-12px">
             travel
@@ -42,7 +53,7 @@ const Sidebatr = () => {
             426
           </div>
         </div>
-        <img className="line" src={svgpics[2]} alt="Line 3" />
+        <img className="line" src={line} alt="Line 3" />
         <div className="side-point-item">
           <div className="overview microsoftjhenghei-regular-normal-old-copper-12px">
             trip
@@ -55,54 +66,52 @@ const Sidebatr = () => {
       {/* sidebar-btn */}
       <div className="side-bar-item">
         <div className="side-container">
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[1]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[0]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[4]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[6]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[7]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
-          <div className="sidebar-item">
-            <div className="item-container">
-              <img className="item-pic" src={svgpics[3]} alt="item-pic" />
-              <div className="item-text microsoftjhenghei-bold-old-copper-14px">
-                訂單
-              </div>
-            </div>
-          </div>
+          {linkList.map((list, index) => {
+            switch (list) {
+              case '訂單':
+                toLink = '/profile';
+                break;
+              case '我的優惠券':
+                toLink = '/profile/coupon';
+                break;
+              case '我的最愛':
+                toLink = '/profile/mylove';
+                break;
+              case '訊息':
+                toLink = '/profile/message';
+                break;
+              case '支付':
+                toLink = '/profile/pay';
+                break;
+              case '設定':
+                toLink = '/profile/setting';
+                break;
+              case '登出':
+                toLink = '/';
+                break;
+              default:
+                toLink = '/404';
+                break;
+            }
+            return (
+              <>
+                <Link to={toLink}>
+                  <div className="sidebar-item">
+                    <div className="item-container">
+                      <img
+                        className="item-pic"
+                        src={svgpics[index]}
+                        alt="item-pic"
+                      />
+                      <div className="item-text microsoftjhenghei-bold-old-copper-14px">
+                        {linkList[index]}
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </>
+            );
+          })}
         </div>
       </div>
     </div>

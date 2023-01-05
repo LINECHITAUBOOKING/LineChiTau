@@ -1,5 +1,5 @@
 import React from 'react';
-import Navbar from '../layouts/Navbar';
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import Sidebar from './layouts/Sidebar';
 import './Profile.css';
 
@@ -8,7 +8,8 @@ const Profile = () => {
     <div className="profile screen">
       <div className="main">
         <Sidebar />
-        <div className="container">
+
+        {/*  <div className="container">
           <h1 className="buytitlevalign-text-middlenotosans-normal-old-copper-32px">
             訂購清單
           </h1>
@@ -219,7 +220,8 @@ const Profile = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
+        <Outlet />
       </div>
     </div>
   );
