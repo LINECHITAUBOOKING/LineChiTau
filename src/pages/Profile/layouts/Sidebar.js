@@ -1,4 +1,7 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+
+import mask from './images/mask.png';
 import './Sidebar.scss';
 const svgpic = [
   'cupon', //0
@@ -15,11 +18,12 @@ const svgpics = svgpic.map((item) => require('./images/' + item + '.svg'));
 const Sidebatr = () => {
   return (
     <div className="sidebar">
+      {/* 用戶照片 姓名 */}
       <div className="user-pic">
-        <div className="pic" />
+        <img className="pic" src={mask} alt="" />
         <div className="name">Jerry</div>
       </div>
-
+      {/*用戶點數 */}
       <div className="side-point">
         <div className="side-point-item">
           <div className="overview microsoftjhenghei-regular-normal-old-copper-12px">
@@ -48,7 +52,7 @@ const Sidebatr = () => {
           </div>
         </div>
       </div>
-
+      {/* sidebar-btn */}
       <div className="side-bar-item">
         <div className="side-container">
           <div className="sidebar-item">
