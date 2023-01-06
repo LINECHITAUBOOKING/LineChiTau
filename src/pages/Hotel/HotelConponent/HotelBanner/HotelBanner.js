@@ -23,20 +23,44 @@ export const HotelBanner = () => {
       key: 'selection',
     },
   ]);
-  const plusNum = (conditions) => {
-    let result = parseInt(conditions) + 1;
-    return result;
+  const conditionsSelect = ['成人', '兒童', '客房'];
+  const plusNum = (type) => {
+    const newConditions = { ...conditions };
+    if (Number(newConditions[type]) <= 9) {
+      newConditions[type] = Number(newConditions[type]) + 1;
+      setConditions(newConditions);
+    } else {
+      newConditions[type] = 10;
+      setConditions(newConditions);
+    }
+    // console.log(newConditions);
   };
-  const minusNum = (conditions) => {
-    let result = parseInt(conditions) - 1;
-    return result;
+  const minusNum = (type) => {
+    const newConditions = { ...conditions };
+    if (type === 'children') {
+      if (Number(newConditions[type]) > 2) {
+        newConditions[type] = Number(newConditions[type]) - 1;
+        setConditions(newConditions);
+      } else {
+        newConditions[type] = 0;
+        setConditions(newConditions);
+      }
+    } else {
+      if (Number(newConditions[type]) >= 2) {
+        newConditions[type] = Number(newConditions[type]) - 1;
+        setConditions(newConditions);
+      } else {
+        newConditions[type] = 1;
+        setConditions(newConditions);
+      }
+    }
   };
   return (
     <div className="banner position-relative">
       <div className="search-bar position-absolute d-flex my-border-radius">
         <div>
-          <div className="h6 d-flex">
-            <span class="material-symbols-outlined">location_on</span>目的地
+          <div className="nav-foot-small d-flex">
+            <span className="material-symbols-outlined">location_on</span>目的地
           </div>
           <input
             type="text"
@@ -45,8 +69,8 @@ export const HotelBanner = () => {
           />
         </div>
         <div>
-          <div className="h6 d-flex">
-            <span class="material-symbols-outlined">calendar_month</span>
+          <div className="nav-foot-small d-flex">
+            <span className="material-symbols-outlined">calendar_month</span>
             入住/退房時間
           </div>
           <div className="listItem">
@@ -75,8 +99,8 @@ export const HotelBanner = () => {
           </div>
         </div>
         <div>
-          <div className="h6 d-flex">
-            <span class="material-symbols-outlined">group</span>人數 / 間數
+          <div className="nav-foot-small d-flex">
+            <span className="material-symbols-outlined">group</span>人數 / 間數
           </div>
           <input
             className="form-control bg-transparent my-p"
@@ -87,43 +111,54 @@ export const HotelBanner = () => {
           />
           {openConditions && (
             <div className="select-room">
-              <div className="d-flex justify-content-around">
-                <p>成人</p>
-                <button
-                  onClick={() => {
-                    setConditions();
-                  }}
-                >
-                  {' '}
-                  -{' '}
-                </button>
-                <p>{conditions['adult']}</p>
-                <button
-                  onClick={() => {
-                    plusNum(conditions['adult']);
-                  }}
-                >
-                  {' '}
-                  +{' '}
-                </button>
-              </div>
-              <div className="d-flex justify-content-around">
-                <p>兒童</p>
-                <button> - </button>
-                <p>{conditions['children']}</p>
-                <button> + </button>
-              </div>
-              <div className="d-flex justify-content-around">
-                <p>客房</p>
-                <button> - </button>
-                <p>{conditions['room']}</p>
-                <button> + </button>
-              </div>
+              {conditionsSelect.map((value, index) => {
+                let type;
+                switch (value) {
+                  case '成人':
+                    type = 'adult';
+                    break;
+                  case '兒童':
+                    type = 'children';
+                    break;
+                  case '客房':
+                    type = 'room';
+                    break;
+                  default:
+                    break;
+                }
+                return (
+                  <div
+                    className="d-flex justify-content-around my-2 "
+                    key={index}
+                  >
+                    <p className="my-auto">{value}</p>
+                    <button
+                      className="my-btn nav-foot-small d-flex align-items-center py-2"
+                      onClick={() => {
+                        minusNum(type);
+                      }}
+                    >
+                      {' '}
+                      -{' '}
+                    </button>
+                    <p className="my-auto">{conditions[type]}</p>
+                    <button
+                      className="my-btn nav-foot-small d-flex align-items-center py-2"
+                      onClick={() => {
+                        plusNum(type);
+                      }}
+                    >
+                      {' '}
+                      +{' '}
+                    </button>
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
-        <button className="my-btn h6 d-flex align-items-center pe-1 py-3">
-          <span class="material-symbols-outlined">search</span>
+        <button className="my-btn nav-foot-small d-flex align-items-center pe-1 py-3">
+          <span className="material-symbols-outlined">search</span>
         </button>
       </div>
     </div>
