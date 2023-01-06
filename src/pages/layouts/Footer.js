@@ -4,13 +4,8 @@ import { Link } from 'react-router-dom';
 import './Footer.scss';
 const Footer = () => {
   return (
-<<<<<<< HEAD
-    <div className="container-fluid">
-      <footer className="row footer m-auto p-3">
-=======
     <div className="container-fluid ">
       <footer className="row footer m-auto p-5">
->>>>>>> 6b9cb87546cc63dffab0689323687db7580b15ae
         <div className="col-4">
           <img className="logo" src={logo} alt="logo" />
         </div>
