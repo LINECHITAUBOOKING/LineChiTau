@@ -28,7 +28,9 @@ $p-small: 12px;
 body {
   font-family: 'Noto Sans TC', sans-serif;
 }
-
+a {
+  text-decoration: none;
+}
 /* 字型、字體大小 */
 .my-banner {
   font-size: $fs-1;
