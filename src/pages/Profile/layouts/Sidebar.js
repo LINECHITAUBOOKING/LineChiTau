@@ -1,5 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+// import { Toast } from 'react-toastify/dist/components';
+import 'react-toastify/dist/ReactToastify.css';
 import line from './images/line.svg';
 import mask from './images/mask.png';
 import './Sidebar.scss';
@@ -25,7 +28,7 @@ const linkList = [
   '設定',
   '登出',
 ];
-
+// const notify = () => toast('Wow so easy!');
 const Sidebatr = () => {
   return (
     <div className="sidebar">
@@ -97,15 +100,22 @@ const Sidebatr = () => {
               <>
                 <Link to={toLink}>
                   <div className="sidebar-item">
-                    <div className="item-container">
+                    <div
+                      className="item-container"
+                      onClick={() => {
+                        console.log(list);
+                        toast(list);
+                      }}
+                    >
                       <img
                         className="item-pic"
                         src={svgpics[index]}
                         alt="item-pic"
                       />
-                      <div className="item-text microsoftjhenghei-bold-old-copper-14px">
+                      <div className="item-text microsoftjhenghei-bold-old-copper-14px text-decoration-none">
                         {linkList[index]}
                       </div>
+                      <ToastContainer limit={1} autoClose={1000} />
                     </div>
                   </div>
                 </Link>

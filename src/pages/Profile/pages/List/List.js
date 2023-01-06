@@ -1,8 +1,8 @@
 import React from 'react';
-import pic1 from './pic1.png';
-import pic2 from './pic2.png';
-import place from './place.png';
-import coin from './coin.png';
+import pic1 from './images/pic1.png';
+import pic2 from './images/pic2.png';
+import place from './images/place.png';
+import coin from './images/coin.png';
 import './List.scss';
 const List = () => {
   return (
