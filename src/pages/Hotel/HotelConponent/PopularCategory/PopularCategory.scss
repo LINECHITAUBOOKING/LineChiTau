@@ -1,0 +1,39 @@
+@import url(../../../../css/global-style.scss);
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+$main: #ffb905;
+$secondary: #fcfaf2;
+$textColor: #734338;
+$hoverColor: #ff9b05;
+
+.popular-category {
+  max-width: 1100px;
+  background-color: $secondary;
+  border-radius: 20px;
+
+  .picture {
+    width: 125px;
+    height: 160px;
+  }
+  .arrow-btn-box {
+    background-color: transparent;
+    border: none;
+  }
+  .arrow-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: $main;
+    border: none;
+    font-size: 36px;
+    color: $textColor;
+    padding-top: 7px;
+  }
+  .arrow-btn:hover {
+    color: $secondary;
+    background-color: $hoverColor;
+  }
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+  }
+}

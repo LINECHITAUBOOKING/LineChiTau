@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './Footer.scss';
 const Footer = () => {
   return (
-    <div className="container-fluid ">
+    <div className="container-fluid">
       <footer className="row footer m-auto p-3">
         <div className="col-4">
           <img className="logo" src={logo} alt="logo" />

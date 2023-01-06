@@ -110,7 +110,7 @@ export const HotelBanner = () => {
             }}
           />
           {openConditions && (
-            <div className="select-room">
+            <div className="select-room p-1">
               {conditionsSelect.map((value, index) => {
                 let type;
                 switch (value) {
