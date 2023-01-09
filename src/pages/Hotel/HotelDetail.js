@@ -1,7 +1,14 @@
 import React from 'react';
+import HotelDetailPic from './HotelConponent/HotelDetailPic/HotelDetailPic';
+import SearchBar from './HotelConponent/SearchBar/SearchBar';
 
 const HotelDetail = () => {
-  return <div>HotelDetail</div>;
+  return (
+    <>
+      <HotelDetailPic />
+      <SearchBar />
+    </>
+  );
 };
 
 export default HotelDetail;
