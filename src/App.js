@@ -9,6 +9,7 @@ import Ticket from './pages/Ticket/Ticket';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
 import Hotellist from './pages/Hotel/Hotellist';
+import HotelDetail from './pages/Hotel/HotelDetail';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/" element={<Hotellist />} />
+          <Route path="/" element={<HotelDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/travel" element={<Travel />} />
           <Route path="/ticket" element={<Ticket />} />
