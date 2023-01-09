@@ -28,9 +28,11 @@ $p-small: 12px;
 body {
   font-family: 'Noto Sans TC', sans-serif;
 }
+
 a {
   text-decoration: none;
 }
+
 /* 字型、字體大小 */
 .my-banner {
   font-size: $fs-1;
@@ -95,7 +97,7 @@ a {
 }
 
 .products-card {
-  width: 900px;
+  max-width: 900px;
   height: 250px;
   border: 1px solid $textColor;
   padding: 20px;

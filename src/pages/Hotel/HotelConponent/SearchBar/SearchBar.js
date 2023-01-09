@@ -56,7 +56,7 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="container-xxl d-flex justify-content-center">
+    <div className="container-xxl d-flex justify-content-center m-auto my-5">
       <div className="search-bar d-flex my-border-radius">
         <div>
           <div className="nav-foot-small d-flex">

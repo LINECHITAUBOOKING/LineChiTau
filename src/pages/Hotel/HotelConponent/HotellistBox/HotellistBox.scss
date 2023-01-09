@@ -1,0 +1,23 @@
+@import '../../../../css/global-style.scss';
+@import 'material-symbols';
+
+.hotellist-box {
+    background: #fff;
+
+    .products-card-pic {
+        width: 300px;
+        height: 200px;
+    }
+
+    li {
+        .search-tag {
+            border: 1px solid $textColor;
+            background-color: transparent;
+        }
+
+        .search-tag:hover {
+            background-color: #ffb905;
+        }
+    }
+
+}
