@@ -2,13 +2,13 @@ import React from 'react';
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css';
 import 'react-date-range/dist/theme/default.css';
-import './HotelBanner.scss';
+import './SearchBar.scss';
 import { useState } from 'react';
 
 import { format } from 'date-fns';
 import * as locales from 'react-date-range/dist/locale';
 
-const HotelBanner = () => {
+const SearchBar = () => {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
   const [conditions, setConditions] = useState({
@@ -56,8 +56,8 @@ const HotelBanner = () => {
     }
   };
   return (
-    <div className="banner position-relative">
-      <div className="search-bar position-absolute d-flex my-border-radius">
+    <div className="container-xxl d-flex justify-content-center">
+      <div className="search-bar d-flex my-border-radius">
         <div>
           <div className="nav-foot-small d-flex">
             <span className="material-symbols-outlined">location_on</span>目的地
@@ -165,4 +165,4 @@ const HotelBanner = () => {
   );
 };
 
-export default HotelBanner;
+export default SearchBar;
