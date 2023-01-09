@@ -22,15 +22,16 @@
   flex-direction: column;
   gap: 50px;
   height: 100vh;
-  justify-content: center;
+  margin: 10px 0;
+  /* justify-content: center; */
   min-height: 1026px;
-  min-width: 1920px;
+  /* min-width: 1920px; */
   position: relative;
   width: 100%;
 }
 
 .main {
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
   gap: 62px;
   justify-content: center;

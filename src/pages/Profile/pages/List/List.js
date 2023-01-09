@@ -4,6 +4,7 @@ import pic2 from './images/pic2.png';
 import place from './images/place.png';
 import coin from './images/coin.png';
 import './List.scss';
+import { Link } from 'react-router-dom';
 const List = () => {
   return (
     <div className="container">
@@ -23,13 +24,16 @@ const List = () => {
                 實付金額：NT$ 7200
               </div>
             </div>
+
             <div className="button">
-              <div className="button-1">
-                <div className="notosans-normal-old-copper-16px">查看憑證</div>
-              </div>
-              <div className="button-1">
-                <div className="notosans-normal-old-copper-16px">撰寫評價</div>
-              </div>
+              <Link to="/profile/listdetail">
+                <button className=" button-1 notosans-normal-old-copper-16px">
+                  查看憑證
+                </button>
+              </Link>
+              <button className="button-1 notosans-normal-old-copper-16px">
+                撰寫評價
+              </button>
             </div>
           </div>
           <div className="overlap-group-1">
@@ -54,7 +58,6 @@ const List = () => {
           </div>
         </div>
       </div>
-
       <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         推薦商品
       </div>

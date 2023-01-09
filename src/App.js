@@ -14,6 +14,7 @@ import Mylove from './pages/Profile/pages/Mylove/Mylove';
 import Message from './pages/Profile/pages/Message/Message';
 import Pay from './pages/Profile/pages/Pay/Pay';
 import Setting from './pages/Profile/pages/Setting/Setting';
+import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />}>
           <Route index element={<List />} />
           <Route path="list" element={<List />} />
+          <Route path="listdetail" element={<ListDetail />} />
           <Route path="coupon" element={<Coupon />} />
           <Route path="mylove" element={<Mylove />} />
           <Route path="message" element={<Message />} />
