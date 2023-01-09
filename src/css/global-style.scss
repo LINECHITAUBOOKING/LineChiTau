@@ -28,14 +28,16 @@ $p-small: 12px;
 body {
   font-family: 'Noto Sans TC', sans-serif;
 }
-
+a {
+  text-decoration: none;
+}
 /* 字型、字體大小 */
-.h1 {
+.my-banner {
   font-size: $fs-1;
   color: $textColor;
 }
 
-.h2 {
+.my-topic {
   font-size: $fs-2;
   color: $textColor;
 }
@@ -45,17 +47,17 @@ body {
   color: $textColor;
 }
 
-.h4 {
+.my-heading {
   font-size: $fs-4;
   color: $textColor;
 }
 
-.h5 {
+.nav-foot {
   font-size: $fs-5;
   color: $textColor;
 }
 
-.h6 {
+.nav-foot-small {
   font-size: $fs-6;
   color: $textColor;
 }

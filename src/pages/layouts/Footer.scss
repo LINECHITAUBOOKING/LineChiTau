@@ -4,12 +4,13 @@
   padding: 0;
   background-color: var(--bianca);
   // height: 150px;
-
 }
 
 .footer {
-
   max-width: 1440px;
+  .my-p {
+    line-height: 28px;
+  }
 
   .logo {
     height: 100px;
