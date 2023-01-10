@@ -56,19 +56,9 @@ const SearchBar = () => {
     }
   };
   return (
-    <div className="container-xxl d-flex justify-content-center m-auto my-5">
-      <div className="search-bar d-flex my-border-radius">
-        <div>
-          <div className="nav-foot-small d-flex">
-            <span className="material-symbols-outlined">location_on</span>目的地
-          </div>
-          <input
-            type="text"
-            placeholder="請輸入目的地"
-            className="form-control bg-transparent my-p"
-          />
-        </div>
-        <div>
+    <div className="container-xxl d-flex justify-content-center m-auto my-5 search-bar-conp">
+      <div className="d-flex my-border-radius border">
+        <div className="">
           <div className="nav-foot-small d-flex">
             <span className="material-symbols-outlined">calendar_month</span>
             入住/退房時間

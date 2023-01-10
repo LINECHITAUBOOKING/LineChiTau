@@ -1,12 +1,14 @@
 import React from 'react';
 import HotelDetailPic from './HotelConponent/HotelDetailPic/HotelDetailPic';
-import SearchBar from './HotelConponent/SearchBar/SearchBar';
+import HotelIntro from './HotelConponent/HotelIntro/HotelIntro';
+import RoomSelect from './HotelConponent/RoomSelect/RoomSelect';
 
 const HotelDetail = () => {
   return (
     <>
       <HotelDetailPic />
-      <SearchBar />
+      <HotelIntro />
+      <RoomSelect />
     </>
   );
 };

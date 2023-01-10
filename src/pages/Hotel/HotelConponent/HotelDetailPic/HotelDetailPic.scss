@@ -1,2 +1,24 @@
 @import '../../../../css/global-style.scss';
-@import 'material-symbols';
+
+.Hotel-Detail-Pic {
+  background: #fff;
+  .left-side {
+    padding-left: 26px;
+    .main-pic-box {
+      max-width: 820px;
+      max-height: 570px;
+      .main-pic {
+        max-width: 855px;
+        max-height: 580px;
+      }
+    }
+  }
+  .vice-pic-box {
+    max-width: 420px;
+    max-height: 290px;
+    .vice-pic {
+      max-width: 420px;
+      max-height: 290px;
+    }
+  }
+}
