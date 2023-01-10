@@ -5,6 +5,9 @@ import place from './images/place.png';
 import coin from './images/coin.png';
 import './List.scss';
 import { Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import TList from './TList';
+
 const List = () => {
   return (
     <div className="container">
@@ -13,7 +16,7 @@ const List = () => {
       </h1>
       <div className="buylist">
         <div className="buylist-items">
-          <div className="overlap-group-1">
+          {/* <div className="overlap-group-1">
             <img className="rectangle-1911" src={pic1} alt="Rectangle 1911" />
             <div className="text">
               <div className="notosans-normal-old-copper-20px">
@@ -55,9 +58,11 @@ const List = () => {
                 <div className="notosans-normal-old-copper-16px">撰寫評價</div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <TList />
         </div>
       </div>
+
       <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         推薦商品
       </div>

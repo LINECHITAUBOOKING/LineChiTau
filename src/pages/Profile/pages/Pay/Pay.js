@@ -28,9 +28,11 @@ const Pay = () => {
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
         新增卡片
       </h1>
-      <div className="manger-profile my-border-radius"></div>
+      <div className="manger-profile my-border-radius">
+        <input type="text" />
+      </div>
     </div>
-  );
+  );  
 };
 
 export default Pay;
