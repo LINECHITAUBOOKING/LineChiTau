@@ -25,6 +25,7 @@
 body{
     color: var(--textColor);
     font-family: 'Noto Sans TC', sans-serif;
+    background: #123456;
 }
 .object-cover{
     width: 100%;
@@ -240,7 +241,7 @@ position: relative;
   <main class="container ">
 
     <!-- TODO 訂房商品資訊、飯店+房型+訂房個資-->
-    <div class="row my-3 justify-content-between">
+    <div class="row my-3 ">
         <!-- NOTE  訂房商品資訊-->
         <div class="col-4 p-0">
             <div class="order-info px-4 py-3 h-100">
@@ -306,66 +307,68 @@ position: relative;
             </div>
         </div>
         <!-- NOTE  飯店+房型+訂房規則-->
-        <div class="col-8  pe-0 h-100">
+        <div class="col-8 d-flex p-0 h-100">
             <!-- NOTE 飯店名 -->
-            <div class="hotel-name mb-4 ">
-                <div class="room-info d-flex  align-items-center px-3 py-4">
-                    <div class=" col-3  mx-3">
-                        <img class="img-fluid item-image overflow-hidden" src="./cityscape.jpg" alt="行程票券商品圖">
-                    </div>
-                    <div class="item-context col-9 mx-3 align-self-start ">
-                        <h4>台北文華東方酒店</h4>
-                        <p>台北松山區敦化北路158號</p>
-                        <p class="d-flex align-items-center">
-                            <span class="material-symbols-rounded text-warning" >
-                                star
-                                </span>4.7 / 5
-                        </p>
+            <div class="hotel-room-profile ms-3 ">
+                <div class="hotel-name mb-4 ">
+                    <div class="room-info d-flex  align-items-center px-3 py-4">
+                        <div class=" col-3  mx-3">
+                            <img class="img-fluid item-image overflow-hidden" src="./cityscape.jpg" alt="行程票券商品圖">
+                        </div>
+                        <div class="item-context col-9 mx-3 align-self-start ">
+                            <h4>台北文華東方酒店</h4>
+                            <p>台北松山區敦化北路158號</p>
+                            <p class="d-flex align-items-center">
+                                <span class="material-symbols-rounded text-warning" >
+                                    star
+                                    </span>4.7 / 5
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="room-info   px-3 pb-5">
-                <!-- NOTE 房型服務資訊 -->
-                <div class="room-service  mx-3 py-4">
-                    <div class="room-name d-flex align-items-center">
-                        <h4 class="me-3">行政尊爵套房 </h4>
-                        <small>*取消須付費</small>
-                    </div>
-                    <div class="service-list py-2 row-col-auto gx-2">
-                        <span class="tag ">早餐</span>
-                        <span class="tag ">喚醒服務</span>
-                        <span class="tag ">迷你吧</span>
-                        <span class="tag ">洗/烘衣服務</span>
-                    </div>
-                </div>    
-                <!-- NOTE  個人資料-->
-                <div class="profile-data align-items-stretch mx-3 my-2">
-                        <h4 class="title mb-3">個人資料</h4>
-                        <div class="profile-content  px-3  row gy-3">
-                            <div class="data-area col-4">
-                                <h5 class="m-0">姓名</h5>
-                                <span>王</span> <span> 阿明</span>
-                            </div >
-                            <div class="data-area col-4">
-                                <h5 class="m-0">信箱</h5>
-                                <span>sss@gmail.com</span>
-                            </div >
-                            <div class="data-area col-4">
-                                <h5 class="m-0">連絡電話</h5>
-                                <span>0975-123-456</span>
-                            </div >
-                            <div class="data-area col-4">
-                                <h5 class="m-0">國家 / 地區</h5>
-                                <span>台灣 / 台北</span>
-                            </div >
-                            <div class="data-area col-4">
-                                <h5 class="m-0">語言</h5>
-                                <span>中文</span>
-                            </div >
-                            <div class="data-area col-4">
-                                <button class="my-btn w-50">編輯資料</button>
-                            </div >
+                <div class="room-info   px-3 pb-5">
+                    <!-- NOTE 房型服務資訊 -->
+                    <div class="room-service  mx-3 py-4">
+                        <div class="room-name d-flex align-items-center">
+                            <h4 class="me-3">行政尊爵套房 </h4>
+                            <small>*取消須付費</small>
                         </div>
+                        <div class="service-list py-2 row-col-auto gx-2">
+                            <span class="tag ">早餐</span>
+                            <span class="tag ">喚醒服務</span>
+                            <span class="tag ">迷你吧</span>
+                            <span class="tag ">洗/烘衣服務</span>
+                        </div>
+                    </div>    
+                    <!-- NOTE  個人資料-->
+                    <div class="profile-data align-items-stretch mx-3 my-2">
+                            <h4 class="title mb-3">個人資料</h4>
+                            <div class="profile-content  px-3  row gy-3">
+                                <div class="data-area col-4">
+                                    <h5 class="m-0">姓名</h5>
+                                    <span>王</span> <span> 阿明</span>
+                                </div >
+                                <div class="data-area col-4">
+                                    <h5 class="m-0">信箱</h5>
+                                    <span>sss@gmail.com</span>
+                                </div >
+                                <div class="data-area col-4">
+                                    <h5 class="m-0">連絡電話</h5>
+                                    <span>0975-123-456</span>
+                                </div >
+                                <div class="data-area col-4">
+                                    <h5 class="m-0">國家 / 地區</h5>
+                                    <span>台灣 / 台北</span>
+                                </div >
+                                <div class="data-area col-4">
+                                    <h5 class="m-0">語言</h5>
+                                    <span>中文</span>
+                                </div >
+                                <div class="data-area col-4">
+                                    <button class="my-btn w-50">編輯資料</button>
+                                </div >
+                            </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -417,7 +420,7 @@ position: relative;
     <!-- TODO 付款方式資料 -->
     <div class=" row">
         <div class="col-12 p-0">
-            <div class="payment-detail d-flex flex-column my-3 px-5 ">
+            <div class="payment-detail d-flex flex-column mb-3 px-5 ">
                 <div class="contact-title d-flex align-items-center justify-content-between my-3 px-0">
                     <h3 class="title">填寫付款資料</h3>
                     <button class="my-card-btn d-flex align-items-center justify-content-around  ">
