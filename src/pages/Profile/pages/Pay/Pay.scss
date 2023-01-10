@@ -1,4 +1,5 @@
-@import url(../../../../css/global-style.scss);
+@import '../../../../css/global-style.scss';
+@import 'material-symbols';
 .container {
   align-items: flex-start;
   display: flex;
@@ -20,16 +21,97 @@
       margin-top: 10px;
       text-align: center;
     }
-    .pay-card{
+    .pay-card {
+      margin-top: 10px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      img {
+        width: 150px;
+        height: auto;
+        margin-left: 50px;
+      }
+    }
+    .new-card {
+      display: flex;
+      flex-direction: row;
+      .pay-text {
         margin-top: 10px;
+        text-align: center;
+        color: #1aacff;
+      }
+      .new-pay-card {
+        margin-top: 100px;
+        margin-left: 100px;
         display: flex;
-        justify-content: space-around;
-        flex-wrap: wrap;
-        img  {
-            width: 150px;
-            height: auto;
-            margin-left: 50px;
+        flex-direction: column;
+        .pay-text {
+          margin-top: 10px;
+          display: flex;
+          justify-content: space-around;
+          flex-direction: row;
+          color: #1aacff;
+          img {
+            width: 25px;
+            color: #1aacff;
+          }
         }
+        img {
+          width: 225px;
+          height: auto;
+        }
+      }
+      .pay-text-manger {
+        margin: 50px;
+        display: flex;
+        flex-direction: column;
+        .pay-text-detail {
+          margin-top: 20px;
+          display: flex;
+          flex-direction: column;
+          input {
+            border: none;
+            background-color: white;
+            border-radius: 10px;
+            padding: 5px;
+          }
+        }
+        .pay-text-detail-date {
+          display: flex;
+          flex-direction: row;
+          .pay-text-detail {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            input {
+              border: none;
+              background-color: white;
+              border-radius: 10px;
+            }
+          }
+        }
+        .pay-text-detail-checkbox {
+          margin-top: 10px;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          font-size: 5px;
+          input {
+            border: none;
+            background-color: white;
+            border-radius: 10px;
+          }
+        }
+        button {
+          width: 150px;
+          margin-top: 10px;
+          margin-left: 150px;
+          border: none;
+          border-radius: 10px;
+          background-color: #30bddc;
+          color: white;
+        }
+      }
     }
   }
 }
