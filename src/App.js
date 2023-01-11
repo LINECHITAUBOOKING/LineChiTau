@@ -25,7 +25,7 @@ function App() {
         <Route path="/profile" element={<Profile />}>
           <Route index element={<List />} />
           <Route path="list" element={<List />} />
-          <Route path="listdetail" element={<ListDetail />} />
+          <Route path="listdetail/:id" element={<ListDetail />} />
           <Route path="coupon" element={<Coupon />} />
           <Route path="mylove" element={<Mylove />} />
           <Route path="message" element={<Message />} />

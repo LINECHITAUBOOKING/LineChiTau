@@ -1,7 +1,23 @@
 import React from 'react';
 import './ListDetail.scss';
 import pic1 from '../images/pic1.png';
+import { useQuery } from 'react-query';
+import { useParams, useNavigate } from 'react-router-dom';
 const ListDetail = () => {
+  const { id } = useParams();
+
+  const detailList = async () => {
+    const response = await fetch(
+      `https://reqres.in/api/users?page=2&&id=${id}`
+    );
+    const data = await response.json();
+    return data;
+  };
+  const { data, isLoading } = useQuery('user', detailList, {
+    retry: false,
+    refetchOnWindowFocus: false,
+  });
+  console.log(data);
   return (
     <div className="container">
       <div className="confirm-order">
@@ -28,7 +44,7 @@ const ListDetail = () => {
         <div className="title h1">訂購詳情</div>
         <hr className="hr" />
         <div className="list-detail">
-          <img src={pic1} alt="" />
+          <img src={data.data.avatar} alt="" />
           <div className="list-item">
             <div className="subtitle">限時8折</div>
             <div className="sub-item">

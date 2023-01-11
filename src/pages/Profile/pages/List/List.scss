@@ -25,7 +25,9 @@
       align-items: flex-start;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      // justify-content: center;
+      overflow: scroll;
+      max-height: 500px;
       left: 0;
       min-height: 432px;
       top: 0;

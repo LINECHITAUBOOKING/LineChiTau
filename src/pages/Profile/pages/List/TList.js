@@ -5,7 +5,7 @@ import pic1 from './images/pic1.png';
 import { useQuery } from 'react-query';
 const TList = () => {
   const getUser = async () => {
-    const response = await fetch('http://localhost:3001/api/stocks');
+    const response = await fetch('https://reqres.in/api/users?page=2');
     const data = await response.json();
     return data;
   };
@@ -16,12 +16,16 @@ const TList = () => {
   console.log(data);
   return (
     <>
-      {data?.map((v, i) => {
+      {data?.data.map((v, i) => {
         return (
           <div className="overlap-group-1">
-            <img className="rectangle-1911" src={pic1} alt="Rectangle 1911" />
+            <img
+              className="rectangle-1911"
+              src={v.avatar}
+              alt="Rectangle 1911"
+            />
             <div className="text">
-              <div className="notosans-normal-old-copper-20px">{v.name}</div>
+              <div className="notosans-normal-old-copper-20px">{v.id}</div>
               <div className="notosans-normal-sepia-16px">2022-12-31 15:00</div>
               <div className="notosans-normal-sepia-16px">
                 實付金額：NT$ 7200
@@ -29,7 +33,7 @@ const TList = () => {
             </div>
 
             <div className="button">
-              <Link to="/profile/listdetail">
+              <Link key={v.i} to={`/profile/listdetail/${v.id}`}>
                 <button className=" button-1 notosans-normal-old-copper-16px">
                   查看憑證
                 </button>
