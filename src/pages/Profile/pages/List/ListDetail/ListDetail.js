@@ -17,13 +17,15 @@ const ListDetail = () => {
     isLoading,
     isError,
   } = useQuery('listdetail', detailList, {
-    retry: 0,
     cacheTime: 1000,
   });
   console.log(listdata);
   console.log(id);
   if (isError) {
     console.log('錯了');
+  }
+  if (listdata === undefined) {
+    return <>Loading...</>;
   }
   return (
     <div className="container">
