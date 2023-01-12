@@ -22,7 +22,7 @@ function App() {
       <Navbar />
       <Routes>
         <Route path="/" element={<Hotel />} />
-        <Route path="/profile" element={<Profile />}>
+        <Route path="profile" element={<Profile />}>
           <Route index element={<List />} />
           <Route path="list" element={<List />} />
           <Route path="listdetail/:id" element={<ListDetail />} />
@@ -32,8 +32,8 @@ function App() {
           <Route path="pay" element={<Pay />} />
           <Route path="setting" element={<Setting />} />
         </Route>
-        <Route path="/travel" element={<Travel />} />
-        <Route path="/ticket" element={<Ticket />} />
+        <Route path="travel" element={<Travel />} />
+        <Route path="ticket" element={<Ticket />} />
       </Routes>
 
       <Footer />

@@ -7,15 +7,14 @@ const ListDetail = () => {
   const { id } = useParams();
 
   const detailList = async () => {
-    const response = await fetch(
-      `https://reqres.in/api/users?page=2&&id=${id}`
-    );
+    const response = await fetch(`https://reqres.in/api/users?page=2&id=${id}`);
     const data = await response.json();
     return data;
   };
-  const { data, isLoading } = useQuery('user', detailList, {
+  const { data, isLoading } = useQuery('listdata', detailList, {
     retry: false,
     refetchOnWindowFocus: false,
+    cacheTime: 1000,
   });
   console.log(data);
   return (
