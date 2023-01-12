@@ -64,3 +64,50 @@
     }
   }
 }
+    .form {
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-around;
+      flex-direction: row;
+      .form-item {
+        display: flex;
+        flex-direction: column;
+        .form-input {
+          display: flex;
+          flex-direction: column;
+          margin-top: 10px;
+          .form-text1 {
+            display: flex;
+            justify-content: start;
+            align-items: center;
+            flex-direction: row;
+            .NotRequired {
+              color: #7f7f7f;
+              font-size: 2px;
+            }
+          }
+          input {
+            margin-top: 5px;
+            text-align: center;
+            // background-color: #f2f2f2;
+            border-radius: 10px;
+            border: none;
+            height: 40px;
+          }
+        }
+      }
+    }
+    .btn-center {
+      display: flex;
+      justify-content: center;
+      button {
+        margin-top: 15px;
+        width: 100px;
+      }
+      .btn-pwd {
+        margin-top: 90px;
+        width: 100px;
+      }
+    }
+  }
+}
