@@ -1,28 +1,13 @@
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import './css/global.css';
-import Profile from './pages/Profile/Profile';
-import Hotel from './pages/Hotel/Hotel';
-import Travel from './pages/Travel/Travel';
-import Ticket from './pages/Ticket/Ticket';
+import { BrowserRouter } from 'react-router-dom';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
+import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
+import Test from './test';
 
 function App() {
   return (
     <>
-      <BrowserRouter>
-        <Navbar />
-        <Routes>
-          <Route path="/" element={<Hotel />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/travel" element={<Travel />} />
-          <Route path="/ticket" element={<Ticket />} />
-        </Routes>
-
-        <Footer />
-      </BrowserRouter>
+      <Test />
     </>
   );
 }
