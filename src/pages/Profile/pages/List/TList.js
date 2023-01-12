@@ -1,17 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import pic1 from './images/pic1.png';
 
-import { useQuery, useMutation, useQueryCache } from 'react-query';
+import { useQuery } from 'react-query';
 const TList = () => {
   const getUser = async () => {
     const response = await fetch('https://reqres.in/api/users?page=2');
-    const data = await response.json();
-    return data;
+    // const response = await fetch('./users.json');
+    const list = await response.json();
+    return list;
   };
-  const { data, isLoading, isError, error } = useQuery('listdata', getUser, {
-    // refetchOnWindowFocus: false,
-    staleTime: 1000,
+  // const [listid, setlistid] = useState(0);
+  const {
+    data: list,
+    isLoading,
+    isError,
+    error,
+  } = useQuery('listdata', getUser, {
+    // refetchOnWindowFocus: false,s
+    retry: 0,
+    cacheTime: 1000,
   });
   /*   const queryCache = useQueryCache();
 
@@ -29,7 +37,7 @@ const TList = () => {
     return <span>Error: {error.message}</span>;
   }
 
-  console.log(data);
+
 
   // if (data && data.data) {
   //   return <></>;
@@ -37,7 +45,7 @@ const TList = () => {
 
   return (
     <>
-      {data?.data.map((v, i) => {
+      {list?.data.map((v, i) => {
         return (
           <div className="overlap-group-1">
             <img
@@ -54,8 +62,14 @@ const TList = () => {
             </div>
 
             <div className="button">
-              <Link mutate key={v.i} to={`/profile/listdetail/${v.id}`}>
-                <button className=" button-1 notosans-normal-old-copper-16px">
+              <Link key={v.i} to={`/profile/listdetail/${v.id}`}>
+                <button
+                  // onClick={() => {
+                  //   setlistid({ listid: v.id, propsOrNot: !false });
+                  // }}
+                  // listid={listid}
+                  className=" button-1 notosans-normal-old-copper-16px"
+                >
                   查看憑證
                 </button>
               </Link>

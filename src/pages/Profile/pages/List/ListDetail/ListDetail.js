@@ -1,22 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './ListDetail.scss';
 import pic1 from '../images/pic1.png';
 import { useQuery } from 'react-query';
 import { useParams, useNavigate } from 'react-router-dom';
 const ListDetail = () => {
+  // const listid = props.listid.listid;
   const { id } = useParams();
-
   const detailList = async () => {
-    const response = await fetch(`https://reqres.in/api/users?page=2&id=${id}`);
-    const data = await response.json();
-    return data;
+    const res = await fetch(`https://reqres.in/api/users?page=2&id=${id}`);
+    const listdata = await res.json();
+    // console.log(JSON.parse(response));
+    return listdata;
   };
-  const { data, isLoading } = useQuery('listdata', detailList, {
-    retry: false,
-    refetchOnWindowFocus: false,
+  const {
+    data: listdata,
+    isLoading,
+    isError,
+  } = useQuery('listdetail', detailList, {
+    retry: 0,
     cacheTime: 1000,
   });
-  console.log(data);
+  console.log(listdata);
+  console.log(id);
+  if (isError) {
+    console.log('錯了');
+  }
   return (
     <div className="container">
       <div className="confirm-order">
@@ -43,7 +51,7 @@ const ListDetail = () => {
         <div className="title h1">訂購詳情</div>
         <hr className="hr" />
         <div className="list-detail">
-          <img src={data.data.avatar} alt="" />
+          <img src={listdata.data.avatar} alt="" />
           <div className="list-item">
             <div className="subtitle">限時8折</div>
             <div className="sub-item">
