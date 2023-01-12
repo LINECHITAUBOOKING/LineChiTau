@@ -5,7 +5,8 @@ const ProgressBar = () => {
   return (
     <>
       {/* <!-- TODO 流程條 --> */}
-      <div className="container step-bar d-flex align-items-center justify-content-evenly">
+      <div className="container step-bar d-flex flex-row  align-items-center justify-content-evenly mt-3">
+      
         <div className="d-flex align-items-center justify-content-center mx-2">
           <div className="step-done"></div>
           <span className="mx-2 fs-4">選擇方案</span>
