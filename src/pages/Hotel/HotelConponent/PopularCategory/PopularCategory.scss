@@ -4,14 +4,21 @@
   max-width: 1100px;
   background-color: $secondary;
   border-radius: 20px;
-
-  .picture {
-    width: 125px;
-    height: 160px;
+  .picture-list {
+    overflow: hidden;
+  }
+  .picture-box {
+    transition: 0.5s;
+    max-width: 850px;
+    .picture {
+      width: 125px;
+      height: 160px;
+    }
   }
   .arrow-btn-box {
     background-color: transparent;
     border: none;
+    line-height: 73px;
   }
   .arrow-btn {
     width: 50px;
