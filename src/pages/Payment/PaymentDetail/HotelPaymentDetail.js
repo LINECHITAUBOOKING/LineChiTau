@@ -6,7 +6,7 @@ import ProductImg from '../../Hotel/img/banner.svg';
 const HotelPaymentDetail = () => {
   return (
     <>
-      <main className="container px-0">
+      <main className="container main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房規則--> */}
         <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE  訂房商品資訊--> */}

@@ -6,7 +6,7 @@ import ProductImg from '../../Hotel/img/banner.svg';
 const TravelPaymentDetail = () => {
   return (
     <>
-      <main className="container pe-0">
+      <main className="container main-width pe-0">
         <div className=" d-flex p-0">
           {/* <!-- TODO 項目(左區塊) --> */}
           <div className="item-list  col-8  gy-5 ">

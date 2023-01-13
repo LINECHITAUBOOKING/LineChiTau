@@ -1,7 +1,7 @@
 @import '../../../css/global-style.scss';
 @import 'material-symbols';
 
-$main: #FFB905;
+
 $secondary: #fcfaf2;
 $secondaryTwo:#FCE7AF;
 $textColor: #734338;
@@ -11,6 +11,9 @@ $my-border-radius: 10px;
   body{
       color: $textColor;
       font-family: 'Noto Sans TC', sans-serif;
+  }
+  .main-width{
+    max-width: 1440px;
   }
   .object-cover{
       width: 100%;
@@ -43,51 +46,6 @@ $my-border-radius: 10px;
       text-align:justify;
       border: 0 solid transparent;
   }
-  /* NOTE 進度條 */
-      .step-bar{
-          height: 75px;
-          background: $secondary;
-          border-radius: 20px;
-      }
-      .step-done{
-          width: 30px;
-          height: 30px;
-          background: $main;
-          border-radius: 50%;
-          border:1px solid $textColor;
-      }
-      .step-doing-center{
-          width: 18px;
-          height: 18px;
-          background: $main;
-          border:1px solid $textColor;
-          border-radius: 50%;
-      }
-      .step-doing{
-          width: 36px;
-          height: 36px;
-          background: #fff;
-          border-radius: 50%;
-          border:1px solid $textColor;
-          box-shadow:  0 4px 4px 0 rgba(49, 49, 49,0.25);
-      }
-      .step-undo{
-          width: 30px;
-          height: 30px;
-          background: transparent;
-          border-radius: 50%;
-          border:1px solid $textColor;
-      }
-      .line{
-          height: 2px;
-          background: $textColor;
-          border-radius: 3px;
-      }
-      .line-done{
-          height: 5px;
-          background: $textColor;
-          border-radius: 3px;
-      }
 
       /* 購物車清單 */
     .item-section{

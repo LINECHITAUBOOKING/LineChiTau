@@ -6,7 +6,7 @@ import ProductImg from '../../Hotel/img/banner.svg';
 const TravelPaymentCheckOut = () => {
   return (
     <>
-      <main className="container px-0">
+      <main className="container main-width px-0">
         {/* <!-- TODO 付款方式、小計TOTAL清單 --> */}
         <div className=" row w-100 px-0 mx-0 ">
           <div className="col-4 ps-0 my-3">

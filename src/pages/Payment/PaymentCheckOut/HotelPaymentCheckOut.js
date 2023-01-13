@@ -12,7 +12,7 @@ const HotelPaymentCheckOut = () => {
   const handleShow = () => setShow(true);
   return (
     <>
-      <main className="container px-0">
+      <main className="container main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房個資--> */}
         <div className="row w-100 my-3  mx-0 px-0">
           {/* <!-- NOTE  訂房商品資訊--> */}
