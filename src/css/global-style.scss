@@ -122,10 +122,12 @@ a {
 
 /* 商品頁專用 */
 .title-underline {
-  box-shadow: inset 0px -13px 0px $main;
   padding: 0px;
+  background: linear-gradient(to bottom,transparent 75% ,$main 75%);
 }
 
 .bg-color {
   background-color: $secondary;
 }
+
+
