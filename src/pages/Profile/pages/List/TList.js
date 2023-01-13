@@ -5,6 +5,7 @@ import { motion, Reorder } from 'framer-motion';
 import { useQuery } from 'react-query';
 const TList = ({ value }) => {
   const [items, setItems] = useState({});
+
   const getUser = async ({ queryKey }) => {
     const response = await fetch('https://reqres.in/api/users?page=2');
     // const response = await fetch('./users.json');
@@ -24,6 +25,17 @@ const TList = ({ value }) => {
     // cacheTime: 1000,
     // enabled: false,
   });
+  const [listIndex, setListIndex] = useState(0);
+  const [buttonStatus, setbuttonStatus] = useState(true);
+  const handleClick = () => {
+    if (buttonStatus === true) {
+      setListIndex(listIndex - 3);
+      setbuttonStatus(false);
+    } else {
+      setListIndex(listIndex + 3);
+      setbuttonStatus(true);
+    }
+  };
   console.log(items);
   // console.log(items);
   if (isLoading) {
@@ -47,7 +59,10 @@ const TList = ({ value }) => {
   return (
     <>
       {/* <Reorder.Group value={value} dragListener={false} dragControls={controls}> */}
-      {items.map((item) => {
+      {items.map((item, index) => {
+        if (index + listIndex >= 3) {
+          return;
+        }
         return (
           <div className=" overlap-group-1">
             <img
@@ -82,6 +97,9 @@ const TList = ({ value }) => {
           </div>
         );
       })}
+      <button className="my-btn" onClick={handleClick}>
+        {buttonStatus ? `ViewMore` : `ViewLess`}
+      </button>
       {/* </Reorder.Group> */}
     </>
   );
