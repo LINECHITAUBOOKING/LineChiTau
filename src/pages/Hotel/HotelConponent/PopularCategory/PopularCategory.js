@@ -3,6 +3,7 @@ import './PopularCategory.scss';
 import pic1 from '../../img/Hotel1/rocky-banner.jpg';
 
 const PopularCategory = (props) => {
+
   return (
     <>
       <div className="popular-category container-xxl pt-5 pb-2">
