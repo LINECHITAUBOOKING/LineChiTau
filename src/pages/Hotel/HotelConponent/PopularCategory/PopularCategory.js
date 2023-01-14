@@ -39,6 +39,7 @@ const PopularCategory = (props) => {
       src: { pic1 },
     },
   ];
+
   const [myTranslate, setMyTranslate] = useState({ x: 0, count: 0 });
   //上一次的位置
   const [lastTranslate, setLastTranslate] = useState(0);
@@ -49,14 +50,17 @@ const PopularCategory = (props) => {
     transform: `translateX(${myTranslate.x}px)`,
   });
   //控制VSCODE裡上面的DOM
-  const [pictureList1Style, setPictureList1Style] = useState({
+  const [pictureListStyle, setPictureListStyle] = useState([{
     transform: `translateX(${0}px)`,
-  });
+  }, {
+    transform: `translateX(${0}px)`,
+  }]);
   //控制VSCODE裡下面的DOM
   const [pictureList2Style, setPictureList2Style] = useState({
     transform: `translateX(${0}px)`,
   });
-
+  const [countTranslate, setCountTranslate] = useState(1)
+  let countNoState = countTranslate
   const moveLeft = function () {
     const newMyTranslate = { ...myTranslate };
     newMyTranslate.count--;
@@ -77,7 +81,6 @@ const PopularCategory = (props) => {
         transform: `translateX(${0}px)`,
       });
     } else if (
-      newMyTranslate.x < 0 &&
       newMyTranslate.x - lastTranslate === -1128
     ) {
       console.log(
@@ -85,30 +88,27 @@ const PopularCategory = (props) => {
         newMyTranslate.x - lastTranslate
       );
       setLastTranslate(newMyTranslate.x);
-      let countTranslate;
-      console.log(Math.abs((newMyTranslate.count / 8) % 2));
+      let listFirstStyle;
+      let listSecondStyle;
+      // console.log(Math.abs((newMyTranslate.count / 8) % 2));
       if (Math.abs((newMyTranslate.count / 8) % 2) !== 0) {
-        countTranslate = 1;
-        setPictureList1Style({
-          transform: `translateX(${2256 * countTranslate}px)`,
-        });
+        listFirstStyle = 2256 * countTranslate
       } else if (Math.abs((newMyTranslate.count / 8) % 2) === 0) {
-        console.log('有進來嗎');
-        setPictureList2Style({
-          transform: `translateX(${2256 * countTranslate}px)`,
-        });
-        // countTranslate++;
+        console.log('有進來嗎', countNoState);
+        listSecondStyle = 2256 * countTranslate
+        countNoState++
+        console.log(countNoState)
       }
+      setCountTranslate(countNoState)
+      setPictureListStyle([{
+        transform: `translateX(${listFirstStyle}px)`,
+      }, {
+        transform: `translateX(${listSecondStyle}px)`,
+      }])
     }
   };
 
   const moveRight = function () {
-    if (
-      myTranslate.x === 0 ||
-      (myTranslate.x > 0 && myTranslate.x % 1128 === 0)
-    ) {
-      console.log(myTranslate.x - 2256);
-    }
     const newMyTranslate = { ...myTranslate };
     newMyTranslate.count++;
     newMyTranslate.x = newMyTranslate.count * siglePiece;
@@ -117,6 +117,12 @@ const PopularCategory = (props) => {
       transform: `translateX(${newMyTranslate.x}px)`,
     });
     setLastTranslate(newMyTranslate.x);
+    if (
+      myTranslate.x === 0 ||
+      (newMyTranslate.x - lastTranslate === 1128)
+    ) {
+      console.log(2256);
+    }
   };
   return (
     <>
@@ -143,7 +149,7 @@ const PopularCategory = (props) => {
               </div> */}
               <div
                 className="d-flex justify-content-start"
-                style={pictureList1Style}
+                style={pictureListStyle[0]}
               >
                 {pictureList1.map((v, i) => {
                   return (
@@ -160,7 +166,7 @@ const PopularCategory = (props) => {
               </div>
               <div
                 className="d-flex justify-content-start"
-                style={pictureList2Style}
+                style={pictureListStyle[1]}
               >
                 {pictureList1.map((v, i) => {
                   return (
