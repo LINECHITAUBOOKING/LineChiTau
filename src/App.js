@@ -1,8 +1,8 @@
 // import { BrowserRouter } from 'react-router-dom';
 // import Navbar from './pages/layouts/Navbar';
 // import Footer from './pages/layouts/Footer';
-// import ShoppingCart from './pages/ShoppingCart/ShoppingCart';
-import OthersComment from './pages/TripDetails/Comment/SubComment/OthersComment';
+import MiniShoppingCart from './pages/ShoppingCart/MiniShoppingCart/MiniShoppingCart';
+import './test.scss';
 
 function App() {
   return (
@@ -12,7 +12,9 @@ function App() {
         <ShoppingCart />
         <Footer />
       </BrowserRouter> */}
-      <OthersComment />
+      <div className="test-container">
+        <MiniShoppingCart />
+      </div>
     </>
   );
 }
