@@ -14,7 +14,10 @@ export default function MiniShoppingCart() {
           <MiniProductCard />
           <MiniProductCard />
         </div>
-        <div className="info-container"></div>
+        <div className="info-container d-flex justify-content-between align-items-center">
+          <div className="final-total-money">總計：NT$ 999,999</div>
+          <div className="my-btn">進入購物車</div>
+        </div>
       </div>
     </>
   );
