@@ -1,13 +1,13 @@
-@import url(../../css/global-style.scss);
+@import '../../css/global-style.scss';
 
 .container-fluid {
   padding: 0;
-  background-color: var(--bianca);
+  background-color: $secondary;
   // height: 150px;
 }
 
 .footer {
-  max-width: 1440px;
+  max-width: 1920;
   .my-p {
     line-height: 28px;
   }

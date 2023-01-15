@@ -2,7 +2,7 @@ import React from 'react';
 import '../../../css/global-style.scss';
 import './ShoppingCartCard.scss';
 // 用url引入圖片得使用import，並在jsx裡面使用{}求值的語法
-import logo from './dohpins_hotel.jpg';
+import logo from './dolphins_hotel.jpg';
 import add from './add_circle.svg';
 import minus from './minus_circle.svg';
 
