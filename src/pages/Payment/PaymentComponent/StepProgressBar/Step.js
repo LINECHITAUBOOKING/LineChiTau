@@ -1,14 +1,15 @@
 import React from 'react';
-import './Step.scss';
+import '../ComponentScss/Step.scss';
 
 export default function Step(props) {
-  console.log(props);
   return (
     <>
       <div className={'stepBlock' + (props.selected ? ' selected' : '')}>
         <div
           className="circleWrapper"
-          onClick={() => props.updateStep(props.index + 1)}
+          onClick={() => {
+            props.updateStep(props.index + 1);
+          }}
         >
           <div className="circle"></div>
         </div>

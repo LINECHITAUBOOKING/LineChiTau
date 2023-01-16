@@ -150,7 +150,7 @@ const HotelPaymentCheckOut = () => {
                         data-bs-toggle="modal"
                         onClick={handleShow}
                       >
-                        編輯資料
+                        返回資料
                       </button>
                     </div>
                     <Modal

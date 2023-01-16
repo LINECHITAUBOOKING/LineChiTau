@@ -1,7 +1,7 @@
 import React from 'react';
 import '../layout/ProgressBar.scss';
 import Step from './StepProgressBar/Step';
-const ProgressBar = (props) => {
+const ContactPerson = (props) => {
   return (
     <>
       <div className="container main-width step-bar d-flex flex-row  align-items-center justify-content-between mt-3 px-3">
@@ -21,4 +21,4 @@ const ProgressBar = (props) => {
   );
 };
 
-export default ProgressBar;
+export default ContactPerson;

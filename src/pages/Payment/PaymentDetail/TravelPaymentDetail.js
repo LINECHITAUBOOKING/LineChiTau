@@ -1,7 +1,8 @@
 import React from 'react';
 import '../layout/payment.scss';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
-import ProductImg from '../../Hotel/img/banner.svg';
+
+import PurchaseItem from '../PaymentComponent/PurchaseItem';
 
 const TravelPaymentDetail = () => {
   return (
@@ -16,98 +17,9 @@ const TravelPaymentDetail = () => {
                 <h3 className="title">購買清單</h3>
               </div>
             </div>
-            <div className="item-section row col-12  mb-3">
-              <div className="item d-flex  align-items-center p-3 my-3">
-                <div className=" col-3 ">
-                  <img
-                    className="img-fluid item-image overflow-hidden"
-                    src={ProductImg}
-                    alt="行程票券商品圖"
-                  />
-                </div>
-                <div className="item-context col-9 mx-3 align-self-start ">
-                  <h5>行程/門票名</h5>
-                  <p>方案項目:九份一日遊</p>
-                </div>
-              </div>
-              <div className="sub-price item-chosen d-flex justify-content-between px-3">
-                <h5>預訂日期:2029/01/21</h5>
-                <h5>數量:　1</h5>
-              </div>
-              <div className=" d-flex flex-column align-items-start p-0 my-3">
-                <h5 className="">參加人資料</h5>
-              </div>
-              <div className="item-chosen d-flex justify-content-start px-0 mb-3">
-                <button className="my-btn contact-user-btn d-flex align-items-center me-1">
-                  王阿明
-                </button>
-                <button className="my-edit-btn contact-user-btn d-flex align-items-center mx-1">
-                  <span className="material-symbols-rounded me-2">
-                    account_circle
-                  </span>
-                  新增
-                </button>
-              </div>
-              <div className="item d-flex align-items-center p-3 ">
-                <div className="item-user row col-12 position-relative">
-                  <div className="user-content ">
-                    <h5>
-                      姓名: <small>王阿明</small>
-                    </h5>
-                    <h5>
-                      電話: <small>+886 971717171</small>
-                    </h5>
-                    <h5>
-                      信箱: <small>Ming717@taumail.com</small>
-                    </h5>
-                    <button className="my-edit-btn d-flex align-items-center position-absolute bottom-0 end-0">
-                      <span className="material-symbols-rounded me-2">
-                        account_circle
-                      </span>
-                      編輯
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="item-section row col-12  mb-3">
-              <div className="item d-flex  align-items-center p-3 my-3">
-                <div className=" col-3 ">
-                  <img
-                    className="img-fluid item-image overflow-hidden"
-                    src={ProductImg}
-                    alt="行程票券商品圖"
-                  />
-                </div>
-                <div className="item-context col-9 mx-3 align-self-start ">
-                  <h5>行程/門票名</h5>
-                  <p>方案項目:九份一日遊</p>
-                </div>
-              </div>
-              <div className="item-chosen d-flex justify-content-between">
-                <h5>預訂日期:2029/01/21</h5>
-                <h5>數量:　1</h5>
-              </div>
-            </div>
-            <div className="item-section row col-12  mb-3">
-              <div className="item d-flex  align-items-center p-3 my-3">
-                <div className=" col-3 ">
-                  <img
-                    className="img-fluid item-image overflow-hidden"
-                    src={ProductImg}
-                    alt="行程票券商品圖"
-                  />
-                </div>
-                <div className="item-context col-9 mx-3 align-self-start ">
-                  <h5>行程/門票名</h5>
-                  <p>方案項目:九份一日遊</p>
-                </div>
-              </div>
-              <div className=" item-chosen d-flex justify-content-between">
-                <h5>預訂日期:2029/01/21</h5>
-                <h5>數量:　1</h5>
-              </div>
-            </div>
+            <PurchaseItem />
+            <PurchaseItem />
+
             {/* <!-- NOTE 聯絡資料 --> */}
             <div className="item-section row col-12  my-3">
               <div className="contact-title d-flex align-items-center p-0">
