@@ -4,18 +4,10 @@ import './PopupSort.scss';
 export default function PopupSort(props) {
   const { label, area } = props;
 
-  const northernList = [
-    '基隆市',
-    '宜蘭縣',
-    '新北市',
-    '台北市',
-    '桃園市',
-    '新竹縣',
-    '新竹市',
-  ];
-  const centralList = ['苗栗縣', '台中市', '彰化縣', '南投縣', '雲林縣'];
-  const souternList = ['嘉義縣', '台南市', '高雄市', '屏東縣'];
-  const easternList = ['台東縣', '花蓮縣'];
+  const northernList = ['基隆', '宜蘭', '台北', '桃園', '新竹'];
+  const centralList = ['苗栗', '台中', '彰化', '南投', '雲林'];
+  const souternList = ['嘉義', '台南', '高雄', '屏東'];
+  const easternList = ['台東', '花蓮'];
   const islandList = ['澎湖', '金門', '馬祖', '蘭嶼'];
   const northernItems = northernList.map((v) => <NormalSort label={v} />);
   const centralItems = centralList.map((v) => <NormalSort label={v} />);
