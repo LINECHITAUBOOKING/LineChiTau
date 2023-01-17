@@ -242,12 +242,12 @@ const HotellistBox = () => {
                   </div>
                 </div>
               </div>
-              <div className="my-p booking-btn d-flex flex-column justify-content-center">
+              <button className="my-p booking-btn d-flex flex-column justify-content-center pe-2">
                 <p>訂</p>
                 <p>房</p>
                 <p>去</p>
                 <span class="material-symbols-outlined">arrow_forward</span>
-              </div>
+              </button>
             </div>
             <nav>
               <ul className="list-unstyled d-flex">

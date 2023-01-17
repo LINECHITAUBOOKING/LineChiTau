@@ -1,61 +1,92 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './PopularCategory.scss';
+import { Link } from 'react-router-dom';
 import pic1 from '../../img/Hotel1/rocky-banner.jpg';
 import pic2 from '../../img/Hotel1/rocky-DBL.jpg';
+import axios from 'axios';
 
 const PopularCategory = (props) => {
-  const [pictureList, setPictureList] = useState([
-    {
-      order: 1,
-      src: { pic1 },
-    },
-    {
-      order: 2,
-      src: { pic1 },
-    },
-    {
-      order: 3,
-      src: { pic1 },
-    },
-    {
-      order: 4,
-      src: { pic1 },
-    },
-    {
-      order: 5,
-      src: { pic1 },
-    },
-    {
-      order: 6,
-      src: { pic1 },
-    },
-    {
-      order: 7,
-      src: { pic1 },
-    },
-    {
-      order: 8,
-      src: { pic1 },
-    },
-  ]);
-
+  const [isLoading, setIsLoading] = useState(false);
+  const [category, setCategory] = useState({});
+  const getCategory = async () => {
+    const response = await axios.get(
+      'https://my-json-server.typicode.com/TANGEJ0411/fakeDB/main/db.json/category'
+    );
+    // console.log(response.data);
+    setCategory(response.data);
+  };
+  useEffect(() => {
+    setIsLoading(true);
+    getCategory();
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+  }, []);
+  const { category: categoryList = [], picture } = { ...category };
 
   const moveLeft = function () {
-    const newPictureList = [...pictureList]
-    newPictureList.shift()
-    newPictureList.push(pictureList[0])
-    // console.log(newPictureList)
-    setPictureList(newPictureList)
+    const newCategory = { ...category };
+    const { category: newCtegoryList = [], picture } = { ...newCategory };
+    newCtegoryList.push(category.category[0]);
+    newCtegoryList.shift();
+    console.log(newCtegoryList);
+
+    // console.log(newCategory);
+    setCategory(newCategory);
   };
 
   const moveRight = function () {
-    const newPictureList = [...pictureList]
-    newPictureList.pop()
-    newPictureList.unshift(pictureList[pictureList.length - 1])
+    const newCategory = { ...category };
+    const { category: newCtegoryList = [], picture } = { ...newCategory };
+    newCtegoryList.unshift(categoryList[category.category.length - 1]);
+    newCtegoryList.pop();
+
     // console.log(newPictureList)
-    setPictureList(newPictureList)
+    setCategory(newCategory);
   };
+
+  const spinner = (
+    <>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+      <div className="spinner-border m-5 my-p" role="status">
+        <span className="sr-only"></span>
+      </div>
+    </>
+  );
+  const display = (
+    <ul className="d-flex justify-content-start list-unstyled">
+      {categoryList.map((v, i) => {
+        return (
+          <li key={i}>
+            <Link to="/Hotellist" className="text-unstyled">
+              <img
+                className="picture my-border-radius mx-2"
+                src={pic1}
+                alt={v}
+              />
+              <p className="text-center my-p">{v}</p>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
+  );
+
   return (
     <>
       <div className="popular-category container-xxl pt-5 pb-2">
@@ -67,9 +98,7 @@ const PopularCategory = (props) => {
             </span>
           </button>
           <div className="picture-list">
-            <div
-              className="picture-box d-flex justify-content-start"
-            >
+            <div className="picture-box d-flex justify-content-start">
               {/* <div>
                 <img
                   className="picture my-border-radius mx-2"
@@ -78,22 +107,7 @@ const PopularCategory = (props) => {
                 />
                 <p className="text-center">圖片1</p>
               </div> */}
-              <div
-                className="d-flex justify-content-start"
-              >
-                {pictureList.map((v, i) => {
-                  return (
-                    <div key={v.order}>
-                      <img
-                        className="picture my-border-radius mx-2"
-                        src={pic1}
-                        alt={`圖片${v.order}`}
-                      />
-                      <p className="text-center">{`圖片${v.order}`}</p>
-                    </div>
-                  );
-                })}
-              </div>
+              {isLoading ? spinner : display}
             </div>
           </div>
           <button className="arrow-btn-box" onClick={moveRight}>

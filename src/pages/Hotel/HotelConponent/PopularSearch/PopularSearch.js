@@ -1,5 +1,6 @@
 import React from 'react';
 import './PopularSearch.scss';
+import { Link } from 'react-router-dom';
 
 const PopularSearch = () => {
   return (
@@ -9,76 +10,118 @@ const PopularSearch = () => {
         <div class="tag my-4">
           <ul className="d-flex list-unstyled d-flex justify-content-center">
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 凱薩飯店
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 威斯汀
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 喜來登
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 大板根
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 W飯店
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 寒舍愛美
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 三井花園
-              </button>
+              </Link>
             </li>
           </ul>
           <ul className="d-flex list-unstyled d-flex justify-content-center ps-5">
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 凱薩飯店
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 威斯汀
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 喜來登
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 大板根
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 W飯店
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 寒舍愛美
-              </button>
+              </Link>
             </li>
             <li className="">
-              <button className="search-tag my-border-radius nav-foot mx-3">
+              <Link
+                to="/HotelDetail"
+                className="search-tag my-border-radius nav-foot mx-3 px-2"
+              >
                 三井花園
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
