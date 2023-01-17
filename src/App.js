@@ -1,9 +1,12 @@
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
-// import ProductCard from './pages/ProductList/ProductCard/ProductCard';
+// import ProductsCard from './pages/ProductList/ProductsCard/ProductsCard';
 // import ListMap from './pages/ProductList/ListMap/ListMap';
-import HotellistBox from './pages/ProductList/HotellistBox/HotellistBox';
+// import HotellistBox from './pages/ProductList/HotellistBox/HotellistBox';
+// import NormalSort from './pages/ProductList/NormalSort/NormalSort';
+// import PopupSort from './pages/ProductList/PopupSort/PopupSort';
+import TestList from './pages/ProductList/TestList';
 import './test.scss';
 
 function App() {
@@ -12,8 +15,10 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div className="test-container">
-          {/* <ProductCard /> */}
-          <HotellistBox />
+          {/* <NormalSort label="台北飯店" name="Taipei" /> */}
+          {/* <PopupSort label="北部" area="southern" /> */}
+          {/* <HotellistBox /> */}
+          <TestList />
         </div>
         <Footer />
       </BrowserRouter>

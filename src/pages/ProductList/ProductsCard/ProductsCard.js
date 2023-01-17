@@ -1,4 +1,4 @@
-import './ProductCard.scss';
+import './ProductsCard.scss';
 import pic3 from './dolphins_hotel.jpg';
 
 export default function ProductCard() {
@@ -46,7 +46,7 @@ export default function ProductCard() {
               <p>1000 / 晚</p>
             </div>
             <div className="d-flex">
-              <div class="bookmark material-symbols-outlined">bookmark</div>
+              <div class="material-symbols-outlined bookmark">bookmark</div>
               <p>收藏</p>
             </div>
           </div>
