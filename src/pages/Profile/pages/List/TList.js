@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import pic1 from './images/pic1.png';
 import { motion, Reorder } from 'framer-motion';
 import { useQuery } from 'react-query';
+import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+
 const TList = ({ value }) => {
+  const { jwtToken } = useContext(JwtCsrfTokenContext);
+  console.log(jwtToken);
   const [items, setItems] = useState({});
 
   const getUser = async ({ queryKey }) => {
@@ -51,7 +55,9 @@ const TList = ({ value }) => {
   if (isError) {
     return <span>Error: {error.message}</span>;
   }
-
+  if (!jwtToken) {
+    return <>未登入</>;
+  }
   // if (data && data.data) {
   //   return <></>;
   // }

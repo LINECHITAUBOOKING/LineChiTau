@@ -11,7 +11,7 @@ import {
   checkLoginUrl,
 } from './server-config';
 
-const JwtCsrfTokenContext = createContext();
+export const JwtCsrfTokenContext = createContext();
 
 const initialUser = {
   id: 0,
