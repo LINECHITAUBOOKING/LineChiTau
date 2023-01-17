@@ -4,7 +4,7 @@ import pic1 from './images/pic1.png';
 import { motion, Reorder } from 'framer-motion';
 import { useQuery } from 'react-query';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
-
+import TListLayout from './Spinner/TListLayout';
 const TList = ({ value }) => {
   const { jwtToken } = useContext(JwtCsrfTokenContext);
   console.log(jwtToken);
@@ -45,7 +45,7 @@ const TList = ({ value }) => {
   if (isLoading) {
     return (
       <>
-        <span>Loading...</span>;
+        <span>Loading...</span>
       </>
     );
   }
@@ -56,7 +56,14 @@ const TList = ({ value }) => {
     return <span>Error: {error.message}</span>;
   }
   if (!jwtToken) {
-    return <>未登入</>;
+    return (
+      <>
+        <TListLayout />
+        <Link to="/login" className="TListSpinner">
+          <button className="my-btn ">請登入</button>
+        </Link>
+      </>
+    );
   }
   // if (data && data.data) {
   //   return <></>;

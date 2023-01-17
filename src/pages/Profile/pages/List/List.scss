@@ -25,13 +25,17 @@
       align-items: flex-start;
       display: flex;
       flex-direction: column;
+      position: relative;
       // justify-content: center;
-      overflow: scroll;
+      overflow: auto;
       max-height: 500px;
       left: 0;
       min-height: 432px;
       top: 0;
       width: 880px;
+      .TListSpinner{
+        position: absolute;
+      }
       .overlap-group-1 {
         margin: 10px 0;
         border: 1px solid;
