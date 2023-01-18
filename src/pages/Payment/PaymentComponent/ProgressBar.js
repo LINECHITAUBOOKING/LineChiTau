@@ -4,7 +4,7 @@ import Step from './StepProgressBar/Step';
 const ProgressBar = (props) => {
   return (
     <>
-      <div className="container main-width step-bar d-flex flex-row  align-items-center justify-content-between mt-3 px-3">
+      <div className="container main-width step-bar d-flex flex-row  align-items-center justify-content-between my-5 px-3">
         {props.labelArray.map((item, index) => (
           <Step
             key={index}

@@ -1,95 +1,113 @@
 import React from 'react';
 import '../layout/payment.scss';
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useOutletContext,
+} from 'react-router-dom';
 
 import PurchaseItem from '../PaymentComponent/PurchaseItem';
+import ContactPerson from '../PaymentComponent/ContactPerson/ContactPerson';
+import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
+import SubTotalList from '../PaymentComponent/SubTotalList/SubTotalList';
 
-const TravelPaymentDetail = () => {
+const TravelPaymentDetail = (props) => {
+  const cartItems = [
+    {
+      itemId: 1,
+      itemName: '高雄美麗島',
+      itemChosen: '一日遊',
+      chosenStartDate: '2021-01-31',
+      chosenEndDate: '2021-01-31',
+      description: {
+        participantTabs: [
+          {
+            participantId: 1,
+            participantTitle: '王大明',
+            content: {
+              name: '王大明',
+              phone: '0912345678',
+              email: 'asd123@asda.com',
+            },
+          },
+          {
+            participantId: 2,
+            participantTitle: '李小美',
+            content: {
+              name: '李小美',
+              phone: '0987654321',
+              email: 'qwe123@qewq.com',
+            },
+          },
+        ],
+      },
+    },
+    {
+      itemId: 2,
+      itemName: '宜蘭快樂遊1',
+      itemChosen: '三日遊',
+      chosenStartDate: '2021-01-31',
+      chosenEndDate: '2021-02-02',
+      description: {
+        participantTabs: [
+          {
+            participantId: 1,
+            participantTitle: '王大明',
+            content: {
+              name: '王大明',
+              phone: '0912345678',
+              email: 'asd123@asda.com',
+            },
+          },
+          {
+            participantId: 2,
+            participantTitle: '馬大美',
+            content: {
+              name: '馬大美',
+              phone: '0987654321',
+              email: 'qwe123@qewq.com',
+            },
+          },
+        ],
+      },
+    },
+  ];
+
   return (
     <>
-      <main className="container main-width pe-0">
+      <main className="container  pe-0 main-width">
         <div className=" d-flex p-0">
           {/* <!-- TODO 項目(左區塊) --> */}
           <div className="item-list  col-8  gy-5 ">
             {/* <!-- NOTE 購買項目  --> */}
-            <div className="item-section pb-0 row col-12  mt-3">
+            <div className="item-section pb-0 row col-12  mt-3 rounded-0 rounded-top ">
               <div className="contact-title d-flex align-items-center p-0">
                 <h3 className="title">購買清單</h3>
               </div>
             </div>
-            <PurchaseItem />
-            <PurchaseItem />
+
+            <PurchaseItem cartItems={cartItems} />
 
             {/* <!-- NOTE 聯絡資料 --> */}
             <div className="item-section row col-12  my-3">
-              <div className="contact-title d-flex align-items-center p-0">
-                <h3 className="title">聯絡人資料</h3>
-                <small className="ms-2">如果訂單有變動狀況將會通知您</small>
-              </div>
-              <div className="item-chosen d-flex justify-content-start px-0 my-3">
-                <button className="my-btn contact-user-btn d-flex align-items-center me-1">
-                  王阿明
-                </button>
-                <button className="my-edit-btn contact-user-btn d-flex align-items-center mx-1">
-                  <span className="material-symbols-rounded me-2">
-                    account_circle
-                  </span>
-                  新增
-                </button>
-              </div>
-              <div className="item d-flex align-items-center p-3 ">
-                <div className="item-user row col-12 position-relative">
-                  <div className="user-content ">
-                    <h5>
-                      姓名: <small>王阿明</small>
-                    </h5>
-                    <h5>
-                      電話: <small>+886 971717171</small>
-                    </h5>
-                    <h5>
-                      信箱: <small>Ming717@taumail.com</small>
-                    </h5>
-                    <button className="my-edit-btn d-flex align-items-center position-absolute bottom-0 end-0">
-                      <span className="material-symbols-rounded me-2">
-                        account_circle
-                      </span>
-                      編輯
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <ContactPerson />
             </div>
             {/* <!-- NOTE 折扣 --> */}
-            <div className="item-section row col-12  my-3">
-              <div className="contact-title d-flex align-items-center p-0">
-                <h3 className="title">優惠折扣</h3>
-              </div>
-              <div className="item-chosen d-flex justify-content-start px-0 my-3">
-                <input type="text" className="form-control  w-50" />
-                <button className="my-btn use-coupon-btn d-flex align-items-center mx-1 col-3">
-                  使用
-                </button>
-                <small className="mx-2  d-flex align-items-center text-success">
-                  <span className="material-symbols-rounded">done</span>使用成功
-                </small>
-                <small className="mx-2 d-flex align-items-center text-danger">
-                  <span className="material-symbols-rounded">close</span>
-                  使用失敗
-                </small>
-              </div>
-              {/* NOTE <!-- ! 可用優惠券 選後自動帶入上方輸入(?) --> */}
-              <div className=" d-flex flex-column align-items-start p-0 ">
-                <h5 className="">可選優惠券(2)</h5>
-                <select name="" id="" className="form-select w-25">
-                  <option value="">10%折扣</option>
-                  <option value="">50%折扣</option>
-                </select>
-              </div>
-            </div>
+
+            <UseDiscount />
             {/* NOTE <!-- * 同意條款 --> */}
             <div className="rule-section  row col-12 pb-5">
               <div className="argee px-1 py-3 d-flex align-items-center">
-                <input type="checkbox" name="" id="" className="mx-2" />
+                <input
+                  type="checkbox"
+                  name=""
+                  id=""
+                  className="mx-2"
+                  required
+                />
                 我了解並同意來七桃服務條款與隱私權政策
               </div>
               <div className="alert alert-danger m-0">
@@ -152,6 +170,7 @@ const TravelPaymentDetail = () => {
                 </button>
               </div>
             </div>
+            <SubTotalList />
           </div>
         </div>
       </main>
