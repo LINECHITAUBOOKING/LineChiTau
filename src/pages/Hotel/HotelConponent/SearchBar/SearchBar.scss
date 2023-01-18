@@ -1,7 +1,7 @@
 @import '../../../../css/global-style.scss';
 
 .search-bar-conp {
-  background-color: #fff;
+  background-color: $secondary;
   max-height: 90px;
   padding: 15px;
   top: 50%;
@@ -43,10 +43,8 @@
       padding: 5px; //並幫他們設定統一樣式
       border-radius: 1px;
     }
-
     .date {
       //date這邊是用div 來排版所以底色讓他跟input一樣都白色
-      background-color: (#fcfaf2, 0.8);
       border: none;
       border-radius: 2px;
     }

@@ -1,15 +1,15 @@
 import React from 'react';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
 import './SearchBar.scss';
 import { useState } from 'react';
+import Calendar from '../Calendar/Calendar';
 
-import { format } from 'date-fns';
-import * as locales from 'react-date-range/dist/locale';
-
-const SearchBar = () => {
-  const [openCalendar, setOpenCalendar] = useState(false);
+const SearchBar = (props) => {
+  const [dateFromCalendar, setDateFromCalendar] = useState('');
+  const a = 123;
+  // function update(date) {
+  //   setDateFromCalendar(date);
+  // }
+  const [openCalendar, setOpenCalendar] = useState(true);
   const [openConditions, setOpenConditions] = useState(false);
   const [conditions, setConditions] = useState({
     adult: 2, //初始人數,房間數為一
@@ -57,35 +57,22 @@ const SearchBar = () => {
   };
   return (
     <div className="container-xxl d-flex justify-content-center m-auto my-5 search-bar-conp">
-      <div className="d-flex my-border-radius border">
-        <div className="">
-          <div className="nav-foot-small d-flex">
+      <div className="d-flex my-border-radius">
+        <div>
+          <div
+            className="nav-foot-small d-flex"
+            onClick={() => {
+              setOpenCalendar(!openCalendar);
+            }}
+          >
             <span className="material-symbols-outlined">calendar_month</span>
             入住/退房時間
           </div>
+          <input placeholder="請選擇日期" />
           <div className="listItem">
-            <span className="date">
-              <div
-                className="searchInput"
-                onClick={() => setOpenCalendar(!openCalendar)}
-              >
-                <label className="my-p fw-normal">
-                  {format(date[0].startDate, 'MM/dd/yyyy')} -{' '}
-                  {format(date[0].endDate, 'MM/dd/yyyy')}
-                </label>
-              </div>
-              {openCalendar && (
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setDate([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={date}
-                  className="date"
-                  minDate={new Date()}
-                  locale={locales['zhTW']}
-                />
-              )}
-            </span>
+            {openCalendar && (
+              <Calendar setDateFromCalendar={setDateFromCalendar} a={a} />
+            )}
           </div>
         </div>
         <div>
@@ -100,7 +87,7 @@ const SearchBar = () => {
             }}
           />
           {openConditions && (
-            <div className="select-room p-1">
+            <div className="select-room p-1 position-relative">
               {conditionsSelect.map((value, index) => {
                 let type;
                 switch (value) {
