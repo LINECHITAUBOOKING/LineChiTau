@@ -24,6 +24,7 @@
       border-radius: 10px;
       background-color: var(--bianca);
       color: #734338;
+      text-align: center;
     }
     .icon {
       display: flex;
@@ -56,8 +57,68 @@
           margin-right: 20px;
         }
       }
+    }.email {
+      margin-top: 60px;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      input {
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid #734338;
+        background-color: var(--bianca);
+      }
+      .emailWarning {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        color: red;
+        .material-symbols-outlined {
+          font-size: 20px;
+          margin-right: 20px;
+        }
+      }
+    }
+    .name {
+      margin-top: 20px;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      input {
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid #734338;
+        background-color: var(--bianca);
+      }
     }
     .password {
+      margin-top: 20px;
+      width: 250px;
+      display: flex;
+      flex-direction: column;
+      input {
+        margin-top: 10px;
+        border: none;
+        border-bottom: 1px solid #734338;
+        background-color: var(--bianca);
+      }
+      .passwordWarning {
+        display: flex;
+        flex-direction: row;
+        margin-top: 10px;
+        color: red;
+        .material-symbols-outlined {
+          font-size: 20px;
+          margin-right: 20px;
+        }
+      }
+      .forget {
+        margin-top: 10px;
+        display: flex;
+        justify-content: flex-end;
+      }
+    }
+    .confirmPassword {
       margin-top: 20px;
       width: 250px;
       display: flex;
