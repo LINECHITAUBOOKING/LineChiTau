@@ -7,6 +7,7 @@ import {
   jwtTokenUrl,
   csrfTokenUrl,
   loginUrl,
+  registerUrl,
   logoutUrl,
   checkLoginUrl,
 } from './server-config';
@@ -61,6 +62,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   useEffect(() => {
     getCsrfToken();
     // check login or refresh access token if has refresh token
+    register();
     checkLogin();
   }, []);
 
@@ -93,7 +95,23 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.error(e);
     }
   };
+  const register = async ({ username, password }) => {
+    try {
+      const { data } = await axios.post(registerUrl, {
+        username,
+        password,
+      });
 
+      // access token in state(memory)
+      // but refresh token in cookie(httpOnly)
+      /* axios.defaults.headers.common['Authorization'] = data.accessToken;
+
+      setJwtToken(data.accessToken);
+      setJwtDecodeData(jwt(data.accessToken)); */
+    } catch (e) {
+      console.error(e);
+    }
+  };
   const checkLogin = async () => {
     try {
       const { data } = await axios.get(checkLoginUrl);
@@ -136,6 +154,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         jwtToken,
         jwtDecodedData,
         login,
+        register,
         logout,
         getNewAccessToken,
         init,
