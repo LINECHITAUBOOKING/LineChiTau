@@ -9,6 +9,7 @@ import google from './image/google.png';
 import line from './image/line.png';
 import twitter from './image/twitter.png';
 import { Link } from 'react-router-dom';
+import { m } from 'framer-motion';
 
 function Demo() {
   const [fetchError, setFetchError] = useState('');
@@ -18,6 +19,7 @@ function Demo() {
     jwtDecodedData,
     init,
     login,
+    register,
     logout,
     getNewAccessToken,
     auth,
@@ -27,19 +29,37 @@ function Demo() {
 
   init(axios);
 
-  const [member, setMember] = useState({
-    name: 'tom',
-    password: '123456',
-    confirmPassword: '123456',
-    email: 'test@gmail.com',
-  });
+  const [member, setMember] = useState({});
 
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value });
   }
-
+  function checkpassword(password, confirmPassword) {
+    if (password !== confirmPassword) {
+      alert('密碼與確認密碼不一致');
+      return false;
+    }
+    return true;
+  }
   async function handleSubmit(e) {
     console.log('handleSubmit');
+    if (!!member.email === false) {
+      alert('請輸入email');
+      return;
+    }
+    if (!!member.name === false) {
+      alert('請輸入帳號名稱');
+      return;
+    }
+    if (!!member.password === false) {
+      alert('請輸入密碼');
+      return;
+    }
+    if (!!member.confirmPassword === false) {
+      alert('請輸入確認密碼');
+      return;
+    }
+    if (!checkpassword(member.password, member.confirmPassword)) return;
     // 關閉表單的預設行為
     e.preventDefault();
     // 作法1: 沒有檔案的表單
@@ -47,13 +67,18 @@ function Demo() {
     // let response = await axios.post('http://localhost:3001/api/auth/register', member);
     // 作法2: 有檔案的表單
     // https://developer.mozilla.org/en-US/docs/Web/API/FormData
-    let formData = new FormData();
-    formData.append('email', member.email);
-    formData.append('name', member.name);
-    formData.append('password', member.password);
-    formData.append('confirmPassword', member.confirmPassword);
-    formData.append('photo', member.photo);
-    let response = await axios.post('http://localhost:3001/register', member);
+    let formData = {
+      email: member.email,
+      username: member.name,
+      password: member.password,
+      confirmPassword: member.confirmPassword,
+    };
+    //formData.append('email', member.email);
+    //formData.append('username', member.name);
+    //formData.append('password', member.password);
+    //formData.append('confirmPassword', member.confirmPassword);
+    //formData.append('photo', member.photo);
+    let response = await axios.post('/auth/register', formData);
     console.log(response.data);
   }
 
@@ -103,7 +128,7 @@ function Demo() {
             再輸入一次密碼
             <input
               type="password"
-              placeholder="請再次輸入密碼"
+              placeholder="請確認密碼"
               id="confirmPassword"
               name="confirmPassword"
               onChange={handleChange}
@@ -168,6 +193,11 @@ function Demo() {
       <section style={{ marginBottom: '10px' }}>
         <button onClick={() => login({ username: 'eddy', password: '33333' })}>
           login
+        </button>
+        <button
+          onClick={() => register({ username: 'Jerry', password: '33333' })}
+        >
+          register
         </button>
         {console.log(auth)}
       </section>
