@@ -95,6 +95,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.error(e);
     }
   };
+<<<<<<< HEAD
   const register = async ({ email, username, password, confirmPassword }) => {
     try {
       const { data } = await axios.post(registerUrl, {
@@ -102,11 +103,22 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         username,
         password,
         confirmPassword,
+=======
+  const register = async ({ username, password }) => {
+    try {
+      const { data } = await axios.post(registerUrl, {
+        username,
+        password,
+>>>>>>> a60b04f4d1c6d7ada29421066274e3fad9b5a654
       });
 
       // access token in state(memory)
       // but refresh token in cookie(httpOnly)
       /* axios.defaults.headers.common['Authorization'] = data.accessToken;
+<<<<<<< HEAD
+=======
+
+>>>>>>> a60b04f4d1c6d7ada29421066274e3fad9b5a654
       setJwtToken(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken)); */
     } catch (e) {

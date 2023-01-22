@@ -85,7 +85,7 @@ function Demo() {
   return (
     <>
       <div className="demo">
-        <from className="login">
+        {/* <from className="login">
           <div className="firstBtn">註冊</div>
           使用第三方帳戶登入/創立帳戶
           <div className="icon">
@@ -137,7 +137,7 @@ function Demo() {
           <button className="lastBtn" onClick={handleSubmit}>
             註冊
           </button>
-        </from>
+        </from> */}
         {/* <button className="firstBtn">登入/註冊</button>
           使用第三方帳戶登入/創立帳戶
           <div className="icon">
@@ -180,7 +180,7 @@ function Demo() {
         <img className="pic" src={bgimg} alt="" />
       </div>
 
-      {/* <section style={{ marginBottom: '10px' }}>
+      <section style={{ marginBottom: '10px' }}>
         <button
           onClick={() => {
             logout();
@@ -208,7 +208,7 @@ function Demo() {
           Access Token: {jwtToken}
         </p>
         <p>Token Decoded Data: {Object.entries(jwtDecodedData).join(' ')}</p>
-      </section> */}
+      </section>
     </>
   );
 }
