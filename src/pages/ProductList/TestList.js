@@ -2,7 +2,7 @@ import './TestList.scss';
 import PopupSort from '../ProductList/PopupSort/PopupSort';
 import NormalSort from '../ProductList/NormalSort/NormalSort';
 import ProductsCard from '../ProductList/ProductsCard/ProductsCard';
-import ListMap from './ListMap/ListMap';
+import ListMap from '../layouts/ListMap/ListMap';
 import Pagination from './Pagination/Pagination';
 
 const TestList = () => {
