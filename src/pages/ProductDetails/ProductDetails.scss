@@ -14,7 +14,7 @@ h1,h2,h3,h4,h5,h6,p,div {
     font-size: 28px;
 }
 
-.service {
+.service,.round-btn {
     padding: 10px 20px;
     border-radius: 35px;
     border: 1px solid $textColor;
@@ -33,3 +33,67 @@ h1,h2,h3,h4,h5,h6,p,div {
     @include filled-google-icons();
     margin-right : 10px;
 }
+
+.main-selector {
+    border: 1px solid $textColor;
+    border-radius: 10px;
+    padding-inline: 50px;
+    padding-block: 45px;
+    width: 856px;
+}
+
+.plan-details {
+    border: 1px solid $textColor;
+    border-radius: 10px;
+    padding-inline: 50px;
+    padding-block: 45px;
+    width: 400px;
+}
+
+
+.box-title {
+    display: block;
+    max-width: fit-content;
+}
+
+//暫時先用hover代替 state，
+.material-symbols-outlined.show-btn {
+    @include filled-google-icons();
+    transform: scale(1,-1);
+    &:active {
+        transform: none;
+    }
+    &.my-p {
+        font-size :22px;
+    }
+}
+
+.collapse-details {
+    display: none;
+}
+
+.details-container {
+    &:hover + .collapse-details {
+        display: block;
+    }
+}
+
+.preserved-amount {
+    width: 300px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid $textColor;
+}
+
+.collapsable-block {
+    
+    border: 1px solid $textColor;
+    border-radius: 10px;
+    padding-inline: 50px;
+    padding-block: 45px;
+    width: 856px;
+    
+}
+
+
+
