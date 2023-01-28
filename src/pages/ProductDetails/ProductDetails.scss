@@ -1,3 +1,4 @@
+@use 'sass:math';
 @import '../../css/global-style.scss';
 
 h1,h2,h3,h4,h5,h6,p,div {
@@ -34,13 +35,30 @@ h1,h2,h3,h4,h5,h6,p,div {
     margin-right : 10px;
 }
 
+$sqrt2:math.sqrt(2);
+$pseudoLength:calc(40 * $sqrt2);
+
 .main-selector {
     border: 1px solid $textColor;
     border-radius: 10px;
     padding-inline: 50px;
     padding-block: 45px;
     width: 856px;
+    position: relative;
+    
+    &::after {
+        content:"";
+        position:absolute;
+        width: calc($pseudoLength *1px);
+        height: calc($pseudoLength *1px);
+        transform: rotate(45deg);
+        clip-path: polygon(0% 0%, 0% 100%, 100% 100%);
+        right:-70.5px;
+        top:30px;
+        background-color: $textColor;
+    }
 }
+
 
 .plan-details {
     border: 1px solid $textColor;
@@ -94,6 +112,3 @@ h1,h2,h3,h4,h5,h6,p,div {
     width: 856px;
     
 }
-
-
-

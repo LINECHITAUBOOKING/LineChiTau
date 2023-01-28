@@ -46,7 +46,8 @@ export default function ProductDetail() {
                     </div>    
                 </div>
             </div>
-            <div className='container-xxl' style={{backgroundColor : 'white', border: '2px solid red',}}>
+            {/* border: '2px solid red' */}
+            <div className='container-xxl' style={{backgroundColor : 'white',}}>
                 <div className='mt-3 d-flex justify-content-between'>
                     <div className='main-selector'>
                         <div className='title-and-clear-btn d-flex justify-content-between'>
