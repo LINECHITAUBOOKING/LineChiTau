@@ -93,7 +93,7 @@ function Demo() {
       console.log(response.status);
       console.log('成功');
     } catch (e) {
-      alert('已經註冊過囉')
+      alert('已經註冊過囉');
     }
   }
   const handleBack = useCallback(() => {
@@ -160,9 +160,13 @@ function Demo() {
             註冊
           </button>
           <button
-            onClick={() =>
-              login({ username: member.name, password: member.password })
-            }
+            onClick={() => {
+              if (member.name && member.password) {
+                login({ username: member.name, password: member.password });
+              } else {
+                alert('寫完啦幹');
+              }
+            }}
           >
             login
           </button>

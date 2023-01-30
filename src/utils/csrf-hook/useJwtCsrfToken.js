@@ -92,9 +92,14 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       setJwtToken(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
     } catch (e) {
-      console.error(e);
-      console.log(e);
-      alert('尚未註冊');
+      // console.error(e);
+      console.log(e.response.status);
+      if (e.response.status === 401) {
+        alert('尚未註冊');
+      }
+      if (e.response.status === 403) {
+        alert('密碼錯誤');
+      }
     }
   };
 
