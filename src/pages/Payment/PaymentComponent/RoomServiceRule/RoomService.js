@@ -11,9 +11,8 @@ import {
 import ProductImg from '../../../Hotel/img/banner.svg';
 
 const RoomService = (props) => {
-  
   const service = props.roomServiceRule.service;
-  
+
   return (
     <>
       {/* <!-- NOTE 房型服務資訊 --> */}
@@ -22,9 +21,12 @@ const RoomService = (props) => {
           <h4 className="me-3">行政尊爵套房 </h4>
           <small>*取消須付費</small>
         </div>
-        <div className="service-list py-2 row mb-3">{service}</div>
+        <div className="service-list py-2 row mb-3">
+          {service.map((service, index) => (
+            <span className="tag col-auto ms-2">{service}</span>
+          ))}
+        </div>
       </div>
-      
     </>
   );
 };

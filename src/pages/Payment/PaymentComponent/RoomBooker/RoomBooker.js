@@ -18,12 +18,12 @@ const RoomBooker = (props) => {
             <div className="profile-form px-5 py-4 me-3 h-100">
               <h4 className="title mb-3">請輸入個人資料</h4>
               <div className="user-data">
-                <div className="name d-flex">
-                  <div className="last-name ">
+                <div className="name row">
+                  <div className="last-name col-6">
                     <label for="">姓氏</label>
                     <input type="text" className="form-control border-0" />
                   </div>
-                  <div className="first-name px-3">
+                  <div className="first-name col-6">
                     <label for="">名字</label>
                     <input type="text" className="form-control border-0" />
                   </div>
@@ -38,12 +38,12 @@ const RoomBooker = (props) => {
                   <input type="text" className="form-control border-0" />
                 </div>
 
-                <div className="country-lang d-flex">
-                  <div className="country">
+                <div className="country-lang row">
+                  <div className="country col-6">
                     <label for="">國家 / 地區</label>
                     <input type="text" className="form-control border-0" />
                   </div>
-                  <div className="lang px-3">
+                  <div className="lang col-6">
                     <label for="">語言</label>
                     <input type="text" className="form-control border-0" />
                   </div>

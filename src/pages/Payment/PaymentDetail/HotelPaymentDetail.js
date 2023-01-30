@@ -11,34 +11,35 @@ import RoomBooker from '../PaymentComponent/RoomBooker/RoomBooker';
 import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import RoomArriveTime from '../PaymentComponent/RoomArriveTime/RoomArriveTime';
 
-
 const HotelPaymentDetail = (props) => {
-  const roomItems = 
-    {
-      roomName: '尊爵行政套房',
-      startDate: '2022-10-11',
-      endDate: '2022-10-12',
-      amount: 2,
-      price: 6000,
-    }
-  ;
-
+  const roomItems = {
+    roomName: '尊爵行政套房',
+    startDate: '2022-10-11',
+    endDate: '2022-10-12',
+    amount: 2,
+    price: 6000,
+    describtion: {
+      booker: {
+        lastName: '王',
+        firstName: '小明',
+        email: 'wang1125@wanggg.com',
+        tel: '0912555468',
+        country: '台灣',
+        lang: '中文',
+      },
+    },
+  };
   const itemHotel = {
     hotelName: '台北文華東方酒店',
     hotelAdd: '台北松山區敦化北路168號',
     hotelStar: 4,
   };
   const roomServiceRule = {
-    service: [
-      <span className="tag col-auto ms-2">早餐</span>,
-      <span className="tag col-auto ms-2">迷你吧</span>,
-      <span className="tag col-auto ms-2">喚醒服務</span>,
-      <span className="tag col-auto ms-2">洗/烘衣服務</span>,
-    ],
+    service: ['早餐', '迷你吧', '喚醒服務', '洗/烘衣服務', '保險箱'],
     rule: [
-      <li>現在免付任何費用，您將於入住時付款</li>,
-      <li>2022年12月18日 下午11:59前，免費取消</li>,
-      <li>2022年12月19日 上午12:00起，收取新台幣60,000</li>,
+      '現在免付任何費用，您將於入住時付款',
+      '入住前一日 下午11:59前，可免費取消',
+      '入住當日 上午12:00起，收取入住費用',
     ],
   };
   return (
@@ -65,17 +66,17 @@ const HotelPaymentDetail = (props) => {
         {/* <!-- TODO 個人資料、MEMO --> */}
         <div className="row w-100 mx-0 mb-3">
           {/* <!-- NOTE 填寫個人資料 --> */}
-          <div className='col-6 p-0'>
-          <RoomBooker/>
+          <div className="col-6 p-0">
+            <RoomBooker />
           </div>
           {/* <!-- NOTE MEMO --> */}
           <div className="col-6 p-0">
-            <RoomMemo/>
+            <RoomMemo />
           </div>
         </div>
         {/* <!-- TODO 預計抵達時間 --> */}
         <div className="row w-100 mx-0 mb-3 ">
-          <RoomArriveTime/>
+          <RoomArriveTime />
         </div>
         {/* <!-- TODO 前往付款button --> */}
         <div className="topay d-flex justify-content-center w-25 mx-auto pt-4 pb-5 row ">
