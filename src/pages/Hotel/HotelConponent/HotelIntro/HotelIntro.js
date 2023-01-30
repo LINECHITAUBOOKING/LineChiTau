@@ -1,20 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './HotelIntro.scss';
 
 const HotelIntro = () => {
+  const [scrollPosition, setScrollPosition] = useState(0);
+  const [isFixed, setisFixed] = useState(false)
+
+  const handleScroll = (event) => {
+    setScrollPosition(window.pageYOffset);
+    // console.log(window.pageYOffset)
+    let fixed = window.pageYOffset >= 695 ? true : false
+    setisFixed(fixed)
+  };
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
   return (
     <>
       <div className="container-xxl HotelIntro">
+        <nav className={isFixed ? 'ms-3 fixed' : 'ms-3  mt-3'}>
+          <ul className="list-unstyled d-flex justify-content-around py-2 mb-0">
+            <li>客房</li>
+            <li>交通位置</li>
+            <li>評論區</li>
+            <li>注意事項</li>
+          </ul>
+        </nav>
         <div className="row mt-4">
           <div className="col-8 left-side ">
-            <nav>
-              <ul className="list-unstyled d-flex justify-content-around p-2">
-                <li>客房</li>
-                <li>交通位置</li>
-                <li>評論區</li>
-                <li>注意事項</li>
-              </ul>
-            </nav>
             <h3 className="my-topic">娜路彎銀河酒店</h3>
             <div>
               <span class="material-symbols-outlined hotel-star-fill">

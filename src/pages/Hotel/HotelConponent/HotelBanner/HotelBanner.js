@@ -1,14 +1,11 @@
 import React from 'react';
-import { DateRange } from 'react-date-range';
-import 'react-date-range/dist/styles.css';
-import 'react-date-range/dist/theme/default.css';
+
 import './HotelBanner.scss';
 import { useState } from 'react';
-
-import { format } from 'date-fns';
-import * as locales from 'react-date-range/dist/locale';
+import Calendar from '../Calendar/Calendar'
 
 const HotelBanner = () => {
+  const [dateFromCalendar, setDateFromCalendar] = useState('');
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
   const [conditions, setConditions] = useState({
@@ -16,13 +13,7 @@ const HotelBanner = () => {
     children: 0, //可以不一定要有小孩
     room: 1,
   });
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection',
-    },
-  ]);
+
   const conditionsSelect = ['成人', '兒童', '客房'];
   const plusNum = (type) => {
     const newConditions = { ...conditions };
@@ -69,32 +60,28 @@ const HotelBanner = () => {
           />
         </div>
         <div>
-          <div className="nav-foot-small d-flex">
-            <span className="material-symbols-outlined">calendar_month</span>
-            入住/退房時間
-          </div>
           <div className="listItem">
             <span className="date">
-              <div
-                className="searchInput"
-                onClick={() => setOpenCalendar(!openCalendar)}
-              >
-                <label className="my-p fw-normal">
-                  {format(date[0].startDate, 'MM/dd/yyyy')} -{' '}
-                  {format(date[0].endDate, 'MM/dd/yyyy')}
-                </label>
+              <div>
+                <div
+                  className="nav-foot-small d-flex"
+                  onClick={() => {
+                    setOpenCalendar(!openCalendar);
+                  }}
+                >
+                  <span className="material-symbols-outlined">calendar_month</span>
+                  入住/退房時間
+                </div>
+                {/* <input placeholder="請選擇日期" value={dateFromCalendar} /> */}
+                <div className="display-box nav-foot-small" onClick={() => {
+                  setOpenCalendar(!openCalendar);
+                }}>{dateFromCalendar}</div>
+                <div className="listItem">
+                  {openCalendar && (
+                    <Calendar setDateFromCalendar={setDateFromCalendar} />
+                  )}
+                </div>
               </div>
-              {openCalendar && (
-                <DateRange
-                  editableDateInputs={true}
-                  onChange={(item) => setDate([item.selection])}
-                  moveRangeOnFirstSelection={false}
-                  ranges={date}
-                  className="date"
-                  minDate={new Date()}
-                  locale={locales['zhTW']}
-                />
-              )}
             </span>
           </div>
         </div>

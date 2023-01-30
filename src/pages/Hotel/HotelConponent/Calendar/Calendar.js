@@ -8,8 +8,9 @@ const chunk = (arr, size) =>
     arr.slice(i * size, i * size + size)
   );
 
-function Calendar({ setDateFromCalendar }) {
-  console.log('susauuss-----', setDateFromCalendar);
+function Calendar(props) {
+  // console.log('susauuss-----', props);
+
   const [myYear, setMyYear] = useState(2022);
   const [myMonth, setMyMonth] = useState(1);
   let newYear;
@@ -87,21 +88,14 @@ function Calendar({ setDateFromCalendar }) {
   }
   // 準備要呈現在網頁上
   const daysDisplayArray = chunk(daysDataArray, 7);
-  // props.update(`${myDate.startDate} - ${myDate.endDate}`);
   // console.log(props);
-  // useEffect(() => {}, [myDate.startDate, myDate.endDate]);
+  useEffect(() => {
+    props.setDateFromCalendar(`${myDate.startDate} - ${myDate.endDate}`);
+  }, [myDate.startDate, myDate.endDate]);
   return (
     <div className="calendar m-auto position-absolute">
       <div>
-        <div className="display-box nav-foot-small">{`${myDate.startDate} - ${myDate.endDate}`}</div>
-        <div className="d-flex justify-content-center">
-          <div className="w-50">
-            <input value={myDate.startDate} className="form-control" />
-          </div>
-          <div className="w-50">
-            <input value={myDate.endDate} className="form-control" />
-          </div>
-        </div>
+        {/* <div className="display-box nav-foot-small">{`${myDate.startDate} - ${myDate.endDate}`}</div> */}
         <div className="year-title d-flex justify-content-center align-items-center p-1">
           <div
             className="material-symbols-outlined arrow"
@@ -121,6 +115,14 @@ function Calendar({ setDateFromCalendar }) {
             }}
           >
             arrow_circle_right
+          </div>
+        </div>
+        <div className="d-flex justify-content-center d-none">
+          <div className="w-50">
+            <input value={myDate.startDate} className="form-control" />
+          </div>
+          <div className="w-50">
+            <input value={myDate.endDate} className="form-control" />
           </div>
         </div>
         <table border="1" className="calendar-box">
@@ -172,7 +174,7 @@ function Calendar({ setDateFromCalendar }) {
                           numEnd = Number(
                             moment(newMyDate.endDate).format('YYYYMMDD')
                           );
-                          console.log('cccccccc', numStart, numEnd);
+                          // console.log('cccccccc', numStart, numEnd);
                           if (numStart > numEnd) {
                             // console.log('我近來囉');
                             let a = newMyDate.startDate;
@@ -184,7 +186,7 @@ function Calendar({ setDateFromCalendar }) {
                           newMyDate.startDate = `${nowY}/${nowM}/${item}`;
                           newMyDate.endDate = '';
                         }
-                        console.log(newMyDate);
+                        // console.log(newMyDate);
                         setMyDate(newMyDate);
                         // console.log(new Date(nowY, nowM - 1, item));
                       }}

@@ -9,20 +9,15 @@ const SearchBar = (props) => {
   // function update(date) {
   //   setDateFromCalendar(date);
   // }
-  const [openCalendar, setOpenCalendar] = useState(true);
+  const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
   const [conditions, setConditions] = useState({
     adult: 2, //初始人數,房間數為一
     children: 0, //可以不一定要有小孩
     room: 1,
   });
-  const [date, setDate] = useState([
-    {
-      startDate: new Date(),
-      endDate: new Date(),
-      key: 'selection',
-    },
-  ]);
+
+
   const conditionsSelect = ['成人', '兒童', '客房'];
   const plusNum = (type) => {
     const newConditions = { ...conditions };
@@ -59,19 +54,19 @@ const SearchBar = (props) => {
     <div className="container-xxl d-flex justify-content-center m-auto my-5 search-bar-conp">
       <div className="d-flex my-border-radius">
         <div>
-          <div
-            className="nav-foot-small d-flex"
-            onClick={() => {
-              setOpenCalendar(!openCalendar);
-            }}
-          >
-            <span className="material-symbols-outlined">calendar_month</span>
-            入住/退房時間
+          <div onClick={() => {
+            setOpenCalendar(!openCalendar);
+          }}>
+            <div className="nav-foot-small d-flex">
+              <span className="material-symbols-outlined">calendar_month</span>
+              入住/退房時間
+            </div>
+            {/* <input placeholder="請選擇日期" value={dateFromCalendar} /> */}
+            <div className="display-box nav-foot-small">{dateFromCalendar}</div>
           </div>
-          <input placeholder="請選擇日期" />
           <div className="listItem">
             {openCalendar && (
-              <Calendar setDateFromCalendar={setDateFromCalendar} a={a} />
+              <Calendar setDateFromCalendar={setDateFromCalendar} />
             )}
           </div>
         </div>

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './HotelDetailPic.scss';
 import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 
-const HotelDetailPic = () => {
+const HotelDetailPic = (props) => {
   return (
     <>
-      <div className="container-xxl Hotel-Detail-Pic">
+      <div className="container-xxl Hotel-Detail-Pic"
+        onClick={() => { props.setOpenPicBox(true) }}
+      >
         <div className="row mt-4">
           <div className="col-8 left-side">
             <div className="main-pic-box">
@@ -23,7 +25,7 @@ const HotelDetailPic = () => {
         </div>
       </div>
     </>
-  );
+  )
 };
 
 export default HotelDetailPic;
