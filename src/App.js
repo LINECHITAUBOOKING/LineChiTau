@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
+import Comment from './pages/ProductDetails/DetailComponet/Comment/Comment';
 import ProductDetails from './pages/ProductDetails/ProductDetails';
 
 
@@ -12,7 +13,7 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div className="test-container">
-          <ProductDetails />
+          <Comment />
         </div>
         <Footer />
       </BrowserRouter>
