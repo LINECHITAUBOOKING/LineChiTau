@@ -43,12 +43,17 @@ function Demo() {
   }
   async function handleSubmit(e) {
     console.log('handleSubmit');
+    const email = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+    if (!email.test(member.email)) {
+      alert('請輸入正確格式email');
+      return;
+    }
     if (!!member.email === false) {
       alert('請輸入email');
       return;
     }
     if (!!member.name === false) {
-      alert('請輸入帳號名稱');
+      alert('請輸入姓名');
       return;
     }
     if (!!member.password === false) {
@@ -59,7 +64,13 @@ function Demo() {
       alert('請輸入確認密碼');
       return;
     }
+
+    if (member.password.length < 4 || member.password.length > 12) {
+      alert('密碼請在長度 4~12 之間');
+      return;
+    }
     if (!checkpassword(member.password, member.confirmPassword)) return;
+
     // 關閉表單的預設行為
     e.preventDefault();
     // 作法1: 沒有檔案的表單
@@ -79,8 +90,7 @@ function Demo() {
     //formData.append('confirmPassword', member.confirmPassword);
     //formData.append('photo', member.photo);
     let response = await axios.post('/auth/register', formData);
-    console.log(response.data);
-    console.log('q');
+    console.log(response.config.data);
   }
 
   return (
