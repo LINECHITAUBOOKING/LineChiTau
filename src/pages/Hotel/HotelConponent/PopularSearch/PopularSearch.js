@@ -7,7 +7,7 @@ const PopularSearch = () => {
     <>
       <div class="popular-search py-5 container-xxl">
         <h4 class="title my-heading d-flex justify-content-center">熱門搜尋</h4>
-        <div class="tag my-4">
+        <div class="search-tag-box my-4">
           <ul className="d-flex list-unstyled d-flex justify-content-center">
             <li className="">
               <Link

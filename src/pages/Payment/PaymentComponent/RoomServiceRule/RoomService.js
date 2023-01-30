@@ -23,7 +23,7 @@ const RoomService = (props) => {
         </div>
         <div className="service-list py-2 row mb-3">
           {service.map((service, index) => (
-            <span className="tag col-auto ms-2">{service}</span>
+            <span className="room-service-tag col-auto ms-2">{service}</span>
           ))}
         </div>
       </div>

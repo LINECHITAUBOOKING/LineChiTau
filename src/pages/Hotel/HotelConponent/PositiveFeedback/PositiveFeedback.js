@@ -6,12 +6,12 @@ export const PositiveFeedback = () => {
   return (
     <>
       <div className="positive-feedback container-xxl pt-5 pb-2 mb-5">
-        <h4 className="title my-heading text-center py-4">用戶好評</h4>
+        <h4 className="title my-heading text-center mb-5">用戶好評</h4>
         <div className="cards d-flex justify-content-center">
           <div>
             <div className="small-card mx-3">
               <div className="position-relative">
-                <span class="material-symbols-rounded my-p position-absolute tag">
+                <span class="material-symbols-rounded my-p position-absolute recommand-tag">
                   bookmark
                 </span>
                 <img

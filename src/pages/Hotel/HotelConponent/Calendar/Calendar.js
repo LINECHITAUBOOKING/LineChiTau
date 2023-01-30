@@ -11,8 +11,8 @@ const chunk = (arr, size) =>
 function Calendar(props) {
   // console.log('susauuss-----', props);
 
-  const [myYear, setMyYear] = useState(2022);
-  const [myMonth, setMyMonth] = useState(1);
+  const [myYear, setMyYear] = useState(2023);
+  const [myMonth, setMyMonth] = useState(2);
   let newYear;
   let newMonth;
   const minusMonth = function () {

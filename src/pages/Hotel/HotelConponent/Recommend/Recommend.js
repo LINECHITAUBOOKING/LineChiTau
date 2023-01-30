@@ -10,7 +10,7 @@ const Recommend = () => {
             <img src={logo} alt="logo" width="500" />
           </div>
           <div className="pt-5 mx-5">
-            <h4 className="title my-heading pb-4">選擇來七桃</h4>
+            <h4 className="my-heading pb-4">選擇來七桃</h4>
             <p className="pt-2">aaaaaaaaaaaaaaaaaaaa</p>
           </div>
         </div>

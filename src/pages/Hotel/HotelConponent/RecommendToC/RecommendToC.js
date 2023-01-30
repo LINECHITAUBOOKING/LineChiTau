@@ -8,7 +8,7 @@ export const RecommendToC = () => {
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-  const [viewMoreCount, setViewMoreCount] = useState(0);
+  const [viewMoreCount, setViewMoreCount] = useState(1);
   const getHotelList = async function () {
     const response = await axios.get(
       'https://my-json-server.typicode.com/TANGEJ0411/fakeDB/main/db.json/hotelaccount'
@@ -53,7 +53,7 @@ export const RecommendToC = () => {
   return (
     <>
       <div className="recommend-to-c container-xxl pt-5 pb-2">
-        <h4 className="title my-heading text-center py-4">精選推薦給您</h4>
+        <h4 className="title my-heading text-center mb-5">精選推薦給您</h4>
         {displayList.map((v, i) => {
           return (
             v && (
@@ -63,7 +63,7 @@ export const RecommendToC = () => {
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span class="material-symbols-rounded my-p position-absolute tag">
+                          <span class="material-symbols-rounded my-p position-absolute recommand-tag">
                             bookmark
                           </span>
                           <img
