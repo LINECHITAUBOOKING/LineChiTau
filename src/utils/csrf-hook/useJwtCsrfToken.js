@@ -93,6 +93,8 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       setJwtDecodeData(jwt(data.accessToken));
     } catch (e) {
       console.error(e);
+      console.log(e);
+      alert('尚未註冊');
     }
   };
 

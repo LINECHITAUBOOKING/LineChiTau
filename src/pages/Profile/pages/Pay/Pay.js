@@ -10,7 +10,7 @@ import Card7 from './images/Card7.png';
 
 const Pay = () => {
   return (
-    <div className="container">
+    <div className="container-pay">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
         管理付款資料
       </h1>
@@ -42,27 +42,27 @@ const Pay = () => {
           <div className="pay-text-manger">
             <div className="pay-text-detail">
               Cardholder name
-              <input type="text" />
+              <input className="input-pay" type="text" />
             </div>
             <div className="pay-text-detail">
               Card number
-              <input type="text" />
+              <input className="input-pay" type="text" />
             </div>
             <div className="pay-text-detail-date">
               <div className="pay-text-detail">
                 Exp date
-                <input type="text" />
+                <input className="input-pay" type="text" />
               </div>
               <div className="pay-text-detail ms-2">
                 CVC
-                <input type="text" />
+                <input className="input-pay" type="text" />
               </div>
             </div>
             <div className="pay-text-detail-checkbox">
-              <input type="checkbox" />
+              <input className="input-pay" type="checkbox" />
               <div className="ms-2">Save your information card</div>
             </div>
-            <button className="p-2">Add Cards</button>
+            <button className="p-2 button-pay">Add Cards</button>
           </div>
         </div>
       </div>

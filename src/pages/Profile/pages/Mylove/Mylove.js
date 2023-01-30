@@ -6,7 +6,7 @@ import coin from './images/coin.png';
 import './Mylove.scss';
 const Mylove = () => {
   return (
-    <div className="container">
+    <div className="container-mylove">
       <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         我的最愛
       </div>

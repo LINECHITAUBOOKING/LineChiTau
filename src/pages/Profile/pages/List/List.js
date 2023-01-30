@@ -10,7 +10,7 @@ import TList from './TList';
 
 const List = () => {
   return (
-    <div className="container">
+    <div className="container-list">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
         訂購清單
       </h1>

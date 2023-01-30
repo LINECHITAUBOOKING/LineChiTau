@@ -1,6 +1,6 @@
 @import url(../../../../../css/global-style.scss);
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
-.container {
+.container-listdetail {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -13,10 +13,10 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    .title {
+    .title-listdetail {
       padding-left: 45px;
     }
-    .hr {
+    .hr-listdetail {
       width: 90%;
       margin-left: 45px;
     }
@@ -55,7 +55,7 @@
     flex-direction: column;
     gap: 10px;
     justify-content: center;
-    .top {
+    .top-listdetail {
       display: flex;
       justify-content: space-between;
       padding: 0 45px;
