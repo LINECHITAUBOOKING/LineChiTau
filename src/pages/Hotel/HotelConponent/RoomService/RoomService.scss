@@ -1,0 +1,16 @@
+@import '../../../../css/global-style.scss';
+
+.room-service {
+    border: 1px solid $textColor;
+
+    .room-service-picbox {
+        width: 420px;
+        height: 250px;
+
+        .room-service-pic {
+            width: 420px;
+            height: 250px;
+        }
+    }
+
+}

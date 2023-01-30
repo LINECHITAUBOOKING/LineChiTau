@@ -1,0 +1,44 @@
+@import '../../../../css/global-style.scss';
+
+.room-select-box {
+  .room-type-card {
+    border: 1px solid $textColor;
+    max-width: 350px;
+    max-height: 770px;
+
+    .room-pic-box {
+      width: 348px;
+      height: 200px;
+
+      .room-pic {
+        width: 348px;
+        height: 200px;
+      }
+    }
+
+    .play-arrow {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    }
+
+    .select-btn-box {
+      transition: 0.5s;
+
+      .booking-select-btn {
+        transition: 0.5s;
+        border: none;
+        box-shadow: inset 0px -5px 0px $main;
+        padding: 0px;
+        background-color: #fff;
+      }
+    }
+
+    .select-btn-box:hover {
+      background-color: $main;
+
+      .booking-select-btn {
+        border: none;
+        background: $main;
+      }
+    }
+  }
+}

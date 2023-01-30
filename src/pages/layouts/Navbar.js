@@ -9,7 +9,7 @@ const Navbar = () => {
   const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
 
   return (
-    <div className="container-fluid">
+    <div className="container-fluid fill-background">
       <div className="navbar d-flex align-items-center justify-content-around m-auto p-0">
         <div className="logo-box">
           <img className="logo" src={logo} alt="logo" />
