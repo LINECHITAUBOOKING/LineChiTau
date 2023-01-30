@@ -80,6 +80,7 @@ function Demo() {
     //formData.append('photo', member.photo);
     let response = await axios.post('/auth/register', formData);
     console.log(response.data);
+    console.log('q');
   }
 
   return (
@@ -137,45 +138,21 @@ function Demo() {
           <button className="lastBtn" onClick={handleSubmit}>
             註冊
           </button>
+          <button
+            onClick={() =>
+              login({ username: member.name, password: member.password })
+            }
+          >
+            login
+          </button>
+          <button
+            onClick={() =>
+              register({ username: member.name, password: member.password })
+            }
+          >
+            register
+          </button>
         </from>
-        {/* <button className="firstBtn">登入/註冊</button>
-          使用第三方帳戶登入/創立帳戶
-          <div className="icon">
-            <img className="pic" src={line} alt="" />
-            <img className="pic" src={twitter} alt="" />
-            <img className="pic" src={fackbook} alt="" />
-            <img className="pic" src={google} alt="" />
-          </div>
-          <div className="email">
-            電子信箱
-            <input type="text" placeholder="請輸入電子信箱" />
-            <div className="emailWarning">
-              <span class="material-symbols-outlined">report</span>
-              信箱已存在
-            </div>
-          </div>
-          <div className="password">
-            密碼
-            <input type="text" placeholder="請輸入密碼" />
-            <div className="passwordWarning">
-              <span class="material-symbols-outlined">report</span>
-              伺服器無回應，請聯絡客服
-            </div>
-            <div className="passwordWarning">
-              <span class="material-symbols-outlined">report</span>
-              輸入了非合法的指令
-            </div>
-            <div className="forget">忘記帳號/密碼?</div>
-          </div>
-          <div className="loader">
-            <ClipLoader color="#734338" size={15} />
-            <div className="loaderText">伺服器驗證中...</div>
-          </div>
-          <div className="check">
-            <span class="material-symbols-outlined">done</span>
-            成功！1秒後跳轉首頁
-          </div>
-          <button className="lastBtn">登入/註冊</button> */}
 
         <img className="pic" src={bgimg} alt="" />
       </div>

@@ -56,11 +56,9 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
-            <div>
-              <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
-                <span class="material-symbols-outlined">shopping_cart</span>
-              </button>
-            </div>
+            <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
+              <span class="material-symbols-outlined">shopping_cart</span>
+            </button>
           </div>
         </div>
       </div>
