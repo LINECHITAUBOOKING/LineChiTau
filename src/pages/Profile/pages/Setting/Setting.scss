@@ -1,5 +1,5 @@
 @import url(../../../../css/global-style.scss);
-.container {
+.container-setting {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -38,7 +38,7 @@
               font-size: 2px;
             }
           }
-          input {
+          .input-setting {
             
             margin-top: 5px;
             text-align: center;
@@ -86,7 +86,7 @@
               font-size: 2px;
             }
           }
-          input {
+          .input-setting {
             margin-top: 5px;
             text-align: center;
             // background-color: #f2f2f2;

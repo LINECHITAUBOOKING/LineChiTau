@@ -28,9 +28,9 @@ const ListDetail = () => {
     return <>Loading...</>;
   }
   return (
-    <div className="container">
+    <div className="container-listdetail">
       <div className="confirm-order">
-        <div className="top">
+        <div className="top-listdetail">
           <div className="text1 h1">已確認訂單</div>
           <div className="text2">
             <div className="t-1">訂單號:CFA460026</div>
@@ -50,8 +50,8 @@ const ListDetail = () => {
         </div>
       </div>
       <div className=" order-infomation">
-        <div className="title h1">訂購詳情</div>
-        <hr className="hr" />
+        <div className="title-listdetail h1">訂購詳情</div>
+        <hr className="hr-listdetail" />
         <div className="list-detail">
           <img src={listdata.data.avatar} alt="" />
           <div className="list-item">
@@ -75,7 +75,7 @@ const ListDetail = () => {
       </div>
 
       <div className="qa">
-        <div className="top h1">遇到訂單問題嗎?</div>
+        <div className="top-listdetail h1">遇到訂單問題嗎?</div>
         <hr />
         <div className="bottom">
           <button className="my-btn">線上客服</button>

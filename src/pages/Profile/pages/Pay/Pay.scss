@@ -1,6 +1,6 @@
 @import '../../../../css/global-style.scss';
 @import 'material-symbols';
-.container {
+.container-pay {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -69,7 +69,7 @@
           margin-top: 20px;
           display: flex;
           flex-direction: column;
-          input {
+          .input-pay {
             border: none;
             background-color: white;
             border-radius: 10px;
@@ -83,7 +83,7 @@
             margin-top: 20px;
             display: flex;
             flex-direction: column;
-            input {
+            .input-pay {
               border: none;
               background-color: white;
               border-radius: 10px;
@@ -102,7 +102,7 @@
             border-radius: 10px;
           }
         }
-        button {
+        .button-pay {
           width: 150px;
           margin-top: 10px;
           margin-left: 150px;

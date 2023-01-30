@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import './Demo.scss';
 import axios from 'axios';
 import { useJwtCsrfToken } from './csrf-hook/useJwtCsrfToken';
@@ -8,10 +8,11 @@ import fackbook from './image/fackbook.png';
 import google from './image/google.png';
 import line from './image/line.png';
 import twitter from './image/twitter.png';
-import { Link } from 'react-router-dom';
-import { m } from 'framer-motion';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 function Demo() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [fetchError, setFetchError] = useState('');
   const {
     csrfToken,
@@ -84,14 +85,24 @@ function Demo() {
       password: member.password,
       confirmPassword: member.confirmPassword,
     };
-    //formData.append('email', member.email);
-    //formData.append('username', member.name);
-    //formData.append('password', member.password);
-    //formData.append('confirmPassword', member.confirmPassword);
-    //formData.append('photo', member.photo);
-    let response = await axios.post('/auth/register', formData);
-    console.log(response.config.data);
+
+    try {
+      let response = await axios.post('/auth/register', formData);
+      console.log(response.status);
+      handleBack();
+      console.log(response.status);
+      console.log('成功');
+    } catch (e) {
+      alert('已經註冊過囉')
+    }
   }
+  const handleBack = useCallback(() => {
+    if (location.state && location.state.path === '/page-with-tab') {
+      navigate.goBack(); // 回上一頁
+    } else {
+      navigate('/login1'); // 跳轉到/target頁
+    }
+  }, [navigate, location.state]);
 
   return (
     <>
