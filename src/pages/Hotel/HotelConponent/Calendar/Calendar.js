@@ -8,9 +8,8 @@ const chunk = (arr, size) =>
     arr.slice(i * size, i * size + size)
   );
 
-function Calendar(props) {
-  console.log('susauuss-----', props);
-
+function Calendar({ setDateFromCalendar }) {
+  console.log('susauuss-----', setDateFromCalendar);
   const [myYear, setMyYear] = useState(2022);
   const [myMonth, setMyMonth] = useState(1);
   let newYear;
