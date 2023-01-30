@@ -1,6 +1,5 @@
 import React from 'react';
 import logo from './logo.svg';
-import cart from './cart.svg';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
 
@@ -56,9 +55,15 @@ const Navbar = () => {
             </Link>
           </div>
           <div>
-            <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
-              <span class="material-symbols-outlined">shopping_cart</span>
-            </button>
+            <div>
+              <Link className="nav-foot text-decoration-none" to={'/payment/'}>
+                <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1 px-0">
+                  <span className="material-symbols-outlined ">
+                    shopping_cart
+                  </span>
+                </button>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
