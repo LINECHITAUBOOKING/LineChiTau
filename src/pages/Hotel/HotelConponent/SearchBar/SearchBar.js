@@ -5,7 +5,6 @@ import Calendar from '../Calendar/Calendar';
 
 const SearchBar = (props) => {
   const [dateFromCalendar, setDateFromCalendar] = useState('');
-  const a = 123;
   // function update(date) {
   //   setDateFromCalendar(date);
   // }
@@ -16,7 +15,6 @@ const SearchBar = (props) => {
     children: 0, //可以不一定要有小孩
     room: 1,
   });
-
 
   const conditionsSelect = ['成人', '兒童', '客房'];
   const plusNum = (type) => {
@@ -54,9 +52,11 @@ const SearchBar = (props) => {
     <div className="container-xxl d-flex justify-content-center m-auto my-5 search-bar-conp">
       <div className="d-flex my-border-radius">
         <div>
-          <div onClick={() => {
-            setOpenCalendar(!openCalendar);
-          }}>
+          <div
+            onClick={() => {
+              setOpenCalendar(!openCalendar);
+            }}
+          >
             <div className="nav-foot-small d-flex">
               <span className="material-symbols-outlined">calendar_month</span>
               入住/退房時間

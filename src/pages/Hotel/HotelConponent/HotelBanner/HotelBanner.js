@@ -2,7 +2,7 @@ import React from 'react';
 
 import './HotelBanner.scss';
 import { useState } from 'react';
-import Calendar from '../Calendar/Calendar'
+import Calendar from '../Calendar/Calendar';
 
 const HotelBanner = () => {
   const [dateFromCalendar, setDateFromCalendar] = useState('');
@@ -69,13 +69,20 @@ const HotelBanner = () => {
                     setOpenCalendar(!openCalendar);
                   }}
                 >
-                  <span className="material-symbols-outlined">calendar_month</span>
+                  <span className="material-symbols-outlined">
+                    calendar_month
+                  </span>
                   入住/退房時間
                 </div>
                 {/* <input placeholder="請選擇日期" value={dateFromCalendar} /> */}
-                <div className="display-box nav-foot-small" onClick={() => {
-                  setOpenCalendar(!openCalendar);
-                }}>{dateFromCalendar}</div>
+                <div
+                  className="display-box nav-foot-small"
+                  onClick={() => {
+                    setOpenCalendar(!openCalendar);
+                  }}
+                >
+                  {dateFromCalendar}
+                </div>
                 <div className="listItem">
                   {openCalendar && (
                     <Calendar setDateFromCalendar={setDateFromCalendar} />
