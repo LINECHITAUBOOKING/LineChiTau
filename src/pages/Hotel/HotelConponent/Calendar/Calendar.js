@@ -9,7 +9,7 @@ const chunk = (arr, size) =>
   );
 
 function Calendar(props) {
-  console.log('susauuss-----', props);
+  // console.log('susauuss-----', props);
 
   const [myYear, setMyYear] = useState(2022);
   const [myMonth, setMyMonth] = useState(1);
@@ -172,7 +172,7 @@ function Calendar(props) {
                           numEnd = Number(
                             moment(newMyDate.endDate).format('YYYYMMDD')
                           );
-                          console.log('cccccccc', numStart, numEnd);
+                          // console.log('cccccccc', numStart, numEnd);
                           if (numStart > numEnd) {
                             // console.log('我近來囉');
                             let a = newMyDate.startDate;
@@ -184,7 +184,7 @@ function Calendar(props) {
                           newMyDate.startDate = `${nowY}/${nowM}/${item}`;
                           newMyDate.endDate = '';
                         }
-                        console.log(newMyDate);
+                        // console.log(newMyDate);
                         setMyDate(newMyDate);
                         // console.log(new Date(nowY, nowM - 1, item));
                       }}

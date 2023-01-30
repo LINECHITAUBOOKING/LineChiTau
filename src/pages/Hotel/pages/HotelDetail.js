@@ -6,12 +6,17 @@ import Transpotation from '../HotelConponent/Transpotation/Transpotation';
 import RoomService from '../HotelConponent/RoomService/RoomService';
 import RoomRule from '../HotelConponent/RoomRule/RoomRule';
 import DetailPicBox from '../HotelConponent/DetailPicBox/DetailPicBox';
+import './HotelDetail.scss'
 
 const HotelDetail = (props) => {
+  const [openPicBox, setOpenPicBox] = useState(false)
 
   return (
     <>
-      <HotelDetailPic />
+      {openPicBox && <div className='position-fixed detail-pic'>
+        <DetailPicBox setOpenPicBox={setOpenPicBox} />
+      </div>}
+      <HotelDetailPic setOpenPicBox={setOpenPicBox} />
       <HotelIntro />
       <RoomSelect />
       <Transpotation />
