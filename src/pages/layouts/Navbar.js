@@ -46,17 +46,19 @@ const Navbar = () => {
         </ul>
         <div className="d-flex">
           <div>
-            <button className="my-btn nav-foot-small mx-2">登出</button>
+            <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
+              登出
+            </Link>
           </div>
           <div>
-            <button className="my-btn nav-foot-small mx-2">註冊</button>
+            <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
+              註冊
+            </Link>
           </div>
           <div>
-            <div>
-              <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
-                <span class="material-symbols-outlined">shopping_cart</span>
-              </button>
-            </div>
+            <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
+              <span class="material-symbols-outlined">shopping_cart</span>
+            </button>
           </div>
         </div>
       </div>
