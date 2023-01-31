@@ -9,6 +9,7 @@
     "axios": "^1.2.2",
     "axios-auth-refresh": "^3.3.6",
     "bootstrap": "^5.2.3",
+    "firebase": "^9.16.0",
     "framer-motion": "^8.4.2",
     "jwt-decode": "^3.1.2",
     "material-symbols": "^0.4.2",

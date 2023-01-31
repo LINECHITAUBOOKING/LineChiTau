@@ -4,10 +4,13 @@ import Sidebar from './layouts/Sidebar';
 import './Profile.css';
 import { useContext, useState } from 'react';
 import { JwtCsrfTokenContext } from '../../utils/csrf-hook/useJwtCsrfToken';
-const Profile = () => {
-  const { jwtToken, jwtDecodedData } = useContext(JwtCsrfTokenContext);
-  console.log(jwtToken, jwtDecodedData);
+import { googleauth } from '../../config/firebase';
 
+const Profile = () => {
+  const { jwtToken, jwtDecodedData, Googleauth } =
+    useContext(JwtCsrfTokenContext);
+  console.log(jwtToken, jwtDecodedData);
+  console.log(Googleauth);
   return (
     <div className="profile screen">
       <div className="main">
