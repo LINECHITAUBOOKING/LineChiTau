@@ -23,7 +23,7 @@ import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
 
-import React, { useState, useContext } from 'react';
+// import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
@@ -32,7 +32,6 @@ import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
 function App() {
-  
   return (
     <>
       <JwtCsrfTokenProvider>

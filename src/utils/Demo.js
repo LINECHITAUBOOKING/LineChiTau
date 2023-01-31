@@ -109,10 +109,6 @@ function Demo() {
     }
   }, [navigate, location.state]);
 
-  const googlelogout = async () => {
-    googleauth.signOut();
-  };
-
   return (
     <>
       <div className="demo">
@@ -186,7 +182,6 @@ function Demo() {
           >
             register
           </button>
-          <button onClick={googlelogout}>登出</button>
         </from>
         <img className="pic" src={bgimg} alt="" />
       </div>

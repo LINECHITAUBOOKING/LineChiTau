@@ -146,6 +146,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    googleauth.signOut();
     const { data } = await axios.get(logoutUrl);
     console.log(data.message);
 
