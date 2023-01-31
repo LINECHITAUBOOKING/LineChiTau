@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './PopularSearch.scss';
 import { Link } from 'react-router-dom';
 
 const PopularSearch = () => {
+  const [popularSearch, setPopularSearch] = useState([]);
+  useEffect(() => {}, []);
   return (
     <>
       <div class="popular-search py-5 container-xxl">
