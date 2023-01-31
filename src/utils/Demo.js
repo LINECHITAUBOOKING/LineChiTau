@@ -164,7 +164,7 @@ function Demo() {
               if (member.name && member.password) {
                 login({ username: member.name, password: member.password });
               } else {
-                alert('寫完啦幹');
+                alert('請先填入資料');
               }
             }}
           >

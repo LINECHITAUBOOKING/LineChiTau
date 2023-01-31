@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from './logo.svg';
 import cart from './cart.svg';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
+import { JwtCsrfTokenContext } from '../../utils/csrf-hook/useJwtCsrfToken';
+import axios from 'axios';
 
 const Navbar = () => {
+  const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
+  init(axios);
   let toLink = '';
   const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
 
@@ -47,13 +51,23 @@ const Navbar = () => {
         <div className="d-flex">
           <div>
             <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
-              登出
+              註冊
             </Link>
           </div>
           <div>
-            <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
-              註冊
-            </Link>
+            {jwtToken ? (
+              <Link
+                className="my-btn nav-foot-small mx-2 "
+                onClick={() => logout()}
+                to={'/login'}
+              >
+                登出
+              </Link>
+            ) : (
+              <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
+                登入
+              </Link>
+            )}
           </div>
           <div>
             <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1">
