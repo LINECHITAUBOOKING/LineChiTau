@@ -30,7 +30,7 @@ const PopularCategory = (props) => {
     const { category: newCtegoryList = [], picture } = { ...newCategory };
     newCtegoryList.push(category.category[0]);
     newCtegoryList.shift();
-    console.log(newCtegoryList);
+    // console.log(newCtegoryList);
 
     // console.log(newCategory);
     setCategory(newCategory);
