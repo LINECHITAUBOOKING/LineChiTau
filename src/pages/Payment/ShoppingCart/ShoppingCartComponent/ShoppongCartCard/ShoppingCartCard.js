@@ -1,47 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../../../../../css/global-style.scss';
 import './ShoppingCartCard.scss';
 // 用url引入圖片得使用import，並在jsx裡面使用{}求值的語法
 // import logo from './dohpins_hotel.jpg';
 import ProductImg from '../../../../Hotel/img/banner.svg';
 
-export default function ShoppingCartCard() {
+export default function ShoppingCartCard(props) {
+  // console.log('propssssss', props.setAmount);
   return (
-    <div className="product-container">
-      <div className="selector">
-        <input type="checkbox" id="" name="" />
-      </div>
-      <div className="img-box">
-        <img src={ProductImg} alt="海豚圖片" className="event-image" />
-        <div className="text-box">
-          <h1 className="my-p">
-            南投｜Cona's
-            妮娜巧克力夢想城堡｜門票｜獨家贈送時尚保冷袋傳？見研化中交設大資理作中要天後便網所灘於喜戶碑考鯽茫，要都女鳳撫！霈先討，並電選？謝吏高負少處否的生要怎有儕米到議理州明所卜對錯提出勢俾逸個壞芸陋通姚發室更暖知朵所歡要寫廟
-          </h1>
-          <p className="my-p-small">
-            方案：Cona's 妮娜巧克力夢想城堡雙人門票（贈麥當勞100元優惠碼）
-          </p>
-          <p className="my-p-small">1 x 每組(2人)</p>
-        </div>
-      </div>
-      <div className="expire-date-box text-center my-p">
-        兌換期內皆適用
-        <br />
-        當地時間
-      </div>
-      <div className="buying-amount text-center">
-        <h1 className="unit my-p">每組(2人)</h1>
-        <div className="control-wrapper d-flex justify-content-between">
-          <span class="material-symbols-rounded">add_circle</span>
-          <div className="amount d-flex justify-content-center align-items-center">
-            50
+    <>
+      {props.items.map((item, index) => (
+        <div className="cart-item-card" key={index}>
+          <div className="cart-item-body d-flex row align-items-center justify-content-between mx-0 py-4">
+            <div className="justify-content-center text-center align-items-center col-1">
+              <input
+                type="checkbox"
+                id=""
+                name=""
+                className="justify-content-center text-center align-items-center "
+              />
+            </div>
+            <div className="item-box col-7">
+              <div className="img-box">
+                <img
+                  src={ProductImg}
+                  alt="海豚圖片"
+                  className="object-cover my-border-radius"
+                />
+              </div>
+              <div className="text-box  mx-2">
+                <h1 className="nav-foot text-truncate ">{item.itemName}</h1>
+                <p className="my-p">方案：{item.itemChosen}</p>
+              </div>
+            </div>
+            <div className="expire-date-box text-center my-p col-2">
+              兌換期內皆適用
+              <br />
+              當地時間
+            </div>
+            <div className="buying-amount text-center col-2">
+              <h1 className="unit my-p">成人</h1>
+              <div className="control-wrapper d-flex justify-content-between align-items-center">
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.setAmount(item.amount + 1);
+                  }}
+                >
+                  add_circle
+                </span>
+                <div className=" cart-amount d-flex justify-content-center align-items-center">
+                  {item.amount}
+                </div>
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.setAmount(item.amount - 1);
+                  }}
+                >
+                  do_not_disturb_on
+                </span>
+              </div>
+            </div>
           </div>
-          <span class="material-symbols-rounded">do_not_disturb_on</span>
+          <div className="cart-item-bottom d-flex align-items-center justify-content-between px-3 py-3">
+            <div className="cart-contrll-group d-flex justify-content-around row">
+              <div className="edit my-heading col-6">編輯</div>
+              <div className="delete my-heading col-6">刪除</div>
+            </div>
+            <div className="price my-heading">
+              NT$ {item.price * item.amount}
+            </div>
+          </div>
         </div>
-      </div>
-      <div className="edit my-heading">編輯</div>
-      <div className="delete my-heading">刪除</div>
-      <div className="price my-heading">NT$5000</div>
-    </div>
+      ))}
+    </>
   );
 }
