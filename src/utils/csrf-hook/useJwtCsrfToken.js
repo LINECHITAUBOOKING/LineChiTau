@@ -2,7 +2,9 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-
+import { googleauth, provide } from '../../config/firebase';
+import { signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import {
   jwtTokenUrl,
   csrfTokenUrl,
@@ -11,6 +13,7 @@ import {
   logoutUrl,
   checkLoginUrl,
 } from './server-config';
+import { async } from '@firebase/util';
 
 export const JwtCsrfTokenContext = createContext();
 
@@ -27,6 +30,9 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   const [jwtToken, setJwtToken] = useState('');
   const [jwtDecodedData, setJwtDecodeData] = useState(initialUser);
   const [auth, setAuth] = useState(false);
+  const [Googleauth, setGoogleauth] = useState(false);
+
+  const navigate = useNavigate();
 
   const refreshAuthLogic = (failedRequest) =>
     axios
@@ -103,6 +109,13 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     }
   };
 
+  const googlelogin = async () => {
+    let result = await signInWithPopup(googleauth, provide);
+    console.log(result);
+    navigate('/profile');
+    setGoogleauth(true);
+  };
+
   const register = async ({ email, username, password, confirmPassword }) => {
     try {
       const { data } = await axios.post(registerUrl, {
@@ -121,6 +134,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.error(e);
     }
   };
+
   const checkLogin = async () => {
     try {
       const { data } = await axios.get(checkLoginUrl);
@@ -168,6 +182,8 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         getNewAccessToken,
         init,
         auth,
+        googlelogin,
+        Googleauth,
       }}
     >
       {children}
