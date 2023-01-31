@@ -22,13 +22,17 @@ import Pay from './pages/Profile/pages/Pay/Pay';
 import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
+
+import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
+import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
 function App() {
+  
   return (
     <>
       <JwtCsrfTokenProvider>
@@ -45,6 +49,7 @@ function App() {
             <Route path="profile" element={<Profile />}>
               <Route index element={<List />} />
               <Route path="list" element={<List />} />
+              <Route path="alllist" element={<Alllist />} />
               <Route path="listdetail/:id" element={<ListDetail />} />
               <Route path="coupon" element={<Coupon />} />
               <Route path="mylove" element={<Mylove />} />

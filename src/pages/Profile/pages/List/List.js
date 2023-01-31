@@ -12,56 +12,23 @@ const List = () => {
   return (
     <div className="container-list">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
-        訂購清單
+        最新清單
       </h1>
       <div className="buylist">
         <div className="buylist-items">
-          {/* <div className="overlap-group-1">
-            <img className="rectangle-1911" src={pic1} alt="Rectangle 1911" />
-            <div className="text">
-              <div className="notosans-normal-old-copper-20px">
-                宜蘭龜山島賞鯨體驗
-              </div>
-              <div className="notosans-normal-sepia-16px">2022-12-31 15:00</div>
-              <div className="notosans-normal-sepia-16px">
-                實付金額：NT$ 7200
-              </div>
-            </div>
-
-            <div className="button">
-              <Link to="/profile/listdetail">
-                <button className=" button-1 notosans-normal-old-copper-16px">
-                  查看憑證
-                </button>
-              </Link>
-              <button className="button-1 notosans-normal-old-copper-16px">
-                撰寫評價
-              </button>
-            </div>
-          </div>
-          <div className="overlap-group-1">
-            <img className="rectangle-1911" src={pic1} alt="Rectangle 1911" />
-            <div className="text">
-              <div className="notosans-normal-old-copper-20px">
-                宜蘭龜山島賞鯨體驗
-              </div>
-              <div className="notosans-normal-sepia-16px">2022-12-31 15:00</div>
-              <div className="notosans-normal-sepia-16px">
-                實付金額：NT$ 7200
-              </div>
-            </div>
-            <div className="button">
-              <div className="button-1">
-                <div className="notosans-normal-old-copper-16px">查看憑證</div>
-              </div>
-              <div className="button-1">
-                <div className="notosans-normal-old-copper-16px">撰寫評價</div>
-              </div>
-            </div>
-          </div> */}
           <TList />
         </div>
       </div>
+      <Link
+        color="black"
+        to="/profile/alllist"
+        className="my-btn seeall"
+        onClick={() => {
+          console.log('click');
+        }}
+      >
+        查看全部
+      </Link>
 
       <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         推薦商品

@@ -9,6 +9,9 @@ import google from './image/google.png';
 import line from './image/line.png';
 import twitter from './image/twitter.png';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { googleauth, provide } from '../config/firebase';
+import { signInWithPopup } from 'firebase/auth';
+import { FirebaseError } from 'firebase/app';
 
 function Demo() {
   const navigate = useNavigate();
@@ -24,8 +27,10 @@ function Demo() {
     logout,
     getNewAccessToken,
     auth,
+    googlelogin,
+    Googleauth,
   } = useJwtCsrfToken();
-
+  console.log(Googleauth);
   // const { spinner, setLoading } = useSpinner(1300);
 
   init(axios);
@@ -93,7 +98,7 @@ function Demo() {
       console.log(response.status);
       console.log('成功');
     } catch (e) {
-      alert('已經註冊過囉')
+      alert('已經註冊過囉');
     }
   }
   const handleBack = useCallback(() => {
@@ -103,6 +108,10 @@ function Demo() {
       navigate('/login1'); // 跳轉到/target頁
     }
   }, [navigate, location.state]);
+
+  const googlelogout = async () => {
+    googleauth.signOut();
+  };
 
   return (
     <>
@@ -114,7 +123,7 @@ function Demo() {
             <img className="pic" src={line} alt="" />
             <img className="pic" src={twitter} alt="" />
             <img className="pic" src={fackbook} alt="" />
-            <img className="pic" src={google} alt="" />
+            <button className="google" onClick={() => googlelogin()}></button>
           </div>
           <div className="email">
             電子信箱
@@ -160,9 +169,13 @@ function Demo() {
             註冊
           </button>
           <button
-            onClick={() =>
-              login({ username: member.name, password: member.password })
-            }
+            onClick={() => {
+              if (member.name && member.password) {
+                login({ username: member.name, password: member.password });
+              } else {
+                alert('請先填入資料');
+              }
+            }}
           >
             login
           </button>
@@ -173,40 +186,10 @@ function Demo() {
           >
             register
           </button>
+          <button onClick={googlelogout}>登出</button>
         </from>
-
         <img className="pic" src={bgimg} alt="" />
       </div>
-
-      {/* <section style={{ marginBottom: '10px' }}>
-        <button
-          onClick={() => {
-            logout();
-          }}
-        >
-          Logout
-        </button>
-        {console.log(auth)}
-      </section>
-      <section style={{ marginBottom: '10px' }}>
-        <button onClick={() => login({ username: 'eddy', password: '33333' })}>
-          login
-        </button>
-        <button
-          onClick={() => register({ username: 'Jerry', password: '33333' })}
-        >
-          register
-        </button>
-        {console.log(auth)}
-      </section>
-      <section style={{ marginBottom: '10px' }}>
-        <h2>Debug</h2>
-        <p>CSRF Token: {csrfToken}</p>
-        <p style={{ wordWrap: 'break-word', width: '500px' }}>
-          Access Token: {jwtToken}
-        </p>
-        <p>Token Decoded Data: {Object.entries(jwtDecodedData).join(' ')}</p>
-      </section> */}
     </>
   );
 }
