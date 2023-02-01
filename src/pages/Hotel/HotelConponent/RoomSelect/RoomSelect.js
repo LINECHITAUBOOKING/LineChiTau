@@ -8,12 +8,6 @@ const RoomSelect = (props) => {
   const [isOpenService, setIsOpenService] = useState(false);
   // console.log('roomDetail', roomDetail);
 
-  const filterRoomService = function (obj) {
-    Object.keys(obj).filter((key, i) => {
-      return obj[key] === 1;
-    });
-  };
-
   const roomDetailArrange = roomDetail.map((v, i) => {
     return {
       room_name: v.room_name,
@@ -52,7 +46,7 @@ const RoomSelect = (props) => {
 
   return (
     <>
-      <div className="container-xxl room-select-box">
+      <div className="container-xxl room-select-box" id="room">
         <h3 className="h3">選擇房型</h3>
         <SearchBar />
         <div>
@@ -60,12 +54,12 @@ const RoomSelect = (props) => {
             {roomDetailArrangeChunk.map((firstChunk, firstChunk_i) => {
               return (
                 <ul
-                  className="list-unstyled d-flex justify-content-around mb-5"
+                  className="list-unstyled d-flex justify-content-start mb-5"
                   key={firstChunk_i}
                 >
                   {firstChunk.map((room, room_i) => {
                     return (
-                      <li className="room-type-card" key={room_i}>
+                      <li className="room-type-card mx-5" key={room_i}>
                         <div className="room-pic-box">
                           <img src={pic3} className="room-pic" alt="room-pic" />
                         </div>

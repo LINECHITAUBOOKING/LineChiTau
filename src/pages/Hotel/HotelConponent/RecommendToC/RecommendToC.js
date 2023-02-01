@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RecommendToC.scss';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 export const RecommendToC = () => {
@@ -9,42 +10,41 @@ export const RecommendToC = () => {
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
   const [viewMoreCount, setViewMoreCount] = useState(0);
-  const getHotelList = async function () {
-    const response = await axios.get(
-      'https://my-json-server.typicode.com/TANGEJ0411/fakeDB/main/db.json/hotelaccount'
-    );
-    // console.log(response.data);
-    setHotelList(response.data);
-  };
   const getListFilter = function () {
+    const chunk = 4;
     const newListFilter = [];
-    for (let i = 0; i <= Math.ceil(hotelList.length / 4) - 1; i++) {
-      let filterItem = [];
-      for (let j = 0; j <= 4 * i + 3; j++) {
-        if (j > 4 * (i - 1) + 3) {
-          filterItem.push(hotelList[j]);
-        }
-      }
-      newListFilter.push(filterItem);
+    for (let i = 0; i < hotelList.length; i += chunk) {
+      newListFilter.push(hotelList.slice(i, i + chunk));
     }
     // console.log('newListFilter', newListFilter);
     setListFilter(newListFilter);
   };
   const getDisplayList = function () {
     const newDisplayList = [];
-    for (let i = 0; i <= viewMoreCount; i++) {
+    for (let i = 0; i < viewMoreCount; i++) {
       newDisplayList.push(listFilter[i]);
     }
     // console.log('newDisplayList', newDisplayList);
     setDisplayList(newDisplayList);
   };
   useEffect(() => {
+    async function getHotelList() {
+      let response = await axios.get(
+        'http://localhost:3001/api/hotel/recommandToC'
+      );
+      setHotelList(response.data);
+    }
     getHotelList();
   }, []);
+
   useEffect(() => {
     getListFilter();
     getDisplayList();
   }, [hotelList]);
+
+  useEffect(() => {
+    if (listFilter.length > 0) setViewMoreCount(1);
+  }, [listFilter]);
 
   useEffect(() => {
     getDisplayList();
@@ -86,7 +86,10 @@ export const RecommendToC = () => {
                               <div class="material-symbols-outlined my-p">
                                 paid
                               </div>
-                              <p className="my-p">1000 / 晚</p>
+                              <p className="my-p">
+                                {v2.lowest_price}
+                                <span className="my-p-small"> 起 </span> / 晚
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -95,7 +98,12 @@ export const RecommendToC = () => {
                         role="button"
                         className="card-hover my-p d-flex justify-content-center m-auto pt-2"
                       >
-                        <p>訂房去</p>
+                        <Link
+                          to={`/HotelDetail/${v2.company_name}`}
+                          className="link"
+                        >
+                          <p>訂房去</p>
+                        </Link>
                         <div class="material-symbols-outlined">
                           arrow_forward
                         </div>

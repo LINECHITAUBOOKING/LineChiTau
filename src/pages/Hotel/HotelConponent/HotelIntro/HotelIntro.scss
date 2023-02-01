@@ -9,7 +9,12 @@
     font-size: 20px;
     width: 100%;
   }
-
+  a {
+    color: $secondary;
+  }
+  a:hover li {
+    background: $main;
+  }
   .fixed {
     position: fixed;
     top: 0;

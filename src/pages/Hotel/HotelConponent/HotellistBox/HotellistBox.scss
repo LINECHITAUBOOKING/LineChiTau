@@ -5,9 +5,14 @@
 
   .products-card-pic {
     width: 300px;
-    height: 200px;
+    height: 207px;
   }
-
+  .text-hide {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+  }
   li {
     .search-tag {
       border: 1px solid $textColor;
@@ -43,6 +48,11 @@
       font-size: 40px;
       color: $textColor;
     }
+  }
+  .ej-fill-icon {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    font-size: 24px;
+    color: $textColor;
   }
   .booking-btn {
     background: $main;

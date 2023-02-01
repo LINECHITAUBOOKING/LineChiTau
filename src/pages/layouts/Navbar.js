@@ -48,24 +48,28 @@ const Navbar = () => {
           })}
         </ul>
         <div className="d-flex">
-          <div>
+          <div className="nav-button">
             <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
               註冊
             </Link>
           </div>
           <div>
             {jwtToken ? (
-              <Link
-                className="my-btn nav-foot-small mx-2 "
-                onClick={() => logout()}
-                to={'/login'}
-              >
-                登出
-              </Link>
+              <p className="nav-button">
+                <Link
+                  className="my-btn nav-foot-small mx-2 "
+                  onClick={() => logout()}
+                  to={'/login'}
+                >
+                  登出
+                </Link>
+              </p>
             ) : (
-              <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
-                登入
-              </Link>
+              <p className="nav-button">
+                <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
+                  登入
+                </Link>
+              </p>
             )}
           </div>
           <div>
