@@ -2,7 +2,9 @@ import { useState, useEffect, useContext, createContext } from 'react';
 import axios from 'axios';
 import jwt from 'jwt-decode';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
-
+import { googleauth, provide } from '../../config/firebase';
+import { signInWithPopup } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 import {
   jwtTokenUrl,
   csrfTokenUrl,
@@ -11,6 +13,7 @@ import {
   logoutUrl,
   checkLoginUrl,
 } from './server-config';
+import { async } from '@firebase/util';
 
 export const JwtCsrfTokenContext = createContext();
 
@@ -27,6 +30,9 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   const [jwtToken, setJwtToken] = useState('');
   const [jwtDecodedData, setJwtDecodeData] = useState(initialUser);
   const [auth, setAuth] = useState(false);
+  const [Googleauth, setGoogleauth] = useState(false);
+
+  const navigate = useNavigate();
 
   const refreshAuthLogic = (failedRequest) =>
     axios
@@ -92,10 +98,22 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       setJwtToken(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
     } catch (e) {
-      console.error(e);
-      console.log(e);
-      alert('尚未註冊');
+      // console.error(e);
+      console.log(e.response.status);
+      if (e.response.status === 401) {
+        alert('尚未註冊');
+      }
+      if (e.response.status === 403) {
+        alert('密碼錯誤');
+      }
     }
+  };
+
+  const googlelogin = async () => {
+    let result = await signInWithPopup(googleauth, provide);
+    console.log(result);
+    navigate('/profile');
+    setGoogleauth(true);
   };
 
   const register = async ({ email, username, password, confirmPassword }) => {
@@ -116,6 +134,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.error(e);
     }
   };
+
   const checkLogin = async () => {
     try {
       const { data } = await axios.get(checkLoginUrl);
@@ -127,6 +146,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   };
 
   const logout = async () => {
+    googleauth.signOut();
     const { data } = await axios.get(logoutUrl);
     console.log(data.message);
 
@@ -163,6 +183,8 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         getNewAccessToken,
         init,
         auth,
+        googlelogin,
+        Googleauth,
       }}
     >
       {children}
