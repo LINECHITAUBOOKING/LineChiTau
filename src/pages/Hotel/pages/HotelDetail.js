@@ -14,20 +14,20 @@ const HotelDetail = (props) => {
   const [openPicBox, setOpenPicBox] = useState(false);
   const [error, setError] = useState(null);
   const { companyName } = useParams();
-  console.log(companyName);
+  // console.log(companyName);
 
   // 為了處理網址
   let navigate = useNavigate();
 
   const [hotelDetail, setHotelDetail] = useState({});
-  const [roomDetail, setRoomDetail] = useState({});
+  const [roomDetail, setRoomDetail] = useState([]);
 
   useEffect(() => {
     async function getHotelDetail() {
       let response = await axios.get(
         `http://localhost:3001/api/hotelDetail/${companyName}`
       );
-      console.log(response.data[0]);
+      // console.log(response.data[0]);
       setHotelDetail(response.data[0]);
     }
     async function getRoomDetail() {
