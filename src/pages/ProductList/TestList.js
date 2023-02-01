@@ -1,11 +1,25 @@
 import './TestList.scss';
-import PopupSort from '../ProductList/PopupSort/PopupSort';
-import NormalSort from '../ProductList/NormalSort/NormalSort';
-import ProductsCard from '../ProductList/ProductsCard/ProductsCard';
+import axios from 'axios';
+import PopupSort from './ListComponent/PopupSort/PopupSort';
+import NormalSort from './ListComponent/NormalSort/NormalSort';
+import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
+import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
-import Pagination from './Pagination/Pagination';
 
 const TestList = () => {
+  getData();
+
+  async function getData() {
+    try {
+      const fakeData = await axios.get(
+        'https://jsonplaceholder.typicode.com/albums/1'
+      );
+      console.log(fakeData.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   return (
     <>
       <div className="page-wrapper container-xl">
