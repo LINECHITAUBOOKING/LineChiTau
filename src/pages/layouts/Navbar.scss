@@ -1,29 +1,31 @@
-@import url(../../css/global-style.scss);
-@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import '../../css/global-style.scss';
+// @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import 'material-symbols';
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
-  font-size: 28px;
+.fill-background {
+  background-color: $secondary;
 }
 
 .container-fluid {
-  background-color: #fcfaf2;
   padding: 0;
-}
 
-.navbar {
-  max-width: 1440px;
+  .navbar {
+    max-width: 1440px;
+    background-color: $secondary;
+    .logo-box {
+      padding-top: 13px;
 
-  .logo-box {
-    padding-top: 13px;
-
-    .logo {
-      height: 80px;
+      .logo {
+        height: 80px;
+      }
     }
-  }
-
-  .cart {
-    width: 63px;
-    height: 47px;
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 1, 'wght' 700, 'GRAD' 0, 'opsz' 48;
+      font-size: 28px;
+    }
+    .cart {
+      width: 63px;
+      height: 47px;
+    }
   }
 }

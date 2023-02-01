@@ -1,6 +1,7 @@
 // 預設變數覆蓋需要在導入Bootstrap之前
 
 /* 顏色 */
+
 $main: #ffb905;
 $secondary: #fcfaf2;
 $textColor: #734338;
@@ -21,16 +22,20 @@ $p-small: 12px;
 // 導入Bootstrap
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300;400;500;700;900&display=swap');
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+@import 'material-symbols';
 
 // 其它要導入覆蓋掉原本的預設bootstrap樣式要放在這下面
 // https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/
 
 body {
   font-family: 'Noto Sans TC', sans-serif;
+  color: $textColor;
 }
+
 a {
   text-decoration: none;
 }
+
 /* 字型、字體大小 */
 .my-banner {
   font-size: $fs-1;
@@ -95,7 +100,7 @@ a {
 }
 
 .products-card {
-  width: 900px;
+  max-width: 900px;
   height: 250px;
   border: 1px solid $textColor;
   padding: 20px;
@@ -122,8 +127,8 @@ a {
 
 /* 商品頁專用 */
 .title-underline {
-  box-shadow: inset 0px -13px 0px $main;
   padding: 0px;
+  background: linear-gradient(to bottom, transparent 75%, $main 75%);
 }
 
 .bg-color {
