@@ -117,7 +117,7 @@ function Login() {
     <>
       <div className="demo">
         <from className="login">
-          <div className="firstBtn">註冊</div>
+          <div className="firstBtn">登入</div>
           使用第三方帳戶登入/創立帳戶
           <div className="icon">
             <img className="pic" src={line} alt="" />
@@ -135,13 +135,13 @@ function Login() {
               onChange={handleChange}
             />
           </div> */}
-          <div className="name">
-            姓名
+          <div className="login-name">
+            信箱
             <input
               type="text"
-              placeholder="請輸入姓名"
-              id="name"
-              name="name"
+              placeholder="請輸入信箱"
+              id="email"
+              name="email"
               onChange={handleChange}
             />
           </div>
@@ -172,8 +172,8 @@ function Login() {
             <button
               className="lastBtn"
               onClick={() => {
-                if (member.name && member.password) {
-                  login({ username: member.name, password: member.password });
+                if (member.email && member.password) {
+                  login({ email: member.email, password: member.password });
                 } else {
                   alert('請先填入資料');
                 }

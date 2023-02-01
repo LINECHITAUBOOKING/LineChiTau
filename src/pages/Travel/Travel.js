@@ -3,7 +3,7 @@ import Navbar from '../layouts/Navbar';
 const Travel = () => {
   return (
     <>
-      <Navbar />
+      
     </>
   );
 };

@@ -6,14 +6,22 @@ import { useQuery } from 'react-query';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 import TListLayout from './Spinner/TListLayout';
 const TList = ({ value }) => {
-  const { jwtToken } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
-
+  const name = 'jerry';
   const getUser = async ({ queryKey }) => {
-    const response = await fetch('https://reqres.in/api/users?page=2');
+    // const response = await fetch(
+    //   `https://reqres.in/api/users?page=${userF.name}`
+    // );
+    const response = await fetch(
+      `http://localhost:3001/api/userlist/list/${userF.email}`
+    );
     // const response = await fetch('./users.json');
+    console.log('收到', response);
     const list = await response.json();
+    console.log(list);
     setItems(list.data);
     return list;
   };
@@ -40,7 +48,7 @@ const TList = ({ value }) => {
       setbuttonStatus(true);
     }
   };
-  console.log(items);
+  console.log('list', list);
   // console.log(items);
   if (isLoading) {
     return (
@@ -72,7 +80,7 @@ const TList = ({ value }) => {
   return (
     <>
       {/* <Reorder.Group value={value} dragListener={false} dragControls={controls}> */}
-      {items.map((item, index) => {
+      {list.map((item, index) => {
         if (index + listIndex >= 3) {
           return;
         }
@@ -85,9 +93,11 @@ const TList = ({ value }) => {
             />
             <div className="text">
               <div className="notosans-normal-old-copper-20px">{item.id}</div>
-              <div className="notosans-normal-sepia-16px">2022-12-31 15:00</div>
               <div className="notosans-normal-sepia-16px">
-                實付金額：NT$ 7200
+                {item.order_date}
+              </div>
+              <div className="notosans-normal-sepia-16px">
+                實付金額：NT$ {item.total_price}
               </div>
             </div>
 

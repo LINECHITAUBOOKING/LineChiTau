@@ -12,13 +12,14 @@ import NewsTicker, {
 import './Coupon.scss';
 const Coupon = () => {
   return (
-    <div className="container">
+    <div className="container-coupon">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
         優惠券
       </h1>
       <div className="coupon">
         <div className="coupon-list">
           <NewsTicker
+            className="coupon-li"
             rowHeight={204}
             maxRows={3}
             speed={600}
@@ -27,7 +28,6 @@ const Coupon = () => {
             autoStart={true}
             pauseOnHover={false}
             id="myId"
-            className="myClassName1 myClassName2"
             style={{ marginTop: 34 }}
           >
             <div className="coupon-item">

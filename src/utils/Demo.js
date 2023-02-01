@@ -109,10 +109,6 @@ function Demo() {
     }
   }, [navigate, location.state]);
 
-  const googlelogout = async () => {
-    googleauth.signOut();
-  };
-
   return (
     <>
       <div className="demo">
@@ -168,25 +164,6 @@ function Demo() {
           <button className="lastBtn" onClick={handleSubmit}>
             註冊
           </button>
-          <button
-            onClick={() => {
-              if (member.name && member.password) {
-                login({ username: member.name, password: member.password });
-              } else {
-                alert('請先填入資料');
-              }
-            }}
-          >
-            login
-          </button>
-          <button
-            onClick={() =>
-              register({ username: member.name, password: member.password })
-            }
-          >
-            register
-          </button>
-          <button onClick={() => googlelogout()}>登出</button>
         </from>
         <img className="pic" src={bgimg} alt="" />
       </div>

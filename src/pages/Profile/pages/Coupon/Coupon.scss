@@ -5,11 +5,8 @@
   flex-direction: column;
   justify-content: center;
 }
-li{
-  list-style: none;
-  margin: 5px 0;
-}
-.container {
+
+.container-coupon {
   align-items: flex-start;
   display: flex;
   flex-direction: column;
@@ -29,6 +26,10 @@ li{
     gap: 10px;
     flex-direction: column;
     margin: auto;
+    li {
+      list-style: none;
+      margin: 5px 0;
+    }
     .coupon-item {
       background-color: var(--white);
       border: 1px solid;

@@ -45,6 +45,7 @@ const Alllist = ({ value }) => {
   const itemsArray = Object.values(items);
   console.log(itemsArray);
   const currentPosts = itemsArray.slice(firstPostIndex, lastPostIndex);
+  console.log(currentPage);
   if (isLoading) {
     return (
       <>
@@ -125,6 +126,7 @@ const Alllist = ({ value }) => {
           totalPosts={items.length}
           postsPerPage={postsPerPage}
           setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
         />
       </div>
     </>
