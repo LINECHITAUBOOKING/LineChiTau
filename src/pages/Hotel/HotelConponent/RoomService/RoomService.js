@@ -6,7 +6,7 @@ const RoomService = () => {
   return (
     <>
       <div className="container-xxl hotel-room-service p-3 mt-5">
-        <h3 className="h3">地點和交通</h3>
+        <h3 className="h3">設施服務</h3>
         <div className="row">
           <div className="col-6 row">
             <ul className="list-unstyled room-service-box col-6 mt-3">

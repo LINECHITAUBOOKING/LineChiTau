@@ -8,7 +8,7 @@ export const RecommendToC = () => {
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
-  const [viewMoreCount, setViewMoreCount] = useState(1);
+  const [viewMoreCount, setViewMoreCount] = useState(0);
   const getHotelList = async function () {
     const response = await axios.get(
       'https://my-json-server.typicode.com/TANGEJ0411/fakeDB/main/db.json/hotelaccount'
@@ -27,7 +27,7 @@ export const RecommendToC = () => {
       }
       newListFilter.push(filterItem);
     }
-    console.log('newListFilter', newListFilter);
+    // console.log('newListFilter', newListFilter);
     setListFilter(newListFilter);
   };
   const getDisplayList = function () {
@@ -35,7 +35,7 @@ export const RecommendToC = () => {
     for (let i = 0; i <= viewMoreCount; i++) {
       newDisplayList.push(listFilter[i]);
     }
-    console.log('newDisplayList', newDisplayList);
+    // console.log('newDisplayList', newDisplayList);
     setDisplayList(newDisplayList);
   };
   useEffect(() => {

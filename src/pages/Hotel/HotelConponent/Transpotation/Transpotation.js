@@ -5,8 +5,8 @@ import './Transpotation.scss';
 const Transpotation = () => {
   return (
     <>
-      <div className="container-xxl transpotation p-3 mt-5">
-        <h3 className="h3">設施服務</h3>
+      <div className="container-xxl transpotation p-3 mx-auto mt-5">
+        <h3 className="h3">地點和交通</h3>
         <div className="row">
           <div className="col-6 row">
             <ul className="list-unstyled spot-box mt-3 col-6">

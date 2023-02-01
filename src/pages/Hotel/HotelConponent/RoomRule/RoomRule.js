@@ -5,7 +5,7 @@ import './RoomRule.scss';
 const RoomRule = () => {
   return (
     <>
-      <div className="container-xxl hotel-room-service p-3 my-5">
+      <div className="container-xxl hotel-room-rule p-3 my-5">
         <h3 className="h3">訂房規則</h3>
         <div className="row">
           <div className="col-6 row">
