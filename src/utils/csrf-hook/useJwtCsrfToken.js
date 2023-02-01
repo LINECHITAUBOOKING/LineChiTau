@@ -12,6 +12,7 @@ import {
   registerUrl,
   logoutUrl,
   checkLoginUrl,
+  googleUrl,
 } from './server-config';
 import { async } from '@firebase/util';
 
@@ -97,6 +98,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
 
       setJwtToken(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
+      navigate('/profile');
     } catch (e) {
       // console.error(e);
       console.log(e.response.status);
@@ -110,10 +112,23 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   };
 
   const googlelogin = async () => {
-    let result = await signInWithPopup(googleauth, provide);
-    console.log(result);
-    navigate('/profile');
-    setGoogleauth(true);
+    try {
+      let result = await signInWithPopup(googleauth, provide);
+      console.log(result);
+
+      axios
+        .post(googleUrl, result)
+        .then((response) => {
+          console.log(response);
+          navigate('/profile');
+          setGoogleauth(true);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.log('error');
+    }
   };
 
   const register = async ({ email, username, password, confirmPassword }) => {

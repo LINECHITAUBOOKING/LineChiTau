@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import './Demo.scss';
+import './Login.scss';
 import axios from 'axios';
 import { useJwtCsrfToken } from './csrf-hook/useJwtCsrfToken';
 import { ClipLoader } from 'react-spinners';
@@ -13,7 +13,7 @@ import { googleauth, provide } from '../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 
-function Demo() {
+function Login() {
   const navigate = useNavigate();
   const location = useLocation();
   const [fetchError, setFetchError] = useState('');
@@ -125,7 +125,7 @@ function Demo() {
             <img className="pic" src={fackbook} alt="" />
             <button className="google" onClick={() => googlelogin()}></button>
           </div>
-          <div className="email">
+          {/* <div className="email">
             電子信箱
             <input
               type="text"
@@ -134,7 +134,7 @@ function Demo() {
               name="email"
               onChange={handleChange}
             />
-          </div>
+          </div> */}
           <div className="name">
             姓名
             <input
@@ -155,7 +155,7 @@ function Demo() {
               onChange={handleChange}
             />
           </div>
-          <div className="confirmPassword">
+          {/* <div className="confirmPassword">
             再輸入一次密碼
             <input
               type="password"
@@ -164,29 +164,32 @@ function Demo() {
               name="confirmPassword"
               onChange={handleChange}
             />
+          </div> */}
+          <div className="btn-login">
+            <button className="lastBtn" onClick={handleSubmit}>
+              註冊
+            </button>
+            <button
+              className="lastBtn"
+              onClick={() => {
+                if (member.name && member.password) {
+                  login({ username: member.name, password: member.password });
+                } else {
+                  alert('請先填入資料');
+                }
+              }}
+            >
+              login
+            </button>
           </div>
-          <button className="lastBtn" onClick={handleSubmit}>
-            註冊
-          </button>
-          <button
-            onClick={() => {
-              if (member.name && member.password) {
-                login({ username: member.name, password: member.password });
-              } else {
-                alert('請先填入資料');
-              }
-            }}
-          >
-            login
-          </button>
-          <button
+          {/*  <button
             onClick={() =>
               register({ username: member.name, password: member.password })
             }
           >
             register
           </button>
-          <button onClick={() => googlelogout()}>登出</button>
+          <button onClick={() => googlelogout()}>登出</button> */}
         </from>
         <img className="pic" src={bgimg} alt="" />
       </div>
@@ -194,4 +197,4 @@ function Demo() {
   );
 }
 
-export default Demo;
+export default Login;

@@ -64,7 +64,7 @@ const Navbar = () => {
                 登出
               </Link>
             ) : (
-              <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
+              <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
                 登入
               </Link>
             )}

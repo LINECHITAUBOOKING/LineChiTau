@@ -20,9 +20,9 @@ import Demo from './utils/Demo';
 import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 import Alllist from './pages/Profile/pages/List/Alllist';
+import Login from './utils/Login';
 
 function App() {
-  
   return (
     <>
       <JwtCsrfTokenProvider>
@@ -30,20 +30,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Hotel />} />
           <Route path="login" element={<Demo />} />
-          {/* {auth ? (
-            <Route path="profile" element={<Profile />}>
-              <Route index element={<List />} />
-              <Route path="list" element={<List />} />
-              <Route path="listdetail/:id" element={<ListDetail />} />
-              <Route path="coupon" element={<Coupon />} />
-              <Route path="mylove" element={<Mylove />} />
-              <Route path="message" element={<Message />} />
-              <Route path="pay" element={<Pay />} />
-              <Route path="setting" element={<Setting />} />
-            </Route>
-          ) : (
-            <Route path="/" element={<Hotel />} />
-          )} */}
+          <Route path="login1" element={<Login />} />
+
           <Route path="profile" element={<Profile />}>
             <Route index element={<List />} />
             <Route path="list" element={<List />} />
