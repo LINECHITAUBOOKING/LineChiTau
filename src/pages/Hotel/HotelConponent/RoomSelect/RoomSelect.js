@@ -9,13 +9,16 @@ const RoomSelect = (props) => {
   // console.log('roomDetail', roomDetail);
 
   const roomDetailArrange = roomDetail.map((v, i) => {
+    // console.log('pic', v.picture);
+    const picArray = v.picture.split(',');
+    // console.log('picArray', picArray);
     return {
       room_name: v.room_name,
       room_type: v.room_type.toString(),
       price: v.price,
       amount: v.amount.toString(),
       description: v.description,
-      picture: v.picture,
+      picture: picArray,
       room: v.room,
       寵物友善房: v.pet,
       液晶電視: v.tv,
@@ -60,8 +63,17 @@ const RoomSelect = (props) => {
                   {firstChunk.map((room, room_i) => {
                     return (
                       <li className="room-type-card mx-5" key={room_i}>
-                        <div className="room-pic-box">
-                          <img src={pic3} className="room-pic" alt="room-pic" />
+                        <div className="room-pic-box d-flex">
+                          {room.picture.map((pic, pic_i) => {
+                            return (
+                              <img
+                                src={`/images/${pic}`}
+                                className="room-pic"
+                                alt="room-pic"
+                                key={pic_i}
+                              />
+                            );
+                          })}
                         </div>
                         <div className="px-3 pt-3 mb-1">
                           <h5 className="my-heading">{room.room_name}</h5>

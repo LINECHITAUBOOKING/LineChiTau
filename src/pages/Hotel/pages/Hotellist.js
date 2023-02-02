@@ -15,7 +15,7 @@ const Hotellist = (props) => {
       let response = await axios.get(
         `http://localhost:3001/api/hotelList/${region}`
       );
-      console.log(response.data);
+      // console.log(response.data);
       setHotelList(response.data);
     }
 
@@ -54,6 +54,7 @@ const Hotellist = (props) => {
       return v.value !== 0;
     });
     room.service = hotelServiceListFilter;
+    room.translate = 0;
     return room;
   });
 

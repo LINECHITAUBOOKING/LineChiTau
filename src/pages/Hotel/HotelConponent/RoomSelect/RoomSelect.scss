@@ -4,16 +4,17 @@
   width: 1280px;
   .room-type-card {
     border: 1px solid $textColor;
-    max-width: 350px;
+    max-width: 340px;
     max-height: 770px;
 
     .room-pic-box {
-      width: 348px;
-      height: 200px;
+      overflow: hidden;
+      width: 320px;
+      // height: 200px;
 
       .room-pic {
-        width: 348px;
-        height: 200px;
+        width: 320px;
+        // height: 200px;
       }
     }
 

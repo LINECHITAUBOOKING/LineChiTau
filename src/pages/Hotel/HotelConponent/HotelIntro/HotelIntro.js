@@ -3,6 +3,7 @@ import './HotelIntro.scss';
 
 const HotelIntro = (props) => {
   const { hotelDetail } = props;
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isFixed, setisFixed] = useState(false);
   let stars = [];

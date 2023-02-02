@@ -45,7 +45,10 @@ const HotelDetail = (props) => {
     <>
       {openPicBox && (
         <div className="position-fixed detail-pic">
-          <DetailPicBox setOpenPicBox={setOpenPicBox} />
+          <DetailPicBox
+            setOpenPicBox={setOpenPicBox}
+            hotelDetail={hotelDetail}
+          />
         </div>
       )}
       <HotelDetailPic setOpenPicBox={setOpenPicBox} hotelDetail={hotelDetail} />
