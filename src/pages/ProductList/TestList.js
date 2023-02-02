@@ -9,39 +9,88 @@ import ListMap from '../layouts/ListMap/ListMap';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function TestList() {
-  //將回傳資料設為本元件的state
-  const [ReturnedTripArr, setTripArr] = useState([]);
+  //需要用到的state 1.訪問網頁時的關鍵字 2.關鍵字以外額外的篩選條件 3.產品收藏需要的state 4.產品資料傳給productCard
+  //(在關鍵字不變的情況下，加上篩選條件，並即時渲染),(收藏state產生變化→更新資料庫)
+  //首先要依據關鍵字的不同，做第一次的搜尋
+  //再依據state的增加，做二次的搜尋
 
   //利用 react-router-dom 獲得一開始的關鍵字
-  const { FirstURLkeyword } = useParams();
+  const { URLkeyword } = useParams();
+
+  //將回傳資料設為本元件的state
+  const [ReturnedTripDataArr, setTripDataArr] = useState([]);
 
   //打算把子元件的state當作新關鍵字
-  const [stateKeyword, setStateKeyword] = useState([{ FirstURLkeyword }]);
+  const [stateKeyword, setStateKeyword] = useState([]);
 
   //從關鍵字獲取資料
   useEffect(() => {
-    async function getData() {
+    async function getTripData() {
+      const regionArr = [
+        '基隆',
+        '宜蘭',
+        '台北',
+        '桃園',
+        '新竹',
+        '苗栗',
+        '台中',
+        '彰化',
+        '南投',
+        '雲林',
+        '嘉義',
+        '台南',
+        '高雄',
+        '屏東',
+        '台東',
+        '花蓮',
+        '澎湖',
+        '金門',
+        '馬祖',
+        '蘭嶼',
+      ];
+      const URLkeywordArr = URLkeyword.split(' ');
+      const gotRegionKeywordArr = URLkeywordArr.filter((item) => {
+        regionArr.includes(item);
+      });
+
       try {
-        switch (FirstURLkeyword) {
+        if (URLkeyword === 'all') {
+          const allResult = await axios.get(
+            `http://localhost:3001/api/tripList/all`
+          );
+          setTripDataArr(allResult.data);
+        } else if (gotRegionKeywordArr[0]) {
+          const regionKeyword = gotRegionKeywordArr[0];
+          const regionResult = await axios.get(
+            `http://localhost:3001/api/tripList/r=${regionKeyword}`
+          );
+          setTripDataArr(regionResult.data);
+        } else {
+          const result = await axios.get(
+            `http://localhost:3001/api/tripList/k=${URLkeyword}`
+          );
+          setTripDataArr(result.data);
+        }
+        switch (URLkeyword) {
           case 'all':
             const Allresult = await axios.get(
               `http://localhost:3001/api/tripList/all`
             );
-            setTripArr(Allresult.data);
+            setTripDataArr(Allresult.data);
             break;
           default:
             const result = await axios.get(
-              `http://localhost:3001/api/tripList/${FirstURLkeyword}`
+              `http://localhost:3001/api/tripList/${URLkeyword}`
             );
-            setTripArr(result.data);
+            setTripDataArr(result.data);
         }
       } catch (error) {
         console.log(error);
       }
-      console.log(ReturnedTripArr);
+      console.log(ReturnedTripDataArr);
     }
-    getData();
-  }, [stateKeyword]);
+    getTripData();
+  });
 
   //從關鍵字獲取地理資訊
 
@@ -50,7 +99,7 @@ export default function TestList() {
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
           <p className="result my-topic">
-            關鍵字：共 {ReturnedTripArr.length} 項 結果{' '}
+            關鍵字：共 {ReturnedTripDataArr.length} 項 結果{' '}
           </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
