@@ -1,9 +1,9 @@
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
 import TestList from './pages/ProductList/TestList';
+import ProductDetails from './pages/ProductDetails/ProductDetails';
 // import Comment from './pages/ProductDetails/DetailComponet/Comment/Comment';
-// import ProductDetails from './pages/ProductDetails/ProductDetails';
 // import PlanDetails from './pages/ProductDetails/DetailComponet/MainSelector/PlanDetails/PlanDetails';
 // import MainSelector from './pages/ProductDetails/DetailComponet/MainSelector/MainSelector';
 
@@ -15,10 +15,13 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <div className="test-container">
+          <Routes>
+            <Route path="tripList/:URLkeyword" element={<TestList />} />
+            <Route path="tripDetails/:tripId" element={<ProductDetails />} />
+          </Routes>
           {/* <Comment /> */}
           {/* <PlanDetails /> */}
           {/* <MainSelector /> */}
-          <TestList />
         </div>
         <Footer />
       </BrowserRouter>

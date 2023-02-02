@@ -1,30 +1,57 @@
 import './TestList.scss';
 import axios from 'axios';
+import { useEffect, useState } from 'react';
 import PopupSort from './ListComponent/PopupSort/PopupSort';
 import NormalSort from './ListComponent/NormalSort/NormalSort';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
 import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
+import { useParams, useNavigate } from 'react-router-dom';
 
-const TestList = () => {
-  getData();
+export default function TestList() {
+  //將回傳資料設為本元件的state
+  const [ReturnedTripArr, setTripArr] = useState([]);
 
-  async function getData() {
-    try {
-      const fakeData = await axios.get(
-        'https://jsonplaceholder.typicode.com/albums/1'
-      );
-      console.log(fakeData.data);
-    } catch (error) {
-      console.log(error);
+  //利用 react-router-dom 獲得一開始的關鍵字
+  const { FirstURLkeyword } = useParams();
+
+  //打算把子元件的state當作新關鍵字
+  const [stateKeyword, setStateKeyword] = useState([{ FirstURLkeyword }]);
+
+  //從關鍵字獲取資料
+  useEffect(() => {
+    async function getData() {
+      try {
+        switch (FirstURLkeyword) {
+          case 'all':
+            const Allresult = await axios.get(
+              `http://localhost:3001/api/tripList/all`
+            );
+            setTripArr(Allresult.data);
+            break;
+          default:
+            const result = await axios.get(
+              `http://localhost:3001/api/tripList/${FirstURLkeyword}`
+            );
+            setTripArr(result.data);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+      console.log(ReturnedTripArr);
     }
-  }
+    getData();
+  }, [stateKeyword]);
+
+  //從關鍵字獲取地理資訊
 
   return (
     <>
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
-          <p className="result my-topic">關鍵字：共 123456 項 結果 </p>
+          <p className="result my-topic">
+            關鍵字：共 {ReturnedTripArr.length} 項 結果{' '}
+          </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
             <li className="top-sort-btn popularity">人氣 </li>
@@ -77,6 +104,4 @@ const TestList = () => {
       </div>
     </>
   );
-};
-
-export default TestList;
+}
