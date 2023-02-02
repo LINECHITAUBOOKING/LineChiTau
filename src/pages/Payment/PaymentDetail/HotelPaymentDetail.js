@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import '../layout/payment.scss';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import axios from 'axios';
+
 import './HotelPaymentDetail.scss';
 import ProductImg from '../../Hotel/img/banner.svg';
 import RoomItem from '../PaymentComponent/RoomItem/RoomItem';
@@ -12,36 +14,31 @@ import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import RoomArriveTime from '../PaymentComponent/RoomArriveTime/RoomArriveTime';
 
 const HotelPaymentDetail = (props) => {
-  const roomItems = {
-    roomName: '尊爵行政套房',
-    startDate: '2022-10-11',
-    endDate: '2022-10-12',
-    amount: 2,
-    price: 6000,
-    describtion: {
-      booker: {
-        lastName: '王',
-        firstName: '小明',
-        email: 'wang1125@wanggg.com',
-        tel: '0912555468',
-        country: '台灣',
-        lang: '中文',
-      },
-    },
-  };
-  const itemHotel = {
-    hotelName: '台北文華東方酒店',
-    hotelAdd: '台北松山區敦化北路168號',
-    hotelStar: 4,
-  };
-  const roomServiceRule = {
-    service: ['早餐', '迷你吧', '喚醒服務', '洗/烘衣服務', '保險箱'],
-    rule: [
-      '現在免付任何費用，您將於入住時付款',
-      '入住前一日 下午11:59前，可免費取消',
-      '入住當日 上午12:00起，收取入住費用',
-    ],
-  };
+  const storage = localStorage;
+  const hotelName = storage.getItem('companyName');
+  const roomName = storage.getItem('roomName');
+  const [hotelDetail, setHotelDetail] = useState({});
+  const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
+
+  useEffect(() => {
+    async function getHotelDetail() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/${hotelName}`
+      );
+      // console.log(response.data[0]);
+      setHotelDetail(response.data[0]);
+    }
+    async function getRoomDetail() {
+      let response = await axios.get(
+        `http://localhost:3001/api/paymentHotelDetail/${hotelName}/${roomName}`
+      );
+      // console.log(response.data);
+      setPaymentRoomDetail(response.data[0]);
+    }
+    getHotelDetail();
+    getRoomDetail();
+  }, []);
+
   return (
     <>
       <main className="container main-width px-0">
@@ -49,16 +46,16 @@ const HotelPaymentDetail = (props) => {
         <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE  訂房商品資訊--> */}
           <div className="col-4 p-0">
-            <RoomItem roomItem={roomItems} />
+            <RoomItem paymentRoomDetail={paymentRoomDetail} />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
           <div className="col-8  pe-0">
             {/* <!-- NOTE 飯店名 --> */}
-            <RoomItemHotel itemHotel={itemHotel} />
+            <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
             <div className="room-info   p-3">
               {/* <!-- NOTE 房型服務資訊 --> */}
-              <RoomService roomServiceRule={roomServiceRule} />
-              <RoomRule roomServiceRule={roomServiceRule} />
+              <RoomService paymentRoomDetail={paymentRoomDetail} />
+              <RoomRule />
             </div>
           </div>
         </div>

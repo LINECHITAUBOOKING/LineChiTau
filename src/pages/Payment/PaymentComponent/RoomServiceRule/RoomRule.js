@@ -11,8 +11,11 @@ import {
 import ProductImg from '../../../Hotel/img/banner.svg';
 
 const RoomRule = (props) => {
-  const rule = props.roomServiceRule.rule;
-
+  const rule =  [
+    '現在免付任何費用，您將於入住時付款',
+    '入住二周前，可免費取消',
+    '入住當日 上午12:00起，收取入住費用',
+  ]
   return (
     <>
       {/* <!-- NOTE  訂房規則--> */}
