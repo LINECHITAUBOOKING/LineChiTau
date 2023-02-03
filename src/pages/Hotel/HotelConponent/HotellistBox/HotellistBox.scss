@@ -21,7 +21,7 @@
 
       .detail-pic-arrowpre {
         top: calc(50% - 12px);
-        z-index: 999;
+        z-index: 500;
       }
       .detail-pic-arrownext {
         top: calc(50% - 11px);
@@ -55,32 +55,6 @@
 
     .search-tag:hover {
       background-color: $main;
-    }
-  }
-  .map {
-    max-width: 250px;
-    height: 200px;
-    background-color: #aaa;
-    button {
-      border: none;
-      background: $main;
-      top: 40%;
-      left: 33%;
-      padding: 10px;
-      border-radius: 10px;
-    }
-  }
-  .location-type-box {
-    border: 1px solid $textColor;
-    max-width: 250px;
-    .filter-box-title {
-      border-bottom: 2px solid $textColor;
-      padding-bottom: 5px;
-    }
-    .arrow-right {
-      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-      font-size: 40px;
-      color: $textColor;
     }
   }
   .ej-fill-icon {

@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useHistory,
+} from 'react-router-dom';
 import './css/global.css';
 import Profile from './pages/Profile/Profile';
 import HotelHome from './pages/Hotel/pages/HotelHome';

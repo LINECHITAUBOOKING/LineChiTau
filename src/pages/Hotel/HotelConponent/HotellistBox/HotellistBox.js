@@ -1,15 +1,78 @@
 import React, { useEffect, useState } from 'react';
 import './HotellistBox.scss';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
+import HotelListFilter from '../HotelListFilter/HotelListFilter';
+import axios from 'axios';
 
-const HotellistBox = ({ hotelListArrange }) => {
+const HotellistBox = ({ hotelServiceListArray }) => {
+  const [error, setError] = useState();
+  const { region } = useParams();
+  const [hotelList, setHotelList] = useState([]);
+  const [filterCondition, setFilterCondition] = useState({
+    type: '',
+    hotelService: [],
+    roomService: [],
+  });
+  console.log('aaaa', filterCondition);
+  const [hotelListArrange, setHotelListArrange] = useState([]);
+  useEffect(() => {
+    async function getHotelList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelList/${region}`
+      );
+      // console.log(response.data);
+      setHotelList(response.data);
+    }
+
+    getHotelList();
+  }, [region]);
+  useEffect(() => {
+    const newhotelListArrange = hotelList.map((room, i) => {
+      const {
+        wifi,
+        pool,
+        gym,
+        restaurant,
+        bar,
+        parking,
+        laundry,
+        meeting_room,
+        arcade,
+        elevator,
+        store_luggage,
+        counter,
+      } = room;
+      const hotelServiceList = [
+        { service: 'WIFI', value: wifi },
+        { service: '泳池', value: pool },
+        { service: '健身房', value: gym },
+        { service: '餐廳', value: restaurant },
+        { service: 'BAR', value: bar },
+        { service: '停車場', value: parking },
+        { service: '洗衣間', value: laundry },
+        { service: '會議室', value: meeting_room },
+        { service: '娛樂間', value: arcade },
+        { service: '電梯', value: elevator },
+        { service: '行李寄放', value: store_luggage },
+        { service: '櫃台服務', value: counter },
+      ];
+
+      const hotelServiceListFilter = hotelServiceList.filter((v, i) => {
+        return v.value !== 0;
+      });
+      room.service = hotelServiceListFilter;
+      room.translate = 0;
+      return room;
+    });
+    setHotelListArrange(newhotelListArrange);
+  }, [hotelList]);
+
   const [hotelListArrangeState, setHotelListArrangeState] = useState([]);
-
   useEffect(() => {
     if (hotelListArrange.length > 0) setHotelListArrangeState(hotelListArrange);
   }, [hotelListArrange]);
 
+  const hotelType = ['飯店', '民宿', '青旅'];
   return (
     <>
       <div className="container-xl hotellist-box">
@@ -25,112 +88,17 @@ const HotellistBox = ({ hotelListArrange }) => {
         </div>
         <div className="row mb-5">
           <div className="col-3 px-3">
-            <div className="map m-auto position-relative">
-              <button className="position-absolute my-p">檢視地圖</button>
-            </div>
-            <div className="filter-box">
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">所在地</h5>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      北部
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      中部
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                </div>
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">類型</h5>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      民宿
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      飯店
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">價格</h5>
-                  <div className="d-flex align-items-center my-3">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      0 - 2000
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      2000 - 4000
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">供餐</h5>
-                  <div className="d-flex align-items-center my-3">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      自炊
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      含早餐
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <HotelListFilter
+              hotelServiceListArray={hotelServiceListArray}
+              hotelType={hotelType}
+              setFilterCondition={setFilterCondition}
+              filterCondition={filterCondition}
+            />
           </div>
           <div className="col-9">
-            {hotelListArrangeState &&
+            {hotelListArrangeState.length === 0 ? (
+              <p className="title my-banner">查無資料</p>
+            ) : (
               hotelListArrangeState.map((room, room_i) => {
                 return (
                   <div className="d-flex" key={room_i}>
@@ -260,7 +228,8 @@ const HotellistBox = ({ hotelListArrange }) => {
                     </Link>
                   </div>
                 );
-              })}
+              })
+            )}
 
             <nav>
               <ul className="list-unstyled d-flex">
