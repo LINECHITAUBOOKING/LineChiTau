@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './pages/layouts/Navbar';
 import Footer from './pages/layouts/Footer';
 import TestList from './pages/ProductList/TestList';
@@ -16,8 +16,8 @@ function App() {
         <Navbar />
         <div className="test-container">
           <Routes>
-            <Route path="tripList/:URLkeyword" element={<TestList />} />
-            <Route path="tripDetails/:tripId" element={<ProductDetails />} />
+            <Route path="tripList" element={<TestList />} />
+            <Route path="tripDetails" element={<ProductDetails />} />
           </Routes>
           {/* <Comment /> */}
           {/* <PlanDetails /> */}
