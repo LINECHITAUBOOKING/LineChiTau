@@ -10,11 +10,12 @@ const TList = ({ value }) => {
   console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
-  const name = 'jerry';
+
   const getUser = async ({ queryKey }) => {
     // const response = await fetch(
     //   `https://reqres.in/api/users?page=${userF.name}`
     // );
+
     const response = await fetch(
       `http://localhost:3001/api/userlist/list/${userF.email}`
     );
@@ -50,6 +51,20 @@ const TList = ({ value }) => {
   };
   console.log('list', list);
   // console.log(items);
+  if (list === undefined) {
+    return (
+      <>
+        <span>查無資料</span>
+      </>
+    );
+  }
+  if (list.error) {
+    return (
+      <>
+        <span>找不到訂單</span>
+      </>
+    );
+  }
   if (isLoading) {
     return (
       <>

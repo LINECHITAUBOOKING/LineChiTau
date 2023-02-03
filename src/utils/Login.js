@@ -108,7 +108,9 @@ function Login() {
       navigate('/login1'); // 跳轉到/target頁
     }
   }, [navigate, location.state]);
-
+  const goRegister = () => {
+    navigate('/login'); // 跳轉到/target頁
+  };
   const googlelogout = async () => {
     googleauth.signOut();
   };
@@ -166,7 +168,7 @@ function Login() {
             />
           </div> */}
           <div className="btn-login">
-            <button className="lastBtn" onClick={handleSubmit}>
+            <button className="lastBtn" onClick={() => goRegister()}>
               註冊
             </button>
             <button
@@ -179,7 +181,7 @@ function Login() {
                 }
               }}
             >
-              login
+              登入
             </button>
           </div>
           {/*  <button

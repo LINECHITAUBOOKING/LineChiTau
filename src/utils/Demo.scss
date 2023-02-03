@@ -172,14 +172,20 @@
         color: lightgreen;
       }
     }
-    .lastBtn {
-      width: 120px;
-      height: 30px;
-      margin-top: 60px;
-      border: none;
-      border-radius: 10px;
-      background-color: #ffb905;
-      color: #734338;
+    .btn-login {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .lastBtn {
+        width: 120px;
+        height: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ffb905;
+        color: #734338;
+      }
     }
   }
   img {

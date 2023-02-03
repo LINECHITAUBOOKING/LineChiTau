@@ -8,15 +8,24 @@ import TListLayout from './Spinner/TListLayout';
 import Pagination from '../../../layouts/Pagination';
 import './Alllist.scss';
 const Alllist = ({ value }) => {
-  const { jwtToken } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
 
   const getUser = async ({ queryKey }) => {
-    const response = await fetch('https://reqres.in/api/users');
+    // const response = await fetch(
+    //   `https://reqres.in/api/users?page=${userF.name}`
+    // );
+
+    const response = await fetch(
+      `http://localhost:3001/api/userlist/list/${userF.email}`
+    );
     // const response = await fetch('./users.json');
+    console.log('收到', response);
     const list = await response.json();
-    setItems(list.data);
+    console.log('list', list);
+    setItems(list);
     return list;
   };
   const {
@@ -42,10 +51,44 @@ const Alllist = ({ value }) => {
   const firstPostIndex = lastPostIndex - postsPerPage;
 
   console.log(lastPostIndex, firstPostIndex);
-  const itemsArray = Object.values(items);
+  let itemsArray;
+  if (items !== undefined) {
+    itemsArray = Object.values(items);
+  }
   console.log(itemsArray);
+  if (itemsArray === undefined) {
+    return (
+      <>
+        <span>查無資料</span>
+      </>
+    );
+  }
+
+  if (itemsArray.error) {
+    return (
+      <>
+        <span>找不到訂單</span>
+      </>
+    );
+  }
   const currentPosts = itemsArray.slice(firstPostIndex, lastPostIndex);
-  console.log(currentPage);
+
+  if (currentPosts === '找不到訂單') {
+    return (
+      <>
+        <span>找不到訂單</span>
+      </>
+    );
+  }
+  console.log(currentPosts);
+
+  if (isLoading) {
+    return (
+      <>
+        <span>Loading...</span>
+      </>
+    );
+  }
   if (isLoading) {
     return (
       <>

@@ -114,7 +114,17 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       }
     }
   };
-
+  /* const VerifyEmail = () => {
+    const [errorMessage, setErrorMessage] = useState('');
+  
+    const handleVerifyEmail = () => {
+      firebase.auth().languageCode = 'zh-TW';
+      firebase.auth().currentUser.sendEmailVerification().then(() => {
+        window.alert('驗證信已發送到您的信箱，請查收。');
+      }).catch((error) => {
+        setErrorMessage(error.message);
+      });
+    }; */
   const googlelogin = async () => {
     try {
       let result = await signInWithPopup(googleauth, provide);
@@ -123,6 +133,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       const email = googleauth.currentUser.email;
       console.log(email);
       console.log(googleauth);
+
       axios
         .post(googleUrl, { username, email })
         .then(({ data }) => {
@@ -133,6 +144,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
           setJwtToken(data.accessToken);
           console.log(data.accessToken);
           setJwtDecodeData(jwt(data.accessToken));
+          setuserF({ email: `${email}`, pwd: '' });
         })
         .catch((error) => {
           console.error(error);
@@ -141,7 +153,20 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.log('error');
     }
   };
-
+  const emailComfirm = () => {
+    const user = googleauth.currentUser;
+    console.log(user);
+    user
+      .sendEmailVerification()
+      .then(function () {
+        // 驗證信發送完成
+        window.alert('驗證信已發送到您的信箱，請查收。');
+      })
+      .catch((error) => {
+        // 驗證信發送失敗
+        console.log(error.message);
+      });
+  };
   /*  const googlelogin = async () => {
     let result = await signInWithPopup(googleauth, provide);
     console.log(result);
@@ -183,6 +208,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     console.log(data.message);
     googleauth.signOut();
     setGoogleauth(false);
+    setuserF({ email: '', pwd: '' });
     console.log(googleauth);
     // no default headers now
     // cookie will clear from express server(refreshToken)
@@ -218,8 +244,10 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         init,
         auth,
         userF,
+        setuserF,
         googlelogin,
         Googleauth,
+       
       }}
     >
       {children}

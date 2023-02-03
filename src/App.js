@@ -24,17 +24,15 @@ import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
 
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
-<<<<<<< HEAD
 
 import Login from './utils/Login';
-=======
->>>>>>> d27665dc01a67d022a6d26ef2f7e55847bc4fe43
 import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
+
 function App() {
   return (
     <>
