@@ -1,106 +1,74 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './HotelPaymentCheckOut.scss';
+import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import ProductImg from '../../Hotel/img/banner.svg';
+import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
+
 import Modal from 'react-bootstrap/Modal';
 import { ModalTitle } from 'react-bootstrap';
 import RoomItem from '../PaymentComponent/RoomItem/RoomItem';
 import RoomItemHotel from '../PaymentComponent/RoomItemHotel/RoomItemHotel';
-import RoomServiceRule from '../PaymentComponent/RoomServiceRule/RoomServiceRule';
 import RoomBooker from '../PaymentComponent/RoomBooker/RoomBooker';
+import RoomService from '../PaymentComponent/RoomServiceRule/RoomService';
+import RoomRule from '../PaymentComponent/RoomServiceRule/RoomRule';
 import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import CheckOutCreditCard from '../PaymentComponent/CheckOutCreditCard/CheckOutCreditCard';
 import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
+import UserData from '../PaymentComponent/UserData/UserData';
 
 const HotelPaymentCheckOut = () => {
+  const currentStep = 3;
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const roomItems = {
-    roomName: '尊爵行政套房',
-    startDate: '2022-10-11',
-    endDate: '2022-10-12',
-    amount: 2,
-    price: 6000,
-  };
+  const storage = localStorage;
+  const hotelName = storage.getItem('companyName');
+  const roomName = storage.getItem('roomName');
+  const [hotelDetail, setHotelDetail] = useState({});
+  const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
 
-  const itemHotel = {
-    hotelName: '台北文華東方酒店',
-    hotelAdd: '台北松山區敦化北路168號',
-    hotelStar: 4,
-  };
-  const roomServiceRule = {
-    service: [
-      <span className="tag col-auto ms-2">早餐</span>,
-      <span className="tag col-auto ms-2">迷你吧</span>,
-      <span className="tag col-auto ms-2">喚醒服務</span>,
-      <span className="tag col-auto ms-2">洗/烘衣服務</span>,
-    ],
-    rule: [
-      <li>現在免付任何費用，您將於入住時付款</li>,
-      <li>2022年12月18日 下午11:59前，免費取消</li>,
-      <li>2022年12月19日 上午12:00起，收取新台幣60,000</li>,
-    ],
-  };
+  useEffect(() => {
+    async function getHotelDetail() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/${hotelName}`
+      );
+      // console.log(response.data[0]);
+      setHotelDetail(response.data[0]);
+    }
+    async function getRoomDetail() {
+      let response = await axios.get(
+        `http://localhost:3001/api/paymentHotelDetail/${hotelName}/${roomName}`
+      );
+      // console.log(response.data);
+      setPaymentRoomDetail(response.data[0]);
+    }
+    getHotelDetail();
+    getRoomDetail();
+  }, []);
+
   return (
     <>
+      <ProgressBar currentStep={currentStep} />
+
       <main className="container main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房個資--> */}
         <div className="row w-100 my-3  mx-0 px-0">
           {/* <!-- NOTE  訂房商品資訊--> */}
           <div className="col-4 p-0 mx-0">
-            <RoomItem roomItem={roomItems} />
+            <RoomItem paymentRoomDetail={paymentRoomDetail} />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
           <div className="col-8  p-0 h-100 mx-0">
             {/* <!-- NOTE 飯店名 --> */}
             <div className="hotel-room-profile ms-3 ">
-              <RoomItemHotel itemHotel={itemHotel} />
+              <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
               <div className="room-info   px-3 pb-5">
                 {/* <!-- NOTE 房型服務資訊 --> */}
-                <div className="room-service  mx-3 pt-3">
-                  <div className="room-name d-flex align-items-center">
-                    <h4 className="me-3">行政尊爵套房 </h4>
-                    <small>*取消須付費</small>
-                  </div>
-                  <div className="service-list py-2 row mb-3">
-                    <span className="tag col-auto ms-2">早餐</span>
-                    <span className="tag col-auto ms-2">喚醒服務</span>
-                    <span className="tag col-auto ms-2">迷你吧</span>
-                    <span className="tag col-auto ms-2">洗/烘衣服務</span>
-                  </div>
-                </div>
-                {/* <!-- NOTE  個人資料--> */}
-                <div className="profile-data align-items-stretch mx-3 my-2">
-                  <h4 className="title mb-3">個人資料</h4>
-                  <div className="profile-content px-3  row gy-3">
-                    <div className="data-area col-4">
-                      <h5 className="m-0">姓名</h5>
-                      <span>王</span> <span> 阿明</span>
-                    </div>
-                    <div className="data-area col-4">
-                      <h5 className="m-0">信箱</h5>
-                      <span>sss@gmail.com</span>
-                    </div>
-                    <div className="data-area col-4">
-                      <h5 className="m-0">連絡電話</h5>
-                      <span>0975-123-456</span>
-                    </div>
-                    <div className="data-area col-4">
-                      <h5 className="m-0">國家 / 地區</h5>
-                      <span>台灣 / 台北</span>
-                    </div>
-                    <div className="data-area col-4">
-                      <h5 className="m-0">語言</h5>
-                      <span>中文</span>
-                    </div>
-                    <div className="data-area col-4">
-                      <button className="my-btn w-50">返回資料</button>
-                    </div>
-                  </div>
-                </div>
+                <RoomService paymentRoomDetail={paymentRoomDetail} />
+                <RoomRule />
               </div>
             </div>
           </div>
@@ -110,7 +78,7 @@ const HotelPaymentCheckOut = () => {
         <div className="row w-100 mb-3 mx-0">
           {/* <!-- NOTE 選擇付款方式 --> */}
           <div className="col-4 p-0 ">
-            <PaymentMethod />
+            <UserData />
           </div>
           <div className="col-8 p-0 d-flex">
             {/* <!-- NOTE MEMO+ARRIVE --> */}

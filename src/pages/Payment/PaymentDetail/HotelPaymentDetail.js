@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
 
 import './HotelPaymentDetail.scss';
+import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 import ProductImg from '../../Hotel/img/banner.svg';
 import RoomItem from '../PaymentComponent/RoomItem/RoomItem';
 import RoomItemHotel from '../PaymentComponent/RoomItemHotel/RoomItemHotel';
@@ -11,14 +12,19 @@ import RoomService from '../PaymentComponent/RoomServiceRule/RoomService';
 import RoomRule from '../PaymentComponent/RoomServiceRule/RoomRule';
 import RoomBooker from '../PaymentComponent/RoomBooker/RoomBooker';
 import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
+import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
 import RoomArriveTime from '../PaymentComponent/RoomArriveTime/RoomArriveTime';
 
 const HotelPaymentDetail = (props) => {
+  const currentStep = 2;
+
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
   const [hotelDetail, setHotelDetail] = useState({});
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
+  const ordersItem = JSON.parse(storage.getItem('orderItem'));
+  const orderItem = ordersItem[0];
 
   useEffect(() => {
     async function getHotelDetail() {
@@ -38,15 +44,52 @@ const HotelPaymentDetail = (props) => {
     getHotelDetail();
     getRoomDetail();
   }, []);
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [tel, setTel] = useState('');
+  const [country, setCountry] = useState('');
+  const [lang, setLang] = useState('');
+  const name = lastName + firstName;
+  const date = Date();
+  // NOTE 假價格
+  const price = 1000;
+  const amount = 1000;
+  console.log('asjdioasjdoaisoihafoawu', date);
+  async function handleSubmit(e) {
+    console.log('handleSubmit');
+    // !關閉表單預設行為
+    e.preventDefault();
 
+    // * ajax
+    let response = await axios.post(
+      'http://localhost:3001/api/paymentHotelDetail/order',
+      {
+        name,
+        email,
+        tel,
+        country,
+        lang,
+        date,
+        price,
+      }
+    );
+    console.log(response.data);
+  }
+  console.log('ooooorrerder', ordersItem);
+  console.log('XXXXXXXXXrrerder', orderItem);
   return (
     <>
+      <ProgressBar currentStep={currentStep} />
       <main className="container main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房規則--> */}
         <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE  訂房商品資訊--> */}
           <div className="col-4 p-0">
-            <RoomItem paymentRoomDetail={paymentRoomDetail} />
+            <RoomItem
+              paymentRoomDetail={paymentRoomDetail}
+              orderItem={orderItem}
+            />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
           <div className="col-8  pe-0">
@@ -72,8 +115,8 @@ const HotelPaymentDetail = (props) => {
           </div>
         </div>
         {/* <!-- TODO 預計抵達時間 --> */}
-        <div className="row w-100 mx-0 mb-3 ">
-          <RoomArriveTime />
+        <div className="row w-100 mx-0 mb-3  ">
+          <UseDiscount />
         </div>
         {/* <!-- TODO 前往付款button --> */}
         <div className="topay d-flex justify-content-center w-25 mx-auto pt-4 pb-5 row ">
@@ -85,10 +128,13 @@ const HotelPaymentDetail = (props) => {
               返回<span className="material-symbols-rounded">undo</span>
             </Link>
           </button>
-          <button className=" my-btn col text-decoration-none mx-1">
+          <button
+            className=" my-btn col text-decoration-none mx-1"
+            onClick={handleSubmit}
+          >
             <Link
               className="text-decoration-none "
-              to={'/payment/HotelPaymentCheckOut'}
+              to={'/payment/Hotel/CheckOut'}
             >
               前往付款
             </Link>

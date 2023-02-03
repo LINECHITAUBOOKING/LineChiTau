@@ -11,6 +11,7 @@ const HotelIntro = (props) => {
       <span class="material-symbols-outlined hotel-star-fill">star</span>
     );
   }
+
   const {
     wifi,
     pool,

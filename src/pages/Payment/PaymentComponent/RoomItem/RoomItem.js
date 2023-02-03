@@ -26,7 +26,7 @@ const RoomItem = (props) => {
             <div className="check-in-time order-info-detail align-items-center px-3 py-2 ">
               <h6>入住時間</h6>
               <div className="checkin-datetime d-flex flex-column">
-                <span>{}</span>
+                <span>{props.orderItem.startDate}</span>
                 <small>15:00起</small>
               </div>
             </div>
@@ -35,7 +35,7 @@ const RoomItem = (props) => {
             <div className="check-out-time order-info-detail align-items-center  px-3 py-2">
               <h6>退房時間</h6>
               <div className="checkout-datetime d-flex flex-column">
-                <span>{}</span>
+                <span>{props.orderItem.endDate}</span>
                 <small>12:00前</small>
               </div>
             </div>
@@ -47,7 +47,7 @@ const RoomItem = (props) => {
               <h5>已選擇：</h5>
               <div className="chosen-room d-flex justify-content-around align-items-center">
                 <span>{paymentRoomDetail.room}</span>
-                <span>{amount}間</span>
+                <span>{props.orderItem.amount} 間</span>
                 {/* NOTE 回到商品頁/上一頁 */}
                 <Link
                   className="text-decoration-none d-flex align-items-center"
@@ -69,18 +69,18 @@ const RoomItem = (props) => {
               <div className="sub-days sub-price bg-transparent row">
                 <span className="col-4"> 總共入住：</span>{' '}
                 {/* NOTE 退房-入住 */}
-                <span className="col-auto">{totalDate}晚</span>
+                <span className="col-auto">{totalDate} 晚</span>
               </div>
               <div className="sub-price bg-transparent row ">
                 <span className="col-4">價格：</span>
                 <span className="col-auto">
-                  NT${paymentRoomDetail.price}/間
+                  NT$ {paymentRoomDetail.price} / 間
                 </span>
               </div>
               <div className="sub-price bg-transparent row ">
                 <span className="col-4">小計：</span>
                 <span className="col-auto">
-                  NT${paymentRoomDetail.price * amount * totalDate}
+                  NT$ {paymentRoomDetail.price * amount * totalDate}
                 </span>
               </div>
             </div>

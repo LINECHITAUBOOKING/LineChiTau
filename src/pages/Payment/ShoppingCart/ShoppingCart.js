@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import ShoppingCartCard from './ShoppingCartComponent/ShoppongCartCard/ShoppingCartCard';
 import './ShoppingCart.scss';
+import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 
 export default function ShoppingCart() {
   const [amount, setAmount] = useState(1);
+  const currentStep = 1;
+
   const cartItems = [
     {
       itemId: 1,
@@ -58,6 +61,8 @@ export default function ShoppingCart() {
 
   return (
     <>
+      <ProgressBar currentStep={currentStep} />
+
       <div className="container main-width px-0 mb-5">
         <div>
           <h1 className="h3 title">購物車</h1>
@@ -90,7 +95,7 @@ export default function ShoppingCart() {
               <div className="d-flex justify-content-center ">
                 <Link
                   className="text-decoration-none cart-link-btn"
-                  to={'/payment/TravelPaymentDetail'}
+                  to={'/payment/Travel/Detail'}
                 >
                   <button className="my-btn my-p px-3">前往結帳</button>
                 </Link>

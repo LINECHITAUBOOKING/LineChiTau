@@ -1,13 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import {} from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import SearchBar from '../SearchBar/SearchBar';
 import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RoomSelect.scss';
 
 const RoomSelect = (props) => {
+  const storage = localStorage;
   const { roomDetail } = props;
   const [isOpenService, setIsOpenService] = useState(false);
-  // console.log('roomDetail', roomDetail);
-
+  const { companyName } = useParams();
+  // console.log('roomDetail111111', roomDetail);
+  // NOTE 暫時的時間跟監數
+  const amount = 1;
+  const startDate = '2022-12-11';
+  const endDate = '2022-12-13';
   const filterRoomService = function (obj) {
     Object.keys(obj).filter((key, i) => {
       return obj[key] === 1;
@@ -119,9 +126,31 @@ const RoomSelect = (props) => {
                           </div>
                         </div>
                         <div className="text-center select-btn-box pt-2">
-                          <button className="my-p booking-select-btn px-3 mb-2">
-                            訂房
-                          </button>
+                          <Link
+                            className="text-decoration-none cart-link-btn"
+                            to={'/payment/Hotel/Detail'}
+                            onClick={() => {
+                              storage.setItem('roomName', room.room_name);
+                              storage.setItem('companyName', companyName);
+                              // NOTE 暫時的 時間 跟 間數
+                              storage.setItem(
+                                'orderItem',
+                                JSON.stringify([
+                                  {
+                                    startDate,
+                                    endDate,
+                                    amount,
+                                  },
+                                ])
+                              );
+
+                              console.log('click');
+                            }}
+                          >
+                            <button className="my-p booking-select-btn px-3 mb-2">
+                              訂房
+                            </button>
+                          </Link>
                         </div>
                       </li>
                     );
