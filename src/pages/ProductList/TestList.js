@@ -24,8 +24,8 @@ export default function TestList() {
   //!打算把子元件的state當作"篩選用"的關鍵字
   const [SortKeywordArr, setSortKeywordArr] = useState();
 
-  //!獲取資料的函式
-  async function getTripData() {
+  //!從搜尋關鍵字獲取資料
+  useEffect(() => {
     const URLRawKeywordArr = URLRawkeyword.split(' ');
 
     const regionArr = [
@@ -87,29 +87,23 @@ export default function TestList() {
         regionKeywordArr[0] ||
         (nameKeywordArr[0] && URLRawkeyword !== 'all')
       ) {
-        const customResult = await axios.get(
+        const customResult = axios.get(
           `http://localhost:3001/api/tripList/r=${regionKeyword}n=${nameKeyword}`
         );
-        setTripDataArr(customResult.data);
-        return customResult.data;
+
+        customResult.then((res) => {
+          setTripDataArr(customResult.data);
+          console.log('normalGet');
+        });
       } else {
-        const allResult = await axios.get(
-          `http://localhost:3001/api/tripList/all`
-        );
+        const allResult = axios.get(`http://localhost:3001/api/tripList/all`);
         setTripDataArr(allResult.data);
-        return allResult.data;
+        console.log('allGet');
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  //從搜尋關鍵字獲取資料
-  useEffect(() => getTripData(), [URLRawkeyword]);
-
-  console.log(ReturnedTripData);
-
-  //從關鍵字獲取地理資訊
+  });
 
   return (
     <>
