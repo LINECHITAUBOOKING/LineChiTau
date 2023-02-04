@@ -10,10 +10,20 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 
+const moment = require('moment');
+
 const RoomItem = (props) => {
   const navigate = useNavigate();
-  const totalDate = 12 - 5;
-  const amount = 3;
+
+  const numStart = moment(
+    moment(props.orderItem.startDate).format('YYYY-MM-DD')
+  );
+  const numEnd = moment(moment(props.orderItem.endDate).format('YYYY-MM-DD'));
+  const totalDate = numEnd.diff(numStart, 'days');
+
+  console.log('TOOTALLLDATE', totalDate);
+
+  const amount = props.orderItem.conditions.room;
   const paymentRoomDetail = props.paymentRoomDetail;
   console.log('房間名', paymentRoomDetail);
   console.log('type of paymentRoomDetail', typeof paymentRoomDetail);
@@ -47,7 +57,7 @@ const RoomItem = (props) => {
               <h5>已選擇：</h5>
               <div className="chosen-room d-flex justify-content-around align-items-center">
                 <span>{paymentRoomDetail.room}</span>
-                <span>{props.orderItem.amount} 間</span>
+                <span>{amount} 間</span>
                 {/* NOTE 回到商品頁/上一頁 */}
                 <Link
                   className="text-decoration-none d-flex align-items-center"

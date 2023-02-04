@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import '../layout/payment.scss';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import axios from 'axios';
@@ -14,10 +14,14 @@ import RoomBooker from '../PaymentComponent/RoomBooker/RoomBooker';
 import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
 import RoomArriveTime from '../PaymentComponent/RoomArriveTime/RoomArriveTime';
+import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
+
 
 const HotelPaymentDetail = (props) => {
   const currentStep = 2;
-
+  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  console.log('user_email', userF.email);
+  console.log(jwtToken);
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
@@ -25,7 +29,7 @@ const HotelPaymentDetail = (props) => {
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
   const ordersItem = JSON.parse(storage.getItem('orderItem'));
   const orderItem = ordersItem[0];
-
+  
   useEffect(() => {
     async function getRoomDetail() {
       let response = await axios.get(
@@ -38,7 +42,7 @@ const HotelPaymentDetail = (props) => {
   }, []);
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(userF.email);
   const [tel, setTel] = useState('');
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
@@ -69,6 +73,7 @@ const HotelPaymentDetail = (props) => {
   const amount = 1000;
   console.log('asjdioasjdoaisoihafoawu', date);
   async function handleSubmit(e) {
+    e.preventDefault();
     console.log('handleSubmit:', {
       name,
       email,
@@ -80,23 +85,27 @@ const HotelPaymentDetail = (props) => {
       amount,
     });
     // !關閉表單預設行為
-    e.preventDefault();
 
+    let formData = {
+      name: name,
+      email: email,
+      tel: tel,
+      country: country,
+      lang: lang,
+      date: date,
+      price: price,
+      amount: amount,
+    };
     // * ajax
-    let response = await axios.post(
-      'http://localhost:3001/api/payment/Detail/Hotel/order',
-      {
-        name,
-        email,
-        tel,
-        country,
-        lang,
-        date,
-        price,
-        amount,
-      }
-    );
-    console.log(response.data);
+    try {
+      let response = await axios.post(
+        'http://localhost:3000/api/payment/Detail/Hotel/order',
+        formData
+      );
+      console.log(response.data);
+    } catch (e) {
+      alert('order go go ');
+    }
   }
   console.log('ooooorrerder', ordersItem);
   console.log('XXXXXXXXXrrerder', orderItem);

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+
 import './HotelPaymentCheckOut.scss';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
@@ -16,9 +17,14 @@ import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import CheckOutCreditCard from '../PaymentComponent/CheckOutCreditCard/CheckOutCreditCard';
 import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import UserData from '../PaymentComponent/UserData/UserData';
+import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
+
 
 const HotelPaymentCheckOut = () => {
   const currentStep = 3;
+  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  console.log(jwtToken);
+
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

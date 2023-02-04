@@ -14,6 +14,7 @@ const HotelBanner = ({
   widthControl,
   dNone,
 }) => {
+  const storage = localStorage;
   const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
   const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
   const [destination, setDestination] = useState(
@@ -32,6 +33,16 @@ const HotelBanner = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate(`/HotelList/${destination}`);
+    storage.setItem(
+      'orderItem',
+      JSON.stringify([
+        {
+          startDate,
+          endDate,
+          conditions,
+        },
+      ])
+    );
     localStorage.setItem('destination', destination);
     localStorage.setItem('adult', conditions['adult']);
     localStorage.setItem('children', conditions['children']);

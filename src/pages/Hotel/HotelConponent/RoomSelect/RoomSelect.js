@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Link, useParams } from 'react-router-dom';
-import SearchBar from '../SearchBar/SearchBar';
+
 import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RoomSelect.scss';
 import HotelBanner from '../HotelBanner/HotelBanner';
@@ -150,16 +150,7 @@ const RoomSelect = (props) => {
                               storage.setItem('roomName', room.room_name);
                               storage.setItem('companyName', companyName);
                               // NOTE 暫時的 時間 跟 間數
-                              storage.setItem(
-                                'orderItem',
-                                JSON.stringify([
-                                  {
-                                    startDate,
-                                    endDate,
-                                    amount,
-                                  },
-                                ])
-                              );
+                              
 
                               console.log('click');
                             }}
