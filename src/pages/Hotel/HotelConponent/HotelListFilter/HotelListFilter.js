@@ -4,7 +4,7 @@ import HotelServiceSort from '../HotelServiceSort/HotelServiceSort';
 import MoneySort from '../MoneySort/MoneySort';
 import './HotelListFilter.scss';
 
-function HotelListFilter({ hotelType, setFilterCondition }) {
+function HotelListFilter({ hotelType, setFilterCondition, filterCondition }) {
   const hotelServiceListArray = [
     'WIFI',
     '泳池',
@@ -20,7 +20,7 @@ function HotelListFilter({ hotelType, setFilterCondition }) {
     '櫃台服務',
   ];
   const roomServiceListArray = [
-    '寵物友善房',
+    '寵物友善',
     '液晶電視',
     '提供餐點',
     '迷你吧',
@@ -59,20 +59,29 @@ function HotelListFilter({ hotelType, setFilterCondition }) {
             <HotelTypeSort
               hotelType={hotelType}
               setFilterCondition={setFilterCondition}
+              filterCondition={filterCondition}
             />
           </div>
         </div>
         <div className="my-border-radius location-type-box m-auto mt-3">
           <div className="px-5 py-3 form-check">
             <h5 className="filter-box-title nav-foot">價格</h5>
-            <MoneySort roomPriceArray={roomPriceArray} />
+            <MoneySort
+              roomPriceArray={roomPriceArray}
+              setFilterCondition={setFilterCondition}
+              filterCondition={filterCondition}
+            />
           </div>
         </div>
         <div className="my-border-radius location-type-box m-auto mt-3">
           <div className="px-5 py-3 form-check">
             <h5 className="filter-box-title nav-foot">飯店服務</h5>
             <div className="my-3">
-              <HotelServiceSort hotelServiceListArray={hotelServiceListArray} />
+              <HotelServiceSort
+                hotelServiceListArray={hotelServiceListArray}
+                filterCondition={filterCondition}
+                setFilterCondition={setFilterCondition}
+              />
             </div>
           </div>
         </div>
@@ -80,7 +89,11 @@ function HotelListFilter({ hotelType, setFilterCondition }) {
           <div className="px-5 py-3 form-check">
             <h5 className="filter-box-title nav-foot">房間設施</h5>
             <div className="my-3">
-              <HotelServiceSort hotelServiceListArray={roomServiceListArray} />
+              <HotelServiceSort
+                hotelServiceListArray={roomServiceListArray}
+                filterCondition={filterCondition}
+                setFilterCondition={setFilterCondition}
+              />
             </div>
           </div>
         </div>

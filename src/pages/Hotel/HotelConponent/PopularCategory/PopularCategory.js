@@ -60,6 +60,9 @@ const PopularCategory = (props) => {
                       <Link
                         to={`/Hotellist/${v.region}`}
                         className="text-unstyled"
+                        onClick={() => {
+                          localStorage.setItem('destination', v.region);
+                        }}
                       >
                         <img
                           className="picture my-border-radius mx-2"

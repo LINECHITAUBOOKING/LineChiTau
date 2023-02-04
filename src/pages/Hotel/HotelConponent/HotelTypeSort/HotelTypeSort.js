@@ -5,7 +5,7 @@ export default function HotelTypeSort({
   setFilterCondition,
   filterCondition,
 }) {
-  // console.log(hotelType);
+  console.log('type', filterCondition);
   return (
     <>
       {hotelType.map((hotelType, hotelType_i) => {
@@ -14,11 +14,11 @@ export default function HotelTypeSort({
             <input
               type="radio"
               name="hotelType"
-              id={hotelType}
+              id={hotelType === '全部' ? '1' : hotelType}
               className="me-3"
               onChange={(e) => {
                 const newFilterCondition = { ...filterCondition };
-                console.log(e.target.id);
+                // console.log(e.target.id);
                 newFilterCondition.type = e.target.id;
                 setFilterCondition(newFilterCondition);
               }}

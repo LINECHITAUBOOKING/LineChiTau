@@ -1,6 +1,10 @@
 import React from 'react';
 
-function HotelServiceSort({ hotelServiceListArray }) {
+function HotelServiceSort({
+  hotelServiceListArray,
+  filterCondition,
+  setFilterCondition,
+}) {
   return (
     <>
       {hotelServiceListArray.map((hotelService, hotelService_i) => {
@@ -11,6 +15,19 @@ function HotelServiceSort({ hotelServiceListArray }) {
               name={hotelService}
               id={hotelService}
               className="me-3"
+              onChange={(e) => {
+                let newFilterCondition = { ...filterCondition };
+                if (e.target.checked) {
+                  newFilterCondition.hotelService.push(e.target.id);
+                } else {
+                  newFilterCondition.hotelService =
+                    newFilterCondition.hotelService.filter((v) => {
+                      return v !== e.target.id;
+                    });
+                }
+
+                setFilterCondition(newFilterCondition);
+              }}
             />
             <label for={hotelService} className="me-3 my-p">
               {hotelService}
