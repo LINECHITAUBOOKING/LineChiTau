@@ -47,7 +47,7 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <div className="d-flex">
+        <div className="d-flex align-items-center">
           <div>
             <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
               註冊
@@ -69,15 +69,13 @@ const Navbar = () => {
             )}
           </div>
           <div>
-            <div>
-              <Link className="nav-foot text-decoration-none" to={'/payment/'}>
-                <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1 px-0">
-                  <span className="material-symbols-outlined ">
-                    shopping_cart
-                  </span>
-                </button>
-              </Link>
-            </div>
+            <Link className="nav-foot text-decoration-none" to={'/ShoppingCart'}>
+              <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1 px-0">
+                <span className="material-symbols-outlined ">
+                  shopping_cart
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

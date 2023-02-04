@@ -23,6 +23,7 @@ import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
 
+
 // import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 import Hotellist from './pages/Hotel/pages/Hotellist';
@@ -61,25 +62,12 @@ function App() {
             </Route>
             <Route path="travel" element={<Travel />} />
             <Route path="ticket" element={<Ticket />} />
+            <Route path="ShoppingCart" element={<ShoppingCart />} />
             <Route path="/payment" element={<Payment />}>
-              <Route index path="" element={<ShoppingCart />} />
-              <Route path="ShoppingCart" element={<ShoppingCart />} />
-              <Route
-                path="TravelPaymentDetail"
-                element={<TravelPaymentDetail />}
-              />
-              <Route
-                path="TravelPaymentCheckOut"
-                element={<TravelPaymentCheckOut />}
-              />
-              <Route
-                path="HotelPaymentDetail"
-                element={<HotelPaymentDetail />}
-              />
-              <Route
-                path="HotelPaymentCheckOut"
-                element={<HotelPaymentCheckOut />}
-              />
+                <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
+                <Route path="Hotel/CheckOut" element={<HotelPaymentCheckOut />} />
+                <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
+                <Route path="Travel/CheckOut" element={<TravelPaymentCheckOut />} />
             </Route>
           </Routes>
         </ScrollToTop>
