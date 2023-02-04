@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './App.css';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './css/global.css';
@@ -23,15 +23,16 @@ import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
 
-
-// import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
+
+import Login from './utils/Login';
 import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
+
 function App() {
   return (
     <>
@@ -49,6 +50,7 @@ function App() {
               />
             </Route>
             <Route path="login" element={<Demo />} />
+            <Route path="login1" element={<Login />} />
             <Route path="profile" element={<Profile />}>
               <Route index element={<List />} />
               <Route path="list" element={<List />} />
