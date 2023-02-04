@@ -1,6 +1,12 @@
 import React, { useState, useContext } from 'react';
 import './App.css';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useHistory,
+} from 'react-router-dom';
 import './css/global.css';
 import Profile from './pages/Profile/Profile';
 import HotelHome from './pages/Hotel/pages/HotelHome';
@@ -43,7 +49,7 @@ function App() {
             <Route path="/" element={<Hotel />}>
               <Route index element={<HotelHome />}></Route>
               <Route path="/HotelHome" element={<HotelHome />} />
-              <Route path="/Hotellist" element={<Hotellist />} />
+              <Route path="/Hotellist/:region" element={<Hotellist />} />
               <Route
                 path="/HotelDetail/:companyName"
                 element={<HotelDetail />}
