@@ -27,21 +27,13 @@ const HotelPaymentDetail = (props) => {
   const orderItem = ordersItem[0];
 
   useEffect(() => {
-    async function getHotelDetail() {
-      let response = await axios.get(
-        `http://localhost:3001/api/hotelDetail/${hotelName}`
-      );
-      // console.log(response.data[0]);
-      setHotelDetail(response.data[0]);
-    }
     async function getRoomDetail() {
       let response = await axios.get(
-        `http://localhost:3001/api/paymentHotelDetail/${hotelName}/${roomName}`
+        `http://localhost:3001/api/payment/Detail/Hotel/${hotelName}/${roomName}`
       );
       // console.log(response.data);
       setPaymentRoomDetail(response.data[0]);
     }
-    getHotelDetail();
     getRoomDetail();
   }, []);
   const [firstName, setFirstName] = useState('');
@@ -52,18 +44,47 @@ const HotelPaymentDetail = (props) => {
   const [lang, setLang] = useState('');
   const name = lastName + firstName;
   const date = Date();
+  const updateValue = {
+    setFirstName: (value) => {
+      setFirstName(value);
+    },
+    setLastName: (value) => {
+      setLastName(value);
+    },
+    setEmail: (value) => {
+      setEmail(value);
+    },
+    setTel: (value) => {
+      setTel(value);
+    },
+    setCountry: (value) => {
+      setCountry(value);
+    },
+    setLang: (value) => {
+      setLang(value);
+    },
+  };
   // NOTE 假價格
   const price = 1000;
   const amount = 1000;
   console.log('asjdioasjdoaisoihafoawu', date);
   async function handleSubmit(e) {
-    console.log('handleSubmit');
+    console.log('handleSubmit:', {
+      name,
+      email,
+      tel,
+      country,
+      lang,
+      date,
+      price,
+      amount,
+    });
     // !關閉表單預設行為
     e.preventDefault();
 
     // * ajax
     let response = await axios.post(
-      'http://localhost:3001/api/paymentHotelDetail/order',
+      'http://localhost:3001/api/payment/Detail/Hotel/order',
       {
         name,
         email,
@@ -72,12 +93,14 @@ const HotelPaymentDetail = (props) => {
         lang,
         date,
         price,
+        amount,
       }
     );
     console.log(response.data);
   }
   console.log('ooooorrerder', ordersItem);
   console.log('XXXXXXXXXrrerder', orderItem);
+  console.log('20230204', updateValue);
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -107,7 +130,15 @@ const HotelPaymentDetail = (props) => {
         <div className="row w-100 mx-0 mb-3">
           {/* <!-- NOTE 填寫個人資料 --> */}
           <div className="col-6 p-0">
-            <RoomBooker />
+            <RoomBooker
+              firstName={firstName}
+              lastName={lastName}
+              email={email}
+              tel={tel}
+              country={country}
+              lang={lang}
+              updateValue={updateValue}
+            />
           </div>
           {/* <!-- NOTE MEMO --> */}
           <div className="col-6 p-0">

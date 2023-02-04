@@ -17,22 +17,32 @@ const RoomBooker = (props) => {
         <h4 className="title mb-3">請輸入個人資料</h4>
         <div className="user-data">
           <div className="name row">
-            <div className="last-name col-6">
+            <div className="lastName col-6">
               <label htmlFor="">姓氏</label>
               <input
                 type="text"
-                id="last-name"
-                name="last-name"
+                id="lastName"
+                name="lastName"
                 className="form-control border-0"
+                value={props.lastName}
+                onChange={(event) => {
+                  props.updateValue.setLastName(event.target.value);
+                  console.log(props.lastName);
+                }}
               />
             </div>
-            <div className="first-name col-6">
+            <div className="firstName col-6">
               <label htmlFor="">名字</label>
               <input
                 type="text"
-                id="first-name"
-                name="first-name"
+                id="firstName"
+                name="firstName"
                 className="form-control border-0"
+                value={props.firstName}
+                onChange={(event) => {
+                  props.updateValue.setFirstName(event.target.value);
+                  console.log(props.firstName);
+                }}
               />
             </div>
           </div>
@@ -43,6 +53,11 @@ const RoomBooker = (props) => {
               id="email"
               name="email"
               className="form-control border-0"
+              value={props.email}
+              onChange={(event) => {
+                props.updateValue.setEmail(event.target.value);
+                console.log(props.email);
+              }}
             />
           </div>
 
@@ -53,6 +68,11 @@ const RoomBooker = (props) => {
               id="tel"
               name="tel"
               className="form-control border-0"
+              value={props.tel}
+              onChange={(event) => {
+                props.updateValue.setTel(event.target.value);
+                console.log(props.tel);
+              }}
             />
           </div>
 
@@ -64,6 +84,11 @@ const RoomBooker = (props) => {
                 id="country"
                 name="country"
                 className="form-control border-0"
+                value={props.country}
+                onChange={(event) => {
+                  props.updateValue.setCountry(event.target.value);
+                  console.log(props.country);
+                }}
               />
             </div>
             <div className="lang col-6">
@@ -73,6 +98,11 @@ const RoomBooker = (props) => {
                 id="lang"
                 name="lang"
                 className="form-control border-0"
+                value={props.lang}
+                onChange={(event) => {
+                  props.updateValue.setLang(event.target.value);
+                  console.log(props.lang);
+                }}
               />
             </div>
           </div>
