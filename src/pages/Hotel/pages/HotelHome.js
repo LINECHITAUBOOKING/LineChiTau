@@ -49,7 +49,7 @@ const Hotel = (props) => {
       <PopularCategory />
       <Recommend />
       <RecommendToC />
-      <PositiveFeedback />
+      {/* <PositiveFeedback /> */}
     </>
   );
 };

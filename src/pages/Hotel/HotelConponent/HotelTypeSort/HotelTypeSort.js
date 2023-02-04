@@ -5,7 +5,7 @@ export default function HotelTypeSort({
   setFilterCondition,
   filterCondition,
 }) {
-  console.log('type', filterCondition);
+  // console.log('type', filterCondition);
   return (
     <>
       {hotelType.map((hotelType, hotelType_i) => {
