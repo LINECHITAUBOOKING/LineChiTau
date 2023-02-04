@@ -20,7 +20,7 @@
     width: 255px;
   }
   .coupon-list {
-    height: 493px;
+    // height: 493px;
     min-width: 939px;
     display: flex;
     gap: 10px;
@@ -30,7 +30,9 @@
       list-style: none;
       margin: 5px 0;
     }
-    .coupon-item {
+    
+  }
+  .coupon-item {
       background-color: var(--white);
       border: 1px solid;
       border-color: #d0d0d0;
@@ -93,7 +95,6 @@
         margin-left: 150px;
       }
     }
-  }
   .prefertitle {
     height: 62px;
     letter-spacing: 0;

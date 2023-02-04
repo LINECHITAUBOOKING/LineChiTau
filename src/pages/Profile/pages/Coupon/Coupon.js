@@ -1,16 +1,62 @@
-import React from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import axios from 'axios';
 import pic1 from './images/pic1.png';
 import pic2 from './images/pic2.png';
 import place from './images/place.png';
 import coin from './images/coin.png';
 import logo from './images/logo.png';
 import clock from './images/clock.svg';
+import { useQuery } from 'react-query';
+import { useParams, useNavigate } from 'react-router-dom';
+import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import CouponItem from './CouponItem';
 import NewsTicker, {
   Directions,
   TickerStates,
 } from 'react-advanced-news-ticker';
 import './Coupon.scss';
 const Coupon = () => {
+  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const [member, setMember] = useState({});
+  // const [coupon, setCoupon] = useState({});
+  console.log('userF', userF.pwd);
+  console.log(jwtToken);
+  const navigate = useNavigate();
+  // const location = useLocation();
+  if (!jwtToken) {
+    return (
+      <>
+        <span>notoken</span>
+      </>
+    );
+  }
+
+  function handleChange(e) {
+    setMember({ ...member, [e.target.name]: e.target.value });
+  }
+
+  async function handleSubmit(e) {
+    console.log('handleSubmit');
+
+    // e.preventDefault();
+    const code = Number(member.code);
+    console.log(code);
+    try {
+      let response = await axios.get(
+        '/api/coupon/coupon/' + userF.email + '/' + code
+      );
+      console.log(response.status);
+      console.log('成功');
+      console.log(response.data);
+
+      alert('更新成功');
+      setMember({});
+    } catch (e) {
+      alert('更新失敗');
+      console.log(e);
+    }
+  }
+
   return (
     <div className="container-coupon">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
@@ -18,7 +64,7 @@ const Coupon = () => {
       </h1>
       <div className="coupon">
         <div className="coupon-list">
-          <NewsTicker
+          {/*  <NewsTicker
             className="coupon-li"
             rowHeight={204}
             maxRows={3}
@@ -68,31 +114,36 @@ const Coupon = () => {
                 <p>使用規則</p>
               </div>
             </div>
-          </NewsTicker>
+          </NewsTicker> */}
 
-          {/* <div className="coupon-item">
-            <div className="item1">
-              <img src={logo} alt="" />
-              <div>棲桃購物</div>
-            </div>
-            <div className="item2">
-              <h1>8.5折</h1>
-              <h6>低消$2000</h6>
-              <h6 className="h6-2">1.11新春狂購月</h6>
-              <div className="text-icon">
-                <img src={clock} alt="" />
-                <h6>2023.01.11起生效</h6>
+          <>
+            {/* <div className="coupon-item">
+              <div className="item1">
+                <img src={logo} alt="" />
+                <div>棲桃購物</div>
               </div>
-            </div>
-            <div className="item3">
-              <button className="my-btn">領取</button>
-              <p>使用規則</p>
-            </div>
-          </div> */}
+              <div className="item2">
+                <h1>{coupon[0].discount}折</h1>
+                <h6>低消$2000</h6>
+                <h6 className="h6-2">1.11新春狂購月</h6>
+                <div className="text-icon">
+                  <img src={clock} alt="" />
+                  <h6>2023.01.11起生效</h6>
+                </div>
+              </div>
+              <div className="item3">
+                <button className="my-btn">領取</button>
+                <p>使用規則</p>
+              </div>
+            </div> */}
+          </>
+
+          <input type="number" name="code" onChange={handleChange} />
+          <button onClick={handleSubmit}>兌換</button>
         </div>
       </div>
-
-      <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
+      <CouponItem />
+      {/*  <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         推薦商品
       </div>
       <div className="preferlist">
@@ -147,7 +198,7 @@ const Coupon = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
