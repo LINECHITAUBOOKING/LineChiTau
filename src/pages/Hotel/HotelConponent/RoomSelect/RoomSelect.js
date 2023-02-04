@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from '../SearchBar/SearchBar';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RoomSelect.scss';
+import HotelBanner from '../HotelBanner/HotelBanner';
 
 const RoomSelect = (props) => {
   const { roomDetail } = props;
@@ -51,7 +50,11 @@ const RoomSelect = (props) => {
     <>
       <div className="container-xxl room-select-box" id="room">
         <h3 className="h3">選擇房型</h3>
-        <SearchBar />
+        <HotelBanner
+          dNone={'d-none'}
+          justifyContentCenter={'justify-content-center'}
+          my2={'my-2'}
+        />
         <div>
           <div>
             {roomDetailArrangeChunk.map((firstChunk, firstChunk_i) => {

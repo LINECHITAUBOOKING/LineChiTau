@@ -7,6 +7,7 @@ import Recommend from '../HotelConponent/Recommend/Recommend';
 import RecommendToC from '../HotelConponent/RecommendToC/RecommendToC';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import './HotelHome.scss';
 
 const Hotel = (props) => {
   const [error, setError] = useState(null);
@@ -38,12 +39,17 @@ const Hotel = (props) => {
   }, []);
   return (
     <>
-      <HotelBanner />
+      <div className="banner position-relative">
+        <HotelBanner
+          positionAbsolute={'position-absolute'}
+          bannerSearchBar={'banner-search-bar'}
+        />
+      </div>
       <PopularSearch />
       <PopularCategory />
       <Recommend />
       <RecommendToC />
-      <PositiveFeedback />
+      {/* <PositiveFeedback /> */}
     </>
   );
 };

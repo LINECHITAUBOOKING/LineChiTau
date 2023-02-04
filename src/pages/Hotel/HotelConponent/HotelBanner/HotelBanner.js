@@ -3,17 +3,47 @@ import React from 'react';
 import './HotelBanner.scss';
 import { useState } from 'react';
 import Calendar from '../Calendar/Calendar';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
-const HotelBanner = () => {
-  const [dateFromCalendar, setDateFromCalendar] = useState('');
+const HotelBanner = ({
+  bannerSearchBar,
+  positionAbsolute,
+  justifyContentCenter,
+  my2,
+  widthControl,
+  dNone,
+}) => {
+  const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
+  const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
+  const [destination, setDestination] = useState(
+    localStorage.getItem('destination')
+  );
+  // console.log(localStorage.getItem('destination'));
+  const [dateFromTO, setDateFromTO] = useState(`${startDate} - ${endDate}`);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
+  const navigate = useNavigate();
   const [conditions, setConditions] = useState({
     adult: 2, //初始人數,房間數為一
     children: 0, //可以不一定要有小孩
     room: 1,
   });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/HotelList/${destination}`);
+    localStorage.setItem('destination', destination);
+    localStorage.setItem('adult', conditions['adult']);
+    localStorage.setItem('children', conditions['children']);
+    localStorage.setItem('room', conditions['room']);
+    localStorage.setItem('startDate', startDate);
+    localStorage.setItem('endDate', endDate);
+  };
 
+  const handleInputChange = (event) => {
+    event.persist();
+    setDestination(event.target.value);
+  };
   const conditionsSelect = ['成人', '兒童', '客房'];
   const plusNum = (type) => {
     const newConditions = { ...conditions };
@@ -46,115 +76,139 @@ const HotelBanner = () => {
       }
     }
   };
+  useEffect(() => {
+    setDateFromTO(`${startDate} - ${endDate}`);
+  }, [startDate, endDate]);
   return (
-    <div className="banner position-relative">
-      <div className="search-bar position-absolute d-flex my-border-radius">
-        <div>
-          <div className="nav-foot-small d-flex">
-            <span className="material-symbols-outlined">location_on</span>目的地
-          </div>
-          <input
-            type="text"
-            placeholder="請輸入目的地"
-            className="form-control bg-transparent my-p"
-          />
+    <div
+      className={`hotel-search-bar d-flex my-border-radius ${justifyContentCenter} ${my2} ${bannerSearchBar} ${positionAbsolute} ${widthControl}`}
+    >
+      <div className={`${dNone}`}>
+        <div className="nav-foot-small d-flex">
+          <span className="material-symbols-outlined">location_on</span>目的地
         </div>
-        <div>
-          <div className="listItem">
-            <span className="date">
-              <div>
-                <div
-                  className="nav-foot-small d-flex"
-                  onClick={() => {
-                    setOpenCalendar(!openCalendar);
-                  }}
-                >
-                  <span className="material-symbols-outlined">
-                    calendar_month
-                  </span>
-                  入住/退房時間
+        <input
+          type="text"
+          placeholder="請輸入目的地"
+          className="form-control bg-transparent my-p"
+          required
+          value={destination}
+          onChange={(event) => {
+            handleInputChange(event);
+          }}
+        />
+      </div>
+      <div>
+        <div className="listItem">
+          <span className="date">
+            <div>
+              <div
+                className="nav-foot-small d-flex"
+                onClick={() => {
+                  setOpenCalendar(!openCalendar);
+                }}
+              >
+                <span className="material-symbols-outlined">
+                  calendar_month
+                </span>
+                入住/退房時間
+              </div>
+              <div className="d-flex justify-content-center d-none">
+                <div className="w-50">
+                  <input value={startDate} className="form-control" />
                 </div>
-                {/* <input placeholder="請選擇日期" value={dateFromCalendar} /> */}
-                <div
-                  className="display-box nav-foot-small"
-                  onClick={() => {
-                    setOpenCalendar(!openCalendar);
-                  }}
-                >
-                  {dateFromCalendar}
-                </div>
-                <div className="listItem">
-                  {openCalendar && (
-                    <Calendar setDateFromCalendar={setDateFromCalendar} />
-                  )}
+                <div className="w-50">
+                  <input value={endDate} className="form-control" />
                 </div>
               </div>
-            </span>
-          </div>
-        </div>
-        <div>
-          <div className="nav-foot-small d-flex">
-            <span className="material-symbols-outlined">group</span>人數 / 間數
-          </div>
-          <input
-            className="form-control bg-transparent my-p"
-            placeholder={`${conditions['adult']}位成人 / ${conditions['children']} 位小孩 / ${conditions['room']} 間房間`}
-            onClick={() => {
-              setOpenConditions(!openConditions);
-            }}
-          />
-          {openConditions && (
-            <div className="select-room p-1">
-              {conditionsSelect.map((value, index) => {
-                let type;
-                switch (value) {
-                  case '成人':
-                    type = 'adult';
-                    break;
-                  case '兒童':
-                    type = 'children';
-                    break;
-                  case '客房':
-                    type = 'room';
-                    break;
-                  default:
-                    break;
-                }
-                return (
-                  <div
-                    className="d-flex justify-content-around my-2 "
-                    key={index}
-                  >
-                    <p className="my-auto">{value}</p>
-                    <button
-                      className="my-btn nav-foot-small d-flex align-items-center py-2"
-                      onClick={() => {
-                        minusNum(type);
-                      }}
-                    >
-                      {' '}
-                      -{' '}
-                    </button>
-                    <p className="my-auto">{conditions[type]}</p>
-                    <button
-                      className="my-btn nav-foot-small d-flex align-items-center py-2"
-                      onClick={() => {
-                        plusNum(type);
-                      }}
-                    >
-                      {' '}
-                      +{' '}
-                    </button>
-                  </div>
-                );
-              })}
+              <div
+                className="display-box nav-foot-small"
+                onClick={() => {
+                  setOpenCalendar(!openCalendar);
+                }}
+              >
+                {dateFromTO}
+              </div>
+              <div className="listItem">
+                {openCalendar && (
+                  <Calendar
+                    setStartDate={setStartDate}
+                    setEndDate={setEndDate}
+                  />
+                )}
+              </div>
             </div>
-          )}
+          </span>
         </div>
-        <button className="my-btn nav-foot-small d-flex align-items-center pe-1 py-3">
-          <span className="material-symbols-outlined">search</span>
-        </button>
       </div>
+      <div>
+        <div className="nav-foot-small d-flex">
+          <span className="material-symbols-outlined">group</span>人數 / 間數
+        </div>
+        <input
+          className="form-control bg-transparent my-p"
+          value={`${conditions['adult']}位成人 / ${conditions['children']} 位小孩 / ${conditions['room']} 間房間`}
+          onClick={() => {
+            setOpenConditions(!openConditions);
+          }}
+        />
+        <input className="d-none" value={conditions['adult']} />
+        <input className="d-none" value={conditions['children']} />
+        <input className="d-none" value={conditions['room']} />
+        {openConditions && (
+          <div className="select-room p-1">
+            {conditionsSelect.map((value, index) => {
+              let type;
+              switch (value) {
+                case '成人':
+                  type = 'adult';
+                  break;
+                case '兒童':
+                  type = 'children';
+                  break;
+                case '客房':
+                  type = 'room';
+                  break;
+                default:
+                  break;
+              }
+              return (
+                <div
+                  className="d-flex justify-content-around my-2 "
+                  key={index}
+                >
+                  <p className="my-auto">{value}</p>
+                  <button
+                    className="my-btn nav-foot-small d-flex align-items-center py-2"
+                    onClick={() => {
+                      minusNum(type);
+                    }}
+                  >
+                    {' '}
+                    -{' '}
+                  </button>
+                  <p className="my-auto">{conditions[type]}</p>
+                  <button
+                    className="my-btn nav-foot-small d-flex align-items-center py-2"
+                    onClick={() => {
+                      plusNum(type);
+                    }}
+                  >
+                    {' '}
+                    +{' '}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
+      <button
+        className={`my-btn nav-foot-small d-flex align-items-center pe-1 py-3 ${dNone}`}
+        onClick={handleSubmit}
+      >
+        <span className="material-symbols-outlined">search</span>
+      </button>
     </div>
   );
 };

@@ -66,11 +66,20 @@ export const RecommendToC = () => {
                           <span class="material-symbols-rounded my-p position-absolute recommand-tag">
                             bookmark
                           </span>
-                          <img
-                            src={pic3}
-                            alt="pic3"
-                            className="card-pic my-border-radius"
-                          />
+                          {v2.company_banner.split(',').map((pic, i) => {
+                            if (i === 0) {
+                              return (
+                                <div key={i}>
+                                  <img
+                                    src={`/images/${pic}`}
+                                    alt={v2.company_name}
+                                    className="card-pic my-border-radius"
+                                  />
+                                </div>
+                              );
+                            }
+                          })}
+
                           <h6 className="nav-foot-small my-2">
                             {v2.company_name}
                           </h6>
@@ -115,7 +124,7 @@ export const RecommendToC = () => {
             )
           );
         })}
-        <div className="text-center mt-5">
+        <div className="text-center mt-3 mb-5">
           <button
             className="my-btn nav-foot"
             onClick={() => {

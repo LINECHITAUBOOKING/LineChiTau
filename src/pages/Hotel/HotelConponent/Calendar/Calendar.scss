@@ -1,6 +1,7 @@
 @import '../../../../css/global-style.scss';
 
 .calendar {
+  z-index: 999;
   max-width: 350px;
   .display-box {
     // border: 1px solid $textColor;
