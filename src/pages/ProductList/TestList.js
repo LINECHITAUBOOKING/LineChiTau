@@ -162,9 +162,16 @@ export default function TestList() {
             </div>
           </div>
           <div className="col-9 ">
-            <ProductsCard />
-            <ProductsCard />
-            <ProductsCard />
+            {ReturnedTripData.map((e, i) => {
+              return (
+                <ProductsCard
+                  key={i}
+                  tripName={e.trip_name}
+                  introduction={e.introduction}
+                  region={e.region}
+                />
+              );
+            })}
             <Pagination />
           </div>
         </div>
