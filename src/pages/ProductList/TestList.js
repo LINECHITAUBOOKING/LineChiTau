@@ -18,98 +18,107 @@ export default function TestList() {
   //const { URLRawkeyword } = useParams();
   const URLRawkeyword = '台北 陽明山 北投';
 
+  const [newRawKeyword, setNewRawKeyword] = useState();
+
   //!將回傳資料設為本元件的state
-  const [ReturnedTripData, setTripDataArr] = useState();
+  const [ReturnedTripData, setReturnedTripData] = useState([]);
 
   //!打算把子元件的state當作"篩選用"的關鍵字
   const [SortKeywordArr, setSortKeywordArr] = useState();
 
-  //!從搜尋關鍵字獲取資料
-  useEffect(() => {
+  //!處理關鍵字的函式
+  const regionArr = [
+    '基隆',
+    '宜蘭',
+    '台北',
+    '桃園',
+    '新竹',
+    '苗栗',
+    '台中',
+    '彰化',
+    '南投',
+    '雲林',
+    '嘉義',
+    '台南',
+    '高雄',
+    '屏東',
+    '台東',
+    '花蓮',
+    '澎湖',
+    '金門',
+    '馬祖',
+    '蘭嶼',
+  ];
+
+  function makeRawKeywordsAnArr(URLRawkeyword) {
     const URLRawKeywordArr = URLRawkeyword.split(' ');
-
-    const regionArr = [
-      '基隆',
-      '宜蘭',
-      '台北',
-      '桃園',
-      '新竹',
-      '苗栗',
-      '台中',
-      '彰化',
-      '南投',
-      '雲林',
-      '嘉義',
-      '台南',
-      '高雄',
-      '屏東',
-      '台東',
-      '花蓮',
-      '澎湖',
-      '金門',
-      '馬祖',
-      '蘭嶼',
-    ];
-
-    //將關鍵字分成兩種陣列 地名&非地名
-    const partition = (rawArr, isRegion) => {
-      const keyword = [];
-      const region = [];
-      rawArr.forEach((element) => {
-        if (isRegion(element)) {
-          region.push(element);
-        } else {
-          keyword.push(element);
-        }
-      });
-      return [region, keyword];
-    };
-
-    const [regionKeywordArr, nameKeywordArr] = partition(
-      URLRawKeywordArr,
-      (element) => {
-        if (regionArr.includes(element)) {
-          return true;
-        } else {
-          return false;
-        }
+    return URLRawKeywordArr;
+  }
+  function seperateRawKeywordArr(URLRawKeywordArr, isRegion) {
+    const name = [];
+    const region = [];
+    URLRawKeywordArr.forEach((element) => {
+      if (isRegion()) {
+        region.push(element);
+      } else {
+        name.push(element);
       }
-    );
+    });
+    return [name, region];
+  }
+  function isRegion(element) {
+    if (regionArr.includes(element)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-    //從陣列中取出關鍵字
+  //!藉由關鍵字獲取資料的函式
+
+  async function fetchData(regionKeywordArr, nameKeywordArr) {
     const regionKeyword =
       regionKeywordArr[0] !== undefined ? regionKeywordArr[0] : 'none';
     const nameKeyword =
       nameKeywordArr[0] !== undefined ? nameKeywordArr.join('&') : 'none';
-    //將關鍵字放入對應的r=? , n=?
     try {
       if (
-        regionKeywordArr[0] ||
-        (nameKeywordArr[0] && URLRawkeyword !== 'all')
+        URLRawkeyword !== 'all' &&
+        (regionKeywordArr[0] || nameKeywordArr[0])
       ) {
-        const customResult = axios.get(
+        const dataArr = await axios.get(
           `http://localhost:3001/api/tripList/r=${regionKeyword}n=${nameKeyword}`
         );
-
-        customResult.then((res) => {
-          setTripDataArr(customResult.data);
-          console.log('normalGet');
-        });
+        setReturnedTripData(dataArr.data);
       } else {
-        const allResult = axios.get(`http://localhost:3001/api/tripList/all`);
-        setTripDataArr(allResult.data);
-        console.log('allGet');
+        const dataArr = await axios.get(
+          `http://localhost:3001/api/tripList/all`
+        );
+        setReturnedTripData(dataArr.data);
       }
     } catch (error) {
       console.log(error);
     }
-  });
+  }
+
+  //!從搜尋關鍵字獲取資料
+  useEffect(() => {
+    const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
+      makeRawKeywordsAnArr(URLRawkeyword),
+      isRegion
+    );
+    fetchData(regionKeywordArr, nameKeywordArr);
+  }, []);
+
+  console.log(ReturnedTripData);
 
   return (
     <>
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
-          <p className="result my-topic">關鍵字：共 0 項 結果 </p>
+          <p className="result my-topic">
+            關鍵字：共 {ReturnedTripData.length} 項 結果
+          </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
             <li className="top-sort-btn popularity">人氣 </li>
