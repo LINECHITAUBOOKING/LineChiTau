@@ -49,10 +49,10 @@ const Coupon = () => {
       console.log('成功');
       console.log(response.data);
 
-      alert('更新成功');
+      alert('兌換成功');
       setMember({});
     } catch (e) {
-      alert('更新失敗');
+      alert('兌換失敗，請輸入正確代碼');
       console.log(e);
     }
   }
@@ -138,8 +138,17 @@ const Coupon = () => {
             </div> */}
           </>
 
-          <input type="number" name="code" onChange={handleChange} />
-          <button onClick={handleSubmit}>兌換</button>
+          <div className="inputcode">
+            <input
+              className="inputcode-1"
+              type="number"
+              name="code"
+              onChange={handleChange}
+            />
+            <button className="my-btn" onClick={handleSubmit}>
+              兌換
+            </button>
+          </div>
         </div>
       </div>
       <CouponItem />
