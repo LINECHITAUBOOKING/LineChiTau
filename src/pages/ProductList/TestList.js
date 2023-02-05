@@ -6,6 +6,7 @@ import NormalSort from './ListComponent/NormalSort/NormalSort';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
 import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
+import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar'
 // import { useParams } from 'react-router-dom';
 
 export default function TestList() {
@@ -114,6 +115,7 @@ export default function TestList() {
 
   return (
     <>
+      <div className='search-bar-component-wrapper'><TripSearchBar setter={setNewRawKeyword()}/></div>
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
           <p className="result my-topic">
