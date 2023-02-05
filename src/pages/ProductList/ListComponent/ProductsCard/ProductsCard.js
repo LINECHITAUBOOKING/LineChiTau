@@ -1,6 +1,5 @@
 import './ProductsCard.scss';
 import pic3 from './dolphins_hotel.jpg';
-import { json } from 'react-router-dom';
 
 export default function ProductCard({ tripName, introduction, region }) {
   const introJSON = JSON.parse(introduction);
@@ -18,8 +17,12 @@ export default function ProductCard({ tripName, introduction, region }) {
           ></img>
         </div>
         <div className="products-content mx-3 my-2">
-          <h5 className="products-name nav-foot">{tripName}</h5>
-          <p className="description my-p">{introText}</p>
+          <h5 className="products-name nav-foot" title={tripName}>
+            {tripName}
+          </h5>
+          <p className="description my-p" title={introText}>
+            {introText}
+          </p>
           <ul className="products-tag-list list-unstyled d-flex">
             <li>
               <button className="tag my-border-radius my-p mx-1">泳池</button>

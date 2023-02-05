@@ -31,6 +31,14 @@ $general-padding:10px;
         } 
     }
   }
+  .description {
+    display: -webkit-box;
+    height: 70px;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp:2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
   .material-symbols-outlined {
     @include filled-google-icons;
   }
