@@ -15,7 +15,7 @@ import RoomMemo from '../PaymentComponent/RoomMemo/RoomMemo';
 import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
 import RoomArriveTime from '../PaymentComponent/RoomArriveTime/RoomArriveTime';
 import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
-
+const moment = require('moment');
 
 const HotelPaymentDetail = (props) => {
   const currentStep = 2;
@@ -25,11 +25,10 @@ const HotelPaymentDetail = (props) => {
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
-  const [hotelDetail, setHotelDetail] = useState({});
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
   const ordersItem = JSON.parse(storage.getItem('orderItem'));
   const orderItem = ordersItem[0];
-  
+
   useEffect(() => {
     async function getRoomDetail() {
       let response = await axios.get(
@@ -40,6 +39,10 @@ const HotelPaymentDetail = (props) => {
     }
     getRoomDetail();
   }, []);
+  console.log(
+    '===============paymentRoomDetail================：',
+    paymentRoomDetail
+  );
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState(userF.email);
@@ -47,7 +50,10 @@ const HotelPaymentDetail = (props) => {
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
   const name = lastName + firstName;
-  const date = Date();
+
+  const user_email = userF.email;
+  const orderDate =  moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+
   const updateValue = {
     setFirstName: (value) => {
       setFirstName(value);
@@ -69,38 +75,37 @@ const HotelPaymentDetail = (props) => {
     },
   };
   // NOTE 假價格
-  const price = 1000;
-  const amount = 1000;
-  console.log('asjdioasjdoaisoihafoawu', date);
+  const amount = orderItem.conditions.room;
+  const totalPrice = amount * paymentRoomDetail.price;
+  console.log('asjdioasjdoaisoihafoawu', orderDate);
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log('handleSubmit:', {
-      name,
-      email,
-      tel,
-      country,
-      lang,
-      date,
-      price,
-      amount,
-    });
     // !關閉表單預設行為
 
-    let formData = {
-      name: name,
-      email: email,
-      tel: tel,
-      country: country,
-      lang: lang,
-      date: date,
-      price: price,
+    let orderData = {
+      user_email: user_email,
+      orderDate: orderDate,
+      formData: {
+        name: name,
+        email: email,
+        tel: tel,
+        country: country,
+        lang: lang,
+      },
+      product_id: paymentRoomDetail.hotel_room_list_id,
+      price: paymentRoomDetail.price,
+      totalPrice: totalPrice,
       amount: amount,
+      startDate: orderItem.startDate,
+      endDate: orderItem.endDate,
+      discount: 0,
     };
+    console.log('=================handleSubmit===================:', orderData);
     // * ajax
     try {
       let response = await axios.post(
         'http://localhost:3000/api/payment/Detail/Hotel/order',
-        formData
+        orderData
       );
       console.log(response.data);
     } catch (e) {

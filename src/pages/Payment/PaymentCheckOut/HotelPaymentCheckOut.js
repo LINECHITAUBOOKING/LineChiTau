@@ -19,31 +19,17 @@ import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import UserData from '../PaymentComponent/UserData/UserData';
 import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
 
-
 const HotelPaymentCheckOut = () => {
   const currentStep = 3;
   const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
   console.log(jwtToken);
 
-  const [show, setShow] = useState(false);
-
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
-  const [hotelDetail, setHotelDetail] = useState({});
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
 
   useEffect(() => {
-    async function getHotelDetail() {
-      let response = await axios.get(
-        `http://localhost:3001/api/hotelDetail/${hotelName}`
-      );
-      // console.log(response.data[0]);
-      setHotelDetail(response.data[0]);
-    }
     async function getRoomDetail() {
       let response = await axios.get(
         `http://localhost:3001/api/paymentHotelDetail/${hotelName}/${roomName}`
@@ -51,7 +37,6 @@ const HotelPaymentCheckOut = () => {
       // console.log(response.data);
       setPaymentRoomDetail(response.data[0]);
     }
-    getHotelDetail();
     getRoomDetail();
   }, []);
 

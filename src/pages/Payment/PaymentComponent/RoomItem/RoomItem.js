@@ -82,9 +82,9 @@ const RoomItem = (props) => {
                 <span className="col-auto">{totalDate} 晚</span>
               </div>
               <div className="sub-price bg-transparent row ">
-                <span className="col-4">價格：</span>
+                <span className="col-4">單間價格：</span>
                 <span className="col-auto">
-                  NT$ {paymentRoomDetail.price} / 間
+                  NT$ {paymentRoomDetail.price} / 晚
                 </span>
               </div>
               <div className="sub-price bg-transparent row ">
