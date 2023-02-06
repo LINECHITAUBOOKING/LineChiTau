@@ -88,8 +88,8 @@
         }
       }
     }
-    .name {
-      margin-top: 20px;
+    .login-name {
+      margin-top: 60px;
       width: 250px;
       display: flex;
       flex-direction: column;
@@ -172,20 +172,17 @@
         color: lightgreen;
       }
     }
-    .btn-login {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      .lastBtn {
-        width: 120px;
-        height: 30px;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        border: none;
-        border-radius: 10px;
-        background-color: #ffb905;
-        color: #734338;
-      }
+    .lastBtn {
+
+      margin-left: 5px;
+      margin-right: 5px;
+      width: 120px;
+      height: 30px;
+      margin-top: 60px;
+      border: none;
+      border-radius: 10px;
+      background-color: #ffb905;
+      color: #734338;
     }
   }
   img {

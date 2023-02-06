@@ -21,7 +21,7 @@ const Navbar = () => {
           {linkList.map((list, index) => {
             switch (list) {
               case '旅遊行程':
-                toLink = '/travel';
+                toLink = '/travelList';
                 break;
               case '票卷活動':
                 toLink = '/ticket';
@@ -65,13 +65,12 @@ const Navbar = () => {
                 </Link>
               </p>
             ) : (
-              <p className="nav-button">
-                <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
-                  登入
-                </Link>
-              </p>
+              <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
+                登入
+              </Link>
             )}
           </div>
+
           <div>
             <div>
               <Link className="nav-foot text-decoration-none" to={'/payment/'}>
