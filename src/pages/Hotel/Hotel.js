@@ -1,10 +1,13 @@
-import React from 'react';
-import HotelBanner from './HotelConponent/HotelBanner/HotelBanner'
+import React, { useState } from 'react';
+import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import Calendar from './HotelConponent/Calendar/Calendar';
 
 const Hotel = () => {
-  return <>
-    <HotelBanner />
-  </>;
+  return (
+    <>
+      <Outlet />
+    </>
+  );
 };
 
 export default Hotel;
