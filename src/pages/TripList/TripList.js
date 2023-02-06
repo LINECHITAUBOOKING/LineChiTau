@@ -1,4 +1,4 @@
-import './TestList.scss';
+import './TripList.scss';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import PopupSort from './ListComponent/PopupSort/PopupSort';
@@ -6,7 +6,7 @@ import NormalSort from './ListComponent/NormalSort/NormalSort';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
 import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
-import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar'
+import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar';
 // import { useParams } from 'react-router-dom';
 
 export default function TestList() {
@@ -16,7 +16,7 @@ export default function TestList() {
   //TODO 將從API調出的資料傳進去產品卡片
 
   //!利用 react-router-dom 獲得一開始的關鍵字 或著其他方式 很有可能是localstorage
-  //const { URLRawkeyword } = useParams();
+  // const { URLRawkeyword } = useParams();
   const URLRawkeyword = '台北 陽明山 北投';
 
   const [newRawKeyword, setNewRawKeyword] = useState();
@@ -75,7 +75,7 @@ export default function TestList() {
     }
   }
 
-  //!藉由關鍵字獲取資料的函式
+  // //!藉由關鍵字獲取資料的函式
 
   async function fetchData(regionKeywordArr, nameKeywordArr) {
     const regionKeyword =
@@ -102,7 +102,28 @@ export default function TestList() {
     }
   }
 
-  //!從搜尋關鍵字獲取資料
+  // //!從搜尋關鍵字獲取資料
+  const RenderReturnedTripData = ReturnedTripData.map((e, i) => {
+    return (
+      <ProductsCard
+        key={i}
+        tripName={e.trip_name}
+        introduction={e.introduction}
+        region={e.region}
+      />
+    );
+  });
+
+  const ThereIsNoReturnedTripData = () => {
+    return (
+      <>
+        <div className="container-fluid d-flex justify-content-center align-items-center my-topic">
+          查無結果
+        </div>
+      </>
+    );
+  };
+
   useEffect(() => {
     const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
       makeRawKeywordsAnArr(URLRawkeyword),
@@ -112,14 +133,15 @@ export default function TestList() {
   }, []);
 
   console.log(ReturnedTripData);
+  console.log('新關鍵字', newRawKeyword);
 
   return (
     <>
-      <div className='search-bar-component-wrapper'><TripSearchBar setter={setNewRawKeyword()}/></div>
+      <TripSearchBar setNewRawKeyword={setNewRawKeyword} />
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
           <p className="result my-topic">
-            關鍵字：共 {ReturnedTripData.length} 項 結果
+            關鍵字：共 {ReturnedTripData ? ReturnedTripData.length : 0} 項 結果
           </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
@@ -164,16 +186,9 @@ export default function TestList() {
             </div>
           </div>
           <div className="col-9 ">
-            {ReturnedTripData.map((e, i) => {
-              return (
-                <ProductsCard
-                  key={i}
-                  tripName={e.trip_name}
-                  introduction={e.introduction}
-                  region={e.region}
-                />
-              );
-            })}
+            {ReturnedTripData
+              ? RenderReturnedTripData
+              : ThereIsNoReturnedTripData()}
             <Pagination />
           </div>
         </div>
