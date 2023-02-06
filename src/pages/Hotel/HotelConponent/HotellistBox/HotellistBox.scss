@@ -2,6 +2,12 @@
 
 .hotellist-box {
   background: #fff;
+  .display-map {
+    height: 60vh;
+    width: 80vw;
+    z-index: 1000;
+    left: calc(50% - 40vw);
+  }
   .products-card {
     .hotellist-pic-box {
       overflow: hidden;
