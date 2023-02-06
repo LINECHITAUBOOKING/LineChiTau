@@ -2333,10 +2333,6 @@
   "resolved" "https://registry.npmjs.org/@react-leaflet/core/-/core-2.1.0.tgz"
   "version" "2.1.0"
 
-"@react-native-community/cli-clean@^10.0.0":
-  "integrity" "sha512-9uHRicQXycqu55rSplQh2/o/nDdA5qDXiU09/s7/fJbUlCNUySy5rXw5FtbQv+Bj+bD9tXFoDRKN1ZnNHtT4QQ=="
-  "resolved" "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-10.0.0.tgz"
-  "version" "10.0.0"
 "@react-native-community/cli-clean@^10.1.1":
   "integrity" "sha512-iNsrjzjIRv9yb5y309SWJ8NDHdwYtnCpmxZouQDyOljUdC9MwdZ4ChbtA4rwQyAwgOVfS9F/j56ML3Cslmvrxg=="
   "resolved" "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-10.1.1.tgz"
