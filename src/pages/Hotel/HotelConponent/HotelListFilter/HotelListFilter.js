@@ -2,9 +2,27 @@ import React from 'react';
 import HotelTypeSort from '../HotelTypeSort/HotelTypeSort';
 import HotelServiceSort from '../HotelServiceSort/HotelServiceSort';
 import MoneySort from '../MoneySort/MoneySort';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import L from 'leaflet';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import './HotelListFilter.scss';
+import DisplayMap from '../DisplayMap/DisplayMap';
 
-function HotelListFilter({ hotelType, setFilterCondition, filterCondition }) {
+function HotelListFilter({
+  hotelType,
+  setFilterCondition,
+  filterCondition,
+  hotelListArrangeState,
+  setIsOpenMap,
+}) {
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+  });
+  // console.log(hotelListArrangeState);
+  L.Marker.prototype.options.icon = DefaultIcon;
   const hotelServiceListArray = [
     'WIFI',
     '泳池',
@@ -47,11 +65,24 @@ function HotelListFilter({ hotelType, setFilterCondition, filterCondition }) {
     { from: 8000, to: 10000 },
     { from: 10000, to: Number.MAX_SAFE_INTEGER },
   ];
+  // console.log(setIsOpenMap);
   return (
     <>
       <div className="hotel-list-map m-auto position-relative">
-        <button className="position-absolute my-p">檢視地圖</button>
+        <button
+          className="position-absolute my-p map-btn"
+          onClick={() => {
+            setIsOpenMap(true);
+          }}
+        >
+          檢視地圖
+        </button>
+        <DisplayMap
+          hotelListArrangeState={hotelListArrangeState}
+          mapHeight={'200px'}
+        />
       </div>
+
       <div className="filter-box">
         <div className="my-border-radius location-type-box m-auto mt-3">
           <div className="px-5 py-3 form-check">
