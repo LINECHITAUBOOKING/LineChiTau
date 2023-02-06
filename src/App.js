@@ -1,15 +1,4 @@
-// import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-import UploadTrip from './pages/UploadTrip/UploadTrip';
-import TripSearchBar from './pages/ProductList/ListComponent/TripSearchBar/TripSearchBar';
-// import TestList from './pages/ProductList/TestList';
-// import ProductDetails from './pages/ProductDetails/ProductDetails';
-// import Comment from './pages/ProductDetails/DetailComponet/Comment/Comment';
-// import PlanDetails from './pages/ProductDetails/DetailComponet/MainSelector/PlanDetails/PlanDetails';
-// import MainSelector from './pages/ProductDetails/DetailComponet/MainSelector/MainSelector';
-
-import './test.scss';
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   BrowserRouter,
@@ -49,22 +38,13 @@ import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
-
+import TripLIst from './pages/ProductList/TestList';
+import TestList from './pages/ProductList/TestList';
 function App() {
   return (
     <>
       <JwtCsrfTokenProvider>
         <Navbar />
-
-        <Routes>
-          <Route path="/" element={<TripSearchBar />} />
-          {/* <Route path="tripList" element={<TestList />} /> */}
-          {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
-        </Routes>
-        {/* <Comment /> */}
-        {/* <PlanDetails /> */}
-        {/* <MainSelector /> */}
-
         <ScrollToTop>
           <Routes>
             <Route path="/" element={<Hotel />}>
@@ -76,6 +56,7 @@ function App() {
                 element={<HotelDetail />}
               />
             </Route>
+            <Route path="travelList" element={<TestList />}></Route>
             <Route path="login" element={<Demo />} />
             <Route path="login1" element={<Login />} />
             <Route path="profile" element={<Profile />}>
@@ -113,6 +94,7 @@ function App() {
             </Route>
           </Routes>
         </ScrollToTop>
+
         <Footer />
       </JwtCsrfTokenProvider>
     </>

@@ -18,6 +18,7 @@ import './Coupon.scss';
 const Coupon = () => {
   const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
+  const [inputValue, setInputValue] = useState('');
   // const [coupon, setCoupon] = useState({});
   console.log('userF', userF.pwd);
   console.log(jwtToken);
@@ -33,6 +34,7 @@ const Coupon = () => {
 
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value });
+    setInputValue(e.target.value);
   }
 
   async function handleSubmit(e) {
@@ -51,6 +53,7 @@ const Coupon = () => {
 
       alert('兌換成功');
       setMember({});
+      setInputValue('');
     } catch (e) {
       alert('兌換失敗，請輸入正確代碼');
       console.log(e);
@@ -144,6 +147,7 @@ const Coupon = () => {
               type="number"
               name="code"
               onChange={handleChange}
+              value={inputValue}
             />
             <button className="my-btn" onClick={handleSubmit}>
               兌換
