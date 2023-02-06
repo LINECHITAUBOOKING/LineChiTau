@@ -56,7 +56,7 @@ function App() {
         <Navbar />
 
         <Routes>
-          <Route path="/" element={<TripSearchBar />} />
+          {/* <Route path="/" element={<TripSearchBar />} /> */}
           {/* <Route path="tripList" element={<TestList />} /> */}
           {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
         </Routes>

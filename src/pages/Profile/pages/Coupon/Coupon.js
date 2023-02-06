@@ -57,6 +57,7 @@ const Coupon = () => {
     } catch (e) {
       alert('兌換失敗，請輸入正確代碼');
       console.log(e);
+      setInputValue('');
     }
   }
 
