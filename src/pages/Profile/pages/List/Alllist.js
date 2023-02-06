@@ -153,7 +153,7 @@ const Alllist = ({ value }) => {
                         // listid={listid}
                         className=" button-1 notosans-normal-old-copper-16px"
                       >
-                        查看憑證
+                        查看更多
                       </button>
                     </Link>
                     <button className="button-1 notosans-normal-old-copper-16px">
