@@ -12,6 +12,7 @@ import {
   registerUrl,
   logoutUrl,
   checkLoginUrl,
+  googleUrl,
 } from './server-config';
 import { async } from '@firebase/util';
 
@@ -29,7 +30,8 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   const [csrfToken, setCsrfToken] = useState('');
   const [jwtToken, setJwtToken] = useState('');
   const [jwtDecodedData, setJwtDecodeData] = useState(initialUser);
-  const [auth, setAuth] = useState(false);
+  const [auth, setAuth] = useState();
+  const [userF, setuserF] = useState({ email: '', pwd: '' });
   const [Googleauth, setGoogleauth] = useState(false);
 
   const navigate = useNavigate();
@@ -84,19 +86,23 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     });
   };
 
-  const login = async ({ username, password }) => {
+  const login = async ({ email, password }) => {
     try {
       const { data } = await axios.post(loginUrl, {
-        username,
+        email,
         password,
       });
-
       // access token in state(memory)
       // but refresh token in cookie(httpOnly)
+      setuserF({ email: `${email}`, pwd: `${password}` });
+      console.log('email', userF.email);
+
       axios.defaults.headers.common['Authorization'] = data.accessToken;
 
       setJwtToken(data.accessToken);
+      // console.log(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
+      navigate('/profile');
     } catch (e) {
       // console.error(e);
       console.log(e.response.status);
@@ -108,13 +114,65 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       }
     }
   };
-
+  /* const VerifyEmail = () => {
+    const [errorMessage, setErrorMessage] = useState('');
+  
+    const handleVerifyEmail = () => {
+      firebase.auth().languageCode = 'zh-TW';
+      firebase.auth().currentUser.sendEmailVerification().then(() => {
+        window.alert('驗證信已發送到您的信箱，請查收。');
+      }).catch((error) => {
+        setErrorMessage(error.message);
+      });
+    }; */
   const googlelogin = async () => {
+    try {
+      let result = await signInWithPopup(googleauth, provide);
+      // console.log(result._tokenResponse.email);
+      const username = googleauth.currentUser.displayName;
+      const email = googleauth.currentUser.email;
+      console.log(email);
+      console.log(googleauth);
+
+      axios
+        .post(googleUrl, { username, email })
+        .then(({ data }) => {
+          navigate('/profile');
+          setGoogleauth(true);
+          console.log('yes');
+          axios.defaults.headers.common['Authorization'] = data.accessToken;
+          setJwtToken(data.accessToken);
+          console.log(data.accessToken);
+          setJwtDecodeData(jwt(data.accessToken));
+          setuserF({ email: `${email}`, pwd: '' });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    } catch (error) {
+      console.log('error');
+    }
+  };
+  const emailComfirm = () => {
+    const user = googleauth.currentUser;
+    console.log(user);
+    user
+      .sendEmailVerification()
+      .then(function () {
+        // 驗證信發送完成
+        window.alert('驗證信已發送到您的信箱，請查收。');
+      })
+      .catch((error) => {
+        // 驗證信發送失敗
+        console.log(error.message);
+      });
+  };
+  /*  const googlelogin = async () => {
     let result = await signInWithPopup(googleauth, provide);
     console.log(result);
     navigate('/profile');
     setGoogleauth(true);
-  };
+  }; */
 
   const register = async ({ email, username, password, confirmPassword }) => {
     try {
@@ -146,10 +204,12 @@ export const JwtCsrfTokenProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    googleauth.signOut();
     const { data } = await axios.get(logoutUrl);
     console.log(data.message);
-
+    googleauth.signOut();
+    setGoogleauth(false);
+    setuserF({ email: '', pwd: '' });
+    console.log(googleauth);
     // no default headers now
     // cookie will clear from express server(refreshToken)
     axios.defaults.headers.common['Authorization'] = '';
@@ -183,8 +243,11 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         getNewAccessToken,
         init,
         auth,
+        userF,
+        setuserF,
         googlelogin,
         Googleauth,
+       
       }}
     >
       {children}
