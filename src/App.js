@@ -75,7 +75,7 @@ function App() {
                 <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
                 <Route path="Hotel/CheckOut" element={<HotelPaymentCheckOut />} />
                 <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
-                <Route path="Travel/CheckOut" element={<TravelPaymentCheckOut />} />
+                <Route path="Travel/CheckOut/:orderId" element={<TravelPaymentCheckOut />} />
             </Route>
           </Routes>
         </ScrollToTop>

@@ -20,7 +20,7 @@ const moment = require('moment');
 const HotelPaymentDetail = (props) => {
   const currentStep = 2;
   const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
-  console.log('user_email', userF.email);
+  console.log('userEmail', userF.email);
   console.log(jwtToken);
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
@@ -50,9 +50,11 @@ const HotelPaymentDetail = (props) => {
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
   const name = lastName + firstName;
+  const [orderId, setOrderId] = useState('');
 
-  const user_email = userF.email;
-  const orderDate =  moment(Date.now()).format("YYYY-MM-DD HH:mm:ss");
+  const userEmail = userF.email;
+  const orderIdNum = Date.now();
+  const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
 
   const updateValue = {
     setFirstName: (value) => {
@@ -78,38 +80,59 @@ const HotelPaymentDetail = (props) => {
   const amount = orderItem.conditions.room;
   const totalPrice = amount * paymentRoomDetail.price;
   console.log('asjdioasjdoaisoihafoawu', orderDate);
+
   async function handleSubmit(e) {
     e.preventDefault();
     // !關閉表單預設行為
-
-    let orderData = {
-      user_email: user_email,
-      orderDate: orderDate,
-      formData: {
-        name: name,
-        email: email,
-        tel: tel,
-        country: country,
-        lang: lang,
-      },
-      product_id: paymentRoomDetail.hotel_room_list_id,
-      price: paymentRoomDetail.price,
-      totalPrice: totalPrice,
-      amount: amount,
-      startDate: orderItem.startDate,
-      endDate: orderItem.endDate,
-      discount: 0,
-    };
-    console.log('=================handleSubmit===================:', orderData);
-    // * ajax
-    try {
-      let response = await axios.post(
-        'http://localhost:3000/api/payment/Detail/Hotel/order',
+    if (userEmail !== '') {
+      let orderData = {
+        userEmail: userEmail,
+        orderIdNum: orderIdNum,
+        orderDate: orderDate,
+        formData: {
+          name: name,
+          email: email,
+          tel: tel,
+          country: country,
+          lang: lang,
+        },
+        productId: paymentRoomDetail.hotel_room_list_id,
+        price: paymentRoomDetail.price,
+        totalPrice: totalPrice,
+        amount: amount,
+        startDate: orderItem.startDate,
+        endDate: orderItem.endDate,
+        discount: 0,
+      };
+      console.log(
+        '=================handleSubmit===================:',
         orderData
       );
-      console.log(response.data);
-    } catch (e) {
-      alert('order go go ');
+      // * ajax
+      try {
+        let response = await axios.post(
+          'http://localhost:3000/api/payment/Detail/Hotel/order',
+          orderData
+        );
+        console.log(response.data);
+      } catch (e) {
+        alert('order go go ');
+      }
+      try {
+        async function getOrderId() {
+          let response = await axios.get(
+            `http://localhost:3001/api/payment/CheckOut/Hotel/${userEmail}/${orderDate}`
+          );
+          console.log('OrderID', response.data);
+          setOrderId(response.data[0]);
+        }
+        getOrderId();
+      } catch (e) {
+        alert('order go go ');
+      }
+    } else {
+      alert('請先登入後再繼續購買流程');
+      window.location.replace('http://localhost:3000/login');
     }
   }
   console.log('ooooorrerder', ordersItem);
@@ -179,7 +202,7 @@ const HotelPaymentDetail = (props) => {
           >
             <Link
               className="text-decoration-none "
-              to={'/payment/Hotel/CheckOut'}
+              to={`/payment/Hotel/CheckOut/NH${orderIdNum}`}
             >
               前往付款
             </Link>
