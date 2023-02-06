@@ -72,10 +72,16 @@ function App() {
             <Route path="ticket" element={<Ticket />} />
             <Route path="ShoppingCart" element={<ShoppingCart />} />
             <Route path="/payment" element={<Payment />}>
-                <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
-                <Route path="Hotel/CheckOut" element={<HotelPaymentCheckOut />} />
-                <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
-                <Route path="Travel/CheckOut/:orderId" element={<TravelPaymentCheckOut />} />
+              <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
+              <Route
+                path="Hotel/CheckOut/:orderId"
+                element={<HotelPaymentCheckOut />}
+              />
+              <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
+              <Route
+                path="Travel/CheckOut"
+                element={<TravelPaymentCheckOut />}
+              />
             </Route>
           </Routes>
         </ScrollToTop>

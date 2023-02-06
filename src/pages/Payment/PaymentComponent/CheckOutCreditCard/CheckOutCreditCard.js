@@ -66,6 +66,7 @@ const CheckOutCreditCard = (props) => {
                   className="form-control border-0"
                   value={number}
                   name="number"
+                  maxLength={16}
                   onChange={(e) => {
                     SetNumber(e.target.value);
                   }}
@@ -98,6 +99,7 @@ const CheckOutCreditCard = (props) => {
                   name="cvc"
                   className=" border-0 form-control"
                   value={cvc}
+                  maxLength={3}
                   onChange={(e) => {
                     SetCvc(e.target.value);
                   }}

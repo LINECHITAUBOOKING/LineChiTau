@@ -15,9 +15,7 @@ const moment = require('moment');
 const RoomItem = (props) => {
   const navigate = useNavigate();
 
-  const numStart = moment(
-    moment(props.orderItem.startDate).format('YYYY-MM-DD')
-  );
+  const numStart = moment(moment(props.orderItem.startDate).format('YYYY-MM-DD'));
   const numEnd = moment(moment(props.orderItem.endDate).format('YYYY-MM-DD'));
   const totalDate = numEnd.diff(numStart, 'days');
 

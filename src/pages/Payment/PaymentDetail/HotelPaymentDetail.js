@@ -50,10 +50,11 @@ const HotelPaymentDetail = (props) => {
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
   const name = lastName + firstName;
-  const [orderId, setOrderId] = useState('');
+  const [orderId1, setOrderId] = useState('');
 
   const userEmail = userF.email;
   const orderIdNum = Date.now();
+  const orderId = 'NH' + orderIdNum;
   const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
 
   const updateValue = {
@@ -96,6 +97,7 @@ const HotelPaymentDetail = (props) => {
           country: country,
           lang: lang,
         },
+        companyName: paymentRoomDetail.hotel_name,
         productId: paymentRoomDetail.hotel_room_list_id,
         price: paymentRoomDetail.price,
         totalPrice: totalPrice,
@@ -114,22 +116,11 @@ const HotelPaymentDetail = (props) => {
           'http://localhost:3000/api/payment/Detail/Hotel/order',
           orderData
         );
-        console.log(response.data);
       } catch (e) {
         alert('order go go ');
       }
-      try {
-        async function getOrderId() {
-          let response = await axios.get(
-            `http://localhost:3001/api/payment/CheckOut/Hotel/${userEmail}/${orderDate}`
-          );
-          console.log('OrderID', response.data);
-          setOrderId(response.data[0]);
-        }
-        getOrderId();
-      } catch (e) {
-        alert('order go go ');
-      }
+
+      
     } else {
       alert('請先登入後再繼續購買流程');
       window.location.replace('http://localhost:3000/login');
@@ -138,6 +129,7 @@ const HotelPaymentDetail = (props) => {
   console.log('ooooorrerder', ordersItem);
   console.log('XXXXXXXXXrrerder', orderItem);
   console.log('20230204', updateValue);
+
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -202,7 +194,7 @@ const HotelPaymentDetail = (props) => {
           >
             <Link
               className="text-decoration-none "
-              to={`/payment/Hotel/CheckOut/NH${orderIdNum}`}
+              to={`/payment/Hotel/CheckOut/${orderId}`}
             >
               前往付款
             </Link>

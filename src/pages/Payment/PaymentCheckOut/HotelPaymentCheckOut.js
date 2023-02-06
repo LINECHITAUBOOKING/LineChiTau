@@ -2,7 +2,15 @@ import React, { useEffect, useState, useContext } from 'react';
 
 import './HotelPaymentCheckOut.scss';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useParams,
+  useNavigate,
+} from 'react-router-dom';
 import ProductImg from '../../Hotel/img/banner.svg';
 import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 
@@ -19,27 +27,47 @@ import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import UserData from '../PaymentComponent/UserData/UserData';
 import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
 
+const moment = require('moment');
+
 const HotelPaymentCheckOut = () => {
   const currentStep = 3;
   const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
   console.log(jwtToken);
 
+  const { orderId } = useParams();
+  console.log('orderId', orderId);
+  let navigate = useNavigate();
+
   const storage = localStorage;
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
-  const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
+  const [orderDetail, setOrderDetail] = useState([]);
 
   useEffect(() => {
-    async function getRoomDetail() {
+    console.log('UsewwweEEEEEE');
+    async function getOrderDetail() {
       let response = await axios.get(
-        `http://localhost:3001/api/paymentHotelDetail/${hotelName}/${roomName}`
+        `http://localhost:3001/api/payment/CheckOut/Hotel/${orderId}`
       );
-      // console.log(response.data);
-      setPaymentRoomDetail(response.data[0]);
+      console.log(response.data);
+      setOrderDetail(response.data[0]);
+      console.log(
+        '=-======+++======orderDD====++++++++++++=========',
+        orderDetail
+      );
     }
-    getRoomDetail();
+    getOrderDetail();
   }, []);
-
+  const startDate = moment(orderDetail.start_date).format('YYYY-MM-DD');
+  const endDate = moment(orderDetail.end_date).format('YYYY-MM-DD');
+  const orderItem = {
+    startDate: startDate,
+    endDate: endDate,
+    conditions: {
+      room: orderDetail.amount,
+    },
+  };
+  console.log('=-============orderDD======================', orderDetail);
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -49,16 +77,16 @@ const HotelPaymentCheckOut = () => {
         <div className="row w-100 my-3  mx-0 px-0">
           {/* <!-- NOTE  訂房商品資訊--> */}
           <div className="col-4 p-0 mx-0">
-            <RoomItem paymentRoomDetail={paymentRoomDetail} />
+            <RoomItem paymentRoomDetail={orderDetail} orderItem={orderItem} />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
           <div className="col-8  p-0 h-100 mx-0">
             {/* <!-- NOTE 飯店名 --> */}
             <div className="hotel-room-profile ms-3 ">
-              <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
+              <RoomItemHotel paymentRoomDetail={orderDetail} />
               <div className="room-info   px-3 pb-5">
                 {/* <!-- NOTE 房型服務資訊 --> */}
-                <RoomService paymentRoomDetail={paymentRoomDetail} />
+                <RoomService paymentRoomDetail={orderDetail} />
                 <RoomRule />
               </div>
             </div>
