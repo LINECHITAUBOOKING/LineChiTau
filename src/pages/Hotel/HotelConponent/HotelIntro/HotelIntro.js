@@ -3,6 +3,7 @@ import './HotelIntro.scss';
 
 const HotelIntro = (props) => {
   const { hotelDetail } = props;
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isFixed, setisFixed] = useState(false);
   let stars = [];
@@ -66,7 +67,9 @@ const HotelIntro = (props) => {
       <div className="container-xxl HotelIntro">
         <nav className={isFixed ? 'fixed' : 'mt-3'}>
           <ul className="list-unstyled d-flex justify-content-around my-0">
-            <li>客房</li>
+            <a href="#room">
+              <li>客房</li>
+            </a>
             <li>交通位置</li>
             <li>評論區</li>
             <li>注意事項</li>

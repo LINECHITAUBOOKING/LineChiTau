@@ -29,12 +29,18 @@
     color: $main;
     font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
   }
+  .link {
+    color: $textColor;
+  }
   .card-hover {
     transition: 0.5s;
     transform: translateY(-48px);
     width: 260px;
     background: $main;
     border-radius: 0 0 10px 10px;
+    .link {
+      color: $textColor;
+    }
   }
   .hover-area:hover .card-hover {
     display: flex;

@@ -1,27 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from '../SearchBar/SearchBar';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RoomSelect.scss';
+import HotelBanner from '../HotelBanner/HotelBanner';
 
 const RoomSelect = (props) => {
   const { roomDetail } = props;
   const [isOpenService, setIsOpenService] = useState(false);
   // console.log('roomDetail', roomDetail);
 
-  const filterRoomService = function (obj) {
-    Object.keys(obj).filter((key, i) => {
-      return obj[key] === 1;
-    });
-  };
-
   const roomDetailArrange = roomDetail.map((v, i) => {
+    // console.log('pic', v.picture);
+    const picArray = v.picture.split(',');
+    // console.log('picArray', picArray);
     return {
       room_name: v.room_name,
       room_type: v.room_type.toString(),
       price: v.price,
       amount: v.amount.toString(),
       description: v.description,
-      picture: v.picture,
+      picture: picArray,
       room: v.room,
       寵物友善房: v.pet,
       液晶電視: v.tv,
@@ -52,22 +48,35 @@ const RoomSelect = (props) => {
 
   return (
     <>
-      <div className="container-xxl room-select-box">
+      <div className="container-xxl room-select-box" id="room">
         <h3 className="h3">選擇房型</h3>
-        <SearchBar />
+        <HotelBanner
+          dNone={'d-none'}
+          justifyContentCenter={'justify-content-center'}
+          my2={'my-2'}
+        />
         <div>
           <div>
             {roomDetailArrangeChunk.map((firstChunk, firstChunk_i) => {
               return (
                 <ul
-                  className="list-unstyled d-flex justify-content-around mb-5"
+                  className="list-unstyled d-flex justify-content-start mb-5"
                   key={firstChunk_i}
                 >
                   {firstChunk.map((room, room_i) => {
                     return (
-                      <li className="room-type-card" key={room_i}>
-                        <div className="room-pic-box">
-                          <img src={pic3} className="room-pic" alt="room-pic" />
+                      <li className="room-type-card mx-5" key={room_i}>
+                        <div className="room-pic-box d-flex">
+                          {room.picture.map((pic, pic_i) => {
+                            return (
+                              <img
+                                src={`/images/${pic}`}
+                                className="room-pic"
+                                alt="room-pic"
+                                key={pic_i}
+                              />
+                            );
+                          })}
                         </div>
                         <div className="px-3 pt-3 mb-1">
                           <h5 className="my-heading">{room.room_name}</h5>
