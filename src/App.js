@@ -1,17 +1,3 @@
-<<<<<<< HEAD
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Navbar from './pages/layouts/Navbar';
-import Footer from './pages/layouts/Footer';
-import UploadTrip from './pages/UploadTrip/UploadTrip';
-import TripSearchBar from './pages/ProductList/ListComponent/TripSearchBar/TripSearchBar';
-// import TestList from './pages/ProductList/TestList';
-// import ProductDetails from './pages/ProductDetails/ProductDetails';
-// import Comment from './pages/ProductDetails/DetailComponet/Comment/Comment';
-// import PlanDetails from './pages/ProductDetails/DetailComponet/MainSelector/PlanDetails/PlanDetails';
-// import MainSelector from './pages/ProductDetails/DetailComponet/MainSelector/MainSelector';
-
-import './test.scss';
-=======
 import React, { useState } from 'react';
 import './App.css';
 import {
@@ -42,33 +28,23 @@ import Pay from './pages/Profile/pages/Pay/Pay';
 import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
->>>>>>> 1f82bad2bacfb8d25cab2626ab7b3a2edbad2e10
 
-// import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
+
+import Login from './utils/Login';
 import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
+import TripLIst from './pages/ProductList/TestList';
+import TestList from './pages/ProductList/TestList';
 function App() {
   return (
     <>
       <JwtCsrfTokenProvider>
         <Navbar />
-<<<<<<< HEAD
-        <div className="test-container">
-          <Routes>
-            <Route path="/" element={<TripSearchBar />}/>
-            {/* <Route path="tripList" element={<TestList />} /> */}
-            {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
-          </Routes>
-          {/* <Comment /> */}
-          {/* <PlanDetails /> */}
-          {/* <MainSelector /> */}
-        </div>
-=======
         <ScrollToTop>
           <Routes>
             <Route path="/" element={<Hotel />}>
@@ -80,7 +56,9 @@ function App() {
                 element={<HotelDetail />}
               />
             </Route>
+            <Route path="travelList" element={<TestList />}></Route>
             <Route path="login" element={<Demo />} />
+            <Route path="login1" element={<Login />} />
             <Route path="profile" element={<Profile />}>
               <Route index element={<List />} />
               <Route path="list" element={<List />} />
@@ -116,7 +94,7 @@ function App() {
             </Route>
           </Routes>
         </ScrollToTop>
->>>>>>> 1f82bad2bacfb8d25cab2626ab7b3a2edbad2e10
+
         <Footer />
       </JwtCsrfTokenProvider>
     </>
