@@ -6,7 +6,6 @@ import NormalSort from './ListComponent/NormalSort/NormalSort';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
 import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
-import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar'
 // import { useParams } from 'react-router-dom';
 
 export default function TestList() {
@@ -19,108 +18,100 @@ export default function TestList() {
   //const { URLRawkeyword } = useParams();
   const URLRawkeyword = '台北 陽明山 北投';
 
-  const [newRawKeyword, setNewRawKeyword] = useState();
-
   //!將回傳資料設為本元件的state
-  const [ReturnedTripData, setReturnedTripData] = useState([]);
+  const [ReturnedTripData, setTripDataArr] = useState();
 
   //!打算把子元件的state當作"篩選用"的關鍵字
   const [SortKeywordArr, setSortKeywordArr] = useState();
 
-  //!處理關鍵字的函式
-  const regionArr = [
-    '基隆',
-    '宜蘭',
-    '台北',
-    '桃園',
-    '新竹',
-    '苗栗',
-    '台中',
-    '彰化',
-    '南投',
-    '雲林',
-    '嘉義',
-    '台南',
-    '高雄',
-    '屏東',
-    '台東',
-    '花蓮',
-    '澎湖',
-    '金門',
-    '馬祖',
-    '蘭嶼',
-  ];
+  //!撰寫處理關鍵字的函式
 
-  function makeRawKeywordsAnArr(URLRawkeyword) {
+  //!從搜尋關鍵字獲取資料
+  useEffect(() => {
     const URLRawKeywordArr = URLRawkeyword.split(' ');
-    return URLRawKeywordArr;
-  }
-  function seperateRawKeywordArr(URLRawKeywordArr, isRegion) {
-    const name = [];
-    const region = [];
-    URLRawKeywordArr.forEach((element) => {
-      if (isRegion()) {
-        region.push(element);
-      } else {
-        name.push(element);
+
+    const regionArr = [
+      '基隆',
+      '宜蘭',
+      '台北',
+      '桃園',
+      '新竹',
+      '苗栗',
+      '台中',
+      '彰化',
+      '南投',
+      '雲林',
+      '嘉義',
+      '台南',
+      '高雄',
+      '屏東',
+      '台東',
+      '花蓮',
+      '澎湖',
+      '金門',
+      '馬祖',
+      '蘭嶼',
+    ];
+
+    //將關鍵字分成兩種陣列 地名&非地名
+    const partition = (rawArr, isRegion) => {
+      const keyword = [];
+      const region = [];
+      rawArr.forEach((element) => {
+        if (isRegion(element)) {
+          region.push(element);
+        } else {
+          keyword.push(element);
+        }
+      });
+      return [region, keyword];
+    };
+
+    const [regionKeywordArr, nameKeywordArr] = partition(
+      URLRawKeywordArr,
+      (element) => {
+        if (regionArr.includes(element)) {
+          return true;
+        } else {
+          return false;
+        }
       }
-    });
-    return [name, region];
-  }
-  function isRegion(element) {
-    if (regionArr.includes(element)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+    );
 
-  //!藉由關鍵字獲取資料的函式
-
-  async function fetchData(regionKeywordArr, nameKeywordArr) {
+    //從陣列中取出關鍵字
     const regionKeyword =
       regionKeywordArr[0] !== undefined ? regionKeywordArr[0] : 'none';
     const nameKeyword =
       nameKeywordArr[0] !== undefined ? nameKeywordArr.join('&') : 'none';
+    //將關鍵字放入對應的r=? , n=?
     try {
       if (
-        URLRawkeyword !== 'all' &&
-        (regionKeywordArr[0] || nameKeywordArr[0])
+        regionKeywordArr[0] ||
+        (nameKeywordArr[0] && URLRawkeyword !== 'all')
       ) {
-        const dataArr = await axios.get(
+        const customResult = axios.get(
           `http://localhost:3001/api/tripList/r=${regionKeyword}n=${nameKeyword}`
         );
-        setReturnedTripData(dataArr.data);
+
+        customResult.then((res) => {
+          setTripDataArr(customResult.data);
+          console.log('normalGet');
+        });
       } else {
-        const dataArr = await axios.get(
-          `http://localhost:3001/api/tripList/all`
-        );
-        setReturnedTripData(dataArr.data);
+        const allResult = axios.get(`http://localhost:3001/api/tripList/all`);
+        setTripDataArr(allResult.data);
+        console.log('allGet');
       }
     } catch (error) {
       console.log(error);
     }
-  }
-
-  //!從搜尋關鍵字獲取資料
-  useEffect(() => {
-    const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
-      makeRawKeywordsAnArr(URLRawkeyword),
-      isRegion
-    );
-    fetchData(regionKeywordArr, nameKeywordArr);
-  }, []);
-
-  console.log(ReturnedTripData);
+  });
 
   return (
     <>
-      <div className='search-bar-component-wrapper'><TripSearchBar setter={setNewRawKeyword()}/></div>
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
-          <p className="result my-topic">
-            關鍵字：共 {ReturnedTripData.length} 項 結果
-          </p>
+          <p className="result my-topic">關鍵字：共 0 項 結果 </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
             <li className="top-sort-btn popularity">人氣 </li>
@@ -164,16 +155,9 @@ export default function TestList() {
             </div>
           </div>
           <div className="col-9 ">
-            {ReturnedTripData.map((e, i) => {
-              return (
-                <ProductsCard
-                  key={i}
-                  tripName={e.trip_name}
-                  introduction={e.introduction}
-                  region={e.region}
-                />
-              );
-            })}
+            <ProductsCard />
+            <ProductsCard />
+            <ProductsCard />
             <Pagination />
           </div>
         </div>
