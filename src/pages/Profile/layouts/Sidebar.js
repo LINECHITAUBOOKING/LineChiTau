@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 // import { Toast } from 'react-toastify/dist/components';
@@ -6,6 +7,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import line from './images/line.svg';
 import mask from './images/mask.png';
 import './Sidebar.scss';
+import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
+import axios from 'axios';
+
 const svgpic = [
   'index-pic', //0
   'cupon', //1
@@ -30,6 +34,9 @@ const linkList = [
 ];
 // const notify = () => toast('Wow so easy!');
 const Sidebatr = () => {
+  const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
+
+  init(axios);
   return (
     <div className="sidebar">
       {/* 用戶照片 姓名 */}

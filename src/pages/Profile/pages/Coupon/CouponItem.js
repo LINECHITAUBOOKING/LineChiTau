@@ -18,7 +18,8 @@ import NewsTicker, {
 import './Coupon.scss';
 import { logoutUrl } from '../../../../utils/csrf-hook/server-config';
 const CouponItem = () => {
-  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
   const [coupon, setCoupon] = useState([]);
   const [couponed, setCouponed] = useState([]);
@@ -28,7 +29,7 @@ const CouponItem = () => {
   // const location = useLocation();
   const couponitem = async () => {
     const res = await fetch(
-      `http://localhost:3001/api/coupon/couponitem/${userF.email}`
+      `http://localhost:3001/api/coupon/couponitem/${jwtDecodedData.email}`
     );
     const listdata = await res.json();
     // console.log(JSON.parse(response));
