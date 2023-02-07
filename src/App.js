@@ -28,6 +28,7 @@ import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
 import TripList from './pages/TripList/TripList';
+import TripProductDetail from './pages/TripProductDetails/TripProductDetails';
 
 // import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
@@ -54,6 +55,10 @@ function App() {
               />
             </Route>
             <Route path="/tripList" element={<TripList />}></Route>
+            <Route
+              path="/tripProductDetail"
+              element={<TripProductDetail />}
+            ></Route>
             <Route path="login" element={<Demo />} />
             <Route path="profile" element={<Profile />}>
               <Route index element={<List />} />
