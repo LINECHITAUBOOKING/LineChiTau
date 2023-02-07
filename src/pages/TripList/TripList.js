@@ -88,7 +88,7 @@ export default function TestList() {
         (regionKeywordArr[0] || nameKeywordArr[0])
       ) {
         const dataArr = await axios.get(
-          `http://localhost:3001/api/tripList/r=${regionKeyword}n=${nameKeyword}`
+          `http://localhost:3001/api/tripList/x=${regionKeyword}x=${nameKeyword}`
         );
         setReturnedTripData(dataArr.data);
       } else {

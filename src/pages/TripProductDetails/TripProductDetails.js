@@ -4,6 +4,7 @@ import SummaryNav from './DetailComponet/SummaryNav/SummaryNav';
 import ListMap from '../layouts/ListMap/ListMap';
 import MainSelector from './DetailComponet/MainSelector/MainSelector';
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 // import Comment from './DetailComponet/Comment/Comment';
 
 export default function TripProductDetail({ productID }) {
@@ -24,7 +25,7 @@ export default function TripProductDetail({ productID }) {
   async function fetchDetailData(productID) {
     try {
       const dataArr = await axios.get(
-        `http://localhost:3001/api/tripDetail/t=${ProductId}`
+        `http://localhost:3001/api/tripDetail/t=${productID}`
       );
       setReturnedTripDetailData(dataArr);
     } catch (error) {
@@ -32,10 +33,10 @@ export default function TripProductDetail({ productID }) {
     }
   }
 
-  async function fetchContractData(productID, nowDate = nowDate) {
+  async function fetchContractData(productID, nowDate) {
     try {
       const contractDataArr = await axios.get(
-        `http://localhost:3001/api/tripContract/t=${productID}&d=${nowDate}`
+        `http://localhost:3001/api/tripContract/t=x${productID}&d=x${nowDate}`
       );
       setReturnedTripContractData(contractDataArr);
     } catch (error) {
@@ -43,6 +44,9 @@ export default function TripProductDetail({ productID }) {
     }
   }
 
+  //! 用 useEffect拿資料
+
+  //! 解構拿出來的資料
   /*從ProductList取得產品資料 解構為
         1.Name 2.Service 3.Address 4.Description 5.GeoX, GeoY 6.Grades, GAmount
     */

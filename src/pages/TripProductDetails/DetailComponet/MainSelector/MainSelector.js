@@ -20,12 +20,6 @@ export default function MainSelector() {
               change_history
             </span>
           </div>
-          <div className="preserved-time round-btn d-flex align-content-center justify-content-between">
-            14:30
-            <span className="material-symbols-outlined show-btn my-p">
-              change_history
-            </span>
-          </div>
         </div>
         <p className="my-p">請選擇方案類型</p>
         <div className="plan-wrapper d-flex flew-wrap">
