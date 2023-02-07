@@ -8,6 +8,7 @@ import RecommendToC from '../HotelConponent/RecommendToC/RecommendToC';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HotelHome.scss';
+import MomentTest from '../HotelConponent/MomentTest.js/MomentTest';
 
 const Hotel = (props) => {
   const [error, setError] = useState(null);
@@ -37,12 +38,14 @@ const Hotel = (props) => {
     getHotelDetail();
     getRoomDetail();
   }, []);
+
   return (
     <>
       <div className="banner position-relative">
         <HotelBanner
           positionAbsolute={'position-absolute'}
           bannerSearchBar={'banner-search-bar'}
+          listDNone={'d-none'}
         />
       </div>
       <PopularSearch />

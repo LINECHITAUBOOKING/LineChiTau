@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
+import React, { useState, useEffect, useContext } from 'react';
 import './RecommendToC.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import { async } from '@firebase/util';
 
 export const RecommendToC = () => {
+  const { jwtToken, userF, init, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
+  init(axios);
+  console.log(jwtDecodedData);
+  console.log('userF', userF.email);
   const [cardIsHover, setCardIsHover] = useState(false);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
@@ -50,6 +56,13 @@ export const RecommendToC = () => {
     getDisplayList();
   }, [viewMoreCount]);
 
+  const postUserLikeDB = async function (url, userEmail, hotel) {
+    let response = await axios.post(url, {
+      email: userEmail,
+      hotel: hotel,
+    });
+    console.log(response.data);
+  };
   return (
     <>
       <div className="recommend-to-c container-xxl pt-5 pb-2">
@@ -63,7 +76,17 @@ export const RecommendToC = () => {
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span class="material-symbols-rounded my-p position-absolute recommand-tag">
+                          <span
+                            class="material-symbols-rounded my-p position-absolute recommand-tag"
+                            onClick={() => {
+                              postUserLikeDB(
+                                `http://localhost:3001/api/hotelDetail/setUserLike/${v2.company_name}`,
+                                userF.email,
+                                v2.company_name
+                              );
+                              console.log(userF.email, v2.company_name);
+                            }}
+                          >
                             bookmark
                           </span>
                           {v2.company_banner.split(',').map((pic, i) => {

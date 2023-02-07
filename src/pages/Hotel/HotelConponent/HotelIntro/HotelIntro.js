@@ -107,7 +107,7 @@ const HotelIntro = ({ hotelDetail }) => {
       <div className="container-xxl HotelIntro">
         <nav className={isFixed ? 'fixed' : 'mt-3'}>
           <ul className="list-unstyled d-flex justify-content-around my-0">
-            <a href="#room">
+            <a href="#room" className="">
               <li>客房</li>
             </a>
             <li>交通位置</li>
