@@ -119,7 +119,7 @@ const HotelPaymentDetail = (props) => {
       } catch (e) {
         alert('order go go ');
       }
-
+      storage.clear();
       
     } else {
       alert('請先登入後再繼續購買流程');

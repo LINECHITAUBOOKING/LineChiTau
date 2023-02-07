@@ -58,6 +58,22 @@ const HotelPaymentCheckOut = () => {
     }
     getOrderDetail();
   }, []);
+  async function handleGetCard(e) {
+    e.preventDefault();
+    // !關閉表單預設行為
+    
+      // * ajax
+      try {
+        let response = await axios.get(
+          `http://localhost:3001/api/payment/CheckOut/Hotel/${userF.email}`
+        );
+      } catch (e) {
+        alert('order go go ');
+      }
+      
+      
+    
+  }
   const startDate = moment(orderDetail.start_date).format('YYYY-MM-DD');
   const endDate = moment(orderDetail.end_date).format('YYYY-MM-DD');
   const orderItem = {
@@ -127,7 +143,7 @@ const HotelPaymentCheckOut = () => {
             <div className="payment-detail d-flex flex-column mb-3 px-5 ">
               <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0 pt-3">
                 <h3 className="title">填寫付款資料</h3>
-                <button className="my-btn d-flex align-items-center justify-content-around  ">
+                <button className="my-btn d-flex align-items-center justify-content-around  " onClick={handleGetCard}>
                   <span className="material-symbols-rounded">credit_card</span>
                   <span>我的信用卡</span>
                 </button>

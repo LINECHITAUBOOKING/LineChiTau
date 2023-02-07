@@ -7,6 +7,7 @@ import {
   Outlet,
   useOutletContext,
   useNavigate,
+  useParams,
 } from 'react-router-dom';
 import axios from 'axios';
 
@@ -14,9 +15,10 @@ const moment = require('moment');
 
 const RoomItem = (props) => {
   const navigate = useNavigate();
-
-  const numStart = moment(moment(props.orderItem.startDate).format('YYYY-MM-DD'));
-  const numEnd = moment(moment(props.orderItem.endDate).format('YYYY-MM-DD'));
+  const { paramsOrderId } = useParams();
+ console.log('13213213213213213132====456=4=564=56=',paramsOrderId)
+  const numStart = moment(props.orderItem.startDate);
+  const numEnd = moment(props.orderItem.endDate);
   const totalDate = numEnd.diff(numStart, 'days');
 
   console.log('TOOTALLLDATE', totalDate);
@@ -57,13 +59,22 @@ const RoomItem = (props) => {
                 <span>{paymentRoomDetail.room}</span>
                 <span>{amount} 間</span>
                 {/* NOTE 回到商品頁/上一頁 */}
+
                 <Link
-                  className="text-decoration-none d-flex align-items-center"
+                  className={
+                    'text-decoration-none d-flex align-items-center' +
+                    (paramsOrderId === undefined ? ' ' : ' d-none')
+                  }
                   onClick={() => {
                     navigate(-1);
                   }}
                 >
-                  <button className="change-chosen my-edit-btn d-flex align-items-center justify-content-center">
+                  <button
+                    className={
+                      'change-chosen my-edit-btn d-flex align-items-center justify-content-center' +
+                      (paramsOrderId === undefined ? ' ' : ' d-none')
+                    }
+                  >
                     更改選擇
                   </button>
                 </Link>
