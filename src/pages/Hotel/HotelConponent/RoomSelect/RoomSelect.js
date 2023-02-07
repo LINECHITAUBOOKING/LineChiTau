@@ -147,10 +147,17 @@ const RoomSelect = (props) => {
                             className="text-decoration-none cart-link-btn"
                             to={'/payment/Hotel/Detail'}
                             onClick={() => {
-                              storage.setItem('roomName', room.room_name);
-                              storage.setItem('companyName', companyName);
+                              storage.setItem(
+                                'hotelRoom',
+                                JSON.stringify([
+                                  {
+                                    roomName: room.room_name,
+                                    companyName: companyName,
+                                  },
+                                ])
+                              );
+
                               // NOTE 暫時的 時間 跟 間數
-                              
 
                               console.log('click');
                             }}

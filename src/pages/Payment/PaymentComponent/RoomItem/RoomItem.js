@@ -27,6 +27,9 @@ const RoomItem = (props) => {
   const paymentRoomDetail = props.paymentRoomDetail;
   console.log('房間名', paymentRoomDetail);
   console.log('type of paymentRoomDetail', typeof paymentRoomDetail);
+
+  console.log('props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',props.orderItem.startDate)
+  console.log('props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',props.orderItem.endDate)
   return (
     <>
       <div className="order-info px-4 py-3 h-100">

@@ -1,6 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import '../layout/payment.scss';
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useNavigate,
+} from 'react-router-dom';
 import axios from 'axios';
 
 import './HotelPaymentDetail.scss';
@@ -19,15 +26,16 @@ const moment = require('moment');
 
 const HotelPaymentDetail = (props) => {
   const currentStep = 2;
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
-  console.log('userEmail', userF.email);
-  console.log(jwtToken);
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
+  console.log('jwtDecodedData．userEmail', jwtDecodedData.email);
+  console.log('jwtToken', jwtToken);
   const storage = localStorage;
-  const hotelName = storage.getItem('companyName');
-  const roomName = storage.getItem('roomName');
+  const hotelName = JSON.parse(storage.getItem('hotelRoom'))[0].companyName;
+  const roomName = JSON.parse(storage.getItem('hotelRoom'))[0].roomName;
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
   const ordersItem = JSON.parse(storage.getItem('orderItem'));
   const orderItem = ordersItem[0];
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getRoomDetail() {
@@ -45,14 +53,14 @@ const HotelPaymentDetail = (props) => {
   );
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState(userF.email);
+  const [email, setEmail] = useState(jwtDecodedData.email);
   const [tel, setTel] = useState('');
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
   const name = lastName + firstName;
   const [orderId1, setOrderId] = useState('');
 
-  const userEmail = userF.email;
+  const userEmail = jwtDecodedData.email;
   const orderIdNum = Date.now();
   const orderId = 'NH' + orderIdNum;
   const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
@@ -80,7 +88,7 @@ const HotelPaymentDetail = (props) => {
   // NOTE 假價格
   const amount = orderItem.conditions.room;
   const totalPrice = amount * paymentRoomDetail.price;
-  console.log('asjdioasjdoaisoihafoawu', orderDate);
+  console.log('orderDate：', orderDate);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -116,11 +124,12 @@ const HotelPaymentDetail = (props) => {
           'http://localhost:3000/api/payment/Detail/Hotel/order',
           orderData
         );
+
+        navigate(`/payment/Hotel/CheckOut/${orderId}`);
       } catch (e) {
         alert('order go go ');
       }
-      storage.clear();
-      
+      storage.removeItem('hotelRoom');
     } else {
       alert('請先登入後再繼續購買流程');
       window.location.replace('http://localhost:3000/login');
@@ -128,7 +137,7 @@ const HotelPaymentDetail = (props) => {
   }
   console.log('ooooorrerder', ordersItem);
   console.log('XXXXXXXXXrrerder', orderItem);
-  console.log('20230204', updateValue);
+  console.log('updateValue', updateValue);
 
   return (
     <>
@@ -144,10 +153,12 @@ const HotelPaymentDetail = (props) => {
             />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
-          <div className="col-8  pe-0">
-            {/* <!-- NOTE 飯店名 --> */}
-            <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
-            <div className="room-info   p-3">
+          <div className="col-8 row pe-0">
+            <div className="col-12 mb-4">
+              {/* <!-- NOTE 飯店名 --> */}
+              <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
+            </div>
+            <div className="room-info col-12  p-3">
               {/* <!-- NOTE 房型服務資訊 --> */}
               <RoomService paymentRoomDetail={paymentRoomDetail} />
               <RoomRule />
@@ -192,12 +203,12 @@ const HotelPaymentDetail = (props) => {
             className=" my-btn col text-decoration-none mx-1"
             onClick={handleSubmit}
           >
-            <Link
+            <span
               className="text-decoration-none "
-              to={`/payment/Hotel/CheckOut/${orderId}`}
+              //to={`/payment/Hotel/CheckOut/${orderId}`}
             >
               前往付款
-            </Link>
+            </span>
           </button>
         </div>
       </main>

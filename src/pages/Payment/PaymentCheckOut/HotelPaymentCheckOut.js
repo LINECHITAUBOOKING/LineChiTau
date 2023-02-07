@@ -26,12 +26,13 @@ import CheckOutCreditCard from '../PaymentComponent/CheckOutCreditCard/CheckOutC
 import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import UserData from '../PaymentComponent/UserData/UserData';
 import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
+import { set } from 'date-fns';
 
 const moment = require('moment');
 
 const HotelPaymentCheckOut = () => {
   const currentStep = 3;
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log(jwtToken);
 
   const { orderId } = useParams();
@@ -42,40 +43,94 @@ const HotelPaymentCheckOut = () => {
   const hotelName = storage.getItem('companyName');
   const roomName = storage.getItem('roomName');
   const [orderDetail, setOrderDetail] = useState([]);
+  const [getStartDate, setStartDate] = useState('');
+  const [getEndDate, setEndDate] = useState('');
 
+  const [testOrderId, setTestOrderId] = useState(orderId);
+  // NOTE userEffect
   useEffect(() => {
-    console.log('UsewwweEEEEEE');
+    console.log('orderId', orderId);
     async function getOrderDetail() {
       let response = await axios.get(
         `http://localhost:3001/api/payment/CheckOut/Hotel/${orderId}`
       );
-      console.log(response.data);
+      console.log('responseDATA', response.data);
+      if (!response.data[0]) return;
       setOrderDetail(response.data[0]);
+      setStartDate(response.data[0].start_date);
+      setEndDate(response.data[0].end_date);
       console.log(
-        '=-======+++======orderDD====++++++++++++=========',
+        '=-======+++======orderDetail====++++++++++++=========',
         orderDetail
       );
     }
     getOrderDetail();
   }, []);
+  const [userCreditCard, setUserCreditCard] = useState({});
+  const [number, setNumber] = useState('');
+  const [name, setName] = useState('');
+  const [expDate, setExpDate] = useState('');
+  const [cvc, setCvc] = useState('');
+  const [focus, setFocus] = useState('');
+  const creditCard = {
+    number: number,
+    name: name,
+    expDate: expDate,
+    cvc: cvc,
+    focus: focus,
+  };
+  const updateValue = {
+    setNumber: (value) => {
+      setNumber(value);
+    },
+    setName: (value) => {
+      setName(value);
+    },
+    setExpDate: (value) => {
+      setExpDate(value);
+    },
+    setCvc: (value) => {
+      setCvc(value);
+    },
+    setFocus: (value) => {
+      setFocus(value);
+    },
+  };
   async function handleGetCard(e) {
     e.preventDefault();
     // !關閉表單預設行為
-    
-      // * ajax
-      try {
-        let response = await axios.get(
-          `http://localhost:3001/api/payment/CheckOut/Hotel/${userF.email}`
-        );
-      } catch (e) {
-        alert('order go go ');
-      }
-      
-      
-    
+    console.log('=======jwtDecodedData.email========', jwtDecodedData.email);
+    // * ajax
+    try {
+      let response = await axios.get(
+        `http://localhost:3001/api/payment/CheckOut/Hotel/creditCard/${jwtDecodedData.email}`,
+        {
+          headers: {
+            'Cache-Control': 'no-cache, no-store, must-revalidate',
+          },
+        }
+      );
+      setUserCreditCard(response.data[0]);
+      console.log('OPENAI好厲害比人還會說話', response.data[0]);
+    } catch (e) {
+      alert('沒有信用卡資料');
+    }
+
+    setNumber(userCreditCard.card_number);
+
+    setName(userCreditCard.cardholder_name);
+
+    setExpDate(moment(userCreditCard.exp_date).format('MM/YY'));
+
+    setCvc(userCreditCard.cvc);
   }
-  const startDate = moment(orderDetail.start_date).format('YYYY-MM-DD');
-  const endDate = moment(orderDetail.end_date).format('YYYY-MM-DD');
+  console.log('OPENAI好厲害比人還會說話00000', creditCard);
+
+  const startDate = moment(getStartDate).format('YYYY-MM-DD');
+  console.log('==========startDate=======', startDate);
+  const endDate = moment(getEndDate).format('YYYY-MM-DD');
+  console.log('==========startDate=======', endDate);
+
   const orderItem = {
     startDate: startDate,
     endDate: endDate,
@@ -83,6 +138,15 @@ const HotelPaymentCheckOut = () => {
       room: orderDetail.amount,
     },
   };
+  console.log('=-============orderItem======================', orderItem);
+  console.log(
+    '=-============conditions======================',
+    orderItem.conditions
+  );
+  console.log(
+    '=-============room======================',
+    orderItem.conditions.room
+  );
   console.log('=-============orderDD======================', orderDetail);
   return (
     <>
@@ -99,6 +163,7 @@ const HotelPaymentCheckOut = () => {
           <div className="col-8  p-0 h-100 mx-0">
             {/* <!-- NOTE 飯店名 --> */}
             <div className="hotel-room-profile ms-3 ">
+            
               <RoomItemHotel paymentRoomDetail={orderDetail} />
               <div className="room-info   px-3 pb-5">
                 {/* <!-- NOTE 房型服務資訊 --> */}
@@ -143,12 +208,19 @@ const HotelPaymentCheckOut = () => {
             <div className="payment-detail d-flex flex-column mb-3 px-5 ">
               <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0 pt-3">
                 <h3 className="title">填寫付款資料</h3>
-                <button className="my-btn d-flex align-items-center justify-content-around  " onClick={handleGetCard}>
+                <button
+                  className="my-btn d-flex align-items-center justify-content-around  "
+                  onClick={handleGetCard}
+                >
                   <span className="material-symbols-rounded">credit_card</span>
                   <span>我的信用卡</span>
                 </button>
               </div>
-              <CheckOutCreditCard />
+              <CheckOutCreditCard
+                creditCard={creditCard}
+                userCreditCard={userCreditCard}
+                updateValue={updateValue}
+              />
               <div className="notice w-100 py-3 text-right">
                 <h5 className="d-flex justify-content-end">
                   本訂單無須CVC 安全碼
