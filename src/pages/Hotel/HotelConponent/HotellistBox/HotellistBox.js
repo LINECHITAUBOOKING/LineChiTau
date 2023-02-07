@@ -8,7 +8,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
   const [error, setError] = useState();
   const { region } = useParams();
   const [hotelList, setHotelList] = useState([]);
-  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
   const hotelType = ['全部', '飯店', '民宿', '青旅'];
   const [filterCondition, setFilterCondition] = useState({
     type: '1',
@@ -16,7 +16,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     priceFrom: 0,
     priceTo: Number.MAX_SAFE_INTEGER,
   });
-  console.log('aaaa', filterCondition);
+  // console.log('aaaa', filterCondition);
 
   const [hotelListArrange, setHotelListArrange] = useState([]);
   useEffect(() => {
@@ -105,7 +105,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
           return v.service;
         });
       room.service = hotelServiceListFilter;
-      room.translate = 0;
+      room.translate = -300;
       return room;
     });
     setHotelListArrange(newhotelListArrange);
@@ -127,25 +127,14 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     });
   }
   const getHotelListPage = function (hotelArr) {
-    const chunk = 5;
+    const chunk = 7;
     const newListFilter = [];
     for (let i = 0; i < hotelArr.length; i += chunk) {
       newListFilter.push(hotelArr.slice(i, i + chunk));
     }
     return newListFilter;
-    // setHotelListArrangeState(newListFilter);
   };
-  console.log(
-    getHotelListPage(
-      filterHotels(
-        hotelListArrange,
-        filterCondition.hotelService,
-        filterCondition.type,
-        filterCondition.priceFrom,
-        filterCondition.priceTo
-      )
-    )
-  );
+
   useEffect(() => {
     setHotelListArrangeState(
       getHotelListPage(
@@ -158,15 +147,46 @@ const HotellistBox = ({ hotelServiceListArray }) => {
         )
       )
     );
-  }, [filterCondition]);
+  }, [filterCondition, hotelListArrange]);
   console.log('1111111', hotelListArrangeState);
+  const [pagenation, setPagenation] = useState([]);
+  useEffect(() => {
+    const ucPagenation = [];
+    for (
+      let i = 1;
+      i <=
+      getHotelListPage(
+        filterHotels(
+          hotelListArrange,
+          filterCondition.hotelService,
+          filterCondition.type,
+          filterCondition.priceFrom,
+          filterCondition.priceTo
+        )
+      ).length;
+      i++
+    ) {
+      ucPagenation.push(i);
+    }
+    setPagenation(ucPagenation);
+  }, [hotelListArrangeState]);
+
   return (
     <>
       <div className="container-xl hotellist-box">
         <div className="d-flex justify-content-between align-items-end">
-          <p className="my-topic">
+          <p className="my-topic" id="top">
             關鍵字:{localStorage.getItem('destination')} / 共{' '}
-            {hotelListArrangeState.length} 項{' '}
+            {hotelListArrangeState.length === 0
+              ? 0
+              : hotelListArrangeState
+                  .map((v) => {
+                    return v.length;
+                  })
+                  .reduce((acc, cur) => {
+                    return acc + cur;
+                  })}{' '}
+            項{' '}
           </p>
           <ul className="list-unstyled d-flex my-p">
             <li>排序：</li>
@@ -198,9 +218,13 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                   filterCondition.priceTo
                 )
               ).map((hotelListPage, hotelListPage_i) => {
-                console.log('00000', hotelListPage);
                 return (
-                  <div>
+                  <div
+                    key={hotelListPage_i}
+                    className={
+                      currentPage === hotelListPage_i + 1 ? 'd-block' : 'd-none'
+                    }
+                  >
                     {hotelListPage.map((room, room_i) => {
                       return (
                         <div className="d-flex" key={room_i}>
@@ -212,7 +236,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                                   const newHotelListArrangeState = [
                                     ...hotelListArrangeState,
                                   ];
-                                  newHotelListArrangeState.map((hotel) => {
+                                  hotelListPage.map((hotel) => {
                                     let bannerLength =
                                       room.company_banner.split(',').length;
                                     if (
@@ -225,6 +249,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                                         hotel.translate += 300;
                                       }
                                     }
+                                    console.log(newHotelListArrangeState);
                                     setHotelListArrangeState(
                                       newHotelListArrangeState
                                     );
@@ -261,7 +286,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                                   ];
                                   let bannerLength =
                                     room.company_banner.split(',').length;
-                                  newHotelListArrangeState.map((hotel) => {
+                                  hotelListPage.map((hotel) => {
                                     if (
                                       hotel.company_name === room.company_name
                                     ) {
@@ -347,24 +372,63 @@ const HotellistBox = ({ hotelServiceListArray }) => {
 
             <nav>
               <ul className="list-unstyled d-flex">
-                <li className="pagenation-border px-2 my-p px-2 d-flex justify-content-center previous">
-                  <span class="material-symbols-outlined pagenation-arrow">
+                <li
+                  className="pagenation-border px-2 my-p px-2 d-flex justify-content-center previous"
+                  role="button"
+                >
+                  <a
+                    href="#top"
+                    class="material-symbols-outlined pagenation-arrow"
+                    onClick={() => {
+                      let newPage = currentPage;
+                      if (currentPage === 1) {
+                        newPage = 1;
+                      } else {
+                        newPage -= 1;
+                      }
+                      setCurrentPage(newPage);
+                    }}
+                  >
                     navigate_before
-                  </span>
+                  </a>
                 </li>
-                <li className="pagenation-border px-2 my-p px-2">
-                  <a>1</a>
-                </li>
-                <li className="pagenation-border px-2 my-p px-2">
-                  <a>2</a>
-                </li>
-                <li className="pagenation-border px-2 my-p px-2">
-                  <a>3</a>
-                </li>
-                <li className="pagenation-border px-2 my-p px-2 d-flex justify-content-center next">
-                  <span class="material-symbols-outlined pagenation-arrow">
+                {pagenation.map((page, page_i) => {
+                  return (
+                    <a
+                      href="#top"
+                      role="button"
+                      className={`pagenation-border px-2 my-p px-2 ${
+                        page === currentPage ? 'pagenation-border-active' : ''
+                      }`}
+                      key={page}
+                      onClick={() => {
+                        setCurrentPage(page);
+                      }}
+                    >
+                      <li>{page}</li>
+                    </a>
+                  );
+                })}
+
+                <li
+                  className="pagenation-border px-2 my-p px-2 d-flex justify-content-center next"
+                  role="button"
+                >
+                  <a
+                    href="#top"
+                    class="material-symbols-outlined pagenation-arrow"
+                    onClick={() => {
+                      let newPage = currentPage;
+                      if (currentPage === pagenation.length) {
+                        newPage = pagenation.length;
+                      } else {
+                        newPage += 1;
+                      }
+                      setCurrentPage(newPage);
+                    }}
+                  >
                     navigate_next
-                  </span>
+                  </a>
                 </li>
               </ul>
             </nav>

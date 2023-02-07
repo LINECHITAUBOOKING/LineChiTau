@@ -12,18 +12,18 @@ import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken
 import TListLayout from './Spinner/TListLayout';
 
 const List = () => {
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
-
+  console.log('jwtDecodedData', jwtDecodedData);
   const getUser = async ({ queryKey }) => {
     // const response = await fetch(
     //   `https://reqres.in/api/users?page=${userF.name}`
     // );
 
     const response = await fetch(
-      `http://localhost:3001/api/userlist/list/${userF.email}`
+      `http://localhost:3001/api/userlist/list/${jwtDecodedData.email}`
     );
     // const response = await fetch('./users.json');
     console.log('收到', response);

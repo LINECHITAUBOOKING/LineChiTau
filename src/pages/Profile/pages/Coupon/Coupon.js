@@ -16,8 +16,9 @@ import NewsTicker, {
 } from 'react-advanced-news-ticker';
 import './Coupon.scss';
 const Coupon = () => {
-  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout,jwtDecodedData } = useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
+  const [inputValue, setInputValue] = useState('');
   // const [coupon, setCoupon] = useState({});
   console.log('userF', userF.pwd);
   console.log(jwtToken);
@@ -33,6 +34,7 @@ const Coupon = () => {
 
   function handleChange(e) {
     setMember({ ...member, [e.target.name]: e.target.value });
+    setInputValue(e.target.value);
   }
 
   async function handleSubmit(e) {
@@ -43,7 +45,7 @@ const Coupon = () => {
     console.log(code);
     try {
       let response = await axios.get(
-        '/api/coupon/coupon/' + userF.email + '/' + code
+        '/api/coupon/coupon/' + jwtDecodedData.email + '/' + code
       );
       console.log(response.status);
       console.log('成功');
@@ -51,9 +53,12 @@ const Coupon = () => {
 
       alert('兌換成功');
       setMember({});
+      setInputValue('');
     } catch (e) {
       alert('兌換失敗，請輸入正確代碼');
       console.log(e);
+      setInputValue('');
+      setMember({});
     }
   }
 
@@ -144,6 +149,7 @@ const Coupon = () => {
               type="number"
               name="code"
               onChange={handleChange}
+              value={inputValue}
             />
             <button className="my-btn" onClick={handleSubmit}>
               兌換

@@ -6,13 +6,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { JwtCsrfTokenContext } from '../../../../../utils/csrf-hook/useJwtCsrfToken';
 
 const ListDetail = () => {
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF,jwtDecodedData } = useContext(JwtCsrfTokenContext);
 
   // const listid = props.listid.listid;
   const { id } = useParams();
   const detailList = async () => {
     const res = await fetch(
-      `http://localhost:3001/api/userlist/list/${userF.email}/${id}`
+      `http://localhost:3001/api/userlist/list/${jwtDecodedData.email}/${id}`
     );
     const listdata = await res.json();
     // console.log(JSON.parse(response));

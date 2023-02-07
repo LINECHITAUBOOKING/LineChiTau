@@ -8,7 +8,7 @@ import TListLayout from './Spinner/TListLayout';
 import Pagination from '../../../layouts/Pagination';
 import './Alllist.scss';
 const Alllist = ({ value }) => {
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF,jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
@@ -19,7 +19,7 @@ const Alllist = ({ value }) => {
     // );
 
     const response = await fetch(
-      `http://localhost:3001/api/userlist/list/${userF.email}`
+      `http://localhost:3001/api/userlist/list/${jwtDecodedData.email}`
     );
     // const response = await fetch('./users.json');
     console.log('收到', response);

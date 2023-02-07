@@ -12,6 +12,7 @@ import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { googleauth, provide } from '../config/firebase';
 import { signInWithPopup } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 function Login() {
   const navigate = useNavigate();
@@ -114,7 +115,14 @@ function Login() {
   const googlelogout = async () => {
     googleauth.signOut();
   };
-
+  let captchaValue;
+  const [captcha, setCapcha] = useState(false);
+  function onChange(value) {
+    captchaValue = value;
+    setCapcha(true);
+    // console.log('Captcha value:', value);
+    console.log(captchaValue);
+  }
   return (
     <>
       <div className="demo">
@@ -157,6 +165,7 @@ function Login() {
               onChange={handleChange}
             />
           </div>
+          
           {/* <div className="confirmPassword">
             再輸入一次密碼
             <input
@@ -184,6 +193,10 @@ function Login() {
               登入
             </button>
           </div>
+          <ReCAPTCHA
+            sitekey="6Lezp0skAAAAAJuZseTkpiebbdVpYBDp3tyM6n_6"
+            onChange={onChange}
+          />
           {/*  <button
             onClick={() =>
               register({ username: member.name, password: member.password })

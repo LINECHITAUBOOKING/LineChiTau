@@ -24,6 +24,8 @@ const initialUser = {
   role: '',
   exp: 0,
   iat: 0,
+  email: '',
+  pwd: '',
 };
 
 export const JwtCsrfTokenProvider = ({ children }) => {
@@ -92,16 +94,21 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         email,
         password,
       });
+      console.log(email);
       // access token in state(memory)
       // but refresh token in cookie(httpOnly)
-      setuserF({ email: `${email}`, pwd: `${password}` });
-      console.log('email', userF.email);
+      // console.log('email', userF.email);
 
       axios.defaults.headers.common['Authorization'] = data.accessToken;
+      // axios.defaults.headers.common['email'] = email;
 
       setJwtToken(data.accessToken);
       // console.log(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
+      // setJwtDecodeData({ ...jwt(data.accessToken) });
+
+      setuserF({ email: `${email}`, pwd: `${password}` });
+      console.log(jwt(data.accessToken), '這啥');
       navigate('/profile');
     } catch (e) {
       // console.error(e);
@@ -208,7 +215,6 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     console.log(data.message);
     googleauth.signOut();
     setGoogleauth(false);
-    setuserF({ email: '', pwd: '' });
     console.log(googleauth);
     // no default headers now
     // cookie will clear from express server(refreshToken)
@@ -217,6 +223,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     // set all state to initial state
     setJwtToken('');
     // setCsrfToken('')
+    setuserF({ email: '', pwd: '' });
     setJwtDecodeData(initialUser);
   };
 
@@ -247,7 +254,6 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         setuserF,
         googlelogin,
         Googleauth,
-       
       }}
     >
       {children}

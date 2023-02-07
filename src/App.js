@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import {
   BrowserRouter,
@@ -38,7 +38,8 @@ import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
-
+import TripLIst from './pages/ProductList/TestList';
+import TestList from './pages/ProductList/TestList';
 function App() {
   return (
     <>
@@ -55,6 +56,7 @@ function App() {
                 element={<HotelDetail />}
               />
             </Route>
+            <Route path="travelList" element={<TestList />}></Route>
             <Route path="login" element={<Demo />} />
             <Route path="login1" element={<Login />} />
             <Route path="profile" element={<Profile />}>
@@ -85,6 +87,7 @@ function App() {
             </Route>
           </Routes>
         </ScrollToTop>
+
         <Footer />
       </JwtCsrfTokenProvider>
     </>

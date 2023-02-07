@@ -76,6 +76,9 @@
   .pagenation-border:hover {
     background: $main;
   }
+  .pagenation-border-active {
+    background: $main;
+  }
   .pagenation-border {
     border-left: 1px solid $textColor;
     border-top: 1px solid $textColor;
