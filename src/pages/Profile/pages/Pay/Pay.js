@@ -73,7 +73,7 @@ const Pay = () => {
     // const response = await fetch('./users.json');
     console.log('收到', response);
     const list = await response.json();
-    console.log(list[0].cvc);
+    console.log(list);
     setItems(list.data);
     return list;
   };
@@ -92,14 +92,108 @@ const Pay = () => {
   if (list === undefined) {
     return (
       <>
-        <span>查無資料</span>
+        <span>請先登入</span>
       </>
     );
   }
   if (list.error) {
     return (
       <>
-        <span>找不到訂單</span>
+        <span>
+          <div className="container-pay">
+            <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
+              新增卡片
+            </h1>
+            <div
+              id="PaymentForm"
+              className="manger-profile my-border-radius d-flex align-items-center"
+            >
+              <div className="cards d-flex ms-5">
+                <Cards
+                  number={number}
+                  name={name}
+                  expiry={date}
+                  cvc={cvc}
+                  focused={focus}
+                />
+                <form>
+                  <div className="card-name row py-2">
+                    <div className=" d-flex col-3  justify-content-end align-items-end">
+                      <label className=" pe-3">持卡人姓名</label>
+                    </div>
+                    <div className="col-7 px-0">
+                      <input
+                        type="text"
+                        className="form-control border-0"
+                        value={name}
+                        name="name"
+                        onChange={(e) => {
+                          SetName(e.target.value);
+                        }}
+                        onFocus={(e) => SetFocus(e.target.name)}
+                      />
+                    </div>
+                  </div>
+                  <div className="card-number row py-2">
+                    <div className=" d-flex col-3  justify-content-end align-items-end">
+                      <label className=" pe-3">卡號</label>
+                    </div>
+                    <div className="col-7 px-0">
+                      <input
+                        type="text"
+                        className="form-control border-0"
+                        value={number}
+                        maxLength="16"
+                        name="number"
+                        onChange={(e) => {
+                          SetNumber(e.target.value);
+                        }}
+                        onFocus={(e) => SetFocus(e.target.name)}
+                      />
+                    </div>
+                  </div>
+                  <div className="date-cvc row py-2">
+                    <div className=" d-flex col-3  justify-content-end align-items-end">
+                      <label className=" pe-3">有效日期</label>
+                    </div>
+                    <div className="col-2 px-0">
+                      <input
+                        type="text"
+                        name="expiry"
+                        className="form-control border-0"
+                        value={date}
+                        maxLength="4"
+                        onChange={(e) => {
+                          SetDate(e.target.value);
+                        }}
+                        onFocus={(e) => SetFocus(e.target.name)}
+                      />
+                    </div>
+                    <div className=" d-flex col-3  justify-content-end align-items-end">
+                      <label className=" pe-3">安全碼</label>
+                    </div>
+                    <div className="col-2 px-0">
+                      <input
+                        type="tel"
+                        name="cvc"
+                        className=" border-0 form-control"
+                        value={cvc}
+                        maxLength="3"
+                        onChange={(e) => {
+                          SetCvc(e.target.value);
+                        }}
+                        onFocus={(e) => SetFocus(e.target.name)}
+                      />
+                    </div>
+                  </div>
+                  <button className="button-submit" onClick={handleSubmit}>
+                    送出
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </span>
       </>
     );
   }
