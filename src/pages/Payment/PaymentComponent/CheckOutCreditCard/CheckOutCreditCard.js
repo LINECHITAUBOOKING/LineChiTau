@@ -40,6 +40,7 @@ const CheckOutCreditCard = (props) => {
                     props.updateValue.setName(e.target.value);
                   }}
                   onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>
@@ -58,6 +59,7 @@ const CheckOutCreditCard = (props) => {
                     props.updateValue.setNumber(e.target.value);
                   }}
                   onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>
@@ -75,6 +77,7 @@ const CheckOutCreditCard = (props) => {
                     props.updateValue.setExpDate(e.target.value);
                   }}
                   onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
               <div className=" d-flex col-3  justify-content-end align-items-end">
@@ -91,6 +94,7 @@ const CheckOutCreditCard = (props) => {
                     props.updateValue.setCvc(e.target.value);
                   }}
                   onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>

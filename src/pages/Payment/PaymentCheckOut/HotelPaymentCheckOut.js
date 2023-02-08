@@ -40,8 +40,6 @@ const HotelPaymentCheckOut = () => {
   let navigate = useNavigate();
 
   const storage = localStorage;
-  const hotelName = storage.getItem('companyName');
-  const roomName = storage.getItem('roomName');
   const [orderDetail, setOrderDetail] = useState([]);
   const [getStartDate, setStartDate] = useState('');
   const [getEndDate, setEndDate] = useState('');
@@ -110,19 +108,63 @@ const HotelPaymentCheckOut = () => {
           },
         }
       );
-      setUserCreditCard(response.data[0]);
+
       console.log('OPENAI好厲害比人還會說話', response.data[0]);
+      setNumber(response.data[0].card_number);
+
+      setName(response.data[0].cardholder_name);
+
+      setExpDate(moment(response.data[0].exp_date).format('MM/YY'));
+
+      setCvc(response.data[0].cvc);
     } catch (e) {
       alert('沒有信用卡資料');
     }
+    console.log('setCard', userCreditCard.card_number);
+    console.log('setCard', userCreditCard.cardholder_name);
+    console.log('setCard', userCreditCard.exp_date);
+    console.log('setCard', userCreditCard.cvc);
+  }
+  const [isChecked, setIsChecked] = useState(false);
+  async function handleArgee(e) {
+    if (e.target.checked) {
+      console.log(' checked');
+    } else {
+      console.log('no checked');
+    }
+    setIsChecked((current) => !current);
+  }
+  async function handleCheckOut(e) {
+    e.preventDefault();
+    // !關閉表單預設行為
+    if (!number) {
+      alert('請輸入卡號');
+    } else if (!name) {
+      alert('請輸入持卡人姓名');
+    } else if (!expDate) {
+      alert('請輸入有效日期');
+    } else if (!cvc) {
+      alert('請輸入安全碼');
+    } else if (!isChecked) {
+      alert('請勾選同意 隱私條款與優惠資訊');
+    } else {
+      // * ajax
 
-    setNumber(userCreditCard.card_number);
-
-    setName(userCreditCard.cardholder_name);
-
-    setExpDate(moment(userCreditCard.exp_date).format('MM/YY'));
-
-    setCvc(userCreditCard.cvc);
+      try {
+        let response = await axios.post(
+          `http://localhost:3000/api/payment/CheckOut/Hotel/order/CheckOut`,
+          { orderId },
+          {
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+            },
+          }
+        );
+      } catch (e) {
+        alert('付款失敗');
+      }
+    }
+    navigate(`/profile/listdetail/${orderId}`);
   }
   console.log('OPENAI好厲害比人還會說話00000', creditCard);
 
@@ -163,7 +205,6 @@ const HotelPaymentCheckOut = () => {
           <div className="col-8  p-0 h-100 mx-0">
             {/* <!-- NOTE 飯店名 --> */}
             <div className="hotel-room-profile ms-3 ">
-            
               <RoomItemHotel paymentRoomDetail={orderDetail} />
               <div className="room-info   px-3 pb-5">
                 {/* <!-- NOTE 房型服務資訊 --> */}
@@ -202,95 +243,86 @@ const HotelPaymentCheckOut = () => {
             </div>
           </div>
         </div>
-        {/* <!-- TODO 付款方式資料 --> */}
-        <div className=" row w-100 mx-0">
-          <div className="col-12 p-0">
-            <div className="payment-detail d-flex flex-column mb-3 px-5 ">
-              <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0 pt-3">
-                <h3 className="title">填寫付款資料</h3>
-                <button
-                  className="my-btn d-flex align-items-center justify-content-around  "
-                  onClick={handleGetCard}
-                >
-                  <span className="material-symbols-rounded">credit_card</span>
-                  <span>我的信用卡</span>
-                </button>
-              </div>
-              <CheckOutCreditCard
-                creditCard={creditCard}
-                userCreditCard={userCreditCard}
-                updateValue={updateValue}
-              />
-              <div className="notice w-100 py-3 text-right">
-                <h5 className="d-flex justify-content-end">
-                  本訂單無須CVC 安全碼
-                </h5>
-              </div>
-            </div>
-          </div>
-        </div>
-        {/* <!-- TODO 提醒 --> */}
-        <div className="row w-100 mb-3 mx-0">
-          {/* <!-- TODO 提醒--> */}
-          <div className=" memo-form col-12 d-flex justify-content-center align-items-center px-5 py-4  mb-3">
-            <h4 className="my-0">計畫有變？</h4>
-            <ul className="my-0">
-              <li className="">
-                {' '}
-                別擔心，在2022年12月19日之前您都可以隨需要更改日期，
-                房客詳細資料，新增特別要求或者取消預定。
-              </li>
-            </ul>
-          </div>
-          {/* <!-- TODO 分析與情報通知 --> */}
-          <div className="col-4 p-0">
-            <div className=" memo-form  d-flex justify-content-center align-items-center px-5 py-4">
-              <span>
-                所選日期台北住宿數量有限：
-                <br />1 間相似的五星級飯店於本站已無法預訂
-              </span>
-            </div>
-          </div>
-          <div className="col-8 p-0 ps-3">
-            <div className="memo-form h-100">
-              <div className="notice px-5 d-flex flex-column">
-                <div className="poicy py-2 d-flex justify-content-end align-items-center">
-                  <div className="checked   py-1 ">
-                    <input type="checkbox" name="" id="" className=" mx-3" />
-                  </div>
-                  <span className="">
-                    我想優先收到<span>來七桃</span>
-                    的最新優惠訊息並希望定期收到電子報。查看
-                    <a href="">隱私權條款</a>以了解更多相關資訊。
-                  </span>
+        <form>
+          {/* <!-- TODO 付款方式資料 --> */}
+          <div className=" row w-100 mx-0">
+            <div className="col-12 p-0">
+              <div className="payment-detail d-flex flex-column mb-3 px-5 ">
+                <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0 pt-3">
+                  <h3 className="title">填寫付款資料</h3>
+                  <button
+                    className="my-btn d-flex align-items-center justify-content-around  "
+                    onClick={handleGetCard}
+                  >
+                    <span className="material-symbols-rounded">
+                      credit_card
+                    </span>
+                    <span>我的信用卡</span>
+                  </button>
                 </div>
-                <div className="poicy-argee px-5 py-2">
-                  <input type="checkbox" name="" id="" className="mx-3" />
-                  是，我同意接收 來七桃行銷電子報，通知我來七桃優惠資訊。
+                <CheckOutCreditCard
+                  creditCard={creditCard}
+                  userCreditCard={userCreditCard}
+                  updateValue={updateValue}
+                />
+                <div className="notice w-100 py-3 text-right">
+                  <h5 className="d-flex justify-content-end">
+                    本訂單無須CVC 安全碼
+                  </h5>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        {/* <!-- TODO 前往付款button --> */}
-        <div className="topay d-flex justify-content-center w-25 mx-auto pt-4 pb-5 row ">
-          <button className=" my-btn col-auto align-items-center mx-1 py-1">
-            <Link
-              className="text-decoration-none d-flex align-items-center"
-              to={'/'}
-            >
-              返回<span className="material-symbols-rounded">undo</span>
-            </Link>
-          </button>
-          <button className=" my-btn col text-decoration-none mx-1">
-            <Link
-              className="text-decoration-none "
-              to={'/payment/HotelPaymentCheckOut'}
+          {/* <!-- TODO 提醒 --> */}
+          <div className="row w-100 mb-3 mx-0">
+            {/* <!-- TODO 提醒--> */}
+            <div className=" memo-form col-12 d-flex justify-content-center align-items-center px-5 py-4  mb-3">
+              <h4 className="my-0">計畫有變？</h4>
+              <ul className="my-0">
+                <li className="">
+                  {' '}
+                  別擔心，在2022年12月19日之前您都可以隨需要更改日期，
+                  房客詳細資料，新增特別要求或者取消預定。
+                </li>
+              </ul>
+            </div>
+            {/* <!-- TODO 分析與情報通知 --> */}
+            <div className="col-4 p-0">
+              <div className=" memo-form  d-flex justify-content-center align-items-center px-5 py-4">
+                <span>
+                  所選日期台北住宿數量有限：
+                  <br />
+                  快來訂房吧！！！
+                </span>
+              </div>
+            </div>
+            <div className="col-8 p-0 ps-3">
+              <div className="memo-form h-100 d-flex align-items-center">
+                <div className="poicy-argee px-5 py-2 d-flex align-items-center">
+                  <input
+                    type="checkbox"
+                    name="subscribe"
+                    id="subscribe"
+                    value={isChecked}
+                    className=" mx-3"
+                    onChange={handleArgee}
+                  />
+                  是，我同意接受<a href="">隱私權條款</a>
+                  並通知我來七桃優惠資訊。
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* <!-- TODO 前往付款button --> */}
+          <div className="topay d-flex justify-content-center w-25 mx-auto pt-4 pb-5 row ">
+            <button
+              className=" my-btn col text-decoration-none mx-1"
+              onClick={handleCheckOut}
             >
               確認付款
-            </Link>
-          </button>
-        </div>
+            </button>
+          </div>
+        </form>
       </main>
     </>
   );
