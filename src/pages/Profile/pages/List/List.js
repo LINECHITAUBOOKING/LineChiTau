@@ -10,7 +10,8 @@ import { useQuery } from 'react-query';
 import TList from './TList';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 import TListLayout from './Spinner/TListLayout';
-
+import RecommendToC from '../../layouts/Recommend';
+import Recommend from '../../layouts/Recommend';
 const List = () => {
   const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
@@ -60,10 +61,10 @@ const List = () => {
             </div>
           </div>
 
-          <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
+          {/* <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
             推薦商品
-          </div>
-          <div className="preferlist">
+          </div> */}
+          {/* <div className="preferlist">
             <div className="overlap-group-3">
               <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
               <div className="surname-1">Snow Hills</div>
@@ -115,7 +116,8 @@ const List = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <Recommend />
         </div>
       </>
     );
@@ -140,10 +142,10 @@ const List = () => {
             </div>
           </div>
 
-          <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
+          {/* <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
             推薦商品
-          </div>
-          <div className="preferlist">
+          </div> */}
+          {/* <div className="preferlist">
             <div className="overlap-group-3">
               <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
               <div className="surname-1">Snow Hills</div>
@@ -195,7 +197,8 @@ const List = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
+          <Recommend />
         </div>
       </>
     );
@@ -224,10 +227,10 @@ const List = () => {
         </Link>
       )}
 
-      <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
+      {/*  <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         推薦商品
-      </div>
-      <div className="preferlist">
+      </div> */}
+      {/*  <div className="preferlist">
         <div className="overlap-group-3">
           <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
           <div className="surname-1">Snow Hills</div>
@@ -279,7 +282,8 @@ const List = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <Recommend lovename={'精選推薦'} />
     </div>
   );
 };

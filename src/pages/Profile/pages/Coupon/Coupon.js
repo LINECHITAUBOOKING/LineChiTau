@@ -16,7 +16,8 @@ import NewsTicker, {
 } from 'react-advanced-news-ticker';
 import './Coupon.scss';
 const Coupon = () => {
-  const { jwtToken, userF, logout,jwtDecodedData } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
   const [inputValue, setInputValue] = useState('');
   // const [coupon, setCoupon] = useState({});

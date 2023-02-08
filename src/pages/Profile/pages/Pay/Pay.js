@@ -1,26 +1,22 @@
 import React, { useState, useContext } from 'react';
 import './Pay.scss';
-import Card1 from './images/Card1.png';
-import Card2 from './images/Card2.png';
-import Card3 from './images/Card3.png';
-import Card4 from './images/Card4.png';
-import Card5 from './images/Card5.png';
-import Card6 from './images/Card6.png';
-import Card7 from './images/Card7.png';
+
 import Cards from 'react-credit-cards-2';
 import 'react-credit-cards-2/es/styles-compiled.css';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-
+import { useQuery } from 'react-query';
 const Pay = () => {
-  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
   const [number, SetNumber] = useState('');
   const [name, SetName] = useState('');
   const [date, SetDate] = useState('');
   const [cvc, SetCvc] = useState('');
   const [focus, SetFocus] = useState('');
-  console.log(userF.email);
+  const [items, setItems] = useState({});
+  console.log(jwtDecodedData.email);
   async function handleSubmit(e) {
     e.preventDefault();
     if (!!name === false) {
@@ -56,7 +52,7 @@ const Pay = () => {
       number: number,
       date: date,
       cvc: cvc,
-      email: userF.email,
+      email: jwtDecodedData.email,
     };
     try {
       let response = await axios.post('/auth/pay', formData);
@@ -66,23 +62,135 @@ const Pay = () => {
       alert('已經註冊過囉');
     }
   }
+  const getUser = async ({ queryKey }) => {
+    // const response = await fetch(
+    //   `https://reqres.in/api/users?page=${userF.name}`
+    // );
 
+    const response = await fetch(
+      `http://localhost:3001/api/userlist/pay/${jwtDecodedData.email}`
+    );
+    // const response = await fetch('./users.json');
+    console.log('收到', response);
+    const list = await response.json();
+    console.log(list[0].cvc);
+    setItems(list.data);
+    return list;
+  };
+  const {
+    data: list,
+    isLoading,
+    isError,
+    error,
+    isFetching,
+  } = useQuery(['listdata', items], getUser, {
+    // refetchOnWindowFocus: false,s
+    retry: 0,
+    // cacheTime: 1000,
+    // enabled: false,
+  });
+  if (list === undefined) {
+    return (
+      <>
+        <span>查無資料</span>
+      </>
+    );
+  }
+  if (list.error) {
+    return (
+      <>
+        <span>找不到訂單</span>
+      </>
+    );
+  }
+  if (isLoading) {
+    return (
+      <>
+        <span>Loading...</span>
+      </>
+    );
+  }
+  if (isFetching) {
+    return <>加載中</>;
+  }
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
   return (
     <div className="container-pay">
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">
-        管理付款資料
+        持有卡片
       </h1>
-      <div className="manger-profile my-border-radius">
-        <div className="pay-text">以下為已綁定的卡片</div>
-        <div className="pay-card">
-          <img className="pic" src={Card1} alt="" />
-          <img className="pic" src={Card2} alt="" />
-          <img className="pic" src={Card3} alt="" />
-        </div>
-        <div className="pay-card">
-          <img className="pic" src={Card4} alt="" />
-          <img className="pic" src={Card5} alt="" />
-          <img className="pic" src={Card6} alt="" />
+      <div
+        id="PaymentForm"
+        className="manger-profile my-border-radius d-flex align-items-center"
+      >
+        <div className="cards d-flex ms-5">
+          <Cards
+            number={list[0].card_number}
+            name={list[0].cardholder_name}
+            expiry={list[0].exp_date}
+            cvc={list[0].cvc}
+          />
+          <form>
+            <div className="card-name row py-2">
+              <div className=" d-flex col-3  justify-content-end align-items-end">
+                <label className=" pe-3">持卡人姓名</label>
+              </div>
+              <div className="col-7 px-0">
+                <input
+                  type="text"
+                  className="form-control border-0"
+                  value={list[0].cardholder_name}
+                  name="name"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="card-number row py-2">
+              <div className=" d-flex col-3  justify-content-end align-items-end">
+                <label className=" pe-3">卡號</label>
+              </div>
+              <div className="col-7 px-0">
+                <input
+                  type="text"
+                  className="form-control border-0"
+                  value={list[0].card_number}
+                  maxLength="16"
+                  name="number"
+                  disabled
+                />
+              </div>
+            </div>
+            <div className="date-cvc row py-2">
+              <div className=" d-flex col-3  justify-content-end align-items-end">
+                <label className=" pe-3">有效日期</label>
+              </div>
+              <div className="col-2 px-0">
+                <input
+                  type="text"
+                  name="expiry"
+                  className="form-control border-0"
+                  value={list[0].exp_date}
+                  maxLength="4"
+                  disabled
+                />
+              </div>
+              <div className=" d-flex col-3  justify-content-end align-items-end">
+                <label className=" pe-3">安全碼</label>
+              </div>
+              <div className="col-2 px-0">
+                <input
+                  type="tel"
+                  name="cvc"
+                  className=" border-0 form-control"
+                  value={list[0].cvc}
+                  maxLength="3"
+                  disabled
+                />
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <h1 className="buytitle valign-text-middle notosans-normal-old-copper-32px">

@@ -65,9 +65,11 @@ const Navbar = () => {
                 </Link>
               </p>
             ) : (
-              <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
-                登入
-              </Link>
+              <p className="nav-button">
+                <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
+                  登入
+                </Link>
+              </p>
             )}
           </div>
 

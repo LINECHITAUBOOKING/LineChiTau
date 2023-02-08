@@ -7,13 +7,16 @@ import coin from './images/coin.png';
 import './Mylove.scss';
 import { useQuery } from 'react-query';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import RecommendToC from '../../../Hotel/HotelConponent/RecommendToC/RecommendToC';
+import Recommend from '../../layouts/Recommend';
 // import TListLayout from './Spinner/TListLayout';
 const Mylove = () => {
   const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
-
+  const [love, setLove] = useState([]);
+  const lovename = '我的最愛';
   const getUser = async ({ queryKey }) => {
     // const response = await fetch(
     //   `https://reqres.in/api/users?page=${userF.name}`
@@ -46,7 +49,8 @@ const Mylove = () => {
       <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
         我的最愛
       </div>
-      <div className="preferlist">
+      <Recommend love={love} />
+      {/* <div className="preferlist">
         <div className="overlap-group-3">
           <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
           <div className="surname-1">Snow Hills</div>
@@ -151,7 +155,7 @@ const Mylove = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };
