@@ -6,12 +6,14 @@ import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken
 import { async } from '@firebase/util';
 
 export const RecommendToC = () => {
-  const { jwtToken, userF, init, jwtDecodedData } =
-    useContext(JwtCsrfTokenContext);
+  const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   init(axios);
-  console.log(jwtDecodedData);
-  console.log('userF', userF.email);
+  console.log(JwtCsrfTokenContext);
+  // console.log('userF', userF.email);
   const [cardIsHover, setCardIsHover] = useState(false);
+  const [userLikeList, setUserLikeList] = useState([]);
+  const [userLikeListObject, setUserLikeListObject] = useState({});
+  const [userLikeState, setUserLikeState] = useState(true);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
@@ -39,6 +41,7 @@ export const RecommendToC = () => {
         'http://localhost:3001/api/hotel/recommandToC'
       );
       setHotelList(response.data);
+      // console.log(response.data);
     }
     getHotelList();
   }, []);
@@ -55,12 +58,39 @@ export const RecommendToC = () => {
   useEffect(() => {
     getDisplayList();
   }, [viewMoreCount]);
-
-  const postUserLikeDB = async function (url, userEmail, hotel) {
-    let response = await axios.post(url, {
-      email: userEmail,
-      hotel: hotel,
+  useEffect(() => {
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      // console.log('jwtDecodedData', response.data);
+    }
+    if (jwtToken) getUserLikeList();
+  }, [userLikeState]);
+  useEffect(() => {
+    const result = {};
+    userLikeList.forEach((v) => {
+      result[v.company_name] = v.valid;
     });
+    // console.log('result', result);
+    setUserLikeListObject(result);
+  }, []);
+  console.log('UserLikeListObject', userLikeListObject);
+  const postUserLikeDB = async function (url, userEmail, hotel, valid) {
+    let response = await axios.post(
+      url,
+      {
+        email: userEmail,
+        hotel: hotel,
+        valid: valid,
+      },
+      {
+        headers: {
+          'X-CSRF-Token': csrfToken,
+        },
+      }
+    );
     console.log(response.data);
   };
   return (
@@ -77,14 +107,27 @@ export const RecommendToC = () => {
                       <div className="small-card mx-3">
                         <div className="position-relative">
                           <span
-                            class="material-symbols-rounded my-p position-absolute recommand-tag"
+                            className={`material-symbols-rounded my-p position-absolute recommand-tag ${
+                              userLikeListObject[v2.company_name] === 1
+                                ? 'bookmark-active'
+                                : 'bookmark'
+                            }`}
                             onClick={() => {
-                              postUserLikeDB(
-                                `http://localhost:3001/api/hotelDetail/setUserLike/${v2.company_name}`,
-                                userF.email,
-                                v2.company_name
-                              );
-                              console.log(userF.email, v2.company_name);
+                              setUserLikeState(!userLikeState);
+                              if (
+                                Object.keys(userLikeListObject).includes(
+                                  v2.company_name
+                                ) &&
+                                userLikeListObject[v2.company_name] == 1
+                              ) {
+                                console.log('123');
+                                postUserLikeDB(
+                                  `http://localhost:3001/auth/setUserLikeValid`,
+                                  jwtDecodedData.email,
+                                  v2.company_name,
+                                  0
+                                );
+                              }
                             }}
                           >
                             bookmark
