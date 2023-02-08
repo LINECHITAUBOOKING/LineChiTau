@@ -33,6 +33,24 @@ const HotelPaymentDetail = (props) => {
   const hotelName = JSON.parse(storage.getItem('hotelRoom'))[0].companyName;
   const roomName = JSON.parse(storage.getItem('hotelRoom'))[0].roomName;
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
+  const [userCoupon, setUserCoupon] = useState([]);
+
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState(jwtDecodedData.email);
+  const [tel, setTel] = useState('');
+  const [country, setCountry] = useState('');
+  const [lang, setLang] = useState('');
+  const [discount, setDiscount] = useState(0);
+  const [discountId, setDiscountId] = useState(0);
+  const name = lastName + firstName;
+
+  const userEmail = jwtDecodedData.email;
+  const orderIdNum = Date.now();
+  const orderId = 'NH' + orderIdNum;
+  const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
+  const orderDateNow = moment(orderIdNum).format('YYYY-MM-DD');
+
   const ordersItem = JSON.parse(storage.getItem('orderItem'));
   const orderItem = ordersItem[0];
   const navigate = useNavigate();
@@ -46,24 +64,34 @@ const HotelPaymentDetail = (props) => {
       setPaymentRoomDetail(response.data[0]);
     }
     getRoomDetail();
+    async function getUserCoupons() {
+      let response = await axios.get(
+        `http://localhost:3001/api/payment/Detail/Hotel/${jwtDecodedData.email}`
+      );
+      // console.log(response.data);
+      setUserCoupon(response.data);
+    }
+    getUserCoupons();
   }, []);
+  useEffect(() => {
+    async function getUseCoupon() {
+      let response = await axios.get(
+        `http://localhost:3001/api/payment/Detail/Hotel/coupon/${discountId}`
+      );
+      console.log(
+        'getUseCoupongetUseCoupongetUseCoupongetUseCoupon',
+        response.data
+      );
+      setDiscount(response.data[0].discount);
+      console.log('=======discount======', response.data[0].discount);
+    }
+    getUseCoupon();
+  }, [discountId]);
   console.log(
     '===============paymentRoomDetail================：',
     paymentRoomDetail
   );
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState(jwtDecodedData.email);
-  const [tel, setTel] = useState('');
-  const [country, setCountry] = useState('');
-  const [lang, setLang] = useState('');
-  const name = lastName + firstName;
-  const [orderId1, setOrderId] = useState('');
-
-  const userEmail = jwtDecodedData.email;
-  const orderIdNum = Date.now();
-  const orderId = 'NH' + orderIdNum;
-  const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
+  console.log('===============userCoupon================：', userCoupon);
 
   const updateValue = {
     setFirstName: (value) => {
@@ -83,6 +111,12 @@ const HotelPaymentDetail = (props) => {
     },
     setLang: (value) => {
       setLang(value);
+    },
+    setDiscount: (value) => {
+      setDiscount(value);
+    },
+    setDiscountId: (value) => {
+      setDiscountId(value);
     },
   };
   // NOTE 假價格
@@ -112,7 +146,8 @@ const HotelPaymentDetail = (props) => {
         amount: amount,
         startDate: orderItem.startDate,
         endDate: orderItem.endDate,
-        discount: 0,
+        discount: discount,
+        discountId: discountId,
       };
       console.log(
         '=================handleSubmit===================:',
@@ -142,11 +177,11 @@ const HotelPaymentDetail = (props) => {
   return (
     <>
       <ProgressBar currentStep={currentStep} />
-      <main className="container main-width px-0">
+      <main className="container payment-main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房規則--> */}
         <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE  訂房商品資訊--> */}
-          <div className="col-4 p-0">
+          <div className="col-4 p-0 mx-0">
             <RoomItem
               paymentRoomDetail={paymentRoomDetail}
               orderItem={orderItem}
@@ -154,11 +189,11 @@ const HotelPaymentDetail = (props) => {
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
           <div className="col-8 row pe-0">
-            <div className="col-12 mb-4">
+            <div className="col-12 row px-0 mb-4">
               {/* <!-- NOTE 飯店名 --> */}
               <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
             </div>
-            <div className="room-info col-12  p-3">
+            <div className="room-info col-12 row p-3">
               {/* <!-- NOTE 房型服務資訊 --> */}
               <RoomService paymentRoomDetail={paymentRoomDetail} />
               <RoomRule />
@@ -167,9 +202,9 @@ const HotelPaymentDetail = (props) => {
         </div>
 
         {/* <!-- TODO 個人資料、MEMO --> */}
-        <div className="row w-100 mx-0 mb-3">
+        <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE 填寫個人資料 --> */}
-          <div className="col-6 p-0">
+          <div className="col-4 p-0 mx-0 ">
             <RoomBooker
               firstName={firstName}
               lastName={lastName}
@@ -181,13 +216,18 @@ const HotelPaymentDetail = (props) => {
             />
           </div>
           {/* <!-- NOTE MEMO --> */}
-          <div className="col-6 p-0">
+          <div className="col-8 row pe-0 ">
             <RoomMemo />
           </div>
         </div>
-        {/* <!-- TODO 預計抵達時間 --> */}
+
         <div className="row w-100 mx-0 mb-3  ">
-          <UseDiscount />
+          <UseDiscount
+            userCoupon={userCoupon}
+            updateValue={updateValue}
+            discountId={discountId}
+            discount={discount}
+          />
         </div>
         {/* <!-- TODO 前往付款button --> */}
         <div className="topay d-flex justify-content-center w-25 mx-auto pt-4 pb-5 row ">

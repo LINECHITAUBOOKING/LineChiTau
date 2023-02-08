@@ -15,7 +15,7 @@ const RoomItemHotel = (props) => {
 
   return (
     <>
-      <div className="hotel-name room-info d-flex h-100 align-items-center px-3 py-4 ">
+      <div className="hotel-name room-info d-flex h-100 align-items-center px-3 py-4  mb-5">
         <div className=" col-3 align-items-start mx-3">
           <img
             className="img-fluid item-image overflow-hidden"

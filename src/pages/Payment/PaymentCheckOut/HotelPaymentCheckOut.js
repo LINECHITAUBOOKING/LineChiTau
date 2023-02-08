@@ -168,9 +168,9 @@ const HotelPaymentCheckOut = () => {
   }
   console.log('OPENAI好厲害比人還會說話00000', creditCard);
 
-  const startDate = moment(getStartDate).format('YYYY-MM-DD');
+  const startDate = moment(getStartDate).format('YYYY/M/DD');
   console.log('==========startDate=======', startDate);
-  const endDate = moment(getEndDate).format('YYYY-MM-DD');
+  const endDate = moment(getEndDate).format('YYYY/M/DD');
   console.log('==========startDate=======', endDate);
 
   const orderItem = {
@@ -194,53 +194,38 @@ const HotelPaymentCheckOut = () => {
     <>
       <ProgressBar currentStep={currentStep} />
 
-      <main className="container main-width px-0">
+      <main className="container payment-main-width px-0">
         {/* <!-- TODO 訂房商品資訊、飯店+房型+訂房個資--> */}
-        <div className="row w-100 my-3  mx-0 px-0">
+        <div className="row my-3 mx-0 justify-content-between">
           {/* <!-- NOTE  訂房商品資訊--> */}
           <div className="col-4 p-0 mx-0">
             <RoomItem paymentRoomDetail={orderDetail} orderItem={orderItem} />
           </div>
           {/* <!-- NOTE  飯店+房型+訂房規則--> */}
-          <div className="col-8  p-0 h-100 mx-0">
+          <div className="col-8 row pe-0">
             {/* <!-- NOTE 飯店名 --> */}
-            <div className="hotel-room-profile ms-3 ">
+            <div className="col-12 row px-0 mb-4">
               <RoomItemHotel paymentRoomDetail={orderDetail} />
-              <div className="room-info   px-3 pb-5">
-                {/* <!-- NOTE 房型服務資訊 --> */}
-                <RoomService paymentRoomDetail={orderDetail} />
-                <RoomRule />
-              </div>
+            </div>
+            <div className="room-info col-12 row p-3 ">
+              {/* <!-- NOTE 房型服務資訊 --> */}
+              <RoomService paymentRoomDetail={orderDetail} />
+              <RoomRule />
             </div>
           </div>
         </div>
 
         {/* <!-- TODO 付款方式、MEMO --> */}
-        <div className="row w-100 mb-3 mx-0">
-          {/* <!-- NOTE 選擇付款方式 --> */}
-          <div className="col-4 p-0 ">
+        <div className="row my-3 mx-0 justify-content-between">
+          {/* <!-- NOTE 聯絡資料
+           --> */}
+          <div className="col-4 p-0 mx-0 ">
             <UserData />
           </div>
-          <div className="col-8 p-0 d-flex">
+          <div className="col-8 row pe-0 ">
             {/* <!-- NOTE MEMO+ARRIVE --> */}
             <RoomMemo />
             {/* <!-- NOTE 抵達時間 資訊 --> */}
-            <div className="arrive-data d-flex align-items-baseline ps-5 col-4">
-              <div className=" arrive-time-data d-flex flex-column p-3">
-                <h5>預計抵達時間</h5>
-                12:00
-                <ul>
-                  <small>
-                    <li> 您的客房將會在 15:00 開放辦理入住</li>
-                  </small>
-                  <small>
-                    <li>
-                      24 小時接待櫃檯－在您有需要的時候，隨時都能為您提供服務！
-                    </li>
-                  </small>
-                </ul>
-              </div>
-            </div>
           </div>
         </div>
         <form>

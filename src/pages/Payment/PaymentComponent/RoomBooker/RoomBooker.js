@@ -13,7 +13,7 @@ import ProductImg from '../../../Hotel/img/banner.svg';
 const RoomBooker = (props) => {
   return (
     <>
-      <div className="profile-form px-5 py-4 me-3 h-100">
+      <div className="profile-form px-4 py-3  h-100">
         <h4 className="title mb-3">請輸入個人資料</h4>
         <div className="user-data">
           <div className="name row">

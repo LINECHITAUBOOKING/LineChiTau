@@ -63,7 +63,7 @@ const RoomService = (props) => {
   return (
     <>
       {/* <!-- NOTE 房型服務資訊 --> */}
-      <div className="room-service  mx-3 pt-3">
+      <div className="room-service   pt-3 px-3">
         <div className="room-name d-flex align-items-center">
           <h4 className="me-3">{paymentRoomDetail.room} </h4>
           <small>*兩周內取消須付費</small>

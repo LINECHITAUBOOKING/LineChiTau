@@ -15,8 +15,8 @@ const moment = require('moment');
 
 const RoomItem = (props) => {
   const navigate = useNavigate();
-  const { paramsOrderId } = useParams();
- console.log('13213213213213213132====456=4=564=56=',paramsOrderId)
+  const { orderId } = useParams();
+  console.log('13213213213213213132====456=4=564=56=', orderId);
   const numStart = moment(props.orderItem.startDate);
   const numEnd = moment(props.orderItem.endDate);
   const totalDate = numEnd.diff(numStart, 'days');
@@ -28,8 +28,14 @@ const RoomItem = (props) => {
   console.log('房間名', paymentRoomDetail);
   console.log('type of paymentRoomDetail', typeof paymentRoomDetail);
 
-  console.log('props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',props.orderItem.startDate)
-  console.log('props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',props.orderItem.endDate)
+  console.log(
+    'props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',
+    props.orderItem.startDate
+  );
+  console.log(
+    'props.orderItem.startDateprops.orderItem.startDateprops.orderItem.startDate',
+    props.orderItem.endDate
+  );
   return (
     <>
       <div className="order-info px-4 py-3 h-100">
@@ -66,7 +72,7 @@ const RoomItem = (props) => {
                 <Link
                   className={
                     'text-decoration-none d-flex align-items-center' +
-                    (paramsOrderId === undefined ? ' ' : ' d-none')
+                    (orderId === undefined ? ' ' : ' d-none')
                   }
                   onClick={() => {
                     navigate(-1);
@@ -75,7 +81,7 @@ const RoomItem = (props) => {
                   <button
                     className={
                       'change-chosen my-edit-btn d-flex align-items-center justify-content-center' +
-                      (paramsOrderId === undefined ? ' ' : ' d-none')
+                      (orderId === undefined ? ' ' : ' d-none')
                     }
                   >
                     更改選擇
