@@ -30,6 +30,7 @@ import Demo from './utils/Demo';
 import TripList from './pages/TripList/TripList';
 import TripProductDetail from './pages/TripProductDetails/TripProductDetails';
 import UploadTrip from './pages/UploadTrip/UploadTrip';
+import TestUpload from './pages/TestUpload/TestUpload';
 
 // import React, { useState, useContext } from 'react';
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
@@ -57,6 +58,7 @@ function App() {
             </Route>
             <Route path="/tripList" element={<TripList />}></Route>
             <Route path="/uploadTrip" element={<UploadTrip />}></Route>
+            <Route path="/TestUpload" element={<TestUpload />}></Route>
             <Route
               path="/tripProductDetail"
               element={<TripProductDetail />}

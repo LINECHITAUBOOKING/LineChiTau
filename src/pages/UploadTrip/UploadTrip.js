@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 export default function UploadTrip() {
+  //!宣告useState
   const [tripEmail, setTripEmail] = useState();
   const [tripName, setTripName] = useState();
   const [tripStartDate, setTripStartDate] = useState();
@@ -18,6 +19,7 @@ export default function UploadTrip() {
   const [tripCommentGrade, setTripCommentGrade] = useState();
   const [tripCommentAmount, setTripCommentAmount] = useState();
 
+  //!宣告改變state的函式
   function setEmail(e) {
     setTripEmail(e.target.value);
   }
@@ -74,7 +76,7 @@ export default function UploadTrip() {
     setTripCommentAmount(e.target.value);
   }
 
-  //! debounce
+  //! 宣告debounce的函式
   function debounce(callback, wait) {
     let timeout;
     return (...args) => {
@@ -101,8 +103,7 @@ export default function UploadTrip() {
     console.log('已送出並收回', JSON.stringify(response));
   }
   useEffect(() => {
-    console.log('tripEmail:', tripEmail);
-
+    // console.log('tripEmail:', tripEmail);
     // console.log('tripName:', tripName);
     // console.log('tripStartDate:', tripStartDate);
     // console.log('tripEndDate:', tripEndDate);
