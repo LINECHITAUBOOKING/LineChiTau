@@ -28,38 +28,17 @@ export default function TestList() {
   const [SortKeywordArr, setSortKeywordArr] = useState();
 
   //!處理關鍵字的函式
-  const regionArr = [
-    '基隆',
-    '宜蘭',
-    '台北',
-    '桃園',
-    '新竹',
-    '苗栗',
-    '台中',
-    '彰化',
-    '南投',
-    '雲林',
-    '嘉義',
-    '台南',
-    '高雄',
-    '屏東',
-    '台東',
-    '花蓮',
-    '澎湖',
-    '金門',
-    '馬祖',
-    '蘭嶼',
-  ];
 
   function makeRawKeywordsAnArr(URLRawkeyword) {
     const URLRawKeywordArr = URLRawkeyword.split(' ');
+    console.log('生成未分類關鍵字陣列', URLRawKeywordArr);
     return URLRawKeywordArr;
   }
   function seperateRawKeywordArr(URLRawKeywordArr, isRegion) {
     const name = [];
     const region = [];
     URLRawKeywordArr.forEach((element) => {
-      if (isRegion()) {
+      if (isRegion(element)) {
         region.push(element);
       } else {
         name.push(element);
@@ -67,7 +46,30 @@ export default function TestList() {
     });
     return [name, region];
   }
+
   function isRegion(element) {
+    const regionArr = [
+      '基隆',
+      '宜蘭',
+      '台北',
+      '桃園',
+      '新竹',
+      '苗栗',
+      '台中',
+      '彰化',
+      '南投',
+      '雲林',
+      '嘉義',
+      '台南',
+      '高雄',
+      '屏東',
+      '台東',
+      '花蓮',
+      '澎湖',
+      '金門',
+      '馬祖',
+      '蘭嶼',
+    ];
     if (regionArr.includes(element)) {
       return true;
     } else {
@@ -88,10 +90,10 @@ export default function TestList() {
         (regionKeywordArr[0] || nameKeywordArr[0])
       ) {
         const dataArr = await axios.get(
-          `http://localhost:3001/api/tripList/x=${regionKeyword}x=${nameKeyword}`
+          `http://localhost:3001/api/tripList/r=${regionKeyword}+n=${nameKeyword}`
         );
         setReturnedTripData(dataArr.data);
-      } else {
+      } else if (URLRawkeyword === 'all') {
         const dataArr = await axios.get(
           `http://localhost:3001/api/tripList/all`
         );
@@ -102,7 +104,7 @@ export default function TestList() {
     }
   }
 
-  // //!從搜尋關鍵字獲取資料
+  // //!渲染從搜尋關鍵字獲取的資料
   const RenderReturnedTripData = ReturnedTripData.map((e, i) => {
     return (
       <ProductsCard
@@ -133,7 +135,6 @@ export default function TestList() {
   }, []);
 
   console.log(ReturnedTripData);
-  console.log('新關鍵字', newRawKeyword);
 
   return (
     <>
