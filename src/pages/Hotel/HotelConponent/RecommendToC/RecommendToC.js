@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './RecommendToC.scss';
+
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
@@ -7,6 +8,7 @@ import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
 export const RecommendToC = () => {
   const navigate = useNavigate();
+
   const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   init(axios);
   console.log(JwtCsrfTokenContext);
@@ -14,6 +16,7 @@ export const RecommendToC = () => {
   const [cardIsHover, setCardIsHover] = useState(false);
   const [userLikeList, setUserLikeList] = useState([]);
   const [userLikeListObject, setUserLikeListObject] = useState({});
+
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
