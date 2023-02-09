@@ -258,7 +258,6 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         setuserF,
         googlelogin,
         Googleauth,
-       
       }}
     >
       {children}

@@ -5,9 +5,10 @@ import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Setting = () => {
-  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
-  console.log('userF', userF.pwd);
+  console.log('jwtDecodedData', jwtDecodedData.password, jwtDecodedData.email);
   console.log(jwtToken);
   const navigate = useNavigate();
   const location = useLocation();
@@ -31,10 +32,11 @@ const Setting = () => {
       name: member.name,
       city: member.city,
       country: member.country,
-      nickname: member.nickname,
+      nickname: member.identification,
       birthday: member.birthday,
       phone: member.phone,
-      email: userF.email,
+      gender: member.gender,
+      email: jwtDecodedData.email,
     };
     try {
       let response = await axios.post('/auth/setting', formData);
@@ -45,11 +47,10 @@ const Setting = () => {
       alert('更新失敗');
     }
   }
-
   async function handleSubmitpassword(e) {
     e.preventDefault();
-    console.log('handleSubmit');
-    if (member.password !== userF.pwd) {
+    console.log(jwtDecodedData.password);
+    if (member.password !== jwtDecodedData.password) {
       alert('現有密碼錯誤');
       return;
     }
@@ -63,7 +64,7 @@ const Setting = () => {
     }
 
     let formData = {
-      email: userF.email,
+      email: jwtDecodedData.email,
       password: member.password,
       newpassword: member.newpassword,
     };
@@ -129,19 +130,33 @@ const Setting = () => {
                 onChange={handleChange}
               />
             </div>
-          </div>
-          <div className="form-item">
             <div className="form-input">
               <div className="form-text1">
-                暱稱
+                性別
                 <div className="NotRequired"> &nbsp; (Not Required)</div>
               </div>
               <input
                 className="input-setting"
                 type="text"
                 placeholder="Placeholder"
-                id="nickname"
-                name="nickname"
+                id="gender"
+                name="gender"
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+          <div className="form-item">
+            <div className="form-input">
+              <div className="form-text1">
+                身分證
+                <div className="NotRequired"> &nbsp; (Not Required)</div>
+              </div>
+              <input
+                className="input-setting"
+                type="text"
+                placeholder="Placeholder"
+                id="identification"
+                name="identification"
                 onChange={handleChange}
               />
             </div>
