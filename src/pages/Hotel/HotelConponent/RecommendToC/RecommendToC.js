@@ -1,11 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
+import React, { useState, useEffect, useContext } from 'react';
 import './RecommendToC.scss';
-import { Link } from 'react-router-dom';
+
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
 export const RecommendToC = () => {
+  const navigate = useNavigate();
+
+  const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
+  init(axios);
+  console.log(JwtCsrfTokenContext);
+  // console.log('userF', userF.email);
   const [cardIsHover, setCardIsHover] = useState(false);
+  const [userLikeList, setUserLikeList] = useState([]);
+  const [userLikeListObject, setUserLikeListObject] = useState({});
+
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
@@ -33,6 +44,7 @@ export const RecommendToC = () => {
         'http://localhost:3001/api/hotel/recommandToC'
       );
       setHotelList(response.data);
+      // console.log(response.data);
     }
     getHotelList();
   }, []);
@@ -49,6 +61,58 @@ export const RecommendToC = () => {
   useEffect(() => {
     getDisplayList();
   }, [viewMoreCount]);
+  useEffect(() => {
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      console.log('setUserLikeList', response.data);
+    }
+    if (jwtToken) getUserLikeList();
+  }, []);
+  useEffect(() => {
+    const result = {};
+    userLikeList.forEach((v) => {
+      result[v.company_name] = v.valid;
+    });
+    // console.log('result', result);
+    setUserLikeListObject(result);
+  }, [userLikeList]);
+  console.log('UserLikeListObject', userLikeListObject);
+  const postUserLikeDB = async function (url, userEmail, hotel, valid) {
+    let response = await axios.post(url, {
+      email: userEmail,
+      hotel: hotel,
+      valid: valid,
+    });
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      console.log('setUserLikeList', response.data);
+    }
+    if (jwtToken) getUserLikeList();
+    console.log(response.data);
+  };
+
+  const postNewUserLikeDB = async function (url, userEmail, hotel, valid) {
+    let response = await axios.post(url, {
+      email: userEmail,
+      hotel: hotel,
+      valid: valid,
+    });
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      console.log('setUserLikeList', response.data);
+    }
+    if (jwtToken) getUserLikeList();
+    console.log(response.data);
+  };
 
   return (
     <>
@@ -63,9 +127,10 @@ export const RecommendToC = () => {
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span class="material-symbols-rounded my-p position-absolute recommand-tag">
-                            bookmark
-                          </span>
+                          <UserLikeBookmark
+                            hotel={v2.company_name}
+                            position={'position-absolute'}
+                          />
                           {v2.company_banner.split(',').map((pic, i) => {
                             if (i === 0) {
                               return (

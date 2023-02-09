@@ -4,13 +4,17 @@
   max-width: 250px;
   height: 200px;
   background-color: #aaa;
-  button {
+  .leaflet-hotel-list {
+    z-index: 499;
+  }
+  .map-btn {
     border: none;
     background: $main;
     top: 40%;
     left: 33%;
     padding: 10px;
     border-radius: 10px;
+    z-index: 500;
   }
 }
 .location-type-box {

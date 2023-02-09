@@ -103,15 +103,15 @@ export default function TestList() {
   }
 
   //!從搜尋關鍵字獲取資料
-  useEffect(() => {
-    const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
-      makeRawKeywordsAnArr(URLRawkeyword),
-      isRegion
-    );
-    fetchData(regionKeywordArr, nameKeywordArr);
-  }, []);
+  // useEffect(() => {
+  //   const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
+  //     makeRawKeywordsAnArr(URLRawkeyword),
+  //     isRegion
+  //   );
+  //   fetchData(regionKeywordArr, nameKeywordArr);
+  // }, []);
 
-  console.log(ReturnedTripData);
+  // console.log(ReturnedTripData);
 
   return (
     <>

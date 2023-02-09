@@ -3,6 +3,8 @@ import './HotellistBox.scss';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import HotelListFilter from '../HotelListFilter/HotelListFilter';
 import axios from 'axios';
+import DisplayMap from '../DisplayMap/DisplayMap';
+import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
 const HotellistBox = ({ hotelServiceListArray }) => {
   const [error, setError] = useState();
@@ -148,7 +150,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
       )
     );
   }, [filterCondition, hotelListArrange]);
-  console.log('1111111', hotelListArrangeState);
+  // console.log('1111111', hotelListArrangeState);
   const [pagenation, setPagenation] = useState([]);
   useEffect(() => {
     const ucPagenation = [];
@@ -170,10 +172,27 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     }
     setPagenation(ucPagenation);
   }, [hotelListArrangeState]);
-
+  const [isOpenMap, setIsOpenMap] = useState(false);
   return (
     <>
       <div className="container-xl hotellist-box">
+        {isOpenMap && (
+          <div className="position-fixed display-map">
+            <div
+              className="material-symbols-outlined close-detail-pic my"
+              onClick={() => {
+                setIsOpenMap(false);
+              }}
+              role="button"
+            >
+              close
+            </div>
+            <DisplayMap
+              hotelListArrangeState={hotelListArrangeState}
+              mapHeight={'60vh'}
+            />
+          </div>
+        )}
         <div className="d-flex justify-content-between align-items-end">
           <p className="my-topic" id="top">
             關鍵字:{localStorage.getItem('destination')} / 共{' '}
@@ -190,10 +209,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
           </p>
           <ul className="list-unstyled d-flex my-p">
             <li>排序：</li>
-            <li>人氣 | </li>
-            <li>評價 | </li>
             <li>價格 ▲ | </li>
-            <li>價格▼</li>
           </ul>
         </div>
         <div className="row mb-5">
@@ -203,6 +219,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
               hotelType={hotelType}
               setFilterCondition={setFilterCondition}
               filterCondition={filterCondition}
+              hotelListArrangeState={hotelListArrangeState}
+              setIsOpenMap={setIsOpenMap}
             />
           </div>
           <div className="col-9">
@@ -342,11 +360,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                                     <span className="my-p-small">起</span> / 晚
                                   </p>
                                 </div>
-                                <div className="d-flex">
-                                  <div class="material-symbols-outlined">
-                                    bookmark
-                                  </div>
-                                  <p>收藏</p>
+                                <div>
+                                  <UserLikeBookmark hotel={room.company_name} />
                                 </div>
                               </div>
                             </div>
