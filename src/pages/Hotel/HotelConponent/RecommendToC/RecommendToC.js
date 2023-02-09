@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './RecommendToC.scss';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
-import { async } from '@firebase/util';
+import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
 export const RecommendToC = () => {
+  const navigate = useNavigate();
   const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   init(axios);
   console.log(JwtCsrfTokenContext);
@@ -13,7 +14,6 @@ export const RecommendToC = () => {
   const [cardIsHover, setCardIsHover] = useState(false);
   const [userLikeList, setUserLikeList] = useState([]);
   const [userLikeListObject, setUserLikeListObject] = useState({});
-  const [userLikeState, setUserLikeState] = useState(true);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
   const [displayList, setDisplayList] = useState([]);
@@ -124,56 +124,10 @@ export const RecommendToC = () => {
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span
-                            className={`material-symbols-rounded my-p position-absolute recommand-tag ${
-                              userLikeListObject[v2.company_name] === 1
-                                ? 'bookmark-active'
-                                : 'bookmark'
-                            }`}
-                            onClick={() => {
-                              setUserLikeState(!userLikeState);
-                              if (
-                                Object.keys(userLikeListObject).includes(
-                                  v2.company_name
-                                ) &&
-                                userLikeListObject[v2.company_name] == 1
-                              ) {
-                                postUserLikeDB(
-                                  `http://localhost:3000/auth/setUserLikeValid`,
-                                  jwtDecodedData.email,
-                                  v2.company_name,
-                                  0
-                                );
-                              } else if (
-                                Object.keys(userLikeListObject).includes(
-                                  v2.company_name
-                                ) &&
-                                userLikeListObject[v2.company_name] == 0
-                              ) {
-                                postUserLikeDB(
-                                  `http://localhost:3000/auth/setUserLikeValid`,
-                                  jwtDecodedData.email,
-                                  v2.company_name,
-                                  1
-                                );
-                              } else if (
-                                !Object.keys(userLikeListObject).includes(
-                                  v2.company_name
-                                )
-                              ) {
-                                postNewUserLikeDB(
-                                  `http://localhost:3000/auth/setNewUserLike`,
-                                  jwtDecodedData.email,
-                                  v2.company_name,
-                                  1
-                                );
-                              } else {
-                                Navigate('/Login');
-                              }
-                            }}
-                          >
-                            bookmark
-                          </span>
+                          <UserLikeBookmark
+                            hotel={v2.company_name}
+                            position={'position-absolute'}
+                          />
                           {v2.company_banner.split(',').map((pic, i) => {
                             if (i === 0) {
                               return (
