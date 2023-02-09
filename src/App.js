@@ -10,7 +10,6 @@ import {
 import './css/global.css';
 import Profile from './pages/Profile/Profile';
 import HotelHome from './pages/Hotel/pages/HotelHome';
-import Travel from './pages/Travel/Travel';
 import Ticket from './pages/Ticket/Ticket';
 import Payment from './pages/Payment/layout/Payment';
 import ShoppingCart from './pages/Payment/ShoppingCart/ShoppingCart';
@@ -38,8 +37,9 @@ import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 
 import ScrollToTop from './pages/layouts/ScrollToTop';
-import TripLIst from './pages/ProductList/TestList';
-import TestList from './pages/ProductList/TestList';
+import TripList from './pages/TripList/TripList';
+import TripProductDetails from './pages/TripProductDetails/TripProductDetails';
+
 import Token from './utils/Token';
 function App() {
   return (
@@ -57,7 +57,11 @@ function App() {
                 element={<HotelDetail />}
               />
             </Route>
-            <Route path="travelList" element={<TestList />}></Route>
+            <Route path="/TripList" element={<TripList />}></Route>
+            <Route
+              path="/TripProductDetails"
+              element={<TripProductDetails />}
+            ></Route>
             <Route path="login" element={<Demo />} />
             <Route path="token/:token" element={<Token />} />
             <Route path="login1" element={<Login />} />
@@ -72,7 +76,6 @@ function App() {
               <Route path="pay" element={<Pay />} />
               <Route path="setting" element={<Setting />} />
             </Route>
-            <Route path="travel" element={<Travel />} />
             <Route path="ticket" element={<Ticket />} />
             <Route path="/payment" element={<Payment />}>
               <Route index path="" element={<ShoppingCart />} />
