@@ -47,6 +47,13 @@ const Setting = () => {
       alert('更新失敗');
     }
   }
+  function checkpassword(password, confirmPassword) {
+    if (password !== confirmPassword) {
+      alert('密碼與確認密碼不一致');
+      return false;
+    }
+    return true;
+  }
   async function handleSubmitpassword(e) {
     e.preventDefault();
     console.log(jwtDecodedData.password);
