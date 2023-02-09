@@ -4,6 +4,7 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import HotelListFilter from '../HotelListFilter/HotelListFilter';
 import axios from 'axios';
 import DisplayMap from '../DisplayMap/DisplayMap';
+import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
 const HotellistBox = ({ hotelServiceListArray }) => {
   const [error, setError] = useState();
@@ -208,10 +209,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
           </p>
           <ul className="list-unstyled d-flex my-p">
             <li>排序：</li>
-            <li>人氣 | </li>
-            <li>評價 | </li>
             <li>價格 ▲ | </li>
-            <li>價格▼</li>
           </ul>
         </div>
         <div className="row mb-5">
@@ -362,11 +360,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                                     <span className="my-p-small">起</span> / 晚
                                   </p>
                                 </div>
-                                <div className="d-flex">
-                                  <div class="material-symbols-outlined">
-                                    bookmark
-                                  </div>
-                                  <p>收藏</p>
+                                <div>
+                                  <UserLikeBookmark hotel={room.company_name} />
                                 </div>
                               </div>
                             </div>

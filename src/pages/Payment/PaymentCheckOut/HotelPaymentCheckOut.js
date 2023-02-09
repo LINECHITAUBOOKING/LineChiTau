@@ -43,7 +43,10 @@ const HotelPaymentCheckOut = () => {
   const [orderDetail, setOrderDetail] = useState([]);
   const [getStartDate, setStartDate] = useState('');
   const [getEndDate, setEndDate] = useState('');
+
   const [description, setDescription] = useState('');
+  const [booker, setBooker] = useState('');
+
   const isDisabled = true;
   const [memo, setMemo] = useState('');
   // NOTE userEffect
@@ -60,6 +63,7 @@ const HotelPaymentCheckOut = () => {
       setEndDate(response.data[0].end_date);
       setDescription(response.data[0].description);
       setMemo(JSON.parse(response.data[0].description)[0].memo);
+      setBooker(JSON.parse(response.data[0].description)[0].booker);
     }
     getOrderDetail();
     // const memo = JSON.parse(description)[0].memo;
@@ -232,7 +236,7 @@ const HotelPaymentCheckOut = () => {
           {/* <!-- NOTE 聯絡資料
            --> */}
           <div className="col-4 p-0 mx-0 ">
-            <UserData />
+            <UserData booker={booker} />
           </div>
           <div className="col-8 row pe-0 ">
             {/* <!-- NOTE MEMO+ARRIVE --> */}

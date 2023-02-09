@@ -48,7 +48,7 @@ const ListDetail = () => {
           <div className="text1 h1">訂單資訊</div>
 
           <div className="text2">
-            <div className="t-1">訂單號:CFA460026</div>
+            <div className="t-1">訂單號:{result.id}</div>
             <div className="t-2">購買時間:{result.order_date}</div>
           </div>
         </div>

@@ -11,23 +11,23 @@ const UserData = (props) => {
         <div className="payment-contact-data px-3 my-1 row gy-3">
           <div className="data-area col-12 row my-3">
             <h5 className="m-0 col-6">姓名</h5>
-            <span className="col-6">王阿明</span>
+            <span className="col-6">{props.booker.name}</span>
           </div>
           <div className="data-area col-12  row my-3">
             <h5 className="m-0 col-6">信箱</h5>
-            <span className="col-6">sss@gmail.com</span>
+            <span className="col-6">{props.booker.email}</span>
           </div>
           <div className="data-area col-12 row my-3">
             <h5 className="m-0 col-6">連絡電話</h5>
-            <span className="col-6">0975-123-856</span>
+            <span className="col-6">{props.booker.tel}</span>
           </div>
           <div className="data-area col-12 row my-3">
             <h5 className="m-0 col-6">國家 / 地區</h5>
-            <span className="col-6">台灣 / 台北</span>
+            <span className="col-6">{props.booker.country}</span>
           </div>
           <div className="data-area col-12 row my-3">
             <h5 className="m-0 col-6">語言</h5>
-            <span className="col-6">中文</span>
+            <span className="col-6">{props.booker.lang}</span>
           </div>
         </div>
       </div>
