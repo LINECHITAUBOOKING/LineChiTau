@@ -32,7 +32,7 @@ const Setting = () => {
       name: member.name,
       city: member.city,
       country: member.country,
-      nickname: member.identification,
+      identification: member.identification,
       birthday: member.birthday,
       phone: member.phone,
       gender: member.gender,
@@ -191,7 +191,7 @@ const Setting = () => {
           </div>
         </div>
         <div className="btn-center">
-          <button className="my-btn" onClick={handleSubmit}>
+          <button className="my-btn btn-save" onClick={handleSubmit}>
             儲存
           </button>
         </div>
