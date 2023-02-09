@@ -134,7 +134,18 @@ export default function TestList() {
     fetchData(regionKeywordArr, nameKeywordArr);
   }, []);
 
-  console.log(ReturnedTripData);
+  // console.log(ReturnedTripData);
+
+  //建立 篩選條件的 State
+  const [filterForData, setFilterForData] = useState({
+    eventFeature: [],
+    MaxPrice: 0,
+    MinPrice: Number.MAX_SAFE_INTEGER,
+  });
+
+  useEffect(() => {
+    console.log(filterForData);
+  }, [filterForData]);
 
   return (
     <>
@@ -146,7 +157,6 @@ export default function TestList() {
           </p>
           <ul className="top-sort-list list-unstyled d-flex my-p">
             <li className="top-sort-btn">排序：</li>
-            <li className="top-sort-btn popularity">人氣 </li>
             <li className="top-sort-btn grades">評價</li>
             <li className="top-sort-btn price">
               價格
@@ -166,22 +176,92 @@ export default function TestList() {
                   <PopupSort label="南部" area="southern" />
                 </div>
                 <div className="filter-box px-5 py-3">
-                  <h5 className="filter-box-title nav-foot">類型</h5>
-                  <NormalSort label="歡迎寵物" />
+                  <h5 className="filter-box-title nav-foot">活動特色</h5>
+                  <NormalSort
+                    label="人文歷史"
+                    id="culture-history"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="娛樂享受"
+                    id="amusement"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="登山踏青"
+                    id="meal"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="戲水活動"
+                    id="in_water"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="雪上活動"
+                    id="snow"
+                    method={setFilterForData}
+                  />
                 </div>
               </div>
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">價格</h5>
-                  <NormalSort label="0 - 2000" />
-                  <NormalSort label="2000 - 4000" />
+                  <NormalSort
+                    label="0 - 2000"
+                    id="overZero"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="2001 - 4000"
+                    id="overTwoK"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="4001 - 6000"
+                    id="overFourK"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="6001 - 8000"
+                    id="overSixK"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="8001 - 10000"
+                    id="overEightK"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="10001 以上"
+                    id="overTenK"
+                    method={setFilterForData}
+                  />
                 </div>
               </div>
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
-                  <h5 className="filter-box-title nav-foot">供餐</h5>
-                  <NormalSort label="自炊" />
-                  <NormalSort label="含早餐" />
+                  <h5 className="filter-box-title nav-foot">其他</h5>
+                  <NormalSort
+                    label="無購物行程"
+                    id="no_shopping"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="供餐"
+                    id="meal"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="自助旅行"
+                    id="self_trip"
+                    method={setFilterForData}
+                  />
+                  <NormalSort
+                    label="導遊帶隊"
+                    id="guide_trip"
+                    method={setFilterForData}
+                  />
                 </div>
               </div>
             </div>

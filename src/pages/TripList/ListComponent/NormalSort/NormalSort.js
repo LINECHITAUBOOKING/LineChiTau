@@ -1,7 +1,7 @@
 import './NormalSort.scss';
 
 export default function NormalSort(props) {
-  const { label } = props;
+  const { label, id, method } = props;
 
   return (
     <>
