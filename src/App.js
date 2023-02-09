@@ -1,3 +1,12 @@
+import UploadTrip from './pages/UploadTrip/UploadTrip';
+import TripSearchBar from './pages/ProductList/ListComponent/TripSearchBar/TripSearchBar';
+// import TestList from './pages/ProductList/TestList';
+// import ProductDetails from './pages/ProductDetails/ProductDetails';
+// import Comment from './pages/ProductDetails/DetailComponet/Comment/Comment';
+// import PlanDetails from './pages/ProductDetails/DetailComponet/MainSelector/PlanDetails/PlanDetails';
+// import MainSelector from './pages/ProductDetails/DetailComponet/MainSelector/MainSelector';
+
+import './test.scss';
 import React, { useState } from 'react';
 import './App.css';
 import {
@@ -46,6 +55,16 @@ function App() {
     <>
       <JwtCsrfTokenProvider>
         <Navbar />
+
+        <Routes>
+          {/* <Route path="/" element={<TripSearchBar />} /> */}
+          {/* <Route path="tripList" element={<TestList />} /> */}
+          {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
+        </Routes>
+        {/* <Comment /> */}
+        {/* <PlanDetails /> */}
+        {/* <MainSelector /> */}
+
         <ScrollToTop>
           <Routes>
             <Route path="/" element={<Hotel />}>

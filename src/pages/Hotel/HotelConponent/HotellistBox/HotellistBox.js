@@ -3,6 +3,7 @@ import './HotellistBox.scss';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import HotelListFilter from '../HotelListFilter/HotelListFilter';
 import axios from 'axios';
+import DisplayMap from '../DisplayMap/DisplayMap';
 
 const HotellistBox = ({ hotelServiceListArray }) => {
   const [error, setError] = useState();
@@ -148,7 +149,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
       )
     );
   }, [filterCondition, hotelListArrange]);
-  console.log('1111111', hotelListArrangeState);
+  // console.log('1111111', hotelListArrangeState);
   const [pagenation, setPagenation] = useState([]);
   useEffect(() => {
     const ucPagenation = [];
@@ -170,10 +171,27 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     }
     setPagenation(ucPagenation);
   }, [hotelListArrangeState]);
-
+  const [isOpenMap, setIsOpenMap] = useState(false);
   return (
     <>
       <div className="container-xl hotellist-box">
+        {isOpenMap && (
+          <div className="position-fixed display-map">
+            <div
+              className="material-symbols-outlined close-detail-pic my"
+              onClick={() => {
+                setIsOpenMap(false);
+              }}
+              role="button"
+            >
+              close
+            </div>
+            <DisplayMap
+              hotelListArrangeState={hotelListArrangeState}
+              mapHeight={'60vh'}
+            />
+          </div>
+        )}
         <div className="d-flex justify-content-between align-items-end">
           <p className="my-topic" id="top">
             關鍵字:{localStorage.getItem('destination')} / 共{' '}
@@ -203,6 +221,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
               hotelType={hotelType}
               setFilterCondition={setFilterCondition}
               filterCondition={filterCondition}
+              hotelListArrangeState={hotelListArrangeState}
+              setIsOpenMap={setIsOpenMap}
             />
           </div>
           <div className="col-9">
