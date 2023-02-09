@@ -16,7 +16,9 @@ const TripDetail = () => {
       </div>
       <div>
         <div>小孩</div>
-        <div>+</div>
+        <div onClick={(e)=>{
+          
+        }}>+</div>
         <div>數量</div>
         <div>-</div>
       </div>
