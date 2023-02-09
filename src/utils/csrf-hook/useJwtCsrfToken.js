@@ -107,7 +107,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       setJwtDecodeData(jwt(data.accessToken));
       // setJwtDecodeData({ ...jwt(data.accessToken) });
 
-      setuserF({ email: `${email}`, pwd: `${password}` });
+      // setuserF({ email: `${email}`, pwd: `${password}` });
       console.log(jwt(data.accessToken), '這啥');
       navigate('/profile');
     } catch (e) {
@@ -115,6 +115,9 @@ export const JwtCsrfTokenProvider = ({ children }) => {
       console.log(e.response.status);
       if (e.response.status === 401) {
         alert('尚未註冊');
+      }
+      if (e.response.status === 402) {
+        alert('尚未驗證');
       }
       if (e.response.status === 403) {
         alert('密碼錯誤');

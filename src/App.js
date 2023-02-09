@@ -40,6 +40,7 @@ import Alllist from './pages/Profile/pages/List/Alllist';
 import ScrollToTop from './pages/layouts/ScrollToTop';
 import TripLIst from './pages/ProductList/TestList';
 import TestList from './pages/ProductList/TestList';
+import Token from './utils/Token';
 function App() {
   return (
     <>
@@ -58,6 +59,7 @@ function App() {
             </Route>
             <Route path="travelList" element={<TestList />}></Route>
             <Route path="login" element={<Demo />} />
+            <Route path="token/:token" element={<Token />} />
             <Route path="login1" element={<Login />} />
             <Route path="profile" element={<Profile />}>
               <Route index element={<List />} />

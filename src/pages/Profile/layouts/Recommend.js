@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
-import './RecommendToC.scss';
+// import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
+import './Recommend.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-export const RecommendToC = () => {
+export const Recommend = ({ love, lovename }) => {
   const [cardIsHover, setCardIsHover] = useState(false);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
@@ -52,8 +52,10 @@ export const RecommendToC = () => {
 
   return (
     <>
-      <div className="recommend-to-c container-xxl pt-5 pb-2">
-        <h4 className="title my-heading text-center mb-5">精選推薦給您</h4>
+      <div className="recommend-to-jerry container-xxl  pb-2">
+        <h4 className="title my-heading text-center mb-5">
+          {lovename ? lovename : null}
+        </h4>
         {displayList.map((v, i) => {
           return (
             v && (
@@ -124,7 +126,7 @@ export const RecommendToC = () => {
             )
           );
         })}
-        <div className="text-center mt-3 mb-5">
+        {/*  <div className="text-center mt-3 mb-5">
           <button
             className="my-btn nav-foot"
             onClick={() => {
@@ -133,10 +135,10 @@ export const RecommendToC = () => {
           >
             查看更多
           </button>
-        </div>
+        </div> */}
       </div>
     </>
   );
 };
 
-export default RecommendToC;
+export default Recommend;

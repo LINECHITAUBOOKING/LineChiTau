@@ -14,7 +14,7 @@ const Setting = () => {
   if (!jwtToken) {
     return (
       <>
-        <span>notoken</span>
+        <span>請先登入</span>
       </>
     );
   }
