@@ -62,7 +62,11 @@ const Setting = () => {
       alert('確認密碼不能為空');
       return;
     }
-
+    if (member.password.length < 4 || member.password.length > 12) {
+      alert('密碼請在長度 4~12 之間');
+      return;
+    }
+    if (!checkpassword(member.password, member.confirmPassword)) return;
     let formData = {
       email: jwtDecodedData.email,
       password: member.password,
