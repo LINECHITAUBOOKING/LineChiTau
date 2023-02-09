@@ -122,7 +122,7 @@ const HotelPaymentCheckOut = () => {
 
       setName(response.data[0].cardholder_name);
 
-      setExpDate(moment(response.data[0].exp_date).format('MM/YY'));
+      setExpDate(response.data[0].exp_date);
 
       setCvc(response.data[0].cvc);
     } catch (e) {
@@ -171,8 +171,8 @@ const HotelPaymentCheckOut = () => {
       } catch (e) {
         alert('付款失敗');
       }
+      navigate(`/profile/listdetail/${orderId}`);
     }
-    navigate(`/profile/listdetail/${orderId}`);
   }
   console.log('OPENAI好厲害比人還會說話00000', creditCard);
 

@@ -20,7 +20,7 @@ const CheckOutCreditCard = (props) => {
             number={props.creditCard.number}
             name={props.creditCard.name}
             expiry={props.creditCard.expDate}
-            cvc={props.cvc}
+            cvc={props.creditCard.cvc}
             focused={props.creditCard.focus}
           />
         </div>
@@ -85,7 +85,7 @@ const CheckOutCreditCard = (props) => {
               </div>
               <div className="col-2 px-0">
                 <input
-                  type="tel"
+                  type="text"
                   name="cvc"
                   className=" border-0 form-control"
                   value={props.creditCard.cvc}

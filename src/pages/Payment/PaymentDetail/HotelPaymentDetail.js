@@ -70,7 +70,7 @@ const HotelPaymentDetail = (props) => {
       let response = await axios.get(
         `http://localhost:3001/api/payment/Detail/Hotel/userCoupons/${jwtDecodedData.email}`
       );
-      // console.log(response.data);
+      console.log('=====userCoupon====',response.data);
       setUserCoupon(response.data);
     }
     getUserCoupons();
