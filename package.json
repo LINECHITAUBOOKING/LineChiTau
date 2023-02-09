@@ -21,6 +21,7 @@
     "material-symbols": "^0.4.2",
     "moment": "^2.29.4",
     "react": "^18.2.0",
+    "react--customizable-chat-bot": "^1.0.6",
     "react-advanced-news-ticker": "^1.0.1",
     "react-bootstrap": "^2.7.0",
     "react-content-loader": "^6.2.0",
