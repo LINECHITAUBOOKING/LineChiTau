@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
-import { Bot, BotConfig } from 'react--customizable-chat-bot';
-import { Themes } from 'react--customizable-chat-bot/lib/config/config';
 
 const Message = () => {
-  BotConfig.Theme = Themes.GoogleAssitant;
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState([
     { speaker: 'bot', message: 'Welcome to the chatbot!' },

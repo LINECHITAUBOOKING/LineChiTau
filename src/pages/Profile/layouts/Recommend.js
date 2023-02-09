@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './Recommend.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-export const Recommend = ({ love, lovename }) => {
+import UserLikeBookmark from '../../Hotel/HotelConponent/UserLikeBookmark/UserLikeBookmark';
+export const Recommend = ({ love, lovename, setLove }) => {
   const [cardIsHover, setCardIsHover] = useState(false);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
@@ -65,9 +65,11 @@ export const Recommend = ({ love, lovename }) => {
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span class="material-symbols-rounded my-p position-absolute recommand-tag">
-                            bookmark
-                          </span>
+                          <UserLikeBookmark
+                            hotel={v2.company_name}
+                            position={'position-absolute'}
+                            setLove={setLove}
+                          />
                           {v2.company_banner.split(',').map((pic, i) => {
                             if (i === 0) {
                               return (
