@@ -67,7 +67,7 @@ const RoomSelect = (props) => {
       空氣清淨機: v.air_purifier,
     };
   });
-  // console.log(roomDetail);
+  console.log(roomDetail);
   const chunk = 3;
   const roomDetailArrangeChunk = [];
   for (let i = 0; i < roomDetailArrange.length; i += chunk) {
@@ -284,7 +284,7 @@ const RoomSelect = (props) => {
                                 JSON.stringify([
                                   {
                                     roomName: room.room_name,
-                                    companyName: companyName,
+                                    companyName: room.hotel_name,
                                   },
                                 ])
                               );
