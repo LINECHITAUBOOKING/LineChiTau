@@ -43,8 +43,9 @@ const HotelPaymentCheckOut = () => {
   const [orderDetail, setOrderDetail] = useState([]);
   const [getStartDate, setStartDate] = useState('');
   const [getEndDate, setEndDate] = useState('');
-
-  const [testOrderId, setTestOrderId] = useState(orderId);
+  const [description, setDescription] = useState('');
+  const isDisabled = true;
+  const [memo, setMemo] = useState('');
   // NOTE userEffect
   useEffect(() => {
     console.log('orderId', orderId);
@@ -57,13 +58,17 @@ const HotelPaymentCheckOut = () => {
       setOrderDetail(response.data[0]);
       setStartDate(response.data[0].start_date);
       setEndDate(response.data[0].end_date);
-      console.log(
-        '=-======+++======orderDetail====++++++++++++=========',
-        orderDetail
-      );
+      setDescription(response.data[0].description);
+      setMemo(JSON.parse(response.data[0].description)[0].memo);
     }
     getOrderDetail();
+    // const memo = JSON.parse(description)[0].memo;
+    console.log('=-============memo======================', memo);
   }, []);
+  console.log(
+    '=-======+++======orderDetail====++++++++++++=========',
+    orderDetail
+  );
   const [userCreditCard, setUserCreditCard] = useState({});
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
@@ -92,6 +97,9 @@ const HotelPaymentCheckOut = () => {
     },
     setFocus: (value) => {
       setFocus(value);
+    },
+    setMemo: (value) => {
+      setMemo(value);
     },
   };
   async function handleGetCard(e) {
@@ -190,6 +198,10 @@ const HotelPaymentCheckOut = () => {
     orderItem.conditions.room
   );
   console.log('=-============orderDD======================', orderDetail);
+  console.log('=-============memo======================', memo);
+  console.log('=-============description======================', description);
+  // const memo = JSON.parse(description);
+
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -224,7 +236,7 @@ const HotelPaymentCheckOut = () => {
           </div>
           <div className="col-8 row pe-0 ">
             {/* <!-- NOTE MEMO+ARRIVE --> */}
-            <RoomMemo />
+            <RoomMemo isDisabled={isDisabled} memo={memo} />
             {/* <!-- NOTE 抵達時間 資訊 --> */}
           </div>
         </div>

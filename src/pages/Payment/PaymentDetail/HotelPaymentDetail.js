@@ -41,6 +41,8 @@ const HotelPaymentDetail = (props) => {
   const [tel, setTel] = useState('');
   const [country, setCountry] = useState('');
   const [lang, setLang] = useState('');
+  const isDisabled = false;
+  const [memo, setMemo] = useState('');
   const [discount, setDiscount] = useState(0);
   const [discountId, setDiscountId] = useState(0);
   const name = lastName + firstName;
@@ -66,7 +68,7 @@ const HotelPaymentDetail = (props) => {
     getRoomDetail();
     async function getUserCoupons() {
       let response = await axios.get(
-        `http://localhost:3001/api/payment/Detail/Hotel/${jwtDecodedData.email}`
+        `http://localhost:3001/api/payment/Detail/Hotel/userCoupons/${jwtDecodedData.email}`
       );
       // console.log(response.data);
       setUserCoupon(response.data);
@@ -112,6 +114,9 @@ const HotelPaymentDetail = (props) => {
     setLang: (value) => {
       setLang(value);
     },
+    setMemo: (value) => {
+      setMemo(value);
+    },
     setDiscount: (value) => {
       setDiscount(value);
     },
@@ -123,7 +128,7 @@ const HotelPaymentDetail = (props) => {
   const amount = orderItem.conditions.room;
   const totalPrice = amount * paymentRoomDetail.price;
   console.log('orderDate：', orderDate);
-
+  console.log('======memo=====', memo);
   async function handleSubmit(e) {
     e.preventDefault();
     // !關閉表單預設行為
@@ -139,6 +144,7 @@ const HotelPaymentDetail = (props) => {
           country: country,
           lang: lang,
         },
+        memo: memo,
         companyName: paymentRoomDetail.hotel_name,
         productId: paymentRoomDetail.hotel_room_list_id,
         price: paymentRoomDetail.price,
@@ -167,7 +173,7 @@ const HotelPaymentDetail = (props) => {
       storage.removeItem('hotelRoom');
     } else {
       alert('請先登入後再繼續購買流程');
-      window.location.replace('http://localhost:3000/login');
+      navigate(`/login1`);
     }
   }
   console.log('ooooorrerder', ordersItem);
@@ -217,7 +223,11 @@ const HotelPaymentDetail = (props) => {
           </div>
           {/* <!-- NOTE MEMO --> */}
           <div className="col-8 row pe-0 ">
-            <RoomMemo />
+            <RoomMemo
+              isDisabled={isDisabled}
+              memo={memo}
+              updateValue={updateValue}
+            />
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -13,6 +13,7 @@ import ProductImg from '../../../Hotel/img/banner.svg';
 
 const RoomMemo = (props) => {
   const { orderId } = useParams();
+  console.log('======props.memo=====', props.memo);
   return (
     <>
       <div className="memo-form col-12 px-0 mb-4 h-100 row align-items-baseline justify-content-between">
@@ -28,8 +29,13 @@ const RoomMemo = (props) => {
               className="form-control border-0  memo-textarea"
               name=""
               id=""
+              value={props.memo}
               rows="10"
-              cols="5"
+              cols="6"
+              onChange={(e) => {
+                props.updateValue.setMemo(e.target.value);
+              }}
+              disabled={props.isDisabled}
             ></textarea>
           </div>
         </div>
