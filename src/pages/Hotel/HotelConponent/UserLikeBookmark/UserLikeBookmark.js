@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 
-function UserLikeBookmark({ hotel, position }) {
+function UserLikeBookmark({ hotel, position, setLove }) {
   const navigate = useNavigate();
   const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   init(axios);
@@ -16,6 +16,7 @@ function UserLikeBookmark({ hotel, position }) {
         `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
       );
       setUserLikeList(response.data);
+      setLove(response.data);
       console.log('setUserLikeList', response.data);
     }
     if (jwtToken) getUserLikeList();
