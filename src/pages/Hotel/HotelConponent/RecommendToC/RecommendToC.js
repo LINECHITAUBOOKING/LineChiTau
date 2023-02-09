@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import './RecommendToC.scss';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 import { async } from '@firebase/util';
@@ -64,10 +64,10 @@ export const RecommendToC = () => {
         `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
       );
       setUserLikeList(response.data);
-      // console.log('jwtDecodedData', response.data);
+      console.log('setUserLikeList', response.data);
     }
     if (jwtToken) getUserLikeList();
-  }, [userLikeState]);
+  }, []);
   useEffect(() => {
     const result = {};
     userLikeList.forEach((v) => {
@@ -75,24 +75,42 @@ export const RecommendToC = () => {
     });
     // console.log('result', result);
     setUserLikeListObject(result);
-  }, []);
+  }, [userLikeList]);
   console.log('UserLikeListObject', userLikeListObject);
   const postUserLikeDB = async function (url, userEmail, hotel, valid) {
-    let response = await axios.post(
-      url,
-      {
-        email: userEmail,
-        hotel: hotel,
-        valid: valid,
-      },
-      {
-        headers: {
-          'X-CSRF-Token': csrfToken,
-        },
-      }
-    );
+    let response = await axios.post(url, {
+      email: userEmail,
+      hotel: hotel,
+      valid: valid,
+    });
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      console.log('setUserLikeList', response.data);
+    }
+    if (jwtToken) getUserLikeList();
     console.log(response.data);
   };
+
+  const postNewUserLikeDB = async function (url, userEmail, hotel, valid) {
+    let response = await axios.post(url, {
+      email: userEmail,
+      hotel: hotel,
+      valid: valid,
+    });
+    async function getUserLikeList() {
+      let response = await axios.get(
+        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
+      );
+      setUserLikeList(response.data);
+      console.log('setUserLikeList', response.data);
+    }
+    if (jwtToken) getUserLikeList();
+    console.log(response.data);
+  };
+
   return (
     <>
       <div className="recommend-to-c container-xxl pt-5 pb-2">
@@ -120,13 +138,37 @@ export const RecommendToC = () => {
                                 ) &&
                                 userLikeListObject[v2.company_name] == 1
                               ) {
-                                console.log('123');
                                 postUserLikeDB(
-                                  `http://localhost:3001/auth/setUserLikeValid`,
+                                  `http://localhost:3000/auth/setUserLikeValid`,
                                   jwtDecodedData.email,
                                   v2.company_name,
                                   0
                                 );
+                              } else if (
+                                Object.keys(userLikeListObject).includes(
+                                  v2.company_name
+                                ) &&
+                                userLikeListObject[v2.company_name] == 0
+                              ) {
+                                postUserLikeDB(
+                                  `http://localhost:3000/auth/setUserLikeValid`,
+                                  jwtDecodedData.email,
+                                  v2.company_name,
+                                  1
+                                );
+                              } else if (
+                                !Object.keys(userLikeListObject).includes(
+                                  v2.company_name
+                                )
+                              ) {
+                                postNewUserLikeDB(
+                                  `http://localhost:3000/auth/setNewUserLike`,
+                                  jwtDecodedData.email,
+                                  v2.company_name,
+                                  1
+                                );
+                              } else {
+                                Navigate('/Login');
                               }
                             }}
                           >

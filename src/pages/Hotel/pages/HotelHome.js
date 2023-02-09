@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import HotelBanner from '../HotelConponent/HotelBanner/HotelBanner';
 import PopularCategory from '../HotelConponent/PopularCategory/PopularCategory';
 import PopularSearch from '../HotelConponent/PopularSearch/PopularSearch';
@@ -9,8 +9,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import './HotelHome.scss';
 import MomentTest from '../HotelConponent/MomentTest.js/MomentTest';
+import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
 
 const Hotel = (props) => {
+  const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
+  init(axios);
+
   const [error, setError] = useState(null);
   const { companyName } = useParams();
   // console.log(companyName);
