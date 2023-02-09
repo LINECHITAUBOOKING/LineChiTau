@@ -21,7 +21,7 @@ const Navbar = () => {
           {linkList.map((list, index) => {
             switch (list) {
               case '旅遊行程':
-                toLink = '/travelList';
+                toLink = '/travel';
                 break;
               case '票卷活動':
                 toLink = '/ticket';

@@ -11,7 +11,7 @@ export const RecommendToC = () => {
   const [displayList, setDisplayList] = useState([]);
   const [viewMoreCount, setViewMoreCount] = useState(0);
   const getListFilter = function () {
-    const chunk = 3;
+    const chunk = 4;
     const newListFilter = [];
     for (let i = 0; i < hotelList.length; i += chunk) {
       newListFilter.push(hotelList.slice(i, i + chunk));

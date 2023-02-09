@@ -36,8 +36,8 @@ import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
-
 import ScrollToTop from './pages/layouts/ScrollToTop';
+import TripDetail from './pages/Travel/TripDetail';
 import TripLIst from './pages/ProductList/TestList';
 import TestList from './pages/ProductList/TestList';
 import Token from './utils/Token';
@@ -72,7 +72,9 @@ function App() {
               <Route path="pay" element={<Pay />} />
               <Route path="setting" element={<Setting />} />
             </Route>
-            <Route path="travel" element={<Travel />} />
+            <Route path="travel" element={<Travel />}>
+              <Route path="TripDetail" element={<TripDetail />} />
+            </Route>
             <Route path="ticket" element={<Ticket />} />
             <Route path="ShoppingCart" element={<ShoppingCart />} />
             <Route path="/payment" element={<Payment />}>
@@ -83,7 +85,7 @@ function App() {
               />
               <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
               <Route
-                path="Travel/CheckOut"
+                path="Travel/CheckOut/:orderId"
                 element={<TravelPaymentCheckOut />}
               />
             </Route>
