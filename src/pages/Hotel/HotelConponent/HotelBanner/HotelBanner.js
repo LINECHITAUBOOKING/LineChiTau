@@ -13,6 +13,10 @@ const HotelBanner = ({
   my2,
   widthControl,
   dNone,
+  listDNone,
+  setDetailStartDate,
+  setDetailEndDate,
+  setelectedRoomAmount,
 }) => {
   const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
   const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
@@ -25,9 +29,9 @@ const HotelBanner = ({
   const [openConditions, setOpenConditions] = useState(false);
   const navigate = useNavigate();
   const [conditions, setConditions] = useState({
-    adult: 2, //初始人數,房間數為一
-    children: 0, //可以不一定要有小孩
-    room: 1,
+    adult: localStorage.getItem('adult'), //初始人數,房間數為一
+    children: localStorage.getItem('children'), //可以不一定要有小孩
+    room: localStorage.getItem('room'),
   });
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -38,6 +42,23 @@ const HotelBanner = ({
     localStorage.setItem('room', conditions['room']);
     localStorage.setItem('startDate', startDate);
     localStorage.setItem('endDate', endDate);
+    setOpenCalendar(false);
+    setOpenConditions(false);
+  };
+
+  const handleSubmitDetail = (event) => {
+    event.preventDefault();
+    localStorage.setItem('adult', conditions['adult']);
+    localStorage.setItem('children', conditions['children']);
+    localStorage.setItem('room', conditions['room']);
+    localStorage.setItem('startDate', startDate);
+    localStorage.setItem('endDate', endDate);
+    setOpenCalendar(false);
+    setOpenConditions(false);
+    setDetailEndDate(endDate);
+    setDetailStartDate(startDate);
+    setelectedRoomAmount(conditions.room);
+    console.log('11111', conditions.room);
   };
 
   const handleInputChange = (event) => {
@@ -206,6 +227,12 @@ const HotelBanner = ({
       <button
         className={`my-btn nav-foot-small d-flex align-items-center pe-1 py-3 ${dNone}`}
         onClick={handleSubmit}
+      >
+        <span className="material-symbols-outlined">search</span>
+      </button>
+      <button
+        className={`my-btn nav-foot-small d-flex align-items-center pe-1 py-3 ${listDNone}`}
+        onClick={handleSubmitDetail}
       >
         <span className="material-symbols-outlined">search</span>
       </button>
