@@ -1,1 +1,12 @@
 @import '../../../../css/global-style.scss';
+
+.add-pic-box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid $textColor;
+  .add-btn {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+    font-size: 40px;
+    cursor: pointer;
+  }
+}
