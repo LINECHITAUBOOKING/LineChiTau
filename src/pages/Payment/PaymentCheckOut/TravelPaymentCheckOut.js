@@ -2,12 +2,17 @@ import React from 'react';
 import './TravelPaymentCheckOut.scss';
 import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
 import ProductImg from '../../Hotel/img/banner.svg';
+import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
+import UserData from '../PaymentComponent/UserData/UserData';
+
 import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import CheckOutItemList from '../PaymentComponent/CheckOutItemList/CheckOutItemList';
 import CheckOutCreditCard from '../PaymentComponent/CheckOutCreditCard/CheckOutCreditCard';
 import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
 
 const TravelPaymentCheckOut = () => {
+  const currentStep = 3;
+
   const cartItems = [
     {
       itemId: 1,
@@ -74,11 +79,14 @@ const TravelPaymentCheckOut = () => {
   ];
   return (
     <>
+      <ProgressBar currentStep={currentStep} />
+
       <main className="container main-width px-0">
         {/* <!-- TODO 付款方式、小計TOTAL清單 --> */}
         <div className=" row w-100 px-0 mx-0 ">
           <div className="col-4 ps-0 my-3">
-            <PaymentMethod />
+            {/* <PaymentMethod /> */}
+            <UserData />
           </div>
           <div className="col-8 pe-0 my-3">
             <CheckOutItemList cartItems={cartItems} />
@@ -104,27 +112,10 @@ const TravelPaymentCheckOut = () => {
             </div>
           </div>
         </div>
-        {/* <!-- TODO 折扣 --> */}
-        <UseDiscount />
         {/* <!-- TODO 注意事項 --> */}
         {/* <!-- NOTE 同意條款 --> */}
         <div className="rule-section  col-12 pb-5">
-          <div className="argee px-1 py-3 d-flex align-items-center">
-            <input type="checkbox" name="" id="" className="mx-2" />
-            我了解並同意來七桃服務條款與隱私權政策
-          </div>
-          <div className="d-flex justify-content-between">
-            <div className="alert alert-danger m-0 col-8">
-              請確認訂單填寫無誤，訂單確認後可能無法更改。
-            </div>
-            <button className=" my-btn col-auto align-items-center mx-1 py-1">
-              <Link
-                className="text-decoration-none d-flex align-items-center"
-                to={'/'}
-              >
-                返回<span className="material-symbols-rounded">undo</span>
-              </Link>
-            </button>
+          <div className="d-flex justify-content-center">
             <button className="my-btn w-25 ">確認付款</button>
           </div>
         </div>
