@@ -1,10 +1,11 @@
 import './TripList.scss';
+import testJSON from '../../test.json';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import PopupSort from './ListComponent/PopupSort/PopupSort';
+// import PopupSort from './ListComponent/PopupSort/PopupSort';
 import NormalSort from './ListComponent/NormalSort/NormalSort';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
-import Pagination from './ListComponent/Pagination/Pagination';
+// import Pagination from './ListComponent/Pagination/Pagination';
 import ListMap from '../layouts/ListMap/ListMap';
 import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar';
 // import { useParams } from 'react-router-dom';
@@ -15,17 +16,17 @@ export default function TestList() {
   //TODO 加上排序條件、更新收藏資料庫、製作分業、加上地圖
   //TODO 將從API調出的資料傳進去產品卡片
 
-  //!利用 react-router-dom 獲得一開始的關鍵字 或著其他方式 很有可能是localstorage
+  //利用 react-router-dom 獲得一開始的關鍵字 或著其他方式 很有可能是localstorage
   // const { URLRawkeyword } = useParams();
-  const URLRawkeyword = '花蓮 陽明山 北投';
+  const URLRawkeyword = '台北';
 
   const [newRawKeyword, setNewRawKeyword] = useState();
 
-  //!將回傳資料設為本元件的state
+  //將回傳資料設為本元件的state
   const [ReturnedTripData, setReturnedTripData] = useState([]);
 
-  //!打算把子元件的state當作"篩選用"的關鍵字
-  const [SortKeywordArr, setSortKeywordArr] = useState();
+  //打算把子元件的state當作"篩選用"的關鍵字
+  // const [SortKeywordArr, setSortKeywordArr] = useState();
 
   //!處理關鍵字的函式
 
@@ -116,36 +117,53 @@ export default function TestList() {
     );
   });
 
-  const ThereIsNoReturnedTripData = () => {
+  console.log(testJSON.Info);
+  const TestArr = testJSON.Info;
+
+
+  const RenderTestJSON = TestArr.map((e, i) => {
     return (
       <>
-        <div className="container-fluid d-flex justify-content-center align-items-center my-topic">
-          查無結果
-        </div>
+        <p>{e.Id}</p>
       </>
     );
-  };
+  });
 
-  useEffect(() => {
-    const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
-      makeRawKeywordsAnArr(URLRawkeyword),
-      isRegion
-    );
-    fetchData(regionKeywordArr, nameKeywordArr);
-  }, []);
+  // json parse 讓字串變成JSON stringift反之
+
+  //! 沒結果時 先凍結
+  // const ThereIsNoReturnedTripData = () => {
+  //   return (
+  //     <>
+  //       <div className="container-fluid d-flex justify-content-center align-items-center my-topic">
+  //         查無結果
+  //       </div>
+  //     </>
+  //   );
+  // };
+
+  //! fetch 資料庫 先凍結
+  // useEffect(() => {
+  //   const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
+  //     makeRawKeywordsAnArr(URLRawkeyword),
+  //     isRegion
+  //   );
+  //   fetchData(regionKeywordArr, nameKeywordArr);
+  // }, []);
 
   // console.log(ReturnedTripData);
 
   //建立 篩選條件的 State
-  const [filterForData, setFilterForData] = useState({
-    eventFeature: [],
-    MaxPrice: 0,
-    MinPrice: Number.MAX_SAFE_INTEGER,
-  });
+  // const [filterForData, setFilterForData] = useState({
+  //   eventFeature: [],
+  //   MaxPrice: 0,
+  //   MinPrice: Number.MAX_SAFE_INTEGER,
+  // });
 
-  useEffect(() => {
-    console.log(filterForData);
-  }, [filterForData]);
+  //! filter 先凍結
+  // useEffect(() => {
+  //   console.log(filterForData);
+  // }, [filterForData]);
 
   return (
     <>
@@ -173,7 +191,7 @@ export default function TestList() {
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">目的地</h5>
-                  <PopupSort
+                  {/* <PopupSort
                     label="北部"
                     area="northern"
                     setNewRawKeyword={setNewRawKeyword}
@@ -197,104 +215,45 @@ export default function TestList() {
                     label="離島"
                     area="island"
                     setNewRawKeyword={setNewRawKeyword}
-                  />
+                  /> */}
                 </div>
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">活動特色</h5>
-                  <NormalSort
-                    label="人文歷史"
-                    id="culture-history"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="娛樂享受"
-                    id="amusement"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="登山踏青"
-                    id="meal"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="戲水活動"
-                    id="in_water"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="雪上活動"
-                    id="snow"
-                    method={setFilterForData}
-                  />
+                  <NormalSort label="人文歷史" id="culture-history" />
+                  <NormalSort label="娛樂享受" id="amusement" />
+                  <NormalSort label="登山踏青" id="meal" />
+                  <NormalSort label="戲水活動" id="in_water" />
+                  <NormalSort label="雪上活動" id="snow" />
                 </div>
               </div>
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">價格</h5>
-                  <NormalSort
-                    label="0 - 2000"
-                    id="overZero"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="2001 - 4000"
-                    id="overTwoK"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="4001 - 6000"
-                    id="overFourK"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="6001 - 8000"
-                    id="overSixK"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="8001 - 10000"
-                    id="overEightK"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="10001 以上"
-                    id="overTenK"
-                    method={setFilterForData}
-                  />
+                  <NormalSort label="0 - 2000" id="overZero" />
+                  <NormalSort label="2001 - 4000" id="overTwoK" />
+                  <NormalSort label="4001 - 6000" id="overFourK" />
+                  <NormalSort label="6001 - 8000" id="overSixK" />
+                  <NormalSort label="8001 - 10000" id="overEightK" />
+                  <NormalSort label="10001 以上" id="overTenK" />
                 </div>
               </div>
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">其他</h5>
-                  <NormalSort
-                    label="無購物行程"
-                    id="no_shopping"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="供餐"
-                    id="meal"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="自助旅行"
-                    id="self_trip"
-                    method={setFilterForData}
-                  />
-                  <NormalSort
-                    label="導遊帶隊"
-                    id="guide_trip"
-                    method={setFilterForData}
-                  />
+                  <NormalSort label="無購物行程" id="no_shopping" />
+                  <NormalSort label="供餐" id="meal" />
+                  <NormalSort label="自助旅行" id="self_trip" />
+                  <NormalSort label="導遊帶隊" id="guide_trip" />
                 </div>
               </div>
             </div>
           </div>
           <div className="col-9 ">
-            {ReturnedTripData
+            {/* {ReturnedTripData
               ? RenderReturnedTripData
               : ThereIsNoReturnedTripData()}
-            <Pagination />
+            <Pagination /> */}
+            {RenderTestJSON}
           </div>
         </div>
       </div>

@@ -69,24 +69,16 @@ export default function PopupSort(props) {
     </div>
   ));
   const centralItems = centralList.map((v) => (
-    <div data={v} className={'d-flex justify-content-center keyword-select'}>
-      {v}
-    </div>
+    <div className={'d-flex justify-content-center keyword-select'}>{v}</div>
   ));
   const southernItems = southernList.map((v) => (
-    <div data={v} className={'d-flex justify-content-center keyword-select'}>
-      {v}
-    </div>
+    <div className={'d-flex justify-content-center keyword-select'}>{v}</div>
   ));
   const easternItems = easternList.map((v) => (
-    <div data={v} className={'d-flex justify-content-center keyword-select'}>
-      {v}
-    </div>
+    <div className={'d-flex justify-content-center keyword-select'}>{v}</div>
   ));
   const islandItems = islandList.map((v) => (
-    <div data={v} className={'d-flex justify-content-center keyword-select'}>
-      {v}
-    </div>
+    <div className={'d-flex justify-content-center keyword-select'}>{v}</div>
   ));
 
   switch (area) {
