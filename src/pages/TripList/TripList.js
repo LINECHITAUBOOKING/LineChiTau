@@ -17,7 +17,7 @@ export default function TestList() {
 
   //!利用 react-router-dom 獲得一開始的關鍵字 或著其他方式 很有可能是localstorage
   // const { URLRawkeyword } = useParams();
-  const URLRawkeyword = '台北 陽明山 北投';
+  const URLRawkeyword = '花蓮 陽明山 北投';
 
   const [newRawKeyword, setNewRawKeyword] = useState();
 
@@ -172,8 +172,32 @@ export default function TestList() {
             <div className="filter-wrapper mx-auto">
               <div className="filter-container my-border-radius m-auto mt-3">
                 <div className="filter-box px-5 py-3">
-                  <h5 className="filter-box-title nav-foot">所在地</h5>
-                  <PopupSort label="南部" area="southern" />
+                  <h5 className="filter-box-title nav-foot">目的地</h5>
+                  <PopupSort
+                    label="北部"
+                    area="northern"
+                    setNewRawKeyword={setNewRawKeyword}
+                  />
+                  <PopupSort
+                    label="中部"
+                    area="central"
+                    setNewRawKeyword={setNewRawKeyword}
+                  />
+                  <PopupSort
+                    label="南部"
+                    area="southern"
+                    setNewRawKeyword={setNewRawKeyword}
+                  />
+                  <PopupSort
+                    label="東部"
+                    area="eastern"
+                    setNewRawKeyword={setNewRawKeyword}
+                  />
+                  <PopupSort
+                    label="離島"
+                    area="island"
+                    setNewRawKeyword={setNewRawKeyword}
+                  />
                 </div>
                 <div className="filter-box px-5 py-3">
                   <h5 className="filter-box-title nav-foot">活動特色</h5>

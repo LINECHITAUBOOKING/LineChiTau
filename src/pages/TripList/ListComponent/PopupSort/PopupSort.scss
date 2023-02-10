@@ -2,6 +2,9 @@
 
 .area {
   padding-left: 10px;
+  &:hover {
+    background-color: $main;
+  }
 }
 
 .arrow-right {
@@ -17,6 +20,12 @@
   left:calc(14rem - 5px);
   top:0;
   background: white;
+  display: none;
+
+  &.active {
+    display: block;
+  }
+
   &::before {
     content:"";
     width: 20px;
@@ -26,5 +35,11 @@
     position: absolute;
     left:-20px;
     top:10px;
+  }
+
+  .keyword-select {
+    &:hover {
+      background-color: $main;
+    }
   }
 }
