@@ -5,11 +5,17 @@ import pic2 from '../../img/Hotel1/rocky-DBL2.jpg';
 import pic1 from '../../img/Hotel1/rocky-family.jpg';
 
 const DetailPicBox = (props) => {
-  const pic = [pic1, pic2, pic3];
+  const { hotelDetail } = props;
+  const { company_banner } = hotelDetail;
+  let pic = [];
+  if (typeof company_banner === 'string') {
+    pic = company_banner.split(',');
+  }
+  // const pic = [pic1, pic2, pic3];
   const [picNum, setPicNum] = useState(0);
-  const [showPicture, setShowPicture] = useState(pic[picNum]);
+  const [showPicture, setShowPicture] = useState(`/images/${pic[picNum]}`);
   useEffect(() => {
-    setShowPicture(pic[picNum]);
+    setShowPicture(`/images/${pic[picNum]}`);
     // console.log(picNum);
   }, [picNum]);
   return (
@@ -50,7 +56,7 @@ const DetailPicBox = (props) => {
             chevron_right
           </div>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center my-5">
           {pic.map((v, i) => {
             return (
               <div
@@ -61,7 +67,7 @@ const DetailPicBox = (props) => {
                 }}
               >
                 <img
-                  src={v}
+                  src={`/images/${v}`}
                   alt={v}
                   className={
                     picNum === i ? 'display-pic-box-active' : 'display-pic-box'

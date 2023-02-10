@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import logo from './logo.svg';
 import { Link } from 'react-router-dom';
 import './Navbar.scss';
+import { JwtCsrfTokenContext } from '../../utils/csrf-hook/useJwtCsrfToken';
+import axios from 'axios';
 
 const Navbar = () => {
+  const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
+  init(axios);
   let toLink = '';
   const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
 
@@ -44,16 +48,31 @@ const Navbar = () => {
           })}
         </ul>
         <div className="d-flex">
-          <div>
+          <div className="nav-button">
             <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
-              登出
-            </Link>
-          </div>
-          <div>
-            <Link className="my-btn nav-foot-small mx-2  " to={'/login'}>
               註冊
             </Link>
           </div>
+          <div>
+            {jwtToken ? (
+              <p className="nav-button">
+                <Link
+                  className="my-btn nav-foot-small mx-2 "
+                  onClick={() => logout()}
+                  to={'/login'}
+                >
+                  登出
+                </Link>
+              </p>
+            ) : (
+              <p className="nav-button">
+                <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
+                  登入
+                </Link>
+              </p>
+            )}
+          </div>
+
           <div>
             <div>
               <Link className="nav-foot text-decoration-none" to={'/payment/'}>

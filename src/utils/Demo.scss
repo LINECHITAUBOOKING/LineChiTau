@@ -35,6 +35,14 @@
         width: 30px;
         height: 30px;
       }
+      .google {
+        background: url(./image/google.png);
+        background-size: 30px 30px;
+        border: none;
+        margin: 20px 15px;
+        width: 30px;
+        height: 30px;
+      }
     }
     .email {
       margin-top: 60px;
@@ -57,7 +65,8 @@
           margin-right: 20px;
         }
       }
-    }.email {
+    }
+    .email {
       margin-top: 60px;
       width: 250px;
       display: flex;
@@ -163,14 +172,20 @@
         color: lightgreen;
       }
     }
-    .lastBtn {
-      width: 150px;
-      height: 30px;
-      margin-top: 60px;
-      border: none;
-      border-radius: 10px;
-      background-color: #ffb905;
-      color: #734338;
+    .btn-login {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      .lastBtn {
+        width: 120px;
+        height: 30px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: #ffb905;
+        color: #734338;
+      }
     }
   }
   img {

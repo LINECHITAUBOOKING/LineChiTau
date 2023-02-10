@@ -8,9 +8,7 @@ const chunk = (arr, size) =>
     arr.slice(i * size, i * size + size)
   );
 
-function Calendar(props) {
-  // console.log('susauuss-----', props);
-
+function Calendar({ setStartDate, setEndDate }) {
   const [myYear, setMyYear] = useState(2023);
   const [myMonth, setMyMonth] = useState(2);
   let newYear;
@@ -42,6 +40,10 @@ function Calendar(props) {
     startDate: '',
     endDate: '',
   });
+  useEffect(() => {
+    setStartDate(myDate.startDate);
+    setEndDate(myDate.endDate);
+  }, [myDate]);
   let numStart;
   let numEnd;
   if (
@@ -89,11 +91,8 @@ function Calendar(props) {
   // 準備要呈現在網頁上
   const daysDisplayArray = chunk(daysDataArray, 7);
   // console.log(props);
-  useEffect(() => {
-    props.setDateFromCalendar(`${myDate.startDate} - ${myDate.endDate}`);
-  }, [myDate.startDate, myDate.endDate]);
   return (
-    <div className="calendar m-auto position-absolute">
+    <div className="calendar m-auto position-relative">
       <div>
         {/* <div className="display-box nav-foot-small">{`${myDate.startDate} - ${myDate.endDate}`}</div> */}
         <div className="year-title d-flex justify-content-center align-items-center p-1">
@@ -117,14 +116,14 @@ function Calendar(props) {
             arrow_circle_right
           </div>
         </div>
-        <div className="d-flex justify-content-center d-none">
+        {/* <div className="d-flex justify-content-center d-none">
           <div className="w-50">
             <input value={myDate.startDate} className="form-control" />
           </div>
           <div className="w-50">
             <input value={myDate.endDate} className="form-control" />
           </div>
-        </div>
+        </div> */}
         <table border="1" className="calendar-box">
           <thead id="title" className="nav-foot">
             <tr>

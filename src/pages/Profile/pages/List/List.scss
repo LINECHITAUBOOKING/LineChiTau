@@ -19,7 +19,7 @@
     width: 255px;
   }
   .buylist {
-    height: 493px;
+    // height: 493px;
     min-width: 939px;
     .buylist-items {
       align-items: flex-start;
@@ -77,6 +77,9 @@
       }
     }
   }
+  .seeall{
+    margin-left: calc(50% - 70px);
+  }
   .prefertitle {
     height: 62px;
     letter-spacing: 0;
@@ -84,6 +87,7 @@
     width: 255px;
   }
   .preferlist {
+    padding-left: 0px;
     align-items: flex-end;
     display: flex;
     gap: 37px;
