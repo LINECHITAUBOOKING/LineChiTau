@@ -2,8 +2,21 @@ import React from 'react';
 import './HotellistBox.scss';
 import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import { Link } from 'react-router-dom';
+import MapTest from '../MapTest/MapTest';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
+import "leaflet/dist/leaflet.css";
+import icon from "leaflet/dist/images/marker-icon.png";
+// import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import L from "leaflet";
 
 const HotellistBox = () => {
+  const position = [[25.03, 121.6], [25.14, 121.71]]
+  const position1 = [25.14, 121.71]
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+    // shadowUrl: iconShadow,
+  });
+  L.Marker.prototype.options.icon = DefaultIcon;
   return (
     <>
       <div className="container-xl hotellist-box">
@@ -17,10 +30,28 @@ const HotellistBox = () => {
             <li>價格▼</li>
           </ul>
         </div>
+
+
         <div className="row mb-5">
           <div className="col-3 px-3">
             <div className="map m-auto position-relative">
-              <button className="position-absolute my-p">檢視地圖</button>
+              <div>
+                <MapContainer center={position1} zoom={10} scrollWheelZoom={false} style={{ height: '200px' }}>
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  {position.map((v, i) => {
+                    return (
+                      <Marker position={v}>
+                        <Popup>
+                          <Link to="/HotelDetail">前往飯店</Link>
+                        </Popup>
+                      </Marker>
+                    )
+                  })}
+                </MapContainer>
+              </div>
             </div>
             <div className="filter-box">
               <div className="my-border-radius location-type-box m-auto mt-3">
