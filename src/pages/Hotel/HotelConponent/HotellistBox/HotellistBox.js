@@ -112,6 +112,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     });
     setHotelListArrange(newhotelListArrange);
   }, [hotelList]);
+  console.log('filterCondition', filterCondition);
 
   const [hotelListArrangeState, setHotelListArrangeState] = useState([]);
   useEffect(() => {

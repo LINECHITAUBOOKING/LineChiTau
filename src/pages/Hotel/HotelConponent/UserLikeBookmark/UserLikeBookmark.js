@@ -16,7 +16,7 @@ function UserLikeBookmark({ hotel, position }) {
         `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
       );
       setUserLikeList(response.data);
-      console.log('setUserLikeList', response.data);
+      // console.log('setUserLikeList', response.data);
     }
     if (jwtToken) getUserLikeList();
   }, []);
@@ -28,7 +28,7 @@ function UserLikeBookmark({ hotel, position }) {
     // console.log('result', result);
     setUserLikeListObject(result);
   }, [userLikeList]);
-  console.log('UserLikeListObject', userLikeListObject);
+  // console.log('UserLikeListObject', userLikeListObject);
   const postUserLikeDB = async function (url, userEmail, hotel, valid) {
     let response = await axios.post(url, {
       email: userEmail,
@@ -40,10 +40,10 @@ function UserLikeBookmark({ hotel, position }) {
         `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
       );
       setUserLikeList(response.data);
-      console.log('setUserLikeList', response.data);
+      // console.log('setUserLikeList', response.data);
     }
     if (jwtToken) getUserLikeList();
-    console.log(response.data);
+    // console.log(response.data);
   };
 
   const postNewUserLikeDB = async function (url, userEmail, hotel, valid) {
@@ -57,10 +57,10 @@ function UserLikeBookmark({ hotel, position }) {
         `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
       );
       setUserLikeList(response.data);
-      console.log('setUserLikeList', response.data);
+      // console.log('setUserLikeList', response.data);
     }
     if (jwtToken) getUserLikeList();
-    console.log(response.data);
+    // console.log(response.data);
   };
   return (
     <div className="bookmark-conp">
