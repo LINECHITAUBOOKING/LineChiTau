@@ -115,7 +115,11 @@ const ListDetail = () => {
           <div className="text1 h1">訂單資訊</div>
 
           <div className="text2">
-            <div className="t-1">訂單號:{result.id}</div>
+            <div className="t-1">
+              訂單號:
+              <br />
+              {result.order_id}
+            </div>
             <div className="t-2">
               購買時間:{moment(result.order_date).format('YYYY/MM/DD')}
             </div>

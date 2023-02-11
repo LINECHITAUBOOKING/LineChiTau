@@ -61,62 +61,6 @@ const List = () => {
             </div>
           </div>
 
-          {/* <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
-            推薦商品
-          </div> */}
-          {/* <div className="preferlist">
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <Recommend />
         </div>
       </>
@@ -142,62 +86,6 @@ const List = () => {
             </div>
           </div>
 
-          {/* <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
-            推薦商品
-          </div> */}
-          {/* <div className="preferlist">
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-            <div className="overlap-group-3">
-              <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-              <div className="surname-1">Snow Hills</div>
-              <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-                Great skiing opportunity with a beautiful view
-              </p>
-              <div className="group-98-1">
-                <img className="place" src={place} alt="place" />
-                <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-                  Carpati., Ukraine
-                </div>
-                <div className="group-96">
-                  <img className="coin-1" src={coin} alt="coin" />
-                  <div className="number-1">75/ person</div>
-                </div>
-              </div>
-            </div>
-          </div> */}
           <Recommend />
         </div>
       </>
@@ -227,62 +115,6 @@ const List = () => {
         </Link>
       )}
 
-      {/*  <div className="prefertitle valign-text-middle notosans-normal-old-copper-32px">
-        推薦商品
-      </div> */}
-      {/*  <div className="preferlist">
-        <div className="overlap-group-3">
-          <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-          <div className="surname-1">Snow Hills</div>
-          <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-            Great skiing opportunity with a beautiful view
-          </p>
-          <div className="group-98-1">
-            <img className="place" src={place} alt="place" />
-            <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-              Carpati., Ukraine
-            </div>
-            <div className="group-96">
-              <img className="coin-1" src={coin} alt="coin" />
-              <div className="number-1">75/ person</div>
-            </div>
-          </div>
-        </div>
-        <div className="overlap-group-3">
-          <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-          <div className="surname-1">Snow Hills</div>
-          <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-            Great skiing opportunity with a beautiful view
-          </p>
-          <div className="group-98-1">
-            <img className="place" src={place} alt="place" />
-            <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-              Carpati., Ukraine
-            </div>
-            <div className="group-96">
-              <img className="coin-1" src={coin} alt="coin" />
-              <div className="number-1">75/ person</div>
-            </div>
-          </div>
-        </div>
-        <div className="overlap-group-3">
-          <img className="rectangle-82" src={pic2} alt="Rectangle 82" />
-          <div className="surname-1">Snow Hills</div>
-          <p className="great-skiing-opportu-1 notosans-bold-old-copper-14px">
-            Great skiing opportunity with a beautiful view
-          </p>
-          <div className="group-98-1">
-            <img className="place" src={place} alt="place" />
-            <div className="carpati-ukraine-1 notosans-bold-old-copper-14px">
-              Carpati., Ukraine
-            </div>
-            <div className="group-96">
-              <img className="coin-1" src={coin} alt="coin" />
-              <div className="number-1">75/ person</div>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <Recommend lovename={'精選推薦'} />
     </div>
   );

@@ -109,7 +109,7 @@ const Mylove = () => {
         {currentPosts.map((v, i) => {
           return (
             v && (
-              <div className="cards d-flex justify-content-center mb-5">
+              <div className="jerry-card cards d-flex justify-content-center mb-5">
                 {v.map((v2, i2) => {
                   return (
                     <div className="hover-area" key={v2.company_name}>
