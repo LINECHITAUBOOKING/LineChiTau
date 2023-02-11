@@ -4,14 +4,13 @@ import { useEffect, useState } from 'react';
 import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
 import ListMap from '../layouts/ListMap/ListMap';
 import FilterBox from './ListComponent/FilterBox/FilterBox';
+import SortSelect from './ListComponent/SortSelect/SortSelect';
 // import Pagination from './ListComponent/Pagination/Pagination';
 // import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar';
 // import { useParams } from 'react-router-dom';
 
 export default function TestList() {
-  //! state :訪問網頁時的關鍵字、篩選條件、商品收藏
-  //! 第一次渲染拿資料，接下來除非更動搜尋BAR(地名、關鍵字)，不會發requset
-  //TODO 加上排序條件、更新收藏資料庫、
+  //TODO 更新收藏資料庫、
   //TODO 將從API調出的資料傳進去產品卡片
 
   const URLRawkeyword = '台北';
@@ -187,6 +186,43 @@ export default function TestList() {
     }
     return filteredData;
   };
+
+  //! Sort使用的state 和 函式
+
+  const [sortBy, setSortBy] = useState('1');
+
+  const handleSort = (serviceAddedData, sortBy) => {
+    let filteredData = [...serviceAddedData];
+    // 以價格排序-高到低
+    if (sortBy === '1') {
+      filteredData = [...filteredData].sort(
+        (a, b) => a.price_adu - b.price_adu
+      );
+    }
+    // 以價格排序-低到高
+    if (sortBy === '2') {
+      filteredData = [...filteredData].sort(
+        (a, b) => b.price_adu - a.price_adu
+      );
+    }
+    //以 評價排序 高到低
+    if (sortBy === '3') {
+      filteredData = [...filteredData].sort(
+        (a, b) =>
+          a.comment_grade / a.comment_amount -
+          b.comment_grade / b.comment_amount
+      );
+    }
+    if (sortBy === '4') {
+      filteredData = [...filteredData].sort(
+        (a, b) =>
+          a.comment_grade / a.comment_amount -
+          b.comment_grade / b.comment_amount
+      );
+    }
+    return filteredData;
+  };
+
   //! fetch 資料庫
   useEffect(() => {
     const [nameKeywordArr, regionKeywordArr] = seperateRawKeywordArr(
@@ -280,16 +316,7 @@ export default function TestList() {
           <p className="result my-topic">
             關鍵字：共 {dataForDisplay ? dataForDisplay.length : 0} 項 結果
           </p>
-          <ul className="top-sort-list list-unstyled d-flex my-p">
-            <li className="top-sort-btn">排序：</li>
-            <li className="top-sort-btn grades">評價</li>
-            <li className="top-sort-btn price">
-              價格
-              <span className="arrow material-symbols-outlined">
-                keyboard_arrow_up
-              </span>
-            </li>
-          </ul>
+          <SortSelect setSortBy={setSortBy} sortBy={sortBy} />
         </div>
         <div className="row mb-5">
           <div className="col-3 px-3">
@@ -310,7 +337,20 @@ export default function TestList() {
               />
             </div>
           </div>
-          <div className="col-9 ">{/* <Pagination /> */}</div>
+          <div className="col-9 ">
+            {dataForDisplay.map((item) => (
+              <ProductsCard
+                key={item.trip_id}
+                tripName={item.trip_name}
+                introduction={item.introduction}
+                service={item.service}
+                price_adu={item.price_adu}
+                grade={item.comment_grade / item.comment_amount}
+                pic={item.intro_pic}
+              />
+            ))}
+            {/* <Pagination /> */}
+          </div>
         </div>
       </div>
     </>

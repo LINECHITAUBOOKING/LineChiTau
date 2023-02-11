@@ -59,7 +59,7 @@ function App() {
             </Route>
             <Route path="/TripList" element={<TripList />}></Route>
             <Route
-              path="/TripProductDetails"
+              path="/TripProductDetails/:URLkeyword"
               element={<TripProductDetails />}
             ></Route>
             <Route path="login" element={<Demo />} />

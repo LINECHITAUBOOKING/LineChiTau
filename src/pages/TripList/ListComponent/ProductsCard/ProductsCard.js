@@ -1,20 +1,23 @@
 import './ProductsCard.scss';
 import pic3 from './dolphins_hotel.jpg';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function ProductCard({ tripName, introduction, region }) {
+export default function ProductCard(props) {
+  let { key, tripName, introduction, service, price_adu, grade, pic } = props;
   const introJSON = JSON.parse(introduction);
   const introText = introJSON.introduction;
-  const [focusState, SetStateToFocus] = useState(false);
 
-  function activateTheCard(e) {
-    console.log('active');
-    SetStateToFocus(true);
-  }
-  function deactivateTheCard(e) {
-    console.log('deactivate');
-    SetStateToFocus(false);
-  }
+  // const [focusState, SetStateToFocus] = useState(false);
+
+  // function activateTheCard(e) {
+  //   console.log('active');
+  //   SetStateToFocus(true);
+  // }
+  // function deactivateTheCard(e) {
+  //   console.log('deactivate');
+  //   SetStateToFocus(false);
+  // }
 
   // function throttle(fn, timeout = 200) {
   //   let last;
@@ -42,8 +45,8 @@ export default function ProductCard({ tripName, introduction, region }) {
     <>
       <div
         className="products-card-wrapper d-flex"
-        onMouseEnter={activateTheCard}
-        onMouseLeave={deactivateTheCard}
+        // onMouseEnter={activateTheCard}
+        // onMouseLeave={deactivateTheCard}
       >
         <div className="products-card d-flex mb-4">
           <div>
@@ -61,7 +64,14 @@ export default function ProductCard({ tripName, introduction, region }) {
               {introText}
             </p>
             <ul className="products-tag-list list-unstyled d-flex">
-              <li>
+              {service.map((value) => (
+                <li>
+                  <button className="tag my-border-radius my-p mx-1">
+                    {value}
+                  </button>
+                </li>
+              ))}
+              {/* <li>
                 <button className="tag my-border-radius my-p mx-1">泳池</button>
               </li>
               <li>
@@ -75,16 +85,16 @@ export default function ProductCard({ tripName, introduction, region }) {
               </li>
               <li>
                 <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
+              </li> */}
             </ul>
             <div className="d-flex justify-content-between my-p">
               <div className="d-flex">
-                <div class="material-symbols-outlined">location_on</div>
-                <p>{region}</p>
+                {/* <div class="material-symbols-outlined">location_on</div>
+                <p>{region}</p> */}
               </div>
               <div className="d-flex">
                 <div class="material-symbols-outlined">monetization_on</div>
-                <p>1000 / 晚</p>
+                <p>{price_adu}</p>
               </div>
               <div className="d-flex">
                 <div class="material-symbols-outlined bookmark">bookmark</div>
@@ -93,13 +103,14 @@ export default function ProductCard({ tripName, introduction, region }) {
             </div>
           </div>
         </div>
-        <button
-          className={
-            `products-card-link\t` + (focusState ? 'active' : 'none-active')
-          }
+        <div
+          className="products-card-link"
+          // className={
+          //   `products-card-link\t` + (focusState ? 'active' : 'none-active')
+          // }
         >
-          訂票去
-        </button>
+          <Link to={`/TripProductDetails/${tripName}`}>訂房去</Link>
+        </div>
       </div>
     </>
   );

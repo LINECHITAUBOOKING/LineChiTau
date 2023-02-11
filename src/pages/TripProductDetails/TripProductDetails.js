@@ -4,62 +4,68 @@ import SummaryNav from './DetailComponet/SummaryNav/SummaryNav';
 import ListMap from '../layouts/ListMap/ListMap';
 import MainSelector from './DetailComponet/MainSelector/MainSelector';
 import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
 // import Comment from './DetailComponet/Comment/Comment';
 
-export default function TripProductDetail({ productID }) {
-  //? 把在ProductList頁面fetch到的資料，傳進本Deatail頁面
-  //? ProductObj 裡應該有 資料表(trip_event,trip_service_list,trip_plan JOIN後 的結果)
+export default function TripProductDetail() {
+  //?把在ProductList頁面fetch到的資料，傳進本Deatail頁面
+  //! 在本頁重新fetch
 
   //! state:1.現在正在瀏覽的方案 2.fetch 產品取得的資料 3. fetch 訂單取得的資料
 
   const [viewingPlan, setViewingPlan] = useState();
-  const [ReturnedTripDetailData, setReturnedTripDetailData] = useState();
-  const [ReturnedTripContractData, setReturnedTripContractData] = useState();
+  const [ReturnedData, setReturnedData] = useState();
+  // const [ReturnedPlanData, setReturnedPlanData] = useState();
+  // const [ReturnedContractData, setReturnedContractData] = useState();
 
-  //! fetch會用到的常數
-
-  const nowDate = new Date();
+  //! fetch會用到的變數
+  const { URLkeyword } = useParams();
+  // const nowDate = new Date();
 
   //! fetch 用的含式
-  async function fetchDetailData(productID) {
+  async function fetchData() {
     try {
       const dataArr = await axios.get(
-        `http://localhost:3001/api/tripDetail/t=${productID}`
+        `http://localhost:3001/api/tripProductDetails/${URLkeyword}`
       );
-      setReturnedTripDetailData(dataArr);
+      setReturnedData(dataArr);
     } catch (error) {
       console.log(error);
     }
   }
 
-  async function fetchContractData(productID, nowDate) {
-    try {
-      const contractDataArr = await axios.get(
-        `http://localhost:3001/api/tripContract/t=x${productID}&d=x${nowDate}`
-      );
-      setReturnedTripContractData(contractDataArr);
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  //! 使用fetchData
+  // useEffect(() => {
+  //   fetchData();
+  // }, [ReturnedData]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  console.log(ReturnedData);
+  //  查看訂單有多少筆
+  // async function fetchContractData(productID, nowDate) {
+  //   try {
+  //     const contractDataArr = await axios.get(
+  //       `http://localhost:3001/api/tripContract/t=x${productID}&d=x${nowDate}`
+  //     );
+  //     setReturnedTripContractData(contractDataArr);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
   //! 用 useEffect拿資料
 
   //! 解構拿出來的資料
-  /*從ProductList取得產品資料 解構為
-        1.Name 2.Service 3.Address 4.Description 5.GeoX, GeoY 6.Grades, GAmount
-    */
-  /*從PlanList 取得方案資料 解構為
-        1.PlanName 2.StartDate,EndDate 3.AduAmount,KidAmount,EldAmount,AduPrice,KidPrice,EldPrice 4.LaunchTime 5.PlanDescription 
-   */
-  /*從訂單資料庫取得資料 (用產品ID)，再解構為
-        1.PaidAmountA, PaidAmountK, PaidAmountE, PaidAmountF ,PaidAmountS ,PaidAmountT 2.PreservedDate (訂哪一天) 3.PLaunchTime
-    */
-  /*從評論資料庫取得資料 再解構為
-        1.CommentGuest 2.GuestName 3.CommentTime 4.CommentGrade 5.CommentContent 6.CommentPicture
-   */
-  // 取得今天日期 Today
+
+  //取得產品資料 解構為 1.Name 2.Service 3.Address 4.Description 5.GeoX, GeoY 6.Grades, GAmount
+  //1.PlanName 2.StartDate,EndDate 3.AduAmount,KidAmount,EldAmount,AduPrice,KidPrice,EldPrice 4.LaunchTime 5.PlanDescription
+  // 從訂單資料庫取得資料 (用產品ID)，再解構為
+  // 1.PaidAmountA, PaidAmountK, PaidAmountE, PaidAmountF ,PaidAmountS ,PaidAmountT 2.PreservedDate (訂哪一天) 3.PLaunchTime
+  // 從評論資料庫取得資料 再解構為
+  // 1.CommentGuest 2.GuestName 3.CommentTime 4.CommentGrade 5.CommentContent 6.CommentPicture
 
   return (
     <>
