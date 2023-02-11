@@ -33,6 +33,7 @@ const HotelPaymentDetail = (props) => {
   const hotelName = JSON.parse(storage.getItem('hotelRoom'))[0].companyName;
   const roomName = JSON.parse(storage.getItem('hotelRoom'))[0].roomName;
   const [paymentRoomDetail, setPaymentRoomDetail] = useState([]);
+  const [hotelImg, setHotelImg] = useState('');
   const [userCoupon, setUserCoupon] = useState([]);
 
   const [firstName, setFirstName] = useState('');
@@ -64,13 +65,14 @@ const HotelPaymentDetail = (props) => {
       );
       // console.log(response.data);
       setPaymentRoomDetail(response.data[0]);
+      setHotelImg(response.data[0].company_banner);
     }
     getRoomDetail();
     async function getUserCoupons() {
       let response = await axios.get(
         `http://localhost:3001/api/payment/Detail/Hotel/userCoupons/${jwtDecodedData.email}`
       );
-      console.log('=====userCoupon====',response.data);
+      console.log('=====userCoupon====', response.data);
       setUserCoupon(response.data);
     }
     getUserCoupons();
@@ -125,6 +127,7 @@ const HotelPaymentDetail = (props) => {
     },
   };
   // NOTE 假價格
+  const HotelImg = hotelImg.split(',');
   const amount = orderItem.conditions.room;
   const totalPrice = amount * paymentRoomDetail.price;
   console.log('orderDate：', orderDate);
@@ -146,6 +149,7 @@ const HotelPaymentDetail = (props) => {
         },
         memo: memo,
         companyName: paymentRoomDetail.hotel_name,
+        hotelImg: HotelImg[0],
         productId: paymentRoomDetail.hotel_room_list_id,
         price: paymentRoomDetail.price,
         totalPrice: totalPrice,
@@ -197,7 +201,10 @@ const HotelPaymentDetail = (props) => {
           <div className="col-8 row pe-0">
             <div className="col-12 row px-0 mb-4">
               {/* <!-- NOTE 飯店名 --> */}
-              <RoomItemHotel paymentRoomDetail={paymentRoomDetail} />
+              <RoomItemHotel
+                paymentRoomDetail={paymentRoomDetail}
+                HotelImg={HotelImg[0]}
+              />
             </div>
             <div className="room-info col-12 row p-3">
               {/* <!-- NOTE 房型服務資訊 --> */}

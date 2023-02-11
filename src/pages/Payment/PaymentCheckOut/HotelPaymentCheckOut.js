@@ -49,6 +49,7 @@ const HotelPaymentCheckOut = () => {
 
   const isDisabled = true;
   const [memo, setMemo] = useState('');
+  const [hotelImg, setHotelImg] = useState('');
   // NOTE userEffect
   useEffect(() => {
     console.log('orderId', orderId);
@@ -64,6 +65,7 @@ const HotelPaymentCheckOut = () => {
       setDescription(response.data[0].description);
       setMemo(JSON.parse(response.data[0].description)[0].memo);
       setBooker(JSON.parse(response.data[0].description)[0].booker);
+      setHotelImg(response.data[0].hotel_img);
     }
     getOrderDetail();
     // const memo = JSON.parse(description)[0].memo;
@@ -221,7 +223,10 @@ const HotelPaymentCheckOut = () => {
           <div className="col-8 row pe-0">
             {/* <!-- NOTE 飯店名 --> */}
             <div className="col-12 row px-0 mb-4">
-              <RoomItemHotel paymentRoomDetail={orderDetail} />
+              <RoomItemHotel
+                paymentRoomDetail={orderDetail}
+                HotelImg={hotelImg}
+              />
             </div>
             <div className="room-info col-12 row p-3 ">
               {/* <!-- NOTE 房型服務資訊 --> */}

@@ -6,7 +6,10 @@ import './ShoppingCartCard.scss';
 import ProductImg from '../../../../Hotel/img/banner.svg';
 
 export default function ShoppingCartCard(props) {
-  // console.log('propssssss', props.setAmount);
+  console.log('propssssss', props.setAmount);
+  console.log('propsss====items', props.items);
+  
+ 
   return (
     <>
       {props.items.map((item, index) => (
@@ -29,8 +32,8 @@ export default function ShoppingCartCard(props) {
                 />
               </div>
               <div className="text-box  mx-2">
-                <h1 className="nav-foot text-truncate ">{item.itemName}</h1>
-                <p className="my-p">方案：{item.itemChosen}</p>
+                <h1 className="nav-foot text-truncate ">{item.tripName}</h1>
+                <p className="my-p">方案：{item.planName}</p>
               </div>
             </div>
             <div className="expire-date-box text-center my-p col-2">
@@ -44,18 +47,62 @@ export default function ShoppingCartCard(props) {
                 <span
                   class="material-symbols-rounded cart-pointer"
                   onClick={() => {
-                    props.setAmount(item.amount + 1);
+                    props.updateValue.setAmountA(item.amountA + 1);
                   }}
                 >
                   add_circle
                 </span>
                 <div className=" cart-amount d-flex justify-content-center align-items-center">
-                  {item.amount}
+                  {item.amountA}
                 </div>
                 <span
                   class="material-symbols-rounded cart-pointer"
                   onClick={() => {
-                    props.setAmount(item.amount - 1);
+                    props.updateValue.setAmountA(item.amountA - 1);
+                  }}
+                >
+                  do_not_disturb_on
+                </span>
+              </div>
+              <h1 className="unit my-p">小孩</h1>
+              <div className="control-wrapper d-flex justify-content-between align-items-center">
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.updateValue.setAmountC(item.amountC + 1);
+                  }}
+                >
+                  add_circle
+                </span>
+                <div className=" cart-amount d-flex justify-content-center align-items-center">
+                  {item.amountC}
+                </div>
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.updateValue.setAmountC(item.amountC - 1);
+                  }}
+                >
+                  do_not_disturb_on
+                </span>
+              </div>
+              <h1 className="unit my-p">老人</h1>
+              <div className="control-wrapper d-flex justify-content-between align-items-center">
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.updateValue.setAmountE(item.amountE + 1);
+                  }}
+                >
+                  add_circle
+                </span>
+                <div className=" cart-amount d-flex justify-content-center align-items-center">
+                  {item.amountE}
+                </div>
+                <span
+                  class="material-symbols-rounded cart-pointer"
+                  onClick={() => {
+                    props.updateValue.setAmountE(item.amountE - 1);
                   }}
                 >
                   do_not_disturb_on
@@ -68,6 +115,11 @@ export default function ShoppingCartCard(props) {
               <div className="edit my-heading col-6">編輯</div>
               <div className="delete my-heading col-6">刪除</div>
             </div>
+            {props.updateValue.setTotalPrice(
+        props.priceE * props.amountE +
+          props.priceC * props.amountC +
+          props.priceA * props.amountA
+      )}
             <div className="price my-heading">
               NT$ {item.price * item.amount}
             </div>

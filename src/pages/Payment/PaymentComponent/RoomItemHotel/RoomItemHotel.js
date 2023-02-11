@@ -12,6 +12,7 @@ import ProductImg from '../../../Hotel/img/banner.svg';
 
 const RoomItemHotel = (props) => {
   const paymentRoomDetail = props.paymentRoomDetail;
+  console.log('PICCCCCC', paymentRoomDetail.company_banner);
 
   return (
     <>
@@ -19,8 +20,8 @@ const RoomItemHotel = (props) => {
         <div className=" col-3 align-items-start mx-3">
           <img
             className="img-fluid item-image overflow-hidden"
-            src={ProductImg}
-            alt="行程票券商品圖"
+            src={`/images/${props.HotelImg}`}
+            alt={paymentRoomDetail.hotel}
           />
         </div>
         <div className="item-context col-9 mx-3 align-self-center ">
