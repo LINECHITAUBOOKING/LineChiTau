@@ -75,6 +75,7 @@ const TripDetail = () => {
     }
     getTripDetail();
   }, []);
+
   const cartItem = {
     tripName: tripName,
     planId: planId,

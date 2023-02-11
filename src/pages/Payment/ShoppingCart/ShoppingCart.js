@@ -8,38 +8,40 @@ export default function ShoppingCart() {
   const [amount, setAmount] = useState(1);
   const currentStep = 1;
   const storage = localStorage;
+  const cartStorage = storage.getItem('cart');
   const [cartItems, setCartItems] = useState([]);
+  const [cartItemsToPay, setCartItemsToPay] = useState([]);
 
   const [itemDetail, setItemDetail] = useState({});
 
-  const [amountA, setAmountA] = useState(0);
-  const [amountC, setAmountC] = useState(0);
-  const [amountE, setAmountE] = useState(0);
-  const [priceA, setPriceA] = useState(0);
-  const [priceC, setPriceC] = useState(0);
-  const [priceE, setPriceE] = useState(0);
-  const [totalPrice, setTotalPrice] = useState(0);
+  // const [amountA, setAmountA] = useState(0);
+  // const [amountC, setAmountC] = useState(0);
+  // const [amountE, setAmountE] = useState(0);
+  // const [priceA, setPriceA] = useState(0);
+  // const [priceC, setPriceC] = useState(0);
+  // const [priceE, setPriceE] = useState(0);
+  // const [totalPrice, setTotalPrice] = useState(0);
   const updateValue = {
-    setAmountA: (value) => {
-      setAmountA(value);
-    },
-    setAmountC: (value) => {
-      setAmountC(value);
-    },
-    setAmountE: (value) => {
-      setAmountE(value);
-    },
-    setPriceA: (value) => {
-      setPriceA(value);
-    },
-    setPriceC: (value) => {
-      setPriceC(value);
-    },
-    setPriceE: (value) => {
-      setPriceE(value);
-    },
-    setTotalPrice: (value) => {
-      setTotalPrice(value);
+    // setAmountA: (value) => {
+    //   setAmountA(value);
+    // },
+    // setAmountC: (value) => {
+    //   setAmountC(value);
+    // },
+    // setAmountE: (value) => {
+    //   setAmountE(value);
+    // },
+    // setPriceA: (value) => {
+    //   setPriceA(value);
+    // },
+    // setPriceC: (value) => {
+    //   setPriceC(value);
+    // },
+    // setPriceE: (value) => {
+    //   setPriceE(value);
+    // },
+    setCartItemsToPay: (value) => {
+      setCartItemsToPay(value);
     },
     setItemDetail: (value) => {
       setItemDetail(value);
@@ -47,63 +49,16 @@ export default function ShoppingCart() {
   };
 
   useEffect(() => {
-    if (storage.getItem('cart') !== '') {
-      setCartItems(JSON.parse(storage.getItem('cart')));
+    if (cartStorage === null) {
+      setCartItems([]);
     } else {
-      setCartItems('目前購物車空空如也');
+      setCartItems(JSON.parse(storage.getItem('cart')));
     }
   }, []);
+  console.log('storage.getItem(cart)===null', cartStorage);
   console.log(cartItems);
-  // const cartItems = [
-  //   {
-  //     itemId: 1,
-  //     itemName: '南投｜全台唯一不靠海全是山遍地山豬，開始野豬騎士的訓練之旅',
-  //     itemChosen: '野豬騎士的訓練之旅(從捕捉山豬開始)',
-  //     chosenStartDate: '2023-01-31',
-  //     chosenEndDate: '2023-01-31',
-  //     price: 600,
-  //     amount: 1,
-  //   },
-  //   {
-  //     itemId: 2,
-  //     itemName: '台南 | 螞蟻人的天堂蛀牙人的噩夢，擁有甜甜價的甜甜飲料之旅',
-  //     itemChosen: '沒有水只有糖的飲料店之旅',
-  //     chosenStartDate: '2023-01-31',
-  //     chosenEndDate: '2023-02-02',
-  //     price: 1800,
-  //     amount: 2,
-  //   },
-  // ];
-  // const cartOverItems = [
-  //   {
-  //     itemId: 1,
-  //     itemName: '南投｜全台唯一不靠海全是山遍地山豬，開始野豬騎士的訓練之旅',
-  //     itemChosen: '野豬騎士的訓練之旅(騎術訓練)',
-  //     chosenStartDate: '2021-01-31',
-  //     chosenEndDate: '2021-01-31',
-  //     price: 200,
-  //     amount: 1,
-  //   },
-  //   {
-  //     itemId: 2,
-  //     itemName: '台南 | 螞蟻人的天堂蛀牙人的噩夢，擁有甜甜價的甜甜飲料之旅',
-  //     itemChosen: '從半糖開始的新手螞蟻人之旅',
-  //     chosenStartDate: '2021-01-31',
-  //     chosenEndDate: '2021-02-02',
-  //     price: 600,
-  //     amount: 13,
-  //   },
-  //   {
-  //     itemId: 3,
-  //     itemName: '台南 | 螞蟻人的天堂蛀牙人的噩夢，擁有甜甜價的甜甜飲料之旅',
-  //     itemChosen: '從微糖開始的新手螞蟻人之旅',
-  //     chosenStartDate: '2021-01-31',
-  //     chosenEndDate: '2021-02-02',
-  //     price: 600,
-  //     amount: 5,
-  //   },
-  // ];
-  // console.log('amount', amount);
+  console.log('Array.isArray(cartItems)', Array.isArray(cartItems));
+  console.log('OutCart', itemDetail);
 
   return (
     <>
@@ -125,23 +80,26 @@ export default function ShoppingCart() {
             </div>
 
             <div className="product-wrapper">
-              <ShoppingCartCard
-                items={cartItems}
-                updateValue={updateValue}
-                amountA={amountA}
-                amountC={amountC}
-                amountE={amountE}
-                priceA={priceA}
-                priceC={priceC}
-                priceE={priceE}
-              />
+              {cartItems.length !== 0 ? (
+                cartItems.map((cartItem, index) => {
+                  return (
+                    <ShoppingCartCard
+                      key={index}
+                      cartItem={cartItem}
+                      cartItemsToPay={cartItemsToPay}
+                      updateValue={updateValue}
+                    />
+                  );
+                })
+              ) : (
+                <div className="">購物車為空</div>
+              )}
             </div>
 
-            <h1 className="h3 mt-5 title">以下活動需要重新認證</h1>
+            {/* <h1 className="h3 mt-5 title">以下活動需要重新認證</h1>
             <div className="product-wrapper mt-3">
-            
-              <ShoppingCartCard items={cartItems} updateValue={updateValue} />
-            </div>
+              
+            </div> */}
           </div>
           <div className=" col-3">
             <div className="cart-totalSub px-4 py-4">
