@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
 import './CommentPicture.scss';
 
-function CommentPicture({ setFiles }) {
+function CommentPicture({ setSelectedFiles }) {
   const [selectedImages, setSelectedImages] = useState([]);
-  const [selectedFile, setSelectedFile] = useState(null);
-  // 是否有檔案被挑選
 
-  const [isFilePicked, setIsFilePicked] = useState(false);
-
-  const fid = Date.now();
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     // console.log(selectedFiles);
@@ -16,19 +11,8 @@ function CommentPicture({ setFiles }) {
     const imagesArray = selectedFilesArray.map((file) => {
       return URL.createObjectURL(file);
     });
-    const file = event.target.files[0];
 
-    if (file) {
-      setIsFilePicked(true);
-      setSelectedFile(file);
-
-      setFiles(file, fid);
-    } else {
-      setIsFilePicked(false);
-      setSelectedFile(null);
-
-      setFiles(null, fid);
-    }
+    setSelectedFiles(selectedFiles);
     setSelectedImages((previousImages) => previousImages.concat(imagesArray));
   };
 
@@ -56,6 +40,7 @@ function CommentPicture({ setFiles }) {
                   onClick={() => {
                     setSelectedImages(
                       selectedImages.filter((e) => {
+                        // console.log(e);
                         return e !== image;
                       })
                     );
