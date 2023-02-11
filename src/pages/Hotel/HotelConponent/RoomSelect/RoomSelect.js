@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from 'react';
+
+import { Link, useParams } from 'react-router-dom';
+
+import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
 import './RoomSelect.scss';
 import HotelBanner from '../HotelBanner/HotelBanner';
 import Moment from 'moment';
@@ -6,6 +10,7 @@ import { extendMoment } from 'moment-range';
 import axios from 'axios';
 
 const RoomSelect = (props) => {
+  const storage = localStorage;
   const { roomDetail } = props;
   const [isOpenService, setIsOpenService] = useState(false);
   const [dateOrderAmountFilter, setDateOrderAmountFilter] = useState([]);
@@ -62,7 +67,7 @@ const RoomSelect = (props) => {
       空氣清淨機: v.air_purifier,
     };
   });
-  // console.log(roomDetail);
+  console.log(roomDetail);
   const chunk = 3;
   const roomDetailArrangeChunk = [];
   for (let i = 0; i < roomDetailArrange.length; i += chunk) {
@@ -270,9 +275,29 @@ const RoomSelect = (props) => {
                           </div>
                         </div>
                         <div className="text-center select-btn-box pt-2">
-                          <button className="my-p booking-select-btn px-3 mb-2">
-                            訂房
-                          </button>
+                          <Link
+                            className="text-decoration-none cart-link-btn"
+                            to={'/payment/Hotel/Detail'}
+                            onClick={() => {
+                              storage.setItem(
+                                'hotelRoom',
+                                JSON.stringify([
+                                  {
+                                    roomName: room.room_name,
+                                    companyName: room.hotel_name,
+                                  },
+                                ])
+                              );
+
+                              // NOTE 暫時的 時間 跟 間數
+
+                              console.log('click');
+                            }}
+                          >
+                            <button className="my-p booking-select-btn px-3 mb-2">
+                              訂房
+                            </button>
+                          </Link>
                         </div>
                       </li>
                     );

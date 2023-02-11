@@ -16,7 +16,8 @@ import NewsTicker, {
 } from 'react-advanced-news-ticker';
 import './Coupon.scss';
 const Coupon = () => {
-  const { jwtToken, userF, logout } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
   const [member, setMember] = useState({});
   const [inputValue, setInputValue] = useState('');
   // const [coupon, setCoupon] = useState({});
@@ -45,7 +46,7 @@ const Coupon = () => {
     console.log(code);
     try {
       let response = await axios.get(
-        '/api/coupon/coupon/' + userF.email + '/' + code
+        '/api/coupon/coupon/' + jwtDecodedData.email + '/' + code
       );
       console.log(response.status);
       console.log('成功');
@@ -58,6 +59,7 @@ const Coupon = () => {
       alert('兌換失敗，請輸入正確代碼');
       console.log(e);
       setInputValue('');
+      setMember({});
     }
   }
 

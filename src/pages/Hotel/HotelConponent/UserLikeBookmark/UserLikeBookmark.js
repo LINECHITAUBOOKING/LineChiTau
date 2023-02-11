@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 
-function UserLikeBookmark({ hotel, position }) {
+function UserLikeBookmark({ hotel, position, setLove }) {
   const navigate = useNavigate();
   const { jwtToken, init, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   init(axios);

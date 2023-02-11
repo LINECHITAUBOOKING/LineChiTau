@@ -97,110 +97,89 @@ export const RecommendToC = () => {
     console.log(response.data);
   };
 
-  const postNewUserLikeDB = async function (url, userEmail, hotel, valid) {
-    let response = await axios.post(url, {
-      email: userEmail,
-      hotel: hotel,
-      valid: valid,
-    });
-    async function getUserLikeList() {
-      let response = await axios.get(
-        `http://localhost:3001/api/hotelDetail/userLike/${jwtDecodedData.email}`
-      );
-      setUserLikeList(response.data);
-      console.log('setUserLikeList', response.data);
-    }
-    if (jwtToken) getUserLikeList();
-    console.log(response.data);
-  };
-
   return (
-    <>
-      <div className="recommend-to-c container-xxl pt-5 pb-2">
-        <h4 className="title my-heading text-center mb-5">精選推薦給您</h4>
-        {displayList.map((v, i) => {
-          return (
-            v && (
-              <div className="cards d-flex justify-content-center mb-5" key={i}>
-                {v.map((v2, i2) => {
-                  return (
-                    <div className="hover-area" key={v2.company_name}>
-                      <div className="small-card mx-3">
-                        <div className="position-relative">
-                          <UserLikeBookmark
-                            hotel={v2.company_name}
-                            position={'position-absolute'}
-                          />
-                          {v2.company_banner.split(',').map((pic, i) => {
-                            if (i === 0) {
-                              return (
-                                <div key={i}>
-                                  <img
-                                    src={`/images/${pic}`}
-                                    alt={v2.company_name}
-                                    className="card-pic my-border-radius"
-                                  />
-                                </div>
-                              );
-                            }
-                          })}
+    <div className="recommend-to-c container-xxl pt-5 pb-2">
+      <h4 className="title my-heading text-center mb-5">精選推薦給您</h4>
+      {displayList.map((v, i) => {
+        return (
+          v && (
+            <div className="cards d-flex justify-content-center mb-5" key={i}>
+              {v.map((v2, i2) => {
+                return (
+                  <div className="hover-area" key={v2.company_name}>
+                    <div className="small-card mx-3">
+                      <div className="position-relative">
+                        <UserLikeBookmark
+                          hotel={v2.company_name}
+                          position={'position-absolute'}
+                        />
+                        {v2.company_banner.split(',').map((pic, i) => {
+                          if (i === 0) {
+                            return (
+                              <div key={i}>
+                                <img
+                                  src={`/images/${pic}`}
+                                  alt={v2.company_name}
+                                  className="card-pic my-border-radius"
+                                />
+                              </div>
+                            );
+                          }
+                        })}
 
-                          <h6 className="nav-foot-small my-2">
-                            {v2.company_name}
-                          </h6>
-                          <p className="my-p text-hide">{v2.introduction}</p>
-                          <div className="d-flex justify-content-between">
-                            <div className="d-flex">
-                              <div class="material-symbols-outlined my-p">
-                                location_on
-                              </div>
-                              <p className="my-p">{v2.region}</p>
+                        <h6 className="nav-foot-small my-2">
+                          {v2.company_name}
+                        </h6>
+                        <p className="my-p text-hide">{v2.introduction}</p>
+                        <div className="d-flex justify-content-between">
+                          <div className="d-flex">
+                            <div class="material-symbols-outlined my-p">
+                              location_on
                             </div>
-                            <div className="d-flex">
-                              <div class="material-symbols-outlined my-p">
-                                paid
-                              </div>
-                              <p className="my-p">
-                                {v2.lowest_price}
-                                <span className="my-p-small"> 起 </span> / 晚
-                              </p>
+                            <p className="my-p">{v2.region}</p>
+                          </div>
+                          <div className="d-flex">
+                            <div class="material-symbols-outlined my-p">
+                              paid
                             </div>
+                            <p className="my-p">
+                              {v2.lowest_price}
+                              <span className="my-p-small"> 起 </span> / 晚
+                            </p>
                           </div>
                         </div>
                       </div>
-                      <div
-                        role="button"
-                        className="card-hover my-p d-flex justify-content-center m-auto pt-2"
-                      >
-                        <Link
-                          to={`/HotelDetail/${v2.company_name}`}
-                          className="link"
-                        >
-                          <p>訂房去</p>
-                        </Link>
-                        <div class="material-symbols-outlined">
-                          arrow_forward
-                        </div>
-                      </div>
                     </div>
-                  );
-                })}
-              </div>
-            )
-          );
-        })}
-        <div className="text-center mt-3 mb-5">
-          <button
-            className="my-btn nav-foot"
-            onClick={() => {
-              setViewMoreCount(viewMoreCount + 1);
-            }}
-          >
-            查看更多
-          </button>
-        </div>
+                    <div
+                      role="button"
+                      className="card-hover my-p d-flex justify-content-center m-auto pt-2"
+                    >
+                      <Link
+                        to={`/HotelDetail/${v2.company_name}`}
+                        className="link"
+                      >
+                        <p>訂房去</p>
+                      </Link>
+                      <div class="material-symbols-outlined">arrow_forward</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )
+        );
+      })}
+      <div className="text-center mt-3 mb-5">
+        <button
+          className="my-btn nav-foot"
+          onClick={() => {
+            setViewMoreCount(viewMoreCount + 1);
+          }}
+        >
+          查看更多
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 

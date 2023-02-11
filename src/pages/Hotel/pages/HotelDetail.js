@@ -55,7 +55,7 @@ const HotelDetail = (props) => {
       <HotelDetailPic setOpenPicBox={setOpenPicBox} hotelDetail={hotelDetail} />
       <HotelIntro hotelDetail={hotelDetail} />
       <RoomSelect roomDetail={roomDetail} />
-      <HotelComment />
+      <HotelComment hotelDetail={hotelDetail} />
       <Transpotation hotelDetail={hotelDetail} />
       <RoomService roomDetail={roomDetail} />
       <RoomRule hotelDetail={hotelDetail} />

@@ -24,6 +24,8 @@ const initialUser = {
   role: '',
   exp: 0,
   iat: 0,
+  email: '',
+  pwd: '',
 };
 
 export const JwtCsrfTokenProvider = ({ children }) => {
@@ -92,22 +94,30 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         email,
         password,
       });
+      console.log(email);
       // access token in state(memory)
       // but refresh token in cookie(httpOnly)
-      setuserF({ email: `${email}`, pwd: `${password}` });
-      console.log('email', userF.email);
+      // console.log('email', userF.email);
 
       axios.defaults.headers.common['Authorization'] = data.accessToken;
+      // axios.defaults.headers.common['email'] = email;
 
       setJwtToken(data.accessToken);
       // console.log(data.accessToken);
       setJwtDecodeData(jwt(data.accessToken));
+      // setJwtDecodeData({ ...jwt(data.accessToken) });
+
+      // setuserF({ email: `${email}`, pwd: `${password}` });
+      console.log(jwt(data.accessToken), '這啥');
       navigate('/profile');
     } catch (e) {
       // console.error(e);
       console.log(e.response.status);
       if (e.response.status === 401) {
         alert('尚未註冊');
+      }
+      if (e.response.status === 402) {
+        alert('尚未驗證');
       }
       if (e.response.status === 403) {
         alert('密碼錯誤');
@@ -217,6 +227,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     // set all state to initial state
     setJwtToken('');
     // setCsrfToken('')
+    setuserF({ email: '', pwd: '' });
     setJwtDecodeData(initialUser);
   };
 
@@ -247,7 +258,6 @@ export const JwtCsrfTokenProvider = ({ children }) => {
         setuserF,
         googlelogin,
         Googleauth,
-       
       }}
     >
       {children}
