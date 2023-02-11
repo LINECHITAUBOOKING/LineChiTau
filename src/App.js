@@ -44,6 +44,10 @@ import TripDetail from './pages/Travel/TripDetail';
 import TripLIst from './pages/ProductList/TestList';
 import TestList from './pages/ProductList/TestList';
 import Token from './utils/Token';
+import Order from './pages/Profile/pages/List/Order/Payment/Order';
+import Confirm from './pages/Profile/pages/List/Order/Payment/Confirm';
+import Cancel from './pages/Profile/pages/List/Order/Payment/Cancel';
+import CheckTransaction from './pages/Profile/pages/List/Order/Payment/CheckTransaction';
 function App() {
   return (
     <>
@@ -79,6 +83,15 @@ function App() {
               <Route path="list" element={<List />} />
               <Route path="alllist" element={<Alllist />} />
               <Route path="listdetail/:id" element={<ListDetail />} />
+
+              <Route path="pay-order" element={<Order />} />
+              <Route path="pay-confirm" element={<Confirm />} />
+              <Route path="pay-cancel" element={<Cancel />} />
+              <Route
+                path="pay-check-transaction"
+                element={<CheckTransaction />}
+              />
+
               <Route path="coupon" element={<Coupon />} />
               <Route path="mylove" element={<Mylove />} />
               <Route path="message" element={<Message />} />
