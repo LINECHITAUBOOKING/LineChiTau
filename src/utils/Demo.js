@@ -92,7 +92,7 @@ function Demo() {
       handleBack();
       console.log(response.status);
       console.log('成功');
-      alert('註冊成功');
+      alert('請去信箱驗證');
     } catch (e) {
       alert('已經註冊過囉');
     }
@@ -102,21 +102,14 @@ function Demo() {
   const sendEmail = async (e) => {
     e.preventDefault();
 
-    emailjs
-      .sendForm(
-        'service_4d2as13',
-        'template_q977msg',
-        form.current,
-        'GV88zGq9icw4DIlao'
-      )
-      .then(
-        (result) => {
-          console.log(result.text);
-        },
-        (error) => {
-          console.log(error.text);
-        }
-      );
+    emailjs.sendForm('123', '123', form.current, '132V88zGq9icw4DIlao').then(
+      (result) => {
+        console.log(result.text);
+      },
+      (error) => {
+        console.log(error.text);
+      }
+    );
     handleSubmit();
   };
 

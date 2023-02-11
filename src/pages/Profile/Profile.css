@@ -37,4 +37,30 @@
   justify-content: center;
   width: 1440px;
 }
+@media (max-width: 390px) {
+  
+.profile {
+  align-items: center;
+  background-color: var(--white);
+  border: 0px none;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  height: auto;
+  margin: 10px 0;
+  /* justify-content: center; */
+  min-height: 1026px;
+  /* min-width: 1920px; */
+  position: relative;
+  width: 100%;
+}
+.main {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 62px;
+  justify-content: center;
+  width: 390px;
+}
+}
 

@@ -8,6 +8,7 @@ import {
   Outlet,
   useOutletContext,
 } from 'react-router-dom';
+import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 
 import PurchaseItem from '../PaymentComponent/PurchaseItem';
 import ContactPerson from '../PaymentComponent/ContactPerson/ContactPerson';
@@ -15,6 +16,8 @@ import UseDiscount from '../PaymentComponent/UseDiscount/UseDiscount';
 import SubTotalList from '../PaymentComponent/SubTotalList/SubTotalList';
 
 const TravelPaymentDetail = (props) => {
+  const currentStep = 2;
+
   const cartItems = [
     {
       itemId: 1,
@@ -78,6 +81,8 @@ const TravelPaymentDetail = (props) => {
 
   return (
     <>
+      <ProgressBar currentStep={currentStep} />
+
       <main className="container  pe-0 main-width">
         <div className=" d-flex p-0">
           {/* <!-- TODO 項目(左區塊) --> */}
@@ -100,7 +105,10 @@ const TravelPaymentDetail = (props) => {
             <UseDiscount />
             {/* NOTE <!-- * 同意條款 --> */}
             <div className="rule-section  row col-12 pb-5">
-              
+              <div className="argee px-1 pb-3 d-flex align-items-center">
+                <input type="checkbox" name="" id="" className="mx-2" />
+                我了解並同意來七桃服務條款與隱私權政策
+              </div>
               <div className="alert alert-danger m-0">
                 請確認訂單填寫無誤，訂單確認後可能無法更改。
               </div>

@@ -6,18 +6,19 @@ import { useQuery } from 'react-query';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
 import TListLayout from './Spinner/TListLayout';
 const TList = ({ value }) => {
-  const { jwtToken, userF } = useContext(JwtCsrfTokenContext);
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
   console.log(jwtToken);
+  console.log('jwtDecodedData', jwtDecodedData);
   const [items, setItems] = useState({});
-
+  console.log(jwtDecodedData.email);
   const getUser = async ({ queryKey }) => {
     // const response = await fetch(
     //   `https://reqres.in/api/users?page=${userF.name}`
     // );
 
     const response = await fetch(
-      `http://localhost:3001/api/userlist/list/${userF.email}`
+      `http://localhost:3001/api/userlist/list/${jwtDecodedData.email}`
     );
     // const response = await fetch('./users.json');
     console.log('收到', response);
@@ -51,6 +52,7 @@ const TList = ({ value }) => {
   };
   console.log('list', list);
   // console.log(items);
+ 
   if (list === undefined) {
     return (
       <>
@@ -88,6 +90,14 @@ const TList = ({ value }) => {
       </>
     );
   }
+  let uniqueOrders = list.filter((item, index, self) => {
+    return (
+      self.findIndex((t) => {
+        return t.order_id === item.order_id;
+      }) === index
+    );
+  });
+  console.log('uniqueOrders', uniqueOrders);
   // if (data && data.data) {
   //   return <></>;
   // }
@@ -95,7 +105,7 @@ const TList = ({ value }) => {
   return (
     <>
       {/* <Reorder.Group value={value} dragListener={false} dragControls={controls}> */}
-      {list.map((item, index) => {
+      {uniqueOrders.map((item, index) => {
         if (index + listIndex >= 3) {
           return;
         }
@@ -103,11 +113,13 @@ const TList = ({ value }) => {
           <div className=" overlap-group-1">
             <img
               className="rectangle-1911"
-              src={item.avatar}
+              src={`/images/${item.picture.split(',')[0]}`}
               alt="Rectangle 1911"
             />
             <div className="text">
-              <div className="notosans-normal-old-copper-20px">{item.id}</div>
+              <div className="notosans-normal-old-copper-20px">
+                {item.order_id}
+              </div>
               <div className="notosans-normal-sepia-16px">
                 {item.order_date}
               </div>
@@ -117,7 +129,7 @@ const TList = ({ value }) => {
             </div>
 
             <div className="button">
-              <Link key={item.i} to={`/profile/listdetail/${item.id}`}>
+              <Link key={item.i} to={`/profile/listdetail/${item.order_id}`}>
                 <button
                   // onClick={() => {
                   //   setlistid({ listid: v.id, propsOrNot: !false });

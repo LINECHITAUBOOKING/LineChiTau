@@ -18,19 +18,23 @@ const SubTotalList = (props) => {
           <h5 className="text-danger">折扣：246</h5>
           <h5>實付：2222</h5>
         </div>
-        <div className="topay text-center row m-0">
-          <button className=" my-btn col-auto align-items-center me-1">
+
+        <div className="topay  row m-0">
+        
+          <span className="my-p-small mb-2">點擊「前往付款」，訂單即送出，請確認後再送出</span>
+          <button className=" my-btn col align-items-center  me-1">
             <Link
-              className="text-decoration-none d-flex align-items-center"
-              to={'/payment/ShoppingCart'}
+              className="text-decoration-none d-flex align-items-center justify-content-center"
+              to={'/ShoppingCart'}
             >
-              返回<span className="material-symbols-rounded">undo</span>
+              返回購物車
+              <span className="material-symbols-rounded">shopping_cart</span>
             </Link>
           </button>
-          <button className=" my-btn col text-decoration-none">
+          <button className=" my-btn col text-decoration-none ms-1">
             <Link
               className="text-decoration-none "
-              to={'/payment/TravelPaymentCheckOut'}
+              to={'/payment/Travel/CheckOut'}
             >
               前往付款
             </Link>
