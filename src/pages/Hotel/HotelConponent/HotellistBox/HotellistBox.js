@@ -1,24 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import './HotellistBox.scss';
-<<<<<<< HEAD
-import pic3 from '../../img/Hotel1/rocky-DBL.jpg';
-import { Link } from 'react-router-dom';
-import MapTest from '../MapTest/MapTest';
-import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet'
-import "leaflet/dist/leaflet.css";
-import icon from "leaflet/dist/images/marker-icon.png";
-// import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import L from "leaflet";
-
-const HotellistBox = () => {
-  const position = [[25.03, 121.6], [25.14, 121.71]]
-  const position1 = [25.14, 121.71]
-  let DefaultIcon = L.icon({
-    iconUrl: icon,
-    // shadowUrl: iconShadow,
-  });
-  L.Marker.prototype.options.icon = DefaultIcon;
-=======
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import HotelListFilter from '../HotelListFilter/HotelListFilter';
 import axios from 'axios';
@@ -193,7 +174,6 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     setPagenation(ucPagenation);
   }, [hotelListArrangeState]);
   const [isOpenMap, setIsOpenMap] = useState(false);
->>>>>>> 4383fadf8f60a99c86d9f1c3daee734d98caddfe
   return (
     <>
       <div className="container-xl hotellist-box">
@@ -220,12 +200,12 @@ const HotellistBox = ({ hotelServiceListArray }) => {
             {hotelListArrangeState.length === 0
               ? 0
               : hotelListArrangeState
-                  .map((v) => {
-                    return v.length;
-                  })
-                  .reduce((acc, cur) => {
-                    return acc + cur;
-                  })}{' '}
+                .map((v) => {
+                  return v.length;
+                })
+                .reduce((acc, cur) => {
+                  return acc + cur;
+                })}{' '}
             項{' '}
           </p>
         </div>
@@ -233,127 +213,6 @@ const HotellistBox = ({ hotelServiceListArray }) => {
 
         <div className="row mb-5">
           <div className="col-3 px-3">
-<<<<<<< HEAD
-            <div className="map m-auto position-relative">
-              <div>
-                <MapContainer center={position1} zoom={10} scrollWheelZoom={false} style={{ height: '200px' }}>
-                  <TileLayer
-                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                  />
-                  {position.map((v, i) => {
-                    return (
-                      <Marker position={v}>
-                        <Popup>
-                          <Link to="/HotelDetail">前往飯店</Link>
-                        </Popup>
-                      </Marker>
-                    )
-                  })}
-                </MapContainer>
-              </div>
-            </div>
-            <div className="filter-box">
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">所在地</h5>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      北部
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      中部
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                </div>
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">類型</h5>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      民宿
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                  <div className="d-flex align-items-center">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      飯店
-                    </label>
-                    <span class="material-symbols-outlined arrow-right">
-                      arrow_right
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">價格</h5>
-                  <div className="d-flex align-items-center my-3">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      0 - 2000
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      2000 - 4000
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <div className="my-border-radius location-type-box m-auto mt-3">
-                <div className="px-5 py-3 form-check">
-                  <h5 className="filter-box-title nav-foot">供餐</h5>
-                  <div className="d-flex align-items-center my-3">
-                    <input
-                      type="checkbox"
-                      name="north"
-                      checked
-                      className="me-3"
-                    />
-                    <label for="north" className="me-3 my-p">
-                      自炊
-                    </label>
-                  </div>
-                  <div className="d-flex align-items-center my-3">
-                    <input type="checkbox" name="middle" className="me-3" />
-                    <label for="middle" className="me-3 my-p">
-                      含早餐
-                    </label>
-                  </div>
-                </div>
-              </div>
-            </div>
-=======
             <HotelListFilter
               hotelServiceListArray={hotelServiceListArray}
               hotelType={hotelType}
@@ -362,7 +221,6 @@ const HotellistBox = ({ hotelServiceListArray }) => {
               hotelListArrangeState={hotelListArrangeState}
               setIsOpenMap={setIsOpenMap}
             />
->>>>>>> 4383fadf8f60a99c86d9f1c3daee734d98caddfe
           </div>
           <div className="col-9">
             {hotelListArrangeState.length === 0 ? (
@@ -553,9 +411,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                     <a
                       href="#top"
                       role="button"
-                      className={`pagenation-border px-2 my-p px-2 ${
-                        page === currentPage ? 'pagenation-border-active' : ''
-                      }`}
+                      className={`pagenation-border px-2 my-p px-2 ${page === currentPage ? 'pagenation-border-active' : ''
+                        }`}
                       key={page}
                       onClick={() => {
                         setCurrentPage(page);

@@ -25,8 +25,7 @@ function HotelComment() {
     // 對照server上的名稱 req.files.photos
     // photoIds是用於改變新圖檔名稱用
     for (let i = 0; i < files.length; i++) {
-      formData.append(`images[${i}]`, file[0]);
-
+      formData.append(`images[${i}]`, files[0]);
     }
     console.log(formData);
     // fetch(

@@ -17,18 +17,7 @@ function CommentPicture({ setFiles }) {
       return URL.createObjectURL(file);
     });
     const file = event.target.files[0];
-
-    if (file) {
-      setIsFilePicked(true);
-      setSelectedFile(file);
-
-      setFiles(file, fid);
-    } else {
-      setIsFilePicked(false);
-      setSelectedFile(null);
-
-      setFiles(null, fid);
-    }
+    setFiles(file)
     setSelectedImages((previousImages) => previousImages.concat(imagesArray));
   };
 
@@ -74,7 +63,7 @@ function CommentPicture({ setFiles }) {
             className="d-none"
             onChange={onSelectFile}
             multiple
-            //   accept="image/png, image/jpg, image.jpeg,image/webp"
+          //   accept="image/png, image/jpg, image.jpeg,image/webp"
           />
         </label>
       </div>
