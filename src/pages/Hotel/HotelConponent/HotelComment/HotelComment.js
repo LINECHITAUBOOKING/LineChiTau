@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useState } from 'react';
+import { async } from 'q';
+import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
@@ -15,10 +16,6 @@ function HotelComment({ hotelDetail }) {
   const handleRating = (rate: number) => {
     setRating(rate);
   };
-  const onPointerEnter = () => console.log('Enter');
-  const onPointerLeave = () => console.log('Leave');
-  const onPointerMove = (value: number, index: number) =>
-    console.log(value, index);
 
   const handleReset = () => {
     setRating(0);
@@ -40,7 +37,6 @@ function HotelComment({ hotelDetail }) {
   };
   const handleSubmission = (e) => {
     e.preventDefault();
-
     const formData = new FormData();
 
     Array.from(selectedFiles).map((file) => {
@@ -62,24 +58,31 @@ function HotelComment({ hotelDetail }) {
         }
       );
     })();
+    setSelectedImages([])
     setCommentText('');
+    setSelectedFiles([])
+    // handleReset()
     // setSelectedFiles([]);
   };
   const handleRemovePreview = (index) => {
     selectedFiles(selectedFiles.filter((_, i) => i !== index));
   };
-
+  const getCommentList = async function () {
+    let response = await axios.get(`http://localhost:3001/api/hotelDetail/${hotelDetail.company_name}/comment`)
+    console.log(response.data)
+    setCommentList(response.data)
+  }
+  //呈現評論
+  const [commentList, setCommentList] = useState([]);
+  useEffect(() => {
+    getCommentList()
+  }, [])
   return (
     <div className="container-xxl comment-for-hotel">
       <h2 className="title">評論區</h2>
       <form onSubmit={handleSubmission}>
-        <Rating
-          initialValue={0}
-          onClick={handleRating}
-          onPointerEnter={onPointerEnter}
-          onPointerLeave={onPointerLeave}
-          onPointerMove={onPointerMove}
-        />
+        <Rating onClick={handleRating} initialValue={rating} />
+
         <div className="d-flex">
           <p>{jwtDecodedData.email}</p>
           <textarea
@@ -140,11 +143,39 @@ function HotelComment({ hotelDetail }) {
           </div>
         </div>
         <div className="">
-          <button className="my-btn my-p" type="submit" onClick={handleReset}>
+          <button className="my-btn my-p" type="submit" onClick={() => {
+            setTimeout(() => {
+              handleReset()
+              getCommentList()
+            }, 500);
+          }}>
             送出
           </button>
         </div>
       </form>
+      <div className='comment-display-box'>
+        <h2 className='title my-heading my-5'>其他人怎麼說</h2>
+        {commentList.map((comment, index) => {
+          return (
+            <div className='my-2' key={comment.id}>
+              <div className='text-part'>
+                <p className='border'>{comment.name}</p>
+                <p>{comment.comment}</p>
+              </div>
+              <div className='comment-pic-box d-flex'>
+                {comment.comment_image.split(',').map((pic, pic_index) => {
+                  const picPath = `${beImagePath}${pic}`
+                  return (
+                    <div className='comment-display-box m-2'>
+                      <img src={picPath} alt={comment.comment} className='comment-display-pic' />
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+          )
+        })}
+      </div>
     </div>
   );
 }

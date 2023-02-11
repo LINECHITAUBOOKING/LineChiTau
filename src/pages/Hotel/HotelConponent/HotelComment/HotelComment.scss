@@ -1,13 +1,28 @@
 @import '../../../../css/global-style.scss';
 
-.add-pic-box {
-  overflow: hidden;
-  width: 100px;
-  height: 100px;
-  border: 1px solid $textColor;
-  .add-btn {
-    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
-    font-size: 40px;
-    cursor: pointer;
+.comment-for-hotel {
+
+
+  .add-pic-box {
+    overflow: hidden;
+    width: 100px;
+    height: 100px;
+    border: 1px solid $textColor;
+
+    .add-btn {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-size: 40px;
+      cursor: pointer;
+    }
+  }
+
+  .comment-pic-box {
+    width: 125px;
+    height: 100px;
+
+    .comment-display-pic {
+      width: 125px;
+      height: 100px;
+    }
   }
 }
