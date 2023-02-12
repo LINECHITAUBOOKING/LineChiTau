@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../layout/payment.scss';
 import {
   BrowserRouter,
@@ -17,67 +17,13 @@ import SubTotalList from '../PaymentComponent/SubTotalList/SubTotalList';
 
 const TravelPaymentDetail = (props) => {
   const currentStep = 2;
-
-  const cartItems = [
-    {
-      itemId: 1,
-      itemName: '高雄美麗島',
-      itemChosen: '一日遊',
-      chosenStartDate: '2021-01-31',
-      chosenEndDate: '2021-01-31',
-      description: {
-        participantTabs: [
-          {
-            participantId: 1,
-            participantTitle: '王大明',
-            content: {
-              name: '王大明',
-              phone: '0912345678',
-              email: 'asd123@asda.com',
-            },
-          },
-          {
-            participantId: 2,
-            participantTitle: '李小美',
-            content: {
-              name: '李小美',
-              phone: '0987654321',
-              email: 'qwe123@qewq.com',
-            },
-          },
-        ],
-      },
-    },
-    {
-      itemId: 2,
-      itemName: '宜蘭快樂遊1',
-      itemChosen: '三日遊',
-      chosenStartDate: '2021-01-31',
-      chosenEndDate: '2021-02-02',
-      description: {
-        participantTabs: [
-          {
-            participantId: 1,
-            participantTitle: '王大明',
-            content: {
-              name: '王大明',
-              phone: '0912345678',
-              email: 'asd123@asda.com',
-            },
-          },
-          {
-            participantId: 2,
-            participantTitle: '馬大美',
-            content: {
-              name: '馬大美',
-              phone: '0987654321',
-              email: 'qwe123@qewq.com',
-            },
-          },
-        ],
-      },
-    },
-  ];
+  const storage = localStorage;
+  const cartStorage = storage.getItem('cart');
+  const [cartItems, setCartItems] = useState([]);
+  const [cartItemsToPay, setCartItemsToPay] = useState([]);
+  const [cartItemsLength, setCartItemsLenght] = useState(cartItems.length);
+  const [cartItemsTotalPrice, setCartItemsTotalPrice] = useState(0);
+  const [itemDetail, setItemDetail] = useState({});
 
   return (
     <>
@@ -102,7 +48,7 @@ const TravelPaymentDetail = (props) => {
             </div>
             {/* <!-- NOTE 折扣 --> */}
 
-            <UseDiscount />
+            {/* <UseDiscount /> */}
             {/* NOTE <!-- * 同意條款 --> */}
             <div className="rule-section  row col-12 pb-5">
               <div className="argee px-1 pb-3 d-flex align-items-center">

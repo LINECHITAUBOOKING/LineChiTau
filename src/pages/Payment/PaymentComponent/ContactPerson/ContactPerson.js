@@ -49,18 +49,7 @@ const ContactPerson = (props) => {
             updateTab={handleTabClick}
           ></ContactPersonTabTitle>
         ))}
-        <button
-          className="my-edit-btn contact-user-btn d-flex align-items-center mx-1"
-          onClick={() => {
-            setAddModalOpen(true);
-          }}
-        >
-          <span className="material-symbols-rounded me-2">account_circle</span>
-          新增
-        </button>
-        {addModalOpen && (
-          <AddContactPersonModal setOpenModal={setAddModalOpen} />
-        )}
+        
       </div>
       {contactPersonTabs.map((tab, index) => (
         <ContactPersonTabBody
