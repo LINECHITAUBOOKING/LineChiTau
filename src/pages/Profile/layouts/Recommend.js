@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import './Recommend.scss';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-
-export const Recommend = ({ love, lovename }) => {
+import UserLikeBookmark from '../../Hotel/HotelConponent/UserLikeBookmark/UserLikeBookmark';
+export const Recommend = ({ love, lovename, setLove }) => {
   const [cardIsHover, setCardIsHover] = useState(false);
   const [hotelList, setHotelList] = useState([]);
   const [listFilter, setListFilter] = useState([]);
@@ -53,21 +53,23 @@ export const Recommend = ({ love, lovename }) => {
   return (
     <>
       <div className="recommend-to-jerry container-xxl  pb-2">
-        <h4 className="title my-heading text-center mb-5">
+        <h4 className="jerry-title title my-heading text-center  ">
           {lovename ? lovename : null}
         </h4>
         {displayList.map((v, i) => {
           return (
             v && (
-              <div className="cards d-flex justify-content-center mb-5" key={i}>
+              <div className="jerry-card cards d-flex justify-content-center mb-5" key={i}>
                 {v.map((v2, i2) => {
                   return (
                     <div className="hover-area" key={v2.company_name}>
                       <div className="small-card mx-3">
                         <div className="position-relative">
-                          <span class="material-symbols-rounded my-p position-absolute recommand-tag">
-                            bookmark
-                          </span>
+                          <UserLikeBookmark
+                            hotel={v2.company_name}
+                            position={'position-absolute'}
+                            setLove={setLove}
+                          />
                           {v2.company_banner.split(',').map((pic, i) => {
                             if (i === 0) {
                               return (

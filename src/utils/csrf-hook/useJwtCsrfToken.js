@@ -218,6 +218,7 @@ export const JwtCsrfTokenProvider = ({ children }) => {
     console.log(data.message);
     googleauth.signOut();
     setGoogleauth(false);
+    setuserF({ email: '', pwd: '' });
     console.log(googleauth);
     // no default headers now
     // cookie will clear from express server(refreshToken)

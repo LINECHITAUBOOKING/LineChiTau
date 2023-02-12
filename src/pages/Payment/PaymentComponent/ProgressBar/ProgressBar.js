@@ -1,19 +1,20 @@
 import React from 'react';
-import '../layout/ProgressBar.scss';
-import Step from './StepProgressBar/Step';
+import './ProgressBar.scss';
+import Step from './ProgressBarStep/Step';
 const ProgressBar = (props) => {
+  const labelArray = ['選擇商品', '填寫訂單', '確認付款'];
+
   return (
     <>
       <div className="container main-width step-bar d-flex flex-row  align-items-center justify-content-between my-5 px-3">
-        {props.labelArray.map((item, index) => (
+        {labelArray.map((item, index) => (
           <Step
             key={index}
             index={index}
             label={item}
-            updateStep={props.updateStep}
             currentStep={props.currentStep}
             selected={props.currentStep === index + 1}
-            length={props.labelArray.length}
+            length={labelArray.length}
           ></Step>
         ))}
       </div>

@@ -13,12 +13,15 @@ const HotelBanner = ({
   my2,
   widthControl,
   dNone,
+  listDNone,
+  setDetailStartDate,
+  setDetailEndDate,
+  setelectedRoomAmount,
 }) => {
+  const storage = localStorage;
   const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
   const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
-  const [destination, setDestination] = useState(
-    localStorage.getItem('destination')
-  );
+  const [destination, setDestination] = useState('台北');
   // console.log(localStorage.getItem('destination'));
   const [dateFromTO, setDateFromTO] = useState(`${startDate} - ${endDate}`);
   const [openCalendar, setOpenCalendar] = useState(false);
@@ -32,12 +35,39 @@ const HotelBanner = ({
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate(`/HotelList/${destination}`);
+    storage.setItem(
+      'orderItem',
+      JSON.stringify([
+        {
+          startDate,
+          endDate,
+          conditions,
+        },
+      ])
+    );
     localStorage.setItem('destination', destination);
     localStorage.setItem('adult', conditions['adult']);
     localStorage.setItem('children', conditions['children']);
     localStorage.setItem('room', conditions['room']);
     localStorage.setItem('startDate', startDate);
     localStorage.setItem('endDate', endDate);
+    setOpenCalendar(false);
+    setOpenConditions(false);
+  };
+
+  const handleSubmitDetail = (event) => {
+    event.preventDefault();
+    localStorage.setItem('adult', conditions['adult']);
+    localStorage.setItem('children', conditions['children']);
+    localStorage.setItem('room', conditions['room']);
+    localStorage.setItem('startDate', startDate);
+    localStorage.setItem('endDate', endDate);
+    setOpenCalendar(false);
+    setOpenConditions(false);
+    setDetailEndDate(endDate);
+    setDetailStartDate(startDate);
+    setelectedRoomAmount(conditions.room);
+    console.log('11111', conditions.room);
   };
 
   const handleInputChange = (event) => {
@@ -206,6 +236,12 @@ const HotelBanner = ({
       <button
         className={`my-btn nav-foot-small d-flex align-items-center pe-1 py-3 ${dNone}`}
         onClick={handleSubmit}
+      >
+        <span className="material-symbols-outlined">search</span>
+      </button>
+      <button
+        className={`my-btn nav-foot-small d-flex align-items-center pe-1 py-3 ${listDNone}`}
+        onClick={handleSubmitDetail}
       >
         <span className="material-symbols-outlined">search</span>
       </button>

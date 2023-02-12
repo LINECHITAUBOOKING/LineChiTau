@@ -11,34 +11,21 @@ import {
   useOutletContext,
 } from 'react-router-dom';
 const CheckOutCreditCard = (props) => {
-  const [number, SetNumber] = useState('');
-  const [name, SetName] = useState('');
-  const [date, SetDate] = useState('');
-  const [cvc, SetCvc] = useState('');
-  const [focus, SetFocus] = useState('');
   return (
     <>
       <div className="credit-card-section row  py-5">
         <div className="credit-card col-6 px-4 my-5 d-flex justify-content-center ">
           <Cards
             className="rccs-size"
-            number={number}
-            name={name}
-            expiry={date}
-            cvc={cvc}
-            focused={focus}
+            number={props.creditCard.number}
+            name={props.creditCard.name}
+            expiry={props.creditCard.expDate}
+            cvc={props.creditCard.cvc}
+            focused={props.creditCard.focus}
           />
         </div>
         <div className="crad-info col-6 px-5  my-5">
           <form>
-            <div className="crad-type row py-2">
-              <div className=" d-flex col-3  justify-content-end align-items-end">
-                <label className=" pe-3">卡別</label>
-              </div>
-              <div className="col-7 px-0 ">
-                <input type="text" className="form-control border-0  " />
-              </div>
-            </div>
             <div className="card-name row py-2">
               <div className=" d-flex col-3  justify-content-end align-items-end">
                 <label className=" pe-3">持卡人姓名</label>
@@ -47,12 +34,13 @@ const CheckOutCreditCard = (props) => {
                 <input
                   type="text"
                   className="form-control border-0"
-                  value={name}
+                  value={props.creditCard.name}
                   name="name"
                   onChange={(e) => {
-                    SetName(e.target.value);
+                    props.updateValue.setName(e.target.value);
                   }}
-                  onFocus={(e) => SetFocus(e.target.name)}
+                  onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>
@@ -64,12 +52,14 @@ const CheckOutCreditCard = (props) => {
                 <input
                   type="text"
                   className="form-control border-0"
-                  value={number}
+                  value={props.creditCard.number}
                   name="number"
+                  maxLength={16}
                   onChange={(e) => {
-                    SetNumber(e.target.value);
+                    props.updateValue.setNumber(e.target.value);
                   }}
-                  onFocus={(e) => SetFocus(e.target.name)}
+                  onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>
@@ -82,11 +72,12 @@ const CheckOutCreditCard = (props) => {
                   type="text"
                   name="expiry"
                   className="form-control border-0"
-                  value={date}
+                  value={props.creditCard.expDate}
                   onChange={(e) => {
-                    SetDate(e.target.value);
+                    props.updateValue.setExpDate(e.target.value);
                   }}
-                  onFocus={(e) => SetFocus(e.target.name)}
+                  onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
               <div className=" d-flex col-3  justify-content-end align-items-end">
@@ -94,14 +85,16 @@ const CheckOutCreditCard = (props) => {
               </div>
               <div className="col-2 px-0">
                 <input
-                  type="tel"
+                  type="text"
                   name="cvc"
                   className=" border-0 form-control"
-                  value={cvc}
+                  value={props.creditCard.cvc}
+                  maxLength={3}
                   onChange={(e) => {
-                    SetCvc(e.target.value);
+                    props.updateValue.setCvc(e.target.value);
                   }}
-                  onFocus={(e) => SetFocus(e.target.name)}
+                  onFocus={(e) => props.updateValue.setFocus(e.target.name)}
+                  
                 />
               </div>
             </div>

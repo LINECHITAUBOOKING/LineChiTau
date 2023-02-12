@@ -1,9 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './HotelIntro.scss';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import L from 'leaflet';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import axios from 'axios';
 
-const HotelIntro = (props) => {
-  const { hotelDetail } = props;
-
+const HotelIntro = ({ hotelDetail }) => {
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+  });
+  L.Marker.prototype.options.icon = DefaultIcon;
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isFixed, setisFixed] = useState(false);
   let stars = [];
@@ -12,6 +20,7 @@ const HotelIntro = (props) => {
       <span class="material-symbols-outlined hotel-star-fill">star</span>
     );
   }
+
   const {
     wifi,
     pool,
@@ -62,17 +71,63 @@ const HotelIntro = (props) => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
   }, []);
+  const [aroundSpots, setAroundSpots] = useState([]);
+  useEffect(() => {
+    async function getAroundSpots() {
+      if (Object.keys(hotelDetail).length > 0) {
+        let response = await axios.get(
+          'http://localhost:3001/api/aroundSpots/' + hotelDetail.region
+        );
+        // console.log(response.data[0]);
+        setAroundSpots(response.data);
+      }
+    }
+    getAroundSpots();
+  }, [hotelDetail]);
+  function distance(lat1, lon1, lat2, lon2, unit) {
+    let radlat1 = (Math.PI * lat1) / 180;
+    let radlat2 = (Math.PI * lat2) / 180;
+    let theta = lon1 - lon2;
+    let radtheta = (Math.PI * theta) / 180;
+    let dist =
+      Math.sin(radlat1) * Math.sin(radlat2) +
+      Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
+    if (dist > 1) {
+      dist = 1;
+    }
+    dist = Math.acos(dist);
+    dist = (dist * 180) / Math.PI;
+    dist = dist * 60 * 1.1515;
+    if (unit === 'K') {
+      dist = dist * 1.609344;
+    }
+    return dist;
+  }
   return (
     <>
       <div className="container-xxl HotelIntro">
         <nav className={isFixed ? 'fixed' : 'mt-3'}>
           <ul className="list-unstyled d-flex justify-content-around my-0">
-            <a href="#room">
-              <li>客房</li>
-            </a>
-            <li>交通位置</li>
-            <li>評論區</li>
-            <li>注意事項</li>
+            <li>
+              <a href="#room" className="fixed-bar-a">
+                客房
+              </a>
+            </li>
+            <li>
+              <a href="#transportation" className="fixed-bar-a">
+                交通位置
+              </a>
+            </li>
+            <li>
+              <a href="#comment" className="fixed-bar-a">
+                評論區
+              </a>
+            </li>
+            <li>
+              <a href="#rule" className="fixed-bar-a">
+                注意事項
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="row mt-4">
@@ -107,31 +162,63 @@ const HotelIntro = (props) => {
           </div>
           <div className="col-4 right-side">
             <div className="map m-auto position-relative">
-              <button className="position-absolute my-p">檢視地圖</button>
+              {Object.keys(hotelDetail).length > 0 && (
+                <MapContainer
+                  center={[
+                    hotelDetail.geo_location_Y,
+                    hotelDetail.geo_location_X,
+                  ]}
+                  zoom={15}
+                  scrollWheelZoom={false}
+                  style={{ height: '220px', position: 'relative' }}
+                  className="leaflet-hotel-list"
+                >
+                  <TileLayer
+                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                  />
+                  <Marker
+                    position={[
+                      hotelDetail.geo_location_Y,
+                      hotelDetail.geo_location_X,
+                    ]}
+                    key={hotelDetail.company_name}
+                  >
+                    <Popup>{hotelDetail.company_name}</Popup>
+                  </Marker>
+                </MapContainer>
+              )}
             </div>
             <div className="mt-3">
               <h4>周邊景點</h4>
               <ul className="list-unstyled spot-box mt-3">
-                <li className="my-p d-flex my-2">
-                  <div class="material-symbols-outlined me-4">location_on</div>
-                  <p className="me-4">故宮博物院 : </p>
-                  <p>3公里</p>
-                </li>
-                <li className="my-p d-flex my-2">
-                  <div class="material-symbols-outlined me-4">location_on</div>
-                  <p className="me-4">故宮博物院 : </p>
-                  <p>3公里</p>
-                </li>
-                <li className="my-p d-flex my-2">
-                  <div class="material-symbols-outlined me-4">location_on</div>
-                  <p className="me-4">故宮博物院 : </p>
-                  <p>3公里</p>
-                </li>
-                <li className="my-p d-flex my-2">
-                  <div class="material-symbols-outlined me-4">location_on</div>
-                  <p className="me-4">故宮博物院 : </p>
-                  <p>3公里</p>
-                </li>
+                {aroundSpots
+                  .map((spot, spot_i) => {
+                    const result = distance(
+                      parseFloat(hotelDetail.geo_location_Y),
+                      parseFloat(hotelDetail.geo_location_X),
+                      parseFloat(spot.Py),
+                      parseFloat(spot.Px),
+                      'K'
+                    );
+                    spot.distance = result;
+                    return spot;
+                  })
+                  .filter((aroundSpots, aroundSpots_i) => {
+                    return aroundSpots.distance < 5;
+                  })
+                  .map((scenic, scenic_i) => {
+                    if (scenic_i < 5)
+                      return (
+                        <li className="my-p d-flex my-2">
+                          <div class="material-symbols-outlined me-4">
+                            location_on
+                          </div>
+                          <p className="me-4">{scenic.Name}</p>
+                          <p>{Math.round(scenic.distance * 100) / 100}公里</p>
+                        </li>
+                      );
+                  })}
               </ul>
             </div>
           </div>

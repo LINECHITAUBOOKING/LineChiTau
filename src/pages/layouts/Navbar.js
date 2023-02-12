@@ -21,7 +21,7 @@ const Navbar = () => {
           {linkList.map((list, index) => {
             switch (list) {
               case '旅遊行程':
-                toLink = '/travelList';
+                toLink = '/travel/TripDetail/t1';
                 break;
               case '票卷活動':
                 toLink = '/ticket';
@@ -47,15 +47,15 @@ const Navbar = () => {
             );
           })}
         </ul>
-        <div className="d-flex">
-          <div className="nav-button">
+        <div className="d-flex align-items-center">
+          <div>
             <Link className="my-btn nav-foot-small mx-2" to={'/login'}>
               註冊
             </Link>
           </div>
           <div>
             {jwtToken ? (
-              <p className="nav-button">
+              <div>
                 <Link
                   className="my-btn nav-foot-small mx-2 "
                   onClick={() => logout()}
@@ -63,26 +63,27 @@ const Navbar = () => {
                 >
                   登出
                 </Link>
-              </p>
+              </div>
             ) : (
-              <p className="nav-button">
+              <div>
                 <Link className="my-btn nav-foot-small mx-2  " to={'/login1'}>
                   登入
                 </Link>
-              </p>
+              </div>
             )}
           </div>
 
           <div>
-            <div>
-              <Link className="nav-foot text-decoration-none" to={'/payment/'}>
-                <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1 px-0">
-                  <span className="material-symbols-outlined ">
-                    shopping_cart
-                  </span>
-                </button>
-              </Link>
-            </div>
+            <Link
+              className="nav-foot text-decoration-none"
+              to={'/ShoppingCart'}
+            >
+              <button className="my-btn nav-foot-small cart mx-2 pt-2 pb-1 px-0">
+                <span className="material-symbols-outlined ">
+                  shopping_cart
+                </span>
+              </button>
+            </Link>
           </div>
         </div>
       </div>

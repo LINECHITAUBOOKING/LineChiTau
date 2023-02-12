@@ -1,3 +1,6 @@
+import UploadTrip from './pages/UploadTrip/UploadTrip';
+import TripSearchBar from './pages/ProductList/ListComponent/TripSearchBar/TripSearchBar';
+import './test.scss';
 import React, { useState } from 'react';
 import './App.css';
 import {
@@ -35,17 +38,30 @@ import Hotellist from './pages/Hotel/pages/Hotellist';
 import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
-
 import ScrollToTop from './pages/layouts/ScrollToTop';
-import TripList from './pages/TripList/TripList';
-import TripProductDetails from './pages/TripProductDetails/TripProductDetails';
-
+import TripDetail from './pages/Travel/TripDetail';
+import TripLIst from './pages/ProductList/TestList';
+import TestList from './pages/ProductList/TestList';
 import Token from './utils/Token';
+import Order from './pages/Profile/pages/List/Order/Payment/Order';
+import Confirm from './pages/Profile/pages/List/Order/Payment/Confirm';
+import Cancel from './pages/Profile/pages/List/Order/Payment/Cancel';
+import CheckTransaction from './pages/Profile/pages/List/Order/Payment/CheckTransaction';
 function App() {
   return (
     <>
       <JwtCsrfTokenProvider>
         <Navbar />
+
+        <Routes>
+          {/* <Route path="/" element={<TripSearchBar />} /> */}
+          {/* <Route path="tripList" element={<TestList />} /> */}
+          {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
+        </Routes>
+        {/* <Comment /> */}
+        {/* <PlanDetails /> */}
+        {/* <MainSelector /> */}
+
         <ScrollToTop>
           <Routes>
             <Route path="/" element={<Hotel />}>
@@ -70,31 +86,36 @@ function App() {
               <Route path="list" element={<List />} />
               <Route path="alllist" element={<Alllist />} />
               <Route path="listdetail/:id" element={<ListDetail />} />
+
+              <Route path="pay-order" element={<Order />} />
+              <Route path="pay-confirm" element={<Confirm />} />
+              <Route path="pay-cancel" element={<Cancel />} />
+              <Route
+                path="pay-check-transaction"
+                element={<CheckTransaction />}
+              />
+
               <Route path="coupon" element={<Coupon />} />
               <Route path="mylove" element={<Mylove />} />
               <Route path="message" element={<Message />} />
               <Route path="pay" element={<Pay />} />
               <Route path="setting" element={<Setting />} />
             </Route>
+            <Route path="travel" element={<Travel />}>
+              <Route index path="TripDetail/:tripId" element={<TripDetail />} />
+            </Route>
             <Route path="ticket" element={<Ticket />} />
+            <Route path="ShoppingCart" element={<ShoppingCart />} />
             <Route path="/payment" element={<Payment />}>
-              <Route index path="" element={<ShoppingCart />} />
-              <Route path="ShoppingCart" element={<ShoppingCart />} />
+              <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
               <Route
-                path="TravelPaymentDetail"
-                element={<TravelPaymentDetail />}
-              />
-              <Route
-                path="TravelPaymentCheckOut"
-                element={<TravelPaymentCheckOut />}
-              />
-              <Route
-                path="HotelPaymentDetail"
-                element={<HotelPaymentDetail />}
-              />
-              <Route
-                path="HotelPaymentCheckOut"
+                path="Hotel/CheckOut/:orderId"
                 element={<HotelPaymentCheckOut />}
+              />
+              <Route path="Travel/Detail" element={<TravelPaymentDetail />} />
+              <Route
+                path="Travel/CheckOut/:orderId"
+                element={<TravelPaymentCheckOut />}
               />
             </Route>
           </Routes>
