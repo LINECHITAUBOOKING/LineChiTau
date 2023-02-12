@@ -131,7 +131,7 @@ export default function ShoppingCart() {
                 總計 {cartItems.length} 項
               </div>
 
-              <div class="my-topic  py-3">NT${cartItemsTotalPrice}</div>
+              <div class="my-topic  py-3">NT$ {cartItemsTotalPrice}</div>
               <div className="d-flex justify-content-center ">
                 <Link
                   className="text-decoration-none cart-link-btn"

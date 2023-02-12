@@ -99,7 +99,7 @@ function App() {
               <Route path="setting" element={<Setting />} />
             </Route>
             <Route path="travel" element={<Travel />}>
-              <Route index path="TripDetail" element={<TripDetail />} />
+              <Route index path="TripDetail/:tripId" element={<TripDetail />} />
             </Route>
             <Route path="ticket" element={<Ticket />} />
             <Route path="ShoppingCart" element={<ShoppingCart />} />
