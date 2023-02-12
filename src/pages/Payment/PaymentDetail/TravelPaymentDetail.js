@@ -45,18 +45,26 @@ const TravelPaymentDetail = (props) => {
   const [discountPrice, setDiscountPrice] = useState(0);
   
   const [name,setName]=useState('')
-  const [phone,setPhone]=useState('')
+  const [tel,setTel]=useState('')
   const [email,setEmail]=useState(userEmail)
+  const [country, setCountry] = useState('');
+  const [lang, setLang] = useState('');
 
   const updateValue = {
     setName: (value) => {
       setName(value);
     },
-    setPhone: (value) => {
-      setPhone(value);
+    setTel: (value) => {
+      setTel(value);
     },
     setEmail: (value) => {
       setEmail(value);
+    },
+    setCountry: (value) => {
+      setCountry(value);
+    },
+    setLang: (value) => {
+      setLang(value);
     },
     setDiscountPrice: (value) => {
       setDiscountPrice(value);
@@ -156,7 +164,7 @@ const TravelPaymentDetail = (props) => {
         orderDate: orderDate,
         formData: {
           name:name,
-          phone:phone,
+          tel:tel,
           email:email,
         },
         product: cartItems,
@@ -226,7 +234,7 @@ const TravelPaymentDetail = (props) => {
 
             {/* <!-- NOTE 聯絡資料 --> */}
             <div className="item-section row col-12  my-3">
-              <ContactPerson   email={email} name={name} phone={phone} updateValue={updateValue}/>
+              <ContactPerson   email={email} name={name} tel={tel} updateValue={updateValue}/>
             </div>
             {/* <!-- NOTE 折扣 --> */}
             <UseDiscount
