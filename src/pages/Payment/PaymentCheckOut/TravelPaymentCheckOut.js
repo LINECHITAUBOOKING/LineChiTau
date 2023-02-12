@@ -205,7 +205,7 @@ const TravelPaymentCheckOut = () => {
 
       try {
         let response = await axios.post(
-          `http://localhost:3000/api/payment/CheckOut/Hotel/order/CheckOut`,
+          `http://localhost:3000/api/payment/CheckOut/Travel/order/CheckOut`,
           { orderId },
           {
             headers: {
@@ -240,7 +240,7 @@ const TravelPaymentCheckOut = () => {
             <div className="payment-detail d-flex flex-column mb-3 px-5 ">
               <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0">
                 <h3 className="title">填寫付款資料</h3>
-                <button className="my-card-btn d-flex align-items-center justify-content-around  ">
+                <button className="my-card-btn d-flex align-items-center justify-content-around  "  onClick={handleGetCard}>
                   <span className="material-symbols-rounded">credit_card</span>
                   <span>我的信用卡</span>
                 </button>
@@ -260,7 +260,9 @@ const TravelPaymentCheckOut = () => {
         {/* <!-- NOTE 同意條款 --> */}
         <div className="rule-section  col-12 pb-5">
           <div className="d-flex justify-content-center">
-            <button className="my-btn w-25 ">確認付款</button>
+            <button className="my-btn w-25 "
+              onClick={handleCheckOut}
+            >確認付款</button>
           </div>
         </div>
       </main>
