@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { Outlet } from 'react-router';
 import Calendar from '../Hotel/HotelConponent/Calendar/Calendar';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import AmountSelect from './TripComponent/AmountSelect';
 import AddCartModal from './TripComponent/AddCartModal';
 
 import axios from 'axios';
 const TripDetail = () => {
-  const tripId = 't1';
+  const { tripId } = useParams();
+
   const storage = localStorage;
 
   const [tripDetail, setTripDetail] = useState([]);
@@ -75,7 +76,9 @@ const TripDetail = () => {
     }
     getTripDetail();
   }, []);
+
   const cartItem = {
+    tripId: tripId,
     tripName: tripName,
     planId: planId,
     planName: planName,
