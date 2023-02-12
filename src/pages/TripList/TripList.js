@@ -13,7 +13,7 @@ export default function TestList() {
   //TODO 更新收藏資料庫、
   //TODO 將從API調出的資料傳進去產品卡片
 
-  const URLRawkeyword = '台北';
+  const URLRawkeyword = '台北 陽明山';
   // const [newRawKeyword, setNewRawKeyword] = useState();
 
   //將回傳資料設為本元件的state
@@ -234,7 +234,7 @@ export default function TestList() {
 
   //! 將fetch過的資料加上 service 屬性
   useEffect(() => {
-    const ArrangedData = returnedTripData.map((item, i) => {
+    const ArrangedData = returnedTripData.map((item) => {
       const {
         culture_history,
         amusement,
@@ -259,7 +259,7 @@ export default function TestList() {
         { service: '雪上活動', value: snow },
       ];
       //將這陣列篩選，並把其中的字串取出來
-      const ItemActualService = ItemServiceList.filter((v, i) => {
+      const ItemActualService = ItemServiceList.filter((v) => {
         return v.value !== 0;
       }).map((v) => {
         return v.service;
