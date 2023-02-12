@@ -7,8 +7,10 @@ import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken
 import TListLayout from './Spinner/TListLayout';
 import Pagination from '../../../layouts/Pagination';
 import './Alllist.scss';
+
 const Alllist = ({ value }) => {
-  const { jwtToken, userF,jwtDecodedData } = useContext(JwtCsrfTokenContext);
+  const moment = require('moment');
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
   console.log(jwtToken);
   const [items, setItems] = useState({});
@@ -71,7 +73,14 @@ const Alllist = ({ value }) => {
       </>
     );
   }
-  const currentPosts = itemsArray.slice(firstPostIndex, lastPostIndex);
+  let uniqueOrders = itemsArray.filter((item, index, self) => {
+    return (
+      self.findIndex((t) => {
+        return t.order_id === item.order_id;
+      }) === index
+    );
+  });
+  const currentPosts = uniqueOrders.slice(firstPostIndex, lastPostIndex);
 
   if (currentPosts === '找不到訂單') {
     return (
@@ -129,23 +138,26 @@ const Alllist = ({ value }) => {
                 <div className=" overlap-group-1">
                   <img
                     className="rectangle-1911"
-                    src={item.avatar}
+                    src={`/images/${item.picture.split(',')[0]}`}
                     alt="Rectangle 1911"
                   />
                   <div className="text">
                     <div className="notosans-normal-old-copper-20px">
-                      {item.id}
+                      {item.order_id}
                     </div>
                     <div className="notosans-normal-sepia-16px">
-                      2022-12-31 15:00
+                      購買時間:{moment(item.order_date).format('YYYY/MM/DD')}
                     </div>
                     <div className="notosans-normal-sepia-16px">
-                      實付金額：NT$ 7200
+                      實付金額：NT${item.total_price * (item.discount / 10)}
                     </div>
                   </div>
 
                   <div className="button">
-                    <Link key={item.i} to={`/profile/listdetail/${item.id}`}>
+                    <Link
+                      key={item.i}
+                      to={`/profile/listdetail/${item.order_id}`}
+                    >
                       <button
                         // onClick={() => {
                         //   setlistid({ listid: v.id, propsOrNot: !false });
@@ -166,7 +178,7 @@ const Alllist = ({ value }) => {
           </div>
         </div>
         <Pagination
-          totalPosts={items.length}
+          totalPosts={uniqueOrders.length}
           postsPerPage={postsPerPage}
           setCurrentPage={setCurrentPage}
           currentPage={currentPage}

@@ -53,13 +53,13 @@ export const Recommend = ({ love, lovename, setLove }) => {
   return (
     <>
       <div className="recommend-to-jerry container-xxl  pb-2">
-        <h4 className="title my-heading text-center mb-5">
+        <h4 className="jerry-title title my-heading text-center  ">
           {lovename ? lovename : null}
         </h4>
         {displayList.map((v, i) => {
           return (
             v && (
-              <div className="cards d-flex justify-content-center mb-5" key={i}>
+              <div className="jerry-card cards d-flex justify-content-center mb-5" key={i}>
                 {v.map((v2, i2) => {
                   return (
                     <div className="hover-area" key={v2.company_name}>
