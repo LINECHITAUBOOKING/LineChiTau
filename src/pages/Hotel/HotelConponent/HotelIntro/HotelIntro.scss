@@ -2,12 +2,20 @@
 
 .HotelIntro {
   background: #fff;
+  .fixed-bar-a {
+    color: $secondary;
+  }
+  .fixed-bar-a:hover {
+    border-bottom: 3px solid $secondary;
+  }
 
   nav {
     background: $textColor;
     color: $secondary;
     font-size: 20px;
     width: 100%;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
   .fixed {
     position: fixed;

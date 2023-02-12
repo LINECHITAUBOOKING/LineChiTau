@@ -9,6 +9,7 @@ import DetailPicBox from '../HotelConponent/DetailPicBox/DetailPicBox';
 import './HotelDetail.scss';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import HotelComment from '../HotelConponent/HotelComment/HotelComment';
 
 const HotelDetail = (props) => {
   const [openPicBox, setOpenPicBox] = useState(false);
@@ -54,8 +55,9 @@ const HotelDetail = (props) => {
       <HotelDetailPic setOpenPicBox={setOpenPicBox} hotelDetail={hotelDetail} />
       <HotelIntro hotelDetail={hotelDetail} />
       <RoomSelect roomDetail={roomDetail} />
+      <HotelComment hotelDetail={hotelDetail} />
       <Transpotation hotelDetail={hotelDetail} />
-      <RoomService roomDetail={roomDetail} />
+      {/* <RoomService roomDetail={roomDetail} /> */}
       <RoomRule hotelDetail={hotelDetail} />
     </>
   );
