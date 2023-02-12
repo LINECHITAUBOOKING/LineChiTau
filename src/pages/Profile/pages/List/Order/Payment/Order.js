@@ -22,12 +22,14 @@ function Order(props) {
         {
           label: '確定',
           onClick: () => {
-            // 在本window直接導至node付款(reverse)url，之後會導向至line pay
-            window.location.href = '/api/pay/reserve?orderId=' + order.orderId;
             console.log(
-              window.location.href,
-              process.env.REACT_APP_PAYMENT_API_URL
-            );
+              `http://localhost:3001/api/pay/reserve?orderId=${order.orderId}`
+            )
+            // 在本window直接導至node付款(reverse)url，之後會導向至line pay
+           /*  window.location.href =
+              process.env.REACT_APP_PAYMENT_API_URL +
+              '?orderId=' +
+              order.orderId */
           },
         },
         {
