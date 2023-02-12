@@ -1,8 +1,12 @@
 @import '../../../../css/global-style.scss';
 
 .comment-for-hotel {
-
-
+  border: 1px solid $textColor;
+  .comment-textarea {
+    height: 125px;
+    background: $secondary;
+    resize: none;
+  }
   .add-pic-box {
     overflow: hidden;
     width: 100px;
@@ -15,14 +19,20 @@
       cursor: pointer;
     }
   }
-
-  .comment-pic-box {
-    width: 125px;
-    height: 100px;
-
-    .comment-display-pic {
+  .comment-display-box {
+    .hotel-star-fill {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 48;
+      font-size: 24px;
+      color: $main;
+    }
+    .comment-pic-box {
       width: 125px;
       height: 100px;
+
+      .comment-display-pic {
+        width: 125px;
+        height: 100px;
+      }
     }
   }
 }

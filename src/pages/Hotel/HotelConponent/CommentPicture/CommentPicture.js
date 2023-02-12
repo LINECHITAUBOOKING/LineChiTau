@@ -59,7 +59,7 @@ function CommentPicture({ setSelectedFiles }) {
             className="d-none"
             onChange={onSelectFile}
             multiple
-          //   accept="image/png, image/jpg, image.jpeg,image/webp"
+            //   accept="image/png, image/jpg, image.jpeg,image/webp"
           />
         </label>
       </div>

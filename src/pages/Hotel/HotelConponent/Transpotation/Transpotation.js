@@ -39,7 +39,10 @@ const Transpotation = ({ hotelDetail }) => {
   }
   return (
     <>
-      <div className="container-xxl transpotation p-3 mx-auto mt-5">
+      <div
+        className="container-xxl transpotation p-3 mx-auto mt-5"
+        id="transportation"
+      >
         <h3 className="h3">地點和交通</h3>
         <div className="row">
           <div className="col-6 row">
@@ -73,11 +76,7 @@ const Transpotation = ({ hotelDetail }) => {
                 })}
             </ul>
           </div>
-          <div className="col-6">
-            <div className="big-map m-auto position-relative">
-              <button className="position-absolute my-p">檢視地圖</button>
-            </div>
-          </div>
+          <div className="col-6"></div>
         </div>
       </div>
     </>

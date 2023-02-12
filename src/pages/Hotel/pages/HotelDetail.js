@@ -57,7 +57,7 @@ const HotelDetail = (props) => {
       <RoomSelect roomDetail={roomDetail} />
       <HotelComment hotelDetail={hotelDetail} />
       <Transpotation hotelDetail={hotelDetail} />
-      <RoomService roomDetail={roomDetail} />
+      {/* <RoomService roomDetail={roomDetail} /> */}
       <RoomRule hotelDetail={hotelDetail} />
     </>
   );

@@ -108,12 +108,26 @@ const HotelIntro = ({ hotelDetail }) => {
       <div className="container-xxl HotelIntro">
         <nav className={isFixed ? 'fixed' : 'mt-3'}>
           <ul className="list-unstyled d-flex justify-content-around my-0">
-            <a href="#room" className="">
-              <li>客房</li>
-            </a>
-            <li>交通位置</li>
-            <li>評論區</li>
-            <li>注意事項</li>
+            <li>
+              <a href="#room" className="fixed-bar-a">
+                客房
+              </a>
+            </li>
+            <li>
+              <a href="#transportation" className="fixed-bar-a">
+                交通位置
+              </a>
+            </li>
+            <li>
+              <a href="#comment" className="fixed-bar-a">
+                評論區
+              </a>
+            </li>
+            <li>
+              <a href="#rule" className="fixed-bar-a">
+                注意事項
+              </a>
+            </li>
           </ul>
         </nav>
         <div className="row mt-4">

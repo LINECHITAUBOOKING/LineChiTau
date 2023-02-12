@@ -21,18 +21,16 @@ const HotelBanner = ({
   const storage = localStorage;
   const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
   const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
-  const [destination, setDestination] = useState(
-    localStorage.getItem('destination')
-  );
+  const [destination, setDestination] = useState('台北');
   // console.log(localStorage.getItem('destination'));
   const [dateFromTO, setDateFromTO] = useState(`${startDate} - ${endDate}`);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
   const navigate = useNavigate();
   const [conditions, setConditions] = useState({
-    adult: localStorage.getItem('adult'), //初始人數,房間數為一
-    children: localStorage.getItem('children'), //可以不一定要有小孩
-    room: localStorage.getItem('room'),
+    adult: 2, //初始人數,房間數為一
+    children: 0, //可以不一定要有小孩
+    room: 1,
   });
   const handleSubmit = (event) => {
     event.preventDefault();

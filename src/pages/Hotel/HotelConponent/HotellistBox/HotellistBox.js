@@ -200,16 +200,15 @@ const HotellistBox = ({ hotelServiceListArray }) => {
             {hotelListArrangeState.length === 0
               ? 0
               : hotelListArrangeState
-                .map((v) => {
-                  return v.length;
-                })
-                .reduce((acc, cur) => {
-                  return acc + cur;
-                })}{' '}
+                  .map((v) => {
+                    return v.length;
+                  })
+                  .reduce((acc, cur) => {
+                    return acc + cur;
+                  })}{' '}
             項{' '}
           </p>
         </div>
-
 
         <div className="row mb-5">
           <div className="col-3 px-3">
@@ -411,8 +410,9 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                     <a
                       href="#top"
                       role="button"
-                      className={`pagenation-border px-2 my-p px-2 ${page === currentPage ? 'pagenation-border-active' : ''
-                        }`}
+                      className={`pagenation-border px-2 my-p px-2 ${
+                        page === currentPage ? 'pagenation-border-active' : ''
+                      }`}
                       key={page}
                       onClick={() => {
                         setCurrentPage(page);
