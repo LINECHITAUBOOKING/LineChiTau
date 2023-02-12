@@ -34,7 +34,7 @@ const TravelPaymentCheckOut = () => {
 
   const [description, setDescription] = useState('');
   const [booker, setBooker] = useState('');
-  
+
   useEffect(() => {
     console.log('orderId', orderId);
     async function getOrderDetail() {
@@ -185,6 +185,40 @@ const TravelPaymentCheckOut = () => {
     console.log('setCard', userCreditCard.exp_date);
     console.log('setCard', userCreditCard.cvc);
   }
+  async function handleCheckOut(e) {
+    e.preventDefault();
+    // !關閉表單預設行為
+    if (!number) {
+      alert('請輸入卡號');
+    } else if (!name) {
+      alert('請輸入持卡人姓名');
+    } else if (!expDate) {
+      alert('請輸入有效日期');
+    } else if (!cvc) {
+      alert('請輸入安全碼');
+    } 
+    // else if (!isChecked) {
+    //   alert('請勾選同意 隱私條款與優惠資訊');
+    // } 
+    else {
+      // * ajax
+
+      try {
+        let response = await axios.post(
+          `http://localhost:3000/api/payment/CheckOut/Hotel/order/CheckOut`,
+          { orderId },
+          {
+            headers: {
+              'Cache-Control': 'no-cache, no-store, must-revalidate',
+            },
+          }
+        );
+      } catch (e) {
+        alert('付款失敗');
+      }
+      navigate(`/profile/listdetail/${orderId}`);
+    }
+  }
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -194,7 +228,7 @@ const TravelPaymentCheckOut = () => {
         <div className=" row w-100 px-0 mx-0 ">
           <div className="col-4 ps-0 my-3">
             {/* <PaymentMethod /> */}
-            <UserData />
+            <UserData booker={booker}/>
           </div>
           <div className="col-8 pe-0 my-3">
             <CheckOutItemList cartItems={cartItems} />
