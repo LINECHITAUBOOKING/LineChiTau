@@ -112,6 +112,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
     });
     setHotelListArrange(newhotelListArrange);
   }, [hotelList]);
+  console.log('filterCondition', filterCondition);
 
   const [hotelListArrangeState, setHotelListArrangeState] = useState([]);
   useEffect(() => {
@@ -207,11 +208,8 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                   })}{' '}
             項{' '}
           </p>
-          <ul className="list-unstyled d-flex my-p">
-            <li>排序：</li>
-            <li>價格 ▲ | </li>
-          </ul>
         </div>
+
         <div className="row mb-5">
           <div className="col-3 px-3">
             <HotelListFilter

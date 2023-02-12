@@ -2,6 +2,7 @@
 
 .room-select-box {
   width: 1280px;
+
   .room-type-card {
     border: 1px solid $textColor;
     max-width: 340px;
@@ -10,11 +11,11 @@
     .room-pic-box {
       overflow: hidden;
       width: 320px;
-      // height: 200px;
+      height: 200px;
 
       .room-pic {
         width: 320px;
-        // height: 200px;
+        height: 200px;
       }
     }
 
