@@ -24,7 +24,7 @@ const ContactPerson = (props) => {
               id="name"
               name="name"
               className="form-control border-0 w-50"
-              value={props.lastName}
+              value={props.name}
               onChange={(event) => {
                 props.updateValue.setName(event.target.value);
                 console.log(props.lastName);
@@ -38,7 +38,7 @@ const ContactPerson = (props) => {
               id="phone"
               name="phone"
               className="form-control border-0 w-50"
-              value={props.lastName}
+              value={props.phone}
               onChange={(event) => {
                 props.updateValue.setPhone(event.target.value);
                 console.log(props.lastName);
@@ -52,7 +52,7 @@ const ContactPerson = (props) => {
               id="email"
               name="email"
               className="form-control border-0 w-50"
-              value={props.lastName}
+              value={props.email}
               onChange={(event) => {
                 props.updateValue.setEmail(event.target.value);
                 console.log(props.lastName);

@@ -27,7 +27,7 @@ const TravelPaymentDetail = (props) => {
 
   const userEmail = jwtDecodedData.email;
   const orderIdNum = Date.now();
-  const orderId = 'NH' + orderIdNum;
+  const orderId = 'NT' + orderIdNum;
   const orderDate = moment(orderIdNum).format('YYYY-MM-DD HH:mm:ss');
 
   const storage = localStorage;
@@ -43,11 +43,21 @@ const TravelPaymentDetail = (props) => {
   const [discount, setDiscount] = useState(0);
   const [discountId, setDiscountId] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
+  
+  const [name,setName]=useState('')
+  const [phone,setPhone]=useState('')
+  const [email,setEmail]=useState(userEmail)
 
   const updateValue = {
-    // setAmountA: (value) => {
-    //   setAmountA(value);
-    // },
+    setName: (value) => {
+      setName(value);
+    },
+    setPhone: (value) => {
+      setPhone(value);
+    },
+    setEmail: (value) => {
+      setEmail(value);
+    },
     setDiscountPrice: (value) => {
       setDiscountPrice(value);
     },
@@ -70,6 +80,7 @@ const TravelPaymentDetail = (props) => {
       setItemDetail(value);
     },
   };
+
 
   useEffect(() => {
     if (cartStorage === []) {
@@ -100,6 +111,7 @@ const TravelPaymentDetail = (props) => {
       .reduce((acc, cur) => acc + cur, 0);
     setCartItemsTotalPrice(cartPrice);
     setFinalPrice(cartPrice);
+    setCartItemsLenght(cartItems.length)
   }, [cartItems]);
   useEffect(() => {
     async function getUseCoupon() {
@@ -125,7 +137,15 @@ const TravelPaymentDetail = (props) => {
   // useEffect(() => {
   //   setFinalPrice(finalPrice);
   // }, [finalPrice]);
-
+  const [isChecked, setIsChecked] = useState(false);
+  async function handleArgee(e) {
+    if (e.target.checked) {
+      console.log(' checked');
+    } else {
+      console.log('no checked');
+    }
+    setIsChecked((current) => !current);
+  }
   async function handleSubmit(e) {
     e.preventDefault();
     // !關閉表單預設行為
@@ -135,13 +155,14 @@ const TravelPaymentDetail = (props) => {
         orderIdNum: orderIdNum,
         orderDate: orderDate,
         formData: {
-          
+          name:name,
+          phone:phone,
+          email:email,
         },
-
         product: cartItems,
         totalPrice: cartItemsTotalPrice,
+        finalPrice:finalPrice*(discount/10),
         amount: cartItemsLength,
-
         discount: discount,
         discountId: discountId,
       };
@@ -150,23 +171,29 @@ const TravelPaymentDetail = (props) => {
         orderData
       );
       // * ajax
-      try {
-        let response = await axios.post(
-          'http://localhost:3000/api/payment/Detail/Hotel/order',
-          orderData
-        );
+      if(!isChecked){
+      alert('請勾選同意 隱私條款與優惠資訊');
+      }else{
 
-        navigate(`/payment/Hotel/CheckOut/${orderId}`);
-      } catch (e) {
-        alert('order go go ');
+        try {
+          let response = await axios.post(
+            'http://localhost:3000/api/payment/Detail/Travel/order',
+            orderData
+          );
+  
+          navigate(`/payment/Hotel/CheckOut/${orderId}`);
+        } catch (e) {
+          alert('order go go ');
+        }
+        storage.removeItem('cart');
       }
-      storage.removeItem('hotelRoom');
     } else {
       alert('請先登入後再繼續購買流程');
       navigate(`/login1`);
     }
   }
 
+  console.log('========cartItems========', cartItems);
   console.log('paDetail cartItemsTotalPrice', cartItemsTotalPrice);
   console.log('payDetial discount', discount);
   console.log('payDetialID discountId', discountId);
@@ -199,7 +226,7 @@ const TravelPaymentDetail = (props) => {
 
             {/* <!-- NOTE 聯絡資料 --> */}
             <div className="item-section row col-12  my-3">
-              <ContactPerson />
+              <ContactPerson   email={email} name={name} phone={phone} updateValue={updateValue}/>
             </div>
             {/* <!-- NOTE 折扣 --> */}
             <UseDiscount
@@ -212,8 +239,16 @@ const TravelPaymentDetail = (props) => {
             {/* NOTE <!-- * 同意條款 --> */}
             <div className="rule-section  row col-12 pb-5">
               <div className="argee px-1 pb-3 d-flex align-items-center">
-                <input type="checkbox" name="" id="" className="mx-2" />
-                我了解並同意來七桃服務條款與隱私權政策
+              <input
+                    type="checkbox"
+                    name="subscribe"
+                    id="subscribe"
+                    value={isChecked}
+                    className=" mx-3"
+                    onChange={handleArgee}
+                  />
+                  是，我同意接受<a href="">隱私權條款</a>
+                  並通知我來七桃優惠資訊。
               </div>
               <div className="alert alert-danger m-0">
                 請確認訂單填寫無誤，訂單確認後可能無法更改。

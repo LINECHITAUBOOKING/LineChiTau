@@ -44,11 +44,11 @@ const SubTotalList = (props) => {
           {/* <!-- NOTE ? 有要分票券張數跟行程計數嗎? --> */}
           <h5>總數：{itemCount.length} 項行程</h5>
           <h5>原價：{props.cartItemsTotalPrice} 元</h5>
-          <h5>
+          <h5 className="text-danger">
             折扣：
             {discount > 0 ? props.cartItemsTotalPrice * (1 - discount) : 0}
           </h5>
-          <h5 className="text-danger">
+          <h5 >
             實付：
             {discount > 0
               ? props.finalPrice - props.cartItemsTotalPrice * (1 - discount)
