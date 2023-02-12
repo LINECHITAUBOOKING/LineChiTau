@@ -50,7 +50,9 @@ const SubTotalList = (props) => {
           </h5>
           <h5 className="text-danger">
             實付：
-            {props.finalPrice - props.cartItemsTotalPrice * (1 - discount)}
+            {discount > 0
+              ? props.finalPrice - props.cartItemsTotalPrice * (1 - discount)
+              : props.cartItemsTotalPrice}
           </h5>
         </div>
 
@@ -71,6 +73,7 @@ const SubTotalList = (props) => {
             <Link
               className="text-decoration-none "
               to={'/payment/Travel/CheckOut'}
+              onClick={props.handleSubmit}
             >
               前往付款
             </Link>

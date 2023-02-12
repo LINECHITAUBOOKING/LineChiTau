@@ -134,7 +134,9 @@ const TravelPaymentDetail = (props) => {
         userEmail: userEmail,
         orderIdNum: orderIdNum,
         orderDate: orderDate,
-        formData: {},
+        formData: {
+          
+        },
 
         product: cartItems,
         totalPrice: cartItemsTotalPrice,
@@ -230,6 +232,7 @@ const TravelPaymentDetail = (props) => {
               discountPrice={discountPrice}
               finalPrice={finalPrice}
               updateValue={updateValue}
+              handleSubmit={handleSubmit}
             />
           </div>
         </div>

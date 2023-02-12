@@ -9,7 +9,7 @@ const PurchaseItem = (props) => {
       {props.cartItems.map((cartItems, index) => (
         <div className="item-section row col-12  mb-3" key={index}>
           <div className="item row col-12  mb-3 py-3 ">
-            <div className="item-box col-7">
+            <div className="item-box col-12">
               <div className="img-box">
                 <img
                   src={ProductImg}
