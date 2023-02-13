@@ -11,7 +11,6 @@ import {
 } from 'react-router-dom';
 import axios from 'axios';
 
-
 import ProductImg from '../../Hotel/img/banner.svg';
 import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 import UserData from '../PaymentComponent/UserData/UserData';
@@ -24,14 +23,13 @@ import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
 
 const moment = require('moment');
 
-
 const TravelPaymentCheckOut = () => {
   const currentStep = 3;
   const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   const { orderId } = useParams();
   let navigate = useNavigate();
   const [orderDetail, setOrderDetail] = useState([]);
-
+  const [initTab, setInitTab] = useState(0);
   const [description, setDescription] = useState('');
   const [booker, setBooker] = useState('');
 
@@ -43,82 +41,20 @@ const TravelPaymentCheckOut = () => {
       );
       console.log('responseDATA', response.data);
       if (!response.data[0]) return;
-      setOrderDetail(response.data[0]);
-      
+      setOrderDetail(response.data);
       setDescription(response.data[0].description);
       setBooker(JSON.parse(response.data[0].description)[0].booker);
+      setInitTab(response.data[0].order_detail_id);
       // setHotelImg(response.data[0].hotel_img);
     }
     getOrderDetail();
     // const memo = JSON.parse(description)[0].memo;
-    console.log('=-============memo======================', memo);
+    console.log('=-============memo======================', orderDetail);
+    console.log('=-============setInitTab======================', initTab);
   }, []);
+  console.log('=-============orderDetail======================', orderDetail);
+  console.log('=-============setInitTab Out======================', initTab);
 
-  const cartItems = [
-    {
-      itemId: 1,
-      itemName: '高雄美麗島',
-      itemChosen: '一日遊',
-      chosenStartDate: '2021-01-31',
-      chosenEndDate: '2021-01-31',
-      amount: 2,
-      price: 200,
-      description: {
-        participantTabs: [
-          {
-            participantId: 1,
-            participantTitle: '王大明',
-            content: {
-              name: '王大明',
-              phone: '0912345678',
-              email: 'asd123@asda.com',
-            },
-          },
-          {
-            participantId: 2,
-            participantTitle: '李小美',
-            content: {
-              name: '李小美',
-              phone: '0987654321',
-              email: 'qwe123@qewq.com',
-            },
-          },
-        ],
-      },
-    },
-    {
-      itemId: 2,
-      itemName: '宜蘭快樂遊1',
-      itemChosen: '三日遊',
-      chosenStartDate: '2021-01-31',
-      chosenEndDate: '2021-02-02',
-      amount: 2,
-      price: 300,
-      description: {
-        participantTabs: [
-          {
-            participantId: 1,
-            participantTitle: '王大明',
-            content: {
-              name: '王大明',
-              phone: '0912345678',
-              email: 'asd123@asda.com',
-            },
-          },
-          {
-            participantId: 2,
-            participantTitle: '馬大美',
-            content: {
-              name: '馬大美',
-              phone: '0987654321',
-              email: 'qwe123@qewq.com',
-            },
-          },
-        ],
-      },
-    },
-  ];
-  
   const [userCreditCard, setUserCreditCard] = useState({});
   const [number, setNumber] = useState('');
   const [name, setName] = useState('');
@@ -152,7 +88,6 @@ const TravelPaymentCheckOut = () => {
     //   setMemo(value);
     // },
   };
-  
 
   async function handleGetCard(e) {
     e.preventDefault();
@@ -196,10 +131,10 @@ const TravelPaymentCheckOut = () => {
       alert('請輸入有效日期');
     } else if (!cvc) {
       alert('請輸入安全碼');
-    } 
+    }
     // else if (!isChecked) {
     //   alert('請勾選同意 隱私條款與優惠資訊');
-    // } 
+    // }
     else {
       // * ajax
 
@@ -219,6 +154,7 @@ const TravelPaymentCheckOut = () => {
       navigate(`/profile/listdetail/${orderId}`);
     }
   }
+  console.log('=======Detail===', orderDetail);
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -228,10 +164,11 @@ const TravelPaymentCheckOut = () => {
         <div className=" row w-100 px-0 mx-0 ">
           <div className="col-4 ps-0 my-3">
             {/* <PaymentMethod /> */}
-            <UserData booker={booker}/>
+            <UserData booker={booker} />
           </div>
           <div className="col-8 pe-0 my-3">
-            <CheckOutItemList cartItems={cartItems} />
+            {console.log('list------', orderDetail)}
+            <CheckOutItemList orderItems={orderDetail} initTab={initTab} />
           </div>
         </div>
         {/* <!-- TODO 付款方式資料 --> */}
@@ -240,14 +177,19 @@ const TravelPaymentCheckOut = () => {
             <div className="payment-detail d-flex flex-column mb-3 px-5 ">
               <div className="contact-title d-flex align-items-center justify-content-between my-3 px-0">
                 <h3 className="title">填寫付款資料</h3>
-                <button className="my-card-btn d-flex align-items-center justify-content-around  "  onClick={handleGetCard}>
+                <button
+                  className="my-card-btn d-flex align-items-center justify-content-around  "
+                  onClick={handleGetCard}
+                >
                   <span className="material-symbols-rounded">credit_card</span>
                   <span>我的信用卡</span>
                 </button>
               </div>
-              <CheckOutCreditCard  creditCard={creditCard}
-                  userCreditCard={userCreditCard}
-                  updateValue={updateValue} />
+              <CheckOutCreditCard
+                creditCard={creditCard}
+                userCreditCard={userCreditCard}
+                updateValue={updateValue}
+              />
               <div className="notice w-100 py-3 text-right">
                 <h5 className="d-flex justify-content-end">
                   本訂單無須CVC 安全碼
@@ -260,9 +202,9 @@ const TravelPaymentCheckOut = () => {
         {/* <!-- NOTE 同意條款 --> */}
         <div className="rule-section  col-12 pb-5">
           <div className="d-flex justify-content-center">
-            <button className="my-btn w-25 "
-              onClick={handleCheckOut}
-            >確認付款</button>
+            <button className="my-btn w-25 " onClick={handleCheckOut}>
+              確認付款
+            </button>
           </div>
         </div>
       </main>
