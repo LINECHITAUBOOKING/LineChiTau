@@ -239,6 +239,8 @@ const TravelPaymentDetail = (props) => {
                 email={email}
                 name={name}
                 tel={tel}
+                country={country}
+                lang={lang}
                 updateValue={updateValue}
               />
             </div>
