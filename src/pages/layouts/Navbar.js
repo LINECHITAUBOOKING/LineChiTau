@@ -9,7 +9,7 @@ const Navbar = () => {
   const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
   init(axios);
   let toLink = '';
-  const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
+  const linkList = ['旅遊行程', '訂房住宿', '會員中心'];
 
   return (
     <div className="container-fluid fill-background">
@@ -21,14 +21,7 @@ const Navbar = () => {
           {linkList.map((list, index) => {
             switch (list) {
               case '旅遊行程':
-<<<<<<< HEAD
-                toLink = '/travel';
-                break;
-              case '票卷活動':
-                toLink = '/ticket';
-=======
                 toLink = 'TripList';
->>>>>>> d221e1eabe9f494f12a7e585d243a13ed3fa775f
                 break;
               case '訂房住宿':
                 toLink = '/';
