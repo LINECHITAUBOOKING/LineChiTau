@@ -29,13 +29,10 @@ const CheckoutLinepay = ({ value }) => {
 
   useEffect(() => {
     const check = async () => {
-      const response = await axios.post(
-        `/auth/order/${jwtDecodedData.email}/${orderId}`,
-        { state: 1 }
-      );
+      const response = await axios.get(`/auth/order/${orderId}`);
     };
     check();
-  }, []);
+  }, [jwtToken]);
   return <></>;
 };
 
