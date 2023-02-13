@@ -11,7 +11,7 @@ import { JwtCsrfTokenContext } from '../../../utils/csrf-hook/useJwtCsrfToken';
 import axios from 'axios';
 
 const svgpic = [
-  'index-pic', //0
+  'list', //0
   'cupon', //1
   'mylove', //2
   'message', //3
@@ -23,6 +23,7 @@ const svgpic = [
 const svgpics = svgpic.map((item) => require('./images/' + item + '.svg'));
 
 let toLink = '';
+let icon = '';
 const linkList = [
   '訂單',
   '我的優惠券',
@@ -80,24 +81,31 @@ const Sidebatr = () => {
             switch (list) {
               case '訂單':
                 toLink = '/profile';
+                icon = 'list_alt';
                 break;
               case '我的優惠券':
                 toLink = '/profile/coupon';
+                icon = 'local_activity';
                 break;
               case '我的最愛':
                 toLink = '/profile/mylove';
+                icon = 'favorite';
                 break;
               case '訊息':
                 toLink = '/profile/message';
+                icon = 'forum';
                 break;
               case '支付':
                 toLink = '/profile/pay';
+                icon = 'credit_card';
                 break;
               case '設定':
                 toLink = '/profile/setting';
+                icon = 'settings';
                 break;
               case '登出':
                 toLink = '/';
+                icon = 'logout';
                 break;
               default:
                 toLink = '/404';
@@ -114,11 +122,12 @@ const Sidebatr = () => {
                         toast(list);
                       }}
                     >
-                      <img
-                        className="item-pic"
+                      <span class="material-symbols-outlined my-p">{icon}</span>
+                      {/* <img
+                        className="item-pic my-p"
                         src={svgpics[index]}
                         alt="item-pic"
-                      />
+                      /> */}
                       <div className="item-text microsoftjhenghei-bold-old-copper-14px text-decoration-none">
                         {linkList[index]}
                       </div>

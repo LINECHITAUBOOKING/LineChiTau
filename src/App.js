@@ -84,7 +84,7 @@ function App() {
               <Route path="alllist" element={<Alllist />} />
               <Route path="listdetail/:id" element={<ListDetail />} />
 
-              <Route path="pay-order" element={<Order />} />
+              <Route path="pay-order/:id" element={<Order />} />
               <Route path="pay-confirm" element={<Confirm />} />
               <Route path="pay-cancel" element={<Cancel />} />
               <Route
