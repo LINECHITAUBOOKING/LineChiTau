@@ -9,7 +9,7 @@ const Navbar = () => {
   const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
   init(axios);
   let toLink = '';
-  const linkList = ['旅遊行程', '票卷活動', '訂房住宿', '會員中心'];
+  const linkList = ['旅遊行程', '訂房住宿', '會員中心'];
 
   return (
     <div className="container-fluid fill-background">
