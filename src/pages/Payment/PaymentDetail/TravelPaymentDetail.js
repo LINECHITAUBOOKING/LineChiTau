@@ -43,20 +43,28 @@ const TravelPaymentDetail = (props) => {
   const [discount, setDiscount] = useState(0);
   const [discountId, setDiscountId] = useState(0);
   const [discountPrice, setDiscountPrice] = useState(0);
-  
-  const [name,setName]=useState('')
-  const [phone,setPhone]=useState('')
-  const [email,setEmail]=useState(userEmail)
+
+  const [name, setName] = useState('');
+  const [tel, setTel] = useState('');
+  const [email, setEmail] = useState(userEmail);
+  const [country, setCountry] = useState('');
+  const [lang, setLang] = useState('');
 
   const updateValue = {
     setName: (value) => {
       setName(value);
     },
-    setPhone: (value) => {
-      setPhone(value);
+    setTel: (value) => {
+      setTel(value);
     },
     setEmail: (value) => {
       setEmail(value);
+    },
+    setCountry: (value) => {
+      setCountry(value);
+    },
+    setLang: (value) => {
+      setLang(value);
     },
     setDiscountPrice: (value) => {
       setDiscountPrice(value);
@@ -81,7 +89,6 @@ const TravelPaymentDetail = (props) => {
     },
   };
 
-
   useEffect(() => {
     if (cartStorage === []) {
       setCartItems([]);
@@ -91,7 +98,7 @@ const TravelPaymentDetail = (props) => {
 
     async function getUserCoupons() {
       let response = await axios.get(
-        `http://localhost:3001/api/payment/Detail/Hotel/userCoupons/${jwtDecodedData.email}`
+        `http://localhost:3001/api/payment/Detail/Travel/userCoupons/${jwtDecodedData.email}`
       );
       console.log('=====userCoupon====', response.data);
       setUserCoupon(response.data);
@@ -111,12 +118,12 @@ const TravelPaymentDetail = (props) => {
       .reduce((acc, cur) => acc + cur, 0);
     setCartItemsTotalPrice(cartPrice);
     setFinalPrice(cartPrice);
-    setCartItemsLenght(cartItems.length)
+    setCartItemsLenght(cartItems.length);
   }, [cartItems]);
   useEffect(() => {
     async function getUseCoupon() {
       let response = await axios.get(
-        `http://localhost:3001/api/payment/Detail/Hotel/coupon/${discountId}`
+        `http://localhost:3001/api/payment/Detail/Travel/coupon/${discountId}`
       );
       console.log(
         'getUseCoupongetUseCoupongetUseCoupongetUseCoupon',
@@ -155,13 +162,16 @@ const TravelPaymentDetail = (props) => {
         orderIdNum: orderIdNum,
         orderDate: orderDate,
         formData: {
-          name:name,
-          phone:phone,
-          email:email,
+          name: name,
+          tel: tel,
+          email: email,
+          country: country,
+          lang: lang,
         },
         product: cartItems,
         totalPrice: cartItemsTotalPrice,
-        finalPrice:finalPrice*(discount/10),
+        finalPrice:
+          discount === 0 ? cartItemsTotalPrice : finalPrice * (discount / 10),
         amount: cartItemsLength,
         discount: discount,
         discountId: discountId,
@@ -171,17 +181,16 @@ const TravelPaymentDetail = (props) => {
         orderData
       );
       // * ajax
-      if(!isChecked){
-      alert('請勾選同意 隱私條款與優惠資訊');
-      }else{
-
+      if (!isChecked) {
+        alert('請勾選同意 隱私條款與優惠資訊');
+      } else {
         try {
           let response = await axios.post(
             'http://localhost:3000/api/payment/Detail/Travel/order',
             orderData
           );
-  
-          navigate(`/payment/Hotel/CheckOut/${orderId}`);
+
+          navigate(`/payment/Travel/CheckOut/${orderId}`);
         } catch (e) {
           alert('order go go ');
         }
@@ -226,7 +235,14 @@ const TravelPaymentDetail = (props) => {
 
             {/* <!-- NOTE 聯絡資料 --> */}
             <div className="item-section row col-12  my-3">
-              <ContactPerson   email={email} name={name} phone={phone} updateValue={updateValue}/>
+              <ContactPerson
+                email={email}
+                name={name}
+                tel={tel}
+                country={country}
+                lang={lang}
+                updateValue={updateValue}
+              />
             </div>
             {/* <!-- NOTE 折扣 --> */}
             <UseDiscount
@@ -239,16 +255,16 @@ const TravelPaymentDetail = (props) => {
             {/* NOTE <!-- * 同意條款 --> */}
             <div className="rule-section  row col-12 pb-5">
               <div className="argee px-1 pb-3 d-flex align-items-center">
-              <input
-                    type="checkbox"
-                    name="subscribe"
-                    id="subscribe"
-                    value={isChecked}
-                    className=" mx-3"
-                    onChange={handleArgee}
-                  />
-                  是，我同意接受<a href="">隱私權條款</a>
-                  並通知我來七桃優惠資訊。
+                <input
+                  type="checkbox"
+                  name="subscribe"
+                  id="subscribe"
+                  value={isChecked}
+                  className=" mx-3"
+                  onChange={handleArgee}
+                />
+                是，我同意接受<a href="">隱私權條款</a>
+                並通知我來七桃優惠資訊。
               </div>
               <div className="alert alert-danger m-0">
                 請確認訂單填寫無誤，訂單確認後可能無法更改。
