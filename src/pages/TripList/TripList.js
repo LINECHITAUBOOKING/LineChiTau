@@ -13,7 +13,7 @@ export default function TestList() {
   //TODO 更新收藏資料庫、
   //TODO 將從API調出的資料傳進去產品卡片
 
-  const URLRawkeyword = '台北 陽明山';
+  const URLRawkeyword = '台北';
   // const [newRawKeyword, setNewRawKeyword] = useState();
 
   //將回傳資料設為本元件的state

@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import TripIntro from './DetailComponet/TripIntro/TripIntro';
+// import { add } from 'date-fns';
 // import TripRecommend from './DetailComponet/TripRecommend/TripRecommend';
 // import Comment from './DetailComponet/Comment/Comment';
 
@@ -16,6 +17,21 @@ export default function TripProductDetail() {
     tripData: [],
     planData: [],
   });
+  const [tripId, setTripID] = useState();
+  const [tripName, setTripName] = useState();
+  const [serviceArr, setServiceArr] = useState();
+  const [address, setAddress] = useState();
+  const [introduction, setIntroduction] = useState();
+  const [introPic, setIntroPic] = useState();
+  const [picIntro, setPicIntro] = useState();
+  const [allPic, setAllPic] = useState();
+  const [geoLocationX, setGeoLocationX] = useState();
+  const [geoLocationY, setGeoLocationY] = useState();
+  const [region, setRegion] = useState();
+  const [grade, setGrade] = useState();
+
+  const [content, setContent] = useState();
+  const [notice, setNotice] = useState();
 
   // const [ReturnedContractData, setReturnedContractData] = useState();
 
@@ -23,85 +39,111 @@ export default function TripProductDetail() {
   const { URLkeyword } = useParams();
   // const nowDate = new Date();
 
-  //! fetch 用的含式
-  async function fetchData() {
-    try {
-      const returnedTripData = await axios.get(
-        `http://localhost:3001/api/tripProductDetails/${URLkeyword}`
-      );
-      const returnedPlanData = await axios.get(
-        `http://localhost:3001/api/tripProductDetails/${URLkeyword}/plans`
-      );
-      setReturnedData({
-        tripData: returnedTripData.data,
-        planData: returnedPlanData.data,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   //! 使用fetchData
   useEffect(() => {
+    async function fetchData() {
+      try {
+        const returnedTripData = await axios.get(
+          `http://localhost:3001/api/tripProductDetails/${URLkeyword}`
+        );
+        const returnedPlanData = await axios.get(
+          `http://localhost:3001/api/tripProductDetails/${URLkeyword}/plans`
+        );
+        console.log(returnedTripData.data);
+        console.log(returnedPlanData.data);
+        setReturnedData({
+          tripData: returnedTripData.data,
+          planData: returnedPlanData.data,
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    }
     fetchData();
   }, []);
-  //! 在tripData的物件資料上加上service屬性
-  const rawTripDataArr = returnedData.tripData;
-  const newTripData = rawTripDataArr.map((item) => {
-    const {
-      culture_history,
-      amusement,
-      meal,
-      no_shopping,
-      self_trip,
-      guide_trip,
-      mountain,
-      in_water,
-      snow,
-    } = item;
-    const ItemServiceList = [
-      { service: '人文歷史', value: culture_history },
-      { service: '娛樂享受', value: amusement },
-      { service: '供餐', value: meal },
-      { service: '無購物行程', value: no_shopping },
-      { service: '自助旅行', value: self_trip },
-      { service: '導遊帶隊', value: guide_trip },
-      { service: '登山踏青', value: mountain },
-      { service: '水上活動', value: in_water },
-      { service: '雪上活動', value: snow },
-    ];
-    const ItemActualService = ItemServiceList.filter((v) => {
-      return v.value !== 0;
-    }).map((v) => {
-      return v.service;
+
+  useEffect(() => {
+    //! 在tripData的物件資料上加上service屬性
+    console.log('Returned Data:', returnedData);
+    const rawTripDataArr = returnedData.tripData;
+    console.log('取得Data中的陣列', rawTripDataArr);
+    console.log(typeof rawTripDataArr);
+    const newTripData = rawTripDataArr.map((item) => {
+      const {
+        culture_history,
+        amusement,
+        meal,
+        no_shopping,
+        self_trip,
+        guide_trip,
+        mountain,
+        in_water,
+        snow,
+      } = item;
+      const ItemServiceList = [
+        { service: '人文歷史', value: culture_history },
+        { service: '娛樂享受', value: amusement },
+        { service: '供餐', value: meal },
+        { service: '無購物行程', value: no_shopping },
+        { service: '自助旅行', value: self_trip },
+        { service: '導遊帶隊', value: guide_trip },
+        { service: '登山踏青', value: mountain },
+        { service: '水上活動', value: in_water },
+        { service: '雪上活動', value: snow },
+      ];
+      const ItemActualService = ItemServiceList.filter((v) => {
+        return v.value !== 0;
+      }).map((v) => {
+        return v.service;
+      });
+      item.service = ItemActualService;
+      return item;
     });
-    item.service = ItemActualService;
-    return item;
-  });
-  // console.log(newTripData);
-  // console.log(newTripData[0]);
+    console.log('NewTripData', newTripData);
+    console.log('NewTripData[0]', newTripData[0]);
+    const newTripDataObj = newTripData[0];
+    if (newTripDataObj) {
+      const {
+        trip_id,
+        trip_name,
+        service,
+        address,
+        introduction,
+        intro_pic,
+        pic_intro,
+        all_pic,
+        geo_locationX,
+        geo_locationY,
+        region,
+        comment_amount,
+        comment_grade,
+      } = newTripDataObj;
+      const stringIntro = JSON.parse(introduction).introduction;
+      setTripID(trip_id);
+      setTripName(trip_name);
+      setServiceArr(service);
+      setAddress(address);
+      setIntroduction(stringIntro);
+      setIntroPic(intro_pic);
+      setPicIntro(pic_intro);
+      setAllPic(all_pic);
+      setGeoLocationX(geo_locationX);
+      setGeoLocationY(geo_locationY);
+      setRegion(region);
+      setGrade(comment_grade / comment_amount);
+      setContent(returnedData.planData[0].plan_content);
+      setNotice(returnedData.planData[0].plan_content);
+    }
+  }, [returnedData]);
 
-  //取得產品資料 解構為 1.Name 2.Service 3.Address 4.Description 5.GeoX, GeoY 6.Grades, GAmount
-  //1.PlanName 2.StartDate,EndDate 3.AduAmount,KidAmount,EldAmount,AduPrice,KidPrice,EldPrice 4.LaunchTime 5.PlanDescription
-  const {
-    trip_name,
-    service,
-    address,
-    introduction,
-    intro_pic,
-    pic_intro,
-    all_pic,
-    geo_locationX,
-    geo_locationY,
-    region,
-    comment_amount,
-    comment_grade,
-  } = newTripData[0];
+  useEffect(() => {
+    console.log(serviceArr);
+  }, [serviceArr]);
 
-  // 從訂單資料庫取得資料 (用產品ID)，再解構為
-  // 1.PaidAmountA, PaidAmountK, PaidAmountE, PaidAmountF ,PaidAmountS ,PaidAmountT 2.PreservedDate (訂哪一天) 3.PLaunchTime
-  // 從評論資料庫取得資料 再解構為
-  // 1.CommentGuest 2.GuestName 3.CommentTime 4.CommentGrade 5.CommentContent 6.CommentPicture
+  // useEffect(() => {
+  //   console.log(returnedData.planData);
+  // }, [returnedData]);
+
   return (
     <>
       <div className="container-xxl" style={{ backgroundColor: 'white' }}>
@@ -109,17 +151,23 @@ export default function TripProductDetail() {
         <div className="row mt-4">
           <div className="col-8 d-flex flex-column justify-content-between">
             <SummaryNav listItems={['行程介紹', '地圖', '評論區']} />
-            <h3>{trip_name}</h3>
+            <h3>{tripName === undefined ? 0 : tripName}</h3>
             <div className="d-flex">
-              {service.map((v) => (
-                <div className="service">{v}</div>
-              ))}
+              {serviceArr === undefined
+                ? 0
+                : serviceArr.map((v) => {
+                    return (
+                      <>
+                        <div className="service">{v}</div>
+                      </>
+                    );
+                  })}
             </div>
             <p className="my-p d-flex align-items-center">
               <span className="material-symbols-outlined address">
                 location_on
               </span>
-              {address}
+              {address === undefined ? 0 : address}
             </p>
           </div>
 
@@ -128,12 +176,23 @@ export default function TripProductDetail() {
           </div>
         </div>
       </div>
-      {/* border: '2px solid red' */}
       <div className="container-xxl" style={{ backgroundColor: 'white' }}>
         <div className="mt-3 d-flex justify-content-between">
-          <MainSelector planData={returnedData.planData} />
+          {returnedData.planData === undefined ? (
+            0
+          ) : (
+            <MainSelector
+              planData={returnedData.planData}
+              tripId={tripId}
+              tripName={tripName}
+              initContent={content}
+              initNotice={notice}
+              setContent={setContent}
+              setNotice={setNotice}
+            />
+          )}
         </div>
-        <TripIntro />
+        <TripIntro tripIntroduction={introduction} />
         {/* <TripMap /> */}
         {/* <Comment/> */}
         {/* <TripRecommend/> */}

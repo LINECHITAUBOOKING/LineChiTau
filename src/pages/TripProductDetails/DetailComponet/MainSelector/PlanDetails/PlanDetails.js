@@ -1,27 +1,32 @@
 import './PlanDetails.scss';
 
-export default function PlanDetails({
-  PlanDescription = ['12點出發', '15點回家'],
-  PlanSuggestion = '穿防水的鞋子，帶少許零錢',
-}) {
+export default function PlanDetails({ content, notice }) {
+  console.log('PlanDetails裏頭content', content);
+  console.log('PlanDetails裏頭notice', notice);
+
+  // const planContent = JSON.parse(content);
+  // const planNotice = JSON.parse(notice);
+
+  // console.log('COntentJSOn', planContent.time);
   return (
     <>
       <div className="plan-details">
         <div className="details-wrapper d-flex flex-column">
           <div className="details-container my-heading d-flex align-content-center justify-content-between">
             方案詳情
-            <span className="material-symbols-outlined show-btn">
+            <button className="material-symbols-outlined show-btn">
               change_history
-            </span>
+            </button>
           </div>
-          <div className="collapse-details">{PlanDescription}</div>
+          <div className="hidden-box"></div>
+          <div className="collapse-details"></div>
           <div className="details-container my-heading d-flex align-content-center justify-content-between">
             訂購須知
-            <span className="material-symbols-outlined show-btn">
+            <button className="material-symbols-outlined show-btn">
               change_history
-            </span>
+            </button>
           </div>
-          <div className="collapse-details">{PlanSuggestion}</div>
+          <div className="collapse-details"></div>
         </div>
       </div>
     </>

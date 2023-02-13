@@ -9,8 +9,8 @@ export default function TripIntro({ tripIntroduction }) {
               change_history
             </span>
           </button>
-          <div className="intro">{tripIntroduction}</div>
         </div>
+        <div className="intro">{tripIntroduction}</div>
       </div>
     </>
   );

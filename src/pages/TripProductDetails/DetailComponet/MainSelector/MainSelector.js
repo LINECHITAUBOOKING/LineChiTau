@@ -1,130 +1,146 @@
 import '../../../../css/global-style.scss';
 import './MainSelector.scss';
 import { useState } from 'react';
-import PlanSelector from './PlanSelector/PlanSelector';
 import PlanDetails from './PlanDetails/PlanDetails';
+import { useEffect } from 'react';
 import AmountSelector from './AmountSelector/AmountSelector';
+import { registerUrl } from '../../../../utils/csrf-hook/server-config';
+// import AmountSelector from './AmountSelector/AmountSelector';
 
-export default function MainSelector({ planData }) {
-  //! 正在瀏覽何種方案
-  const [viewingPlan, setViewingPlan] = useState('0');
-  let displayPlan = planData[viewingPlan];
+export default function MainSelector({
+  planData,
+  tripId,
+  tripName,
+  initContent,
+  initNotice,
+  setContent,
+  setNotice,
+}) {
+  //購買用的state
+  const storage = localStorage;
+  const [departTime, setDepartTime] = useState('');
+  const [amountA, setAmountA] = useState(0);
+  const [amountC, setAmountC] = useState(0);
+  const [amountE, setAmountE] = useState(0);
+  const [planId, setPlanId] = useState('');
+  const [planName, setPlanName] = useState('');
+  //單價
+  const [priceA, setPriceA] = useState(0);
+  const [priceC, setPriceC] = useState(0);
+  const [priceE, setPriceE] = useState(0);
+  const [cartItems, setCartItems] = useState([]);
+  const [totalPrice, setTotalPrice] = useState(0);
 
-  function handlePlanSelect(e) {
-    setViewingPlan(e.target.id);
+  //要傳給購物車的格式
+  const cartItem = {
+    tripId: tripId,
+    tripName: tripName,
+    planId: planId,
+    planName: planName,
+    amountA: amountA,
+    amountC: amountC,
+    amountE: amountE,
+    priceA: priceA,
+    priceC: priceC,
+    priceE: priceE,
+    totalPrice: totalPrice,
+    departTime: departTime,
+  };
+
+  function checkDate() {
+    if (!departTime) {
+      alert('請記得選擇出發日期');
+    }
   }
-  //購票數量
-  const [buyingAmount, setBuyingAmount] = useState({
-    adult: 0,
-    elder: 0,
-    child: 0,
-  });
 
-  // function AdultSelect({ buyingAmount, setBuyingAmount }) {
-  //   const [adultAmount, setAdultAmount] = useState();
-  //   return (
-  //     <AmountSelector
-  //       setBuyingAmount={setBuyingAmount}
-  //       buyingAmount={buyingAmount.adult}
-  //     />
-  //   );
-  // }
-  // function ElderSelect({ buyingAmount, setBuyingAmount }) {
-  //   const [elderAmount, setElderAmount] = useState();
-  //   return (
-  //     <AmountSelector
-  //       setBuyingAmount={setBuyingAmount}
-  //       buyingAmount={buyingAmount.elder}
-  //     />
-  //   );
-  // }
-  function ChildSelect({ buyingAmount, setBuyingAmount }) {
-    const [childAmount, setChildAmount] = useState();
-    return (
-      <AmountSelector
-        setBuyingAmount={setChildAmount({
-          ...buyingAmount,
-          child: childAmount,
-        })}
-        buyingAmount={childAmount}
-      />
-    );
-  }
+  useEffect(() => {
+    setTotalPrice(amountA * priceA + amountE * priceE + amountC * priceC);
+  }, [priceA, priceE, priceC, amountA, amountE, amountC]);
 
   return (
     <>
-      {/* <div className="mt-3 d-flex justify-content-between"> */}
       <div className="main-selector">
         <div className="title-and-clear-btn d-flex justify-content-between">
           <h3 className="title-underline box-title">選擇日期及方案</h3>
-          <div className="round-btn">清除全部</div>
         </div>
         <p className="my-p">請選擇參加日期</p>
         <div className="time-selector-wrapper d-flex">
-          <div className="preserved-date round-btn d-flex align-content-center justify-content-between">
-            2022/12/29
-            <span className="material-symbols-outlined show-btn my-p">
-              change_history
-            </span>
-          </div>
+          <input
+            type="date"
+            value={departTime}
+            className="form_control preserved_date round-btn"
+            onChange={(e) => {
+              setDepartTime(e.target.value);
+            }}
+          ></input>
         </div>
         <p className="my-p">請選擇方案類型</p>
         <div className="plan-wrapper d-flex flew-wrap">
-          {planData.map((item, i) => (
-            <button className="service">{item.plan_name}</button>
-          ))}
+          {planData
+            ? planData.map((item) => (
+                <button
+                  key={item.plan_id}
+                  className="service"
+                  value={item.plan_id}
+                  onClick={() => {
+                    checkDate();
+                    setPlanId(item.plan_id);
+                    setPlanName(item.plan_name);
+                    setPriceA(item.price_adu);
+                    setPriceE(item.price_eld);
+                    setPriceC(item.price_chi);
+                    setContent(item.plan_content);
+                    setNotice(item.plan_notice);
+                  }}
+                >
+                  {item.plan_name}
+                </button>
+              ))
+            : 0}
         </div>
         <p className="my-p">人數</p>
         <div className="preserved-amount-wrapper d-flex flex-wrap">
-          {/* <adultSelect />
-          <elderSelect /> */}
-          {/* <ChildSelect /> */}
-          {/* <div className="preserved-amount adult d-flex justify-content-between">
-            成人
-            <div className="control-wrapper d-flex">
-              <span className="material-symbols-outlined">add_circle</span>1
-              <span className="material-symbols-outlined">
-                do_not_disturb_on
-              </span>
-            </div>
-          </div> */}
-          {/* <div className="preserved-amount kiddo d-flex justify-content-between">
-            兒童
-            <div className="control-wrapper d-flex">
-              <span className="material-symbols-outlined">add_circle</span>1
-              <span className="material-symbols-outlined">
-                do_not_disturb_on
-              </span>
-            </div>
-          </div> */}
-          {/* <div className="preserved-amount elder d-flex justify-content-between">
-            長者
-            <div className="control-wrapper d-flex">
-              <span className="material-symbols-outlined">add_circle</span>1
-              <span className="material-symbols-outlined">
-                do_not_disturb_on
-              </span>
-            </div>
-          </div> */}
+          {planId ? (
+            <AmountSelector
+              amountA={amountA}
+              amountE={amountE}
+              amountC={amountC}
+              setAmountA={setAmountA}
+              setAmountE={setAmountE}
+              setAmountC={setAmountC}
+              totalPrice={totalPrice}
+            />
+          ) : null}
         </div>
         <div className="final-total my-topic d-flex justify-content-between">
-          NT$ 2400
+          {`NT$\t` + totalPrice}
           <div className="cart-and-buy d-flex justify-content-evenly">
-            <div className="do-cart round-btn my-p d-flex align-items-center">
+            <button
+              onClick={() => {
+                if (cartItems.length > 0) {
+                  const newCartItems = [...cartItems];
+                  newCartItems.push(cartItem);
+                  setCartItems(newCartItems);
+                  console.log('cart-detail', newCartItems);
+                  // setModalOpen(true);
+                  storage.setItem('cart', JSON.stringify(newCartItems));
+                } else {
+                  const newCartItems = [];
+                  newCartItems.push(cartItem);
+                  setCartItems(newCartItems);
+                  console.log('cart-detail', newCartItems);
+                  // setModalOpen(true);
+                  storage.setItem('cart', JSON.stringify(newCartItems));
+                }
+              }}
+              className="do-cart round-btn my-p d-flex align-items-center"
+            >
               放入購物車
-            </div>
-            <div className="do-buy round-btn my-p d-flex align-items-center">
-              立即下單
-            </div>
+            </button>
           </div>
         </div>
       </div>
-      <PlanDetails
-        PlanDescription={['test', 'test2']}
-        PlanSuggestion="帶備用衣物"
-        PlanDisclamer="費用不包含交通費"
-      />
-      {/* </div> */}
+      <PlanDetails content={initContent} notice={initNotice} />
     </>
   );
 }
