@@ -92,16 +92,21 @@ const ListDetail = () => {
   }
   let statusText =
     result.state === 0 ? (
-      <Link
-        to={`/payment/Hotel/CheckOut/${id}`}
-        className="my-btn check-out"
-        onclick={() => {
-          console.log('click');
-          // navigate(`/payment/Hotel/CheckOut/${id}`); // 跳轉到/target頁
-        }}
-      >
-        未付款
-      </Link>
+      <>
+        <Link
+          to={`/payment/Hotel/CheckOut/${id}`}
+          className="my-btn check-out"
+          onclick={() => {
+            console.log('click');
+            // navigate(`/payment/Hotel/CheckOut/${id}`); // 跳轉到/target頁
+          }}
+        >
+          未付款
+        </Link>
+        <Link className="my-btn check-out" to={`/profile/pay-order/${id}`}>
+          Linepay
+        </Link>
+      </>
     ) : result.state === 1 ? (
       '已付款'
     ) : (

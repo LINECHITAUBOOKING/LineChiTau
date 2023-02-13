@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router';
-
+import Timer from './Timer';
+import CheckoutLinepay from './CheckoutLinepay';
 function Confirm() {
   // 重新導向用
   const navigate = useNavigate();
@@ -70,8 +71,10 @@ function Confirm() {
   return (
     <>
       <h1>已確認付款</h1>
-      <div>returnCode: {result.returnCode}</div>
-      <div>returnMessage: {result.returnMessage}</div>
+      <Timer />
+      <CheckoutLinepay />
+      {/* <div>returnCode: {result.returnCode}</div>
+      <div>returnMessage: {result.returnMessage}</div> */}
     </>
   );
 }

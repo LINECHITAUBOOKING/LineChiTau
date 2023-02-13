@@ -36,6 +36,7 @@ const TList = ({ value }) => {
   } = useQuery(['listdata', items], getUser, {
     // refetchOnWindowFocus: false,s
     retry: 0,
+    // refetchInterval: 1000,
     // cacheTime: 1000,
     // enabled: false,
   });
