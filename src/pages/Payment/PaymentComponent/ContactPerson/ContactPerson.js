@@ -7,71 +7,88 @@ const ContactPerson = (props) => {
   const [editModalOpen, setEditModalOpen] = useState(false);
 
   const [currentTab, setCurrentTab] = useState(1);
-  //   NOTE 測試DATA
-  const contactPersonTabs = [
-    {
-      contactPersonId: 1,
-      contactPersonTitle: '王大明',
-      content: {
-        name: '王大明',
-        phone: '0912345678',
-        email: 'asd123@asda.com',
-      },
-    },
-    {
-      contactPersonId: 2,
-      contactPersonTitle: '王老牛',
-      content: {
-        name: '王老牛',
-        phone: '0934562178',
-        email: 'Wangcow@cow.com',
-      },
-    },
-  ];
-  function updateEditModalOpen(step) {
-    setEditModalOpen(step);
-  }
-  const handleTabClick = (tabClick) => {
-    setCurrentTab(tabClick);
-  };
+
   return (
     <>
       <div className="contact-title d-flex align-items-center p-0">
         <h3 className="title">聯絡人資料</h3>
         <small className="ms-2">如果訂單有變動狀況將會通知您</small>
       </div>
-      <div className="item-chosen d-flex justify-content-start px-0 mb-3 my-3">
-        {contactPersonTabs.map((tab, index) => (
-          <ContactPersonTabTitle
-            key={index}
-            id={tab.contactPersonId}
-            title={tab.contactPersonTitle}
-            updateTab={handleTabClick}
-          ></ContactPersonTabTitle>
-        ))}
-        <button
-          className="my-edit-btn contact-user-btn d-flex align-items-center mx-1"
-          onClick={() => {
-            setAddModalOpen(true);
-          }}
-        >
-          <span className="material-symbols-rounded me-2">account_circle</span>
-          新增
-        </button>
-        {addModalOpen && (
-          <AddContactPersonModal setOpenModal={setAddModalOpen} />
-        )}
+
+      <div className="item-user row col-12 position-relative">
+        <div className="user-content row">
+        <h5 className='col-6'>
+            姓名:{' '}
+            <input
+              type="text"
+              id="name"
+              name="name"
+              className="form-control border-0 col-6"
+              value={props.name}
+              onChange={(event) => {
+                props.updateValue.setName(event.target.value);
+                console.log(props.lastName);
+              }}
+            />
+          </h5>
+          <h5 className='col-6'>
+            電話:
+            <input
+              type="tel"
+              id="tel"
+              name="tel"
+              className="form-control border-0 "
+              value={props.tel}
+              onChange={(event) => {
+                props.updateValue.setTel(event.target.value);
+                console.log(props.lastName);
+              }}
+            />
+          </h5>
+          <h5 className=''>
+            信箱:
+            <input
+              type="email"
+              id="email"
+              name="email"
+              className="form-control border-0 "
+              value={props.email}
+              onChange={(event) => {
+                props.updateValue.setEmail(event.target.value);
+                console.log(props.lastName);
+              }}
+            />
+          </h5>
+          <h5 className='col-6'>
+            國家 / 地區:{' '}
+            <input
+              type="text"
+              id="country"
+              name="country"
+              className="form-control border-0 col-6"
+              value={props.country}
+              onChange={(event) => {
+                props.updateValue.setCountry(event.target.value);
+                console.log(props.country);
+              }}
+            />
+          </h5>
+          <h5 className='col-6'>
+            語言:{' '}
+            <input
+              type="text"
+              id="lang"
+              name="lang"
+              className="form-control border-0 "
+              value={props.lang}
+              onChange={(event) => {
+                props.updateValue.setLang(event.target.value);
+                console.log(props.lastName);
+              }}
+            />
+          </h5>
+        </div>
       </div>
-      {contactPersonTabs.map((tab, index) => (
-        <ContactPersonTabBody
-          key={index}
-          currentTab={currentTab}
-          id={tab.contactPersonId}
-          content={tab.content}
-          editModalOpen={editModalOpen}
-          updateEditModalOpen={updateEditModalOpen}
-        ></ContactPersonTabBody>
-      ))}
     </>
   );
 };

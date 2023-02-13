@@ -1,7 +1,3 @@
-import UploadTrip from './pages/UploadTrip/UploadTrip';
-import TripSearchBar from './pages/ProductList/ListComponent/TripSearchBar/TripSearchBar';
-import './test.scss';
-import React, { useState } from 'react';
 import './App.css';
 import {
   BrowserRouter,
@@ -13,8 +9,6 @@ import {
 import './css/global.css';
 import Profile from './pages/Profile/Profile';
 import HotelHome from './pages/Hotel/pages/HotelHome';
-import Travel from './pages/Travel/Travel';
-import Ticket from './pages/Ticket/Ticket';
 import Payment from './pages/Payment/layout/Payment';
 import ShoppingCart from './pages/Payment/ShoppingCart/ShoppingCart';
 import TravelPaymentDetail from './pages/Payment/PaymentDetail/TravelPaymentDetail';
@@ -31,6 +25,8 @@ import Pay from './pages/Profile/pages/Pay/Pay';
 import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
+import TripList from './pages/TripList/TripList';
+import TripProductDetails from './pages/TripProductDetails/TripProductDetails';
 
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 
@@ -40,9 +36,6 @@ import HotelDetail from './pages/Hotel/pages/HotelDetail';
 import Hotel from './pages/Hotel/Hotel';
 import Alllist from './pages/Profile/pages/List/Alllist';
 import ScrollToTop from './pages/layouts/ScrollToTop';
-import TripDetail from './pages/Travel/TripDetail';
-import TripLIst from './pages/ProductList/TestList';
-import TestList from './pages/ProductList/TestList';
 import Token from './utils/Token';
 import Order from './pages/Profile/pages/List/Order/Payment/Order';
 import Confirm from './pages/Profile/pages/List/Order/Payment/Confirm';
@@ -53,16 +46,6 @@ function App() {
     <>
       <JwtCsrfTokenProvider>
         <Navbar />
-
-        <Routes>
-          {/* <Route path="/" element={<TripSearchBar />} /> */}
-          {/* <Route path="tripList" element={<TestList />} /> */}
-          {/* <Route path="tripDetails" element={<ProductDetails />} /> */}
-        </Routes>
-        {/* <Comment /> */}
-        {/* <PlanDetails /> */}
-        {/* <MainSelector /> */}
-
         <ScrollToTop>
           <Routes>
             <Route path="/" element={<Hotel />}>
@@ -74,7 +57,12 @@ function App() {
                 element={<HotelDetail />}
               />
             </Route>
-            <Route path="travelList" element={<TestList />}></Route>
+            <Route path="TripList" element={<TripList />}></Route>
+            <Route
+              path="TripProductDetails/:URLkeyword"
+              element={<TripProductDetails />}
+            ></Route>
+
             <Route path="login" element={<Demo />} />
             <Route path="token/:token" element={<Token />} />
             <Route path="login1" element={<Login />} />
@@ -98,10 +86,6 @@ function App() {
               <Route path="pay" element={<Pay />} />
               <Route path="setting" element={<Setting />} />
             </Route>
-            <Route path="travel" element={<Travel />}>
-              <Route index path="TripDetail" element={<TripDetail />} />
-            </Route>
-            <Route path="ticket" element={<Ticket />} />
             <Route path="ShoppingCart" element={<ShoppingCart />} />
             <Route path="/payment" element={<Payment />}>
               <Route path="Hotel/Detail" element={<HotelPaymentDetail />} />
