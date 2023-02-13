@@ -5,6 +5,7 @@ import { useState } from 'react';
 import Calendar from '../Calendar/Calendar';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import moment from 'moment';
 
 const HotelBanner = ({
   bannerSearchBar,
@@ -19,18 +20,40 @@ const HotelBanner = ({
   setelectedRoomAmount,
 }) => {
   const storage = localStorage;
-  const [startDate, setStartDate] = useState(localStorage.getItem('startDate'));
-  const [endDate, setEndDate] = useState(localStorage.getItem('endDate'));
-  const [destination, setDestination] = useState('台北');
+  const Now = Date.now();
+  const initStartDate = moment(Now).format('YYYY/MM/DD');
+  const initEndDate = moment(Now).add(1, 'days').format('YYYY/MM/DD');
+  const [startDate, setStartDate] = useState(
+    localStorage.getItem('startDate') === null
+      ? initStartDate
+      : localStorage.getItem('startDate')
+  );
+  const [endDate, setEndDate] = useState(
+    localStorage.getItem('endDate') === null
+      ? initEndDate
+      : localStorage.getItem('endDate')
+  );
+  const [destination, setDestination] = useState(
+    localStorage.getItem('destination') === null
+      ? '台北'
+      : localStorage.getItem('destination')
+  );
   // console.log(localStorage.getItem('destination'));
   const [dateFromTO, setDateFromTO] = useState(`${startDate} - ${endDate}`);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [openConditions, setOpenConditions] = useState(false);
   const navigate = useNavigate();
   const [conditions, setConditions] = useState({
-    adult: 2, //初始人數,房間數為一
-    children: 0, //可以不一定要有小孩
-    room: 1,
+    adult:
+      localStorage.getItem('adult') === null
+        ? 2
+        : localStorage.getItem('adult'), //初始人數,房間數為一
+    children:
+      localStorage.getItem('children') === null
+        ? 0
+        : localStorage.getItem('children'), //可以不一定要有小孩
+    room:
+      localStorage.getItem('room') === null ? 1 : localStorage.getItem('room'),
   });
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,6 +80,16 @@ const HotelBanner = ({
 
   const handleSubmitDetail = (event) => {
     event.preventDefault();
+    storage.setItem(
+      'orderItem',
+      JSON.stringify([
+        {
+          startDate,
+          endDate,
+          conditions,
+        },
+      ])
+    );
     localStorage.setItem('adult', conditions['adult']);
     localStorage.setItem('children', conditions['children']);
     localStorage.setItem('room', conditions['room']);

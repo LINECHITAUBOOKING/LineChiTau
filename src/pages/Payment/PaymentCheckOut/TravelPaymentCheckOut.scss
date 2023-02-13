@@ -54,3 +54,9 @@ position: relative;
         border-radius: $my-border-radius;
         padding: 30px 40px;
     }
+.tabUnActive{
+    border:1px solid transparent
+}
+.tabActive{
+    border:1px solid $main
+}

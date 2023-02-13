@@ -1,5 +1,0 @@
-export [ProductObj];  
-
-ProductObj = {
-  
-}

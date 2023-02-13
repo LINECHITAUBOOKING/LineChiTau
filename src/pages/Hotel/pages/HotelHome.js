@@ -21,9 +21,12 @@ const Hotel = (props) => {
 
   // 為了處理網址
   let navigate = useNavigate();
-
+  const moment = require('moment');
   const [hotelDetail, setHotelDetail] = useState({});
   const [roomDetail, setRoomDetail] = useState([]);
+  const Now = Date.now();
+  const initStartDate = moment(Now).format('YYYY/MM/DD');
+  const initEndDate = moment(Now).add(1, 'days').format('YYYY/MM/DD');
   useEffect(() => {
     async function getHotelDetail() {
       let response = await axios.get(
@@ -41,6 +44,12 @@ const Hotel = (props) => {
     }
     getHotelDetail();
     getRoomDetail();
+    localStorage.setItem('adult', 2);
+    localStorage.setItem('children', 0);
+    localStorage.setItem('room', 1);
+    localStorage.setItem('startDate', initStartDate);
+    localStorage.setItem('endDate', initEndDate);
+    localStorage.setItem('destination', '台北');
   }, []);
 
   return (

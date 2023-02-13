@@ -16,14 +16,14 @@ const ContactPerson = (props) => {
       </div>
 
       <div className="item-user row col-12 position-relative">
-        <div className="user-content ">
-          <h5>
+        <div className="user-content row">
+        <h5 className='col-6'>
             姓名:{' '}
             <input
               type="text"
               id="name"
               name="name"
-              className="form-control border-0 w-50"
+              className="form-control border-0 col-6"
               value={props.name}
               onChange={(event) => {
                 props.updateValue.setName(event.target.value);
@@ -31,30 +31,58 @@ const ContactPerson = (props) => {
               }}
             />
           </h5>
-          <h5>
+          <h5 className='col-6'>
             電話:
             <input
               type="tel"
-              id="phone"
-              name="phone"
-              className="form-control border-0 w-50"
-              value={props.phone}
+              id="tel"
+              name="tel"
+              className="form-control border-0 "
+              value={props.tel}
               onChange={(event) => {
-                props.updateValue.setPhone(event.target.value);
+                props.updateValue.setTel(event.target.value);
                 console.log(props.lastName);
               }}
             />
           </h5>
-          <h5>
+          <h5 className=''>
             信箱:
             <input
-              type="text"
+              type="email"
               id="email"
               name="email"
-              className="form-control border-0 w-50"
+              className="form-control border-0 "
               value={props.email}
               onChange={(event) => {
                 props.updateValue.setEmail(event.target.value);
+                console.log(props.lastName);
+              }}
+            />
+          </h5>
+          <h5 className='col-6'>
+            國家 / 地區:{' '}
+            <input
+              type="text"
+              id="country"
+              name="country"
+              className="form-control border-0 col-6"
+              value={props.country}
+              onChange={(event) => {
+                props.updateValue.setCountry(event.target.value);
+                console.log(props.country);
+              }}
+            />
+          </h5>
+          <h5 className='col-6'>
+            語言:{' '}
+            <input
+              type="text"
+              id="lang"
+              name="lang"
+              className="form-control border-0 "
+              value={props.lang}
+              onChange={(event) => {
+                props.updateValue.setLang(event.target.value);
                 console.log(props.lastName);
               }}
             />
