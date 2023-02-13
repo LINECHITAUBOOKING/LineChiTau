@@ -106,7 +106,7 @@ const HotelIntro = ({ hotelDetail }) => {
   return (
     <>
       <div className="container-xxl HotelIntro">
-        <nav className={isFixed ? 'fixed' : 'mt-3'}>
+        <nav className={`nav-hotelIntro ${isFixed ? 'fixed' : 'mt-3'}`}>
           <ul className="list-unstyled d-flex justify-content-around my-0">
             <li>
               <a href="#room" className="fixed-bar-a">
