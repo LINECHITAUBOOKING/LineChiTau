@@ -55,6 +55,24 @@ const HotelBanner = ({
     room:
       localStorage.getItem('room') === null ? 1 : localStorage.getItem('room'),
   });
+  const [orderItem, setOrderItem] = useState(
+    localStorage.getItem('orderItem') === null
+      ? storage.setItem(
+          'orderItem',
+          JSON.stringify([
+            {
+              startDate,
+              endDate,
+              conditions: {
+                adult: 2,
+                children: 0,
+                room: 1,
+              },
+            },
+          ])
+        )
+      : localStorage.getItem('room')
+  );
   const handleSubmit = (event) => {
     event.preventDefault();
     navigate(`/HotelList/${destination}`);
