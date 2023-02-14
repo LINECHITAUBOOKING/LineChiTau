@@ -383,7 +383,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
               })
             )}
 
-            <nav>
+            <div>
               <ul className="list-unstyled d-flex">
                 <li
                   className="pagenation-border px-2 my-p px-2 d-flex justify-content-center previous"
@@ -444,7 +444,7 @@ const HotellistBox = ({ hotelServiceListArray }) => {
                   </a>
                 </li>
               </ul>
-            </nav>
+            </div>
           </div>
         </div>
       </div>

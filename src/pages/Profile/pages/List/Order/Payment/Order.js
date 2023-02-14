@@ -1,11 +1,16 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
 import 'react-confirm-alert/src/react-confirm-alert.css';
+import { JwtCsrfTokenContext } from '../../../../../../utils/csrf-hook/useJwtCsrfToken';
+import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
+import { useQuery } from 'react-query';
 
 function Order(props) {
-  const [order, setOrder] = useState({});
+  const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
 
+  const [order, setOrder] = useState({});
+  const { id } = useParams();
   const [productName1, setProductName1] = useState('測試商品1');
   const [price1, setPrice1] = useState(100);
   const [quantity1, setQuantity1] = useState(1);
@@ -13,8 +18,46 @@ function Order(props) {
   const [productName2, setProductName2] = useState('測試商品2');
   const [price2, setPrice2] = useState(100);
   const [quantity2, setQuantity2] = useState(2);
+  const detailList = async () => {
+    const [res, resdetail] = await Promise.all([
+      fetch(
+        `http://localhost:3001/api/userlist/list/${jwtDecodedData.email}/${id}`
+      ),
+      fetch(
+        `http://localhost:3001/api/userlist/listdetail/${jwtDecodedData.email}/${id}`
+      ),
+    ]);
+    const listdata = await res.json();
+    const listdatadetail = await resdetail.json();
+    return { listdata, listdatadetail };
+  };
 
-  const handleLinePay = () => {
+  const { data, isLoading, isError } = useQuery(
+    ['listdetail', jwtDecodedData.email, id],
+    detailList,
+    {
+      cacheTime: 1000,
+    }
+  );
+  let result, detail;
+  if (data === undefined) {
+    return <>Loading...</>;
+  }
+  const { listdatadetail, listdata } = data;
+  console.log('data', listdata);
+
+  if (listdata.error) {
+    return <>error</>;
+  }
+  if (data !== undefined) {
+    [result] = listdata;
+    detail = listdatadetail;
+  }
+
+  console.log('data', listdata);
+  console.log('listdatadetail', listdatadetail);
+
+  const handleLinePay = async () => {
     confirmAlert({
       title: '確認付款',
       message: '確認要導向至LINE Pay進行付款？',
@@ -24,9 +67,10 @@ function Order(props) {
           onClick: () => {
             console.log(
               `http://localhost:3001/api/pay/reserve?orderId=${order.orderId}`
-            )
+            );
+            window.location.href = `http://localhost:3001/api/pay/reserve?orderId=${order.orderId}`;
             // 在本window直接導至node付款(reverse)url，之後會導向至line pay
-           /*  window.location.href =
+            /*  window.location.href =
               process.env.REACT_APP_PAYMENT_API_URL +
               '?orderId=' +
               order.orderId */
@@ -38,26 +82,30 @@ function Order(props) {
         },
       ],
     });
+    const insertresponse = await axios.post(
+      `/api/userlist/order/${result.order_id}/${order.orderId}`
+    );
+    console.log(order.orderId);
   };
 
   const createOrder = async () => {
     // 送至server建立訂單，packages與order id由server產生
     // products將會組合在packages屬性之下
     const response = await axios.post(`/api/pay/create-order`, {
-      amount: quantity1 * price1 + quantity2 * price2,
+      amount: result.total_amount * result.total_price,
       products: [
         {
           id: 'prod1',
-          name: productName1,
-          quantity: quantity1,
-          price: price1,
+          name: result.company_name,
+          quantity: result.total_amount,
+          price: result.total_price,
         },
-        {
-          id: 'prod2',
-          name: productName2,
-          quantity: quantity2,
-          price: price2,
-        },
+        // {
+        //   id: 'prod2',
+        //   name: productName2,
+        //   quantity: quantity2,
+        //   price: price2,
+        // },
       ],
     });
 
@@ -66,19 +114,19 @@ function Order(props) {
   };
 
   return (
-    <>
+    <div className="pay-order">
       <h1>購買商品清單</h1>
-      <p>
+      {/* <p>
         訂單JSON結構參考`order-demo-only.json`檔案，packages id與order
         id將由server產生
-      </p>
+      </p> */}
       <div>
         id=prod1 商品名稱:
         <br />
         <input
           type="text"
           name="productName1"
-          value={productName1}
+          value={result.company_name}
           onChange={(e) => {
             setProductName1(e.target.value);
           }}
@@ -87,7 +135,8 @@ function Order(props) {
         <input
           type="number"
           name="quantity1"
-          value={quantity1 === 0 ? '' : quantity1}
+          // value={quantity1 === 0 ? '' : quantity1}
+          value={result.total_amount}
           onChange={(e) => {
             setQuantity1(Number(e.target.value));
           }}
@@ -96,16 +145,17 @@ function Order(props) {
         <input
           type="number"
           name="price1"
-          value={price1 === 0 ? '' : price1}
+          // value={price1 === 0 ? '' : price1}
+          value={result.total_price}
           onChange={(e) => {
             setPrice1(Number(e.target.value));
           }}
         />
         <br />
-        小計: {quantity1 * price1}
+        小計: {result.total_amount * result.total_price}
       </div>
       <hr />
-      <div>
+      {/*  <div>
         id=prod2 商品名稱:
         <br />
         <input
@@ -136,9 +186,9 @@ function Order(props) {
         />
         <br />
         小計: {quantity2 * price2}
-      </div>
+      </div> */}
       <br />
-      總價: {quantity1 * price1 + quantity2 * price2}
+      總價: {result.total_amount * result.total_price}
       <button onClick={createOrder}>產生訂單</button>
       <hr />
       <h2>訂單明細</h2>
@@ -163,7 +213,7 @@ function Order(props) {
       >
         前往付款
       </button>
-    </>
+    </div>
   );
 }
 

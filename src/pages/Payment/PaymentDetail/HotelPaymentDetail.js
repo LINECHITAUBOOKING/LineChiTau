@@ -65,7 +65,8 @@ const HotelPaymentDetail = (props) => {
       );
       // console.log(response.data);
       setPaymentRoomDetail(response.data[0]);
-      setHotelImg(response.data[0].company_banner);
+      setHotelImg(response.data[0].picture);
+      console.log('INNGG in api ', response.data[0].picture);
     }
     getRoomDetail();
     async function getUserCoupons() {
