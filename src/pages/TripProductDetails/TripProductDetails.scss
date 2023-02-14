@@ -112,3 +112,9 @@ $pseudoLength:calc(40 * $sqrt2);
     width: 856px;
     
 }
+.planInit{
+    background: transparent;
+}
+.planActive{
+    background: $main;
+}
