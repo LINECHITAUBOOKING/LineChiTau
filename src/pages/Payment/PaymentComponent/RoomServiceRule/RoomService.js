@@ -45,7 +45,7 @@ const RoomService = (props) => {
     { service: '浴缸', value: tub },
     { service: '淋浴', value: shower },
     { service: '沙發', value: sofa },
-    { service: '吹吹風機', value: hair_dryer },
+    { service: '吹風機', value: hair_dryer },
     { service: '冷氣', value: cooler },
     { service: '暖氣', value: warmer },
     { service: '喚醒服務', value: morning_call },
@@ -70,7 +70,9 @@ const RoomService = (props) => {
         </div>
         <div className="service-list py-2 row mb-3">
           {roomServiceFilter.map((service, index) => (
-            <span className="room-service-tag col-auto ms-2 my-1">{service.service}</span>
+            <span className="room-service-tag col-auto ms-2 my-1">
+              {service.service}
+            </span>
           ))}
         </div>
       </div>

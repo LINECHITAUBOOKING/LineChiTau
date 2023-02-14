@@ -4,6 +4,16 @@ import { useState } from 'react';
 import PlanDetails from './PlanDetails/PlanDetails';
 import { useEffect } from 'react';
 import AmountSelector from './AmountSelector/AmountSelector';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useNavigate,
+} from 'react-router-dom';
+import Modal from 'react-bootstrap/Modal';
+
 // import AmountSelector from './AmountSelector/AmountSelector';
 
 export default function MainSelector({ planData, tripId, tripName, cartPic }) {
@@ -11,6 +21,19 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   console.log(cartPic);
   //購買用的state
   const storage = localStorage;
+  const navigate = useNavigate();
+
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const handleShowModal = (type) => {
+    setModalType(type);
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalType(null);
+  };
+
   const [departTime, setDepartTime] = useState('');
   const [amountA, setAmountA] = useState(0);
   const [amountC, setAmountC] = useState(0);
@@ -21,11 +44,14 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   const [priceA, setPriceA] = useState(0);
   const [priceC, setPriceC] = useState(0);
   const [priceE, setPriceE] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    storage.getItem('cart') === null ? [] : JSON.parse(storage.getItem('cart'))
+  );
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [content, setContent] = useState();
   const [notice, setNotice] = useState();
+
   //要傳給購物車的格式
   const cartItem = {
     tripId: tripId,
@@ -48,6 +74,31 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
       alert('請記得選擇出發日期');
     }
   }
+
+  const handleAddCart = function () {
+    if (amountA === 0 && amountE === 0 && amountC === 0) {
+      handleShowModal('noChosenAmount');
+    } else if (departTime === '') {
+      handleShowModal('noChosenAmount');
+    } else {
+      if (cartItems.length > 0) {
+        const newCartItems = [...cartItems];
+        newCartItems.push(cartItem);
+        setCartItems(newCartItems);
+        console.log('cart-detail', newCartItems);
+        // setModalOpen(true);
+        storage.setItem('cart', JSON.stringify(newCartItems));
+      } else {
+        const newCartItems = [];
+        newCartItems.push(cartItem);
+        setCartItems(newCartItems);
+        console.log('cart-detail', newCartItems);
+        // setModalOpen(true);
+        storage.setItem('cart', JSON.stringify(newCartItems));
+      }
+      handleShowModal('addFinish');
+    }
+  };
 
   useEffect(() => {
     setTotalPrice(amountA * priceA + amountE * priceE + amountC * priceC);
@@ -81,7 +132,10 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
             ? planData.map((item) => (
                 <button
                   key={item.plan_id}
-                  className="service"
+                  className={
+                    'service  planInit ' +
+                    (planId === item.plan_id ? ' planActive ' : '')
+                  }
                   value={item.plan_id}
                   onClick={() => {
                     checkDate();
@@ -117,30 +171,70 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
           {`NT$\t` + totalPrice}
           <div className="cart-and-buy d-flex justify-content-evenly">
             <button
-              onClick={() => {
-                if (cartItems.length > 0) {
-                  const newCartItems = [...cartItems];
-                  newCartItems.push(cartItem);
-                  setCartItems(newCartItems);
-                  console.log('cart-detail', newCartItems);
-                  // setModalOpen(true);
-                  storage.setItem('cart', JSON.stringify(newCartItems));
-                } else {
-                  const newCartItems = [];
-                  newCartItems.push(cartItem);
-                  setCartItems(newCartItems);
-                  console.log('cart-detail', newCartItems);
-                  // setModalOpen(true);
-                  storage.setItem('cart', JSON.stringify(newCartItems));
-                }
-              }}
-              className="do-cart round-btn my-p d-flex align-items-center"
+              onClick={
+                handleAddCart
+                //   () => {
+                //   if (cartItems.length > 0) {
+                //     const newCartItems = [...cartItems];
+                //     newCartItems.push(cartItem);
+                //     setCartItems(newCartItems);
+                //     console.log('cart-detail', newCartItems);
+                //     // setModalOpen(true);
+                //     storage.setItem('cart', JSON.stringify(newCartItems));
+                //   } else {
+                //     const newCartItems = [];
+                //     newCartItems.push(cartItem);
+                //     setCartItems(newCartItems);
+                //     console.log('cart-detail', newCartItems);
+                //     // setModalOpen(true);
+                //     storage.setItem('cart', JSON.stringify(newCartItems));
+                //   }
+                // }
+              }
+              className="d-flex align-items-center py-0 px-3 my-btn my-p my-2"
             >
-              放入購物車
+              加入購物車
             </button>
           </div>
         </div>
       </div>
+      {modalType === 'noChosenAmount' && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>提醒</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            日期、方案選擇、人數未選擇，選擇後加入購物車！
+          </Modal.Body>
+          <Modal.Footer>
+            <button className="my-btn" onClick={handleCloseModal}>
+              前往選購
+            </button>
+          </Modal.Footer>
+        </Modal>
+      )}
+      {modalType === 'addFinish' && (
+        <Modal show={showModal} onHide={handleCloseModal}>
+          <Modal.Header closeButton>
+            <Modal.Title>提醒</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>加入成功！！</Modal.Body>
+          <Modal.Footer>
+            <button className="my-btn" onClick={handleCloseModal}>
+              繼續購買
+            </button>
+            <button
+              className="my-btn"
+              onClick={() => {
+                navigate('/ShoppingCart');
+              }}
+            >
+              前往購物車
+            </button>
+          </Modal.Footer>
+        </Modal>
+      )}
+
       <PlanDetails />
     </>
   );

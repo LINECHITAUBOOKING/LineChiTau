@@ -3,6 +3,7 @@ import './UserLikeBookmark.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import Modal from 'react-bootstrap/Modal';
 
 function UserLikeBookmark({ hotel, position, setLove }) {
   const navigate = useNavigate();
@@ -10,6 +11,11 @@ function UserLikeBookmark({ hotel, position, setLove }) {
   init(axios);
   const [userLikeList, setUserLikeList] = useState([]);
   const [userLikeListObject, setUserLikeListObject] = useState({});
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   useEffect(() => {
     async function getUserLikeList() {
       let response = await axios.get(
@@ -100,12 +106,28 @@ function UserLikeBookmark({ hotel, position, setLove }) {
               1
             );
           } else {
-            navigate('/Login');
+            handleShow();
           }
         }}
       >
         bookmark
       </span>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>提醒</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>登入後才能收藏唷！</Modal.Body>
+        <Modal.Footer>
+          <button
+            className="my-btn"
+            onClick={() => {
+              navigate('/Login');
+            }}
+          >
+            前往登入
+          </button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
