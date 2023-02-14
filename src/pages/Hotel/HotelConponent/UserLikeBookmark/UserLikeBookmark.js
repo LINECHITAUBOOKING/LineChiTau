@@ -3,6 +3,8 @@ import './UserLikeBookmark.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
+import Modal from 'react-bootstrap/Modal';
+
 
 function UserLikeBookmark({ hotel, position, setLove }) {
   const navigate = useNavigate();
@@ -100,6 +102,7 @@ function UserLikeBookmark({ hotel, position, setLove }) {
               1
             );
           } else {
+
             navigate('/Login');
           }
         }}

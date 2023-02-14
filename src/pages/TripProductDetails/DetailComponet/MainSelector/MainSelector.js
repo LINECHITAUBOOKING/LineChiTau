@@ -78,6 +78,8 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   const handleAddCart = function () {
     if (amountA === 0 && amountE === 0 && amountC === 0) {
       handleShowModal('noChosenAmount');
+    } else if (departTime === '') {
+      handleShowModal('noChosenAmount');
     } else {
       if (cartItems.length > 0) {
         const newCartItems = [...cartItems];
@@ -201,7 +203,9 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
           <Modal.Header closeButton>
             <Modal.Title>提醒</Modal.Title>
           </Modal.Header>
-          <Modal.Body>方案選擇人數皆為零，快去加入商品吧！</Modal.Body>
+          <Modal.Body>
+            日期、方案選擇、人數未選擇，選擇後加入購物車！
+          </Modal.Body>
           <Modal.Footer>
             <button className="my-btn" onClick={handleCloseModal}>
               前往選購
