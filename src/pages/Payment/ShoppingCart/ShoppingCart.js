@@ -2,13 +2,22 @@ import React, { useEffect, useState } from 'react';
 import ShoppingCartCard from './ShoppingCartComponent/ShoppongCartCard/ShoppingCartCard';
 import './ShoppingCart.scss';
 import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
-import { BrowserRouter, Routes, Route, Link, Outlet } from 'react-router-dom';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Outlet,
+  useNavigate,
+} from 'react-router-dom';
 import { set } from 'date-fns';
+import Modal from 'react-bootstrap/Modal';
 
 export default function ShoppingCart() {
   const [amount, setAmount] = useState(1);
   const currentStep = 1;
   const storage = localStorage;
+  const navigate = useNavigate();
   const cartStorage =
     storage.getItem('cart') === null ? '' : storage.getItem('cart');
   const [cartItems, setCartItems] = useState(
@@ -18,6 +27,11 @@ export default function ShoppingCart() {
   const [cartItemsLength, setCartItemsLength] = useState(0);
   const [cartItemsTotalPrice, setCartItemsTotalPrice] = useState(0);
   const [itemDetail, setItemDetail] = useState({});
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   console.log('cartItemsLength', cartItemsLength);
   // const [amountA, setAmountA] = useState(0);
   // const [amountC, setAmountC] = useState(0);
@@ -86,6 +100,14 @@ export default function ShoppingCart() {
   console.log('Array.isArray(cartItems)', Array.isArray(cartItems));
   console.log('OutCart', itemDetail);
   console.log('cartPrice', cartItemsTotalPrice);
+  const handleOrder = function (e) {
+    e.preventDefault();
+    if (cartItemsLength > 0) {
+      navigate('/payment/Travel/Detail');
+    } else {
+      handleShow();
+    }
+  };
   return (
     <>
       <ProgressBar currentStep={currentStep} />
@@ -137,16 +159,29 @@ export default function ShoppingCart() {
 
               <div class="my-topic  py-3">NT$ {cartItemsTotalPrice}</div>
               <div className="d-flex justify-content-center ">
-                <Link
-                  className="text-decoration-none cart-link-btn"
-                  to={'/payment/Travel/Detail'}
-                >
-                  <button className="my-btn my-p px-3">前往結帳</button>
-                </Link>
+                <button className="my-btn my-p px-3" onClick={handleOrder}>
+                  前往結帳
+                </button>
               </div>
             </div>
           </div>
         </div>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>提醒</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>購物車還是空的，快去加入商品吧！</Modal.Body>
+          <Modal.Footer>
+            <button
+              className="my-btn"
+              onClick={() => {
+                navigate(`/TripList`);
+              }}
+            >
+              前往選購
+            </button>
+          </Modal.Footer>
+        </Modal>
       </div>
     </>
   );

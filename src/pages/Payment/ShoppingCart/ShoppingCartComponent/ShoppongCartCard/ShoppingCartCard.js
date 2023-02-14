@@ -65,7 +65,7 @@ export default function ShoppingCartCard(props) {
           <div className="cart-item-card" key={index}>
             <div className="cart-item-body d-flex row align-items-center justify-content-between mx-0 py-4">
               <div
-                className="justify-content-center text-center align-items-center row col-1 cart-pointer"
+                className="justify-content-end text-center align-items-center col-1 cart-pointer"
                 onClick={(e) => {
                   const newCartItems = [...props.cartItem];
                   console.log('remove props.cart', props.cartItem);
@@ -76,7 +76,7 @@ export default function ShoppingCartCard(props) {
                   props.updateValue.setCartItems(newCartItems);
                 }}
               >
-                <span class="material-symbols-rounded my-heading">
+                <span class="material-symbols-rounded remove my-heading">
                   disabled_by_default
                 </span>
               </div>
