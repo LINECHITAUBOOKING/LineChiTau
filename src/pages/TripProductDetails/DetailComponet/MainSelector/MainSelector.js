@@ -21,7 +21,9 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   const [priceA, setPriceA] = useState(0);
   const [priceC, setPriceC] = useState(0);
   const [priceE, setPriceE] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    storage.getItem('cart') === null ? [] : JSON.parse(storage.getItem('cart'))
+  );
   const [totalPrice, setTotalPrice] = useState(0);
 
   const [content, setContent] = useState();
