@@ -121,7 +121,7 @@ const CouponItem = () => {
         </div>
       </div> */}
         </TabPane>
-        <TabPane tab="不可使用" itemKey="2">
+        <TabPane tab="已使用" itemKey="2">
           {currentPostsed.map((item, index) => {
             return (
               <>
