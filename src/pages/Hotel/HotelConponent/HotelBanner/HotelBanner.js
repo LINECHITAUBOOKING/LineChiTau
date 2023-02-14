@@ -71,7 +71,7 @@ const HotelBanner = ({
             },
           ])
         )
-      : localStorage.getItem('room')
+      : localStorage.getItem('orderItem')
   );
   const handleSubmit = (event) => {
     event.preventDefault();

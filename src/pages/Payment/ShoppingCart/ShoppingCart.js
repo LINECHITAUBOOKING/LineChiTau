@@ -9,17 +9,16 @@ export default function ShoppingCart() {
   const [amount, setAmount] = useState(1);
   const currentStep = 1;
   const storage = localStorage;
-  const cartStorage = storage.getItem('cart');
+  const cartStorage =
+    storage.getItem('cart') === null ? '' : storage.getItem('cart');
   const [cartItems, setCartItems] = useState(
-    storage.getItem('cart') === null || [] ? [] : storage.getItem('cart')
+    storage.getItem('cart') === null ? [] : JSON.parse(storage.getItem('cart'))
   );
   const [cartItemsToPay, setCartItemsToPay] = useState([]);
-  const [cartItemsLength, setCartItemsLenght] = useState(
-    cartItems.length === 0 ? 0 : cartItems.length
-  );
+  const [cartItemsLength, setCartItemsLength] = useState(0);
   const [cartItemsTotalPrice, setCartItemsTotalPrice] = useState(0);
   const [itemDetail, setItemDetail] = useState({});
-
+  console.log('cartItemsLength', cartItemsLength);
   // const [amountA, setAmountA] = useState(0);
   // const [amountC, setAmountC] = useState(0);
   // const [amountE, setAmountE] = useState(0);
@@ -60,7 +59,7 @@ export default function ShoppingCart() {
   };
 
   useEffect(() => {
-    if (cartStorage === []) {
+    if (cartStorage === '') {
       setCartItems([]);
     } else {
       setCartItems(JSON.parse(storage.getItem('cart')));
@@ -68,6 +67,7 @@ export default function ShoppingCart() {
   }, []);
   useEffect(() => {
     storage.setItem('cart', JSON.stringify(cartItems));
+    setCartItemsLength(cartItems.length);
     const cartPrice = cartItems
       .map((cartItem, index) => {
         // console.log('item map', cartItem);
@@ -82,7 +82,7 @@ export default function ShoppingCart() {
 
   console.log('storage.getItem(cart)===null', cartStorage);
   console.log(cartItems);
-  console.log('cartItems.length', cartItems.length);
+  // console.log('cartItems.length', cartItems.length);
   console.log('Array.isArray(cartItems)', Array.isArray(cartItems));
   console.log('OutCart', itemDetail);
   console.log('cartPrice', cartItemsTotalPrice);
@@ -111,7 +111,7 @@ export default function ShoppingCart() {
             </div>
 
             <div className="product-wrapper">
-              {cartItems.length > 0 ? (
+              {cartItemsLength > 0 ? (
                 <ShoppingCartCard
                   cartItem={cartItems}
                   cartItemsToPay={cartItemsToPay}
@@ -132,7 +132,7 @@ export default function ShoppingCart() {
           <div className=" col-3">
             <div className="cart-totalSub px-4 py-4">
               <div className="total nav-foot-small pt-3">
-                總計 {cartItems.length} 項
+                總計 {cartItemsLength} 項
               </div>
 
               <div class="my-topic  py-3">NT$ {cartItemsTotalPrice}</div>
