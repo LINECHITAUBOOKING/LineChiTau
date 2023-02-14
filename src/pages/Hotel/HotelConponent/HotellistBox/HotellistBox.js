@@ -3,6 +3,7 @@ import './HotellistBox.scss';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import HotelListFilter from '../HotelListFilter/HotelListFilter';
 import axios from 'axios';
+import cat from '../../img/cute-cat.png';
 import DisplayMap from '../DisplayMap/DisplayMap';
 import UserLikeBookmark from '../UserLikeBookmark/UserLikeBookmark';
 
@@ -223,7 +224,10 @@ const HotellistBox = ({ hotelServiceListArray }) => {
           </div>
           <div className="col-9">
             {hotelListArrangeState.length === 0 ? (
-              <p className="title my-banner">查無飯店</p>
+              <>
+                <p className="title my-banner">查無飯店</p>
+                <img src={cat} alt="cat" />
+              </>
             ) : (
               getHotelListPage(
                 filterHotels(
