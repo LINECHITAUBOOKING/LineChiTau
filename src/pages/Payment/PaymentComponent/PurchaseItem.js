@@ -12,7 +12,7 @@ const PurchaseItem = (props) => {
             <div className="item-box col-12">
               <div className="img-box">
                 <img
-                  src={ProductImg}
+                  src={`/images/${cartItems.cartPic}`}
                   alt="海豚圖片"
                   className="object-cover my-border-radius"
                 />
