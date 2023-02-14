@@ -4,11 +4,19 @@ import { useState } from 'react';
 import PlanDetails from './PlanDetails/PlanDetails';
 import { useEffect } from 'react';
 import AmountSelector from './AmountSelector/AmountSelector';
+import { registerUrl } from '../../../../utils/csrf-hook/server-config';
 // import AmountSelector from './AmountSelector/AmountSelector';
 
-export default function MainSelector({ planData, tripId, tripName, cartPic }) {
-  //圖片檔案名稱
-  console.log(cartPic);
+export default function MainSelector({
+  planData,
+  tripId,
+  tripName,
+  initContent,
+  initNotice,
+  setContent,
+  setNotice,
+  cartPic,
+}) {
   //購買用的state
   const storage = localStorage;
   const [departTime, setDepartTime] = useState('');
@@ -24,8 +32,6 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
 
-  const [content, setContent] = useState();
-  const [notice, setNotice] = useState();
   //要傳給購物車的格式
   const cartItem = {
     tripId: tripId,
@@ -52,11 +58,6 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
   useEffect(() => {
     setTotalPrice(amountA * priceA + amountE * priceE + amountC * priceC);
   }, [priceA, priceE, priceC, amountA, amountE, amountC]);
-
-  // useEffect(() => {
-  //   console.log('Content', content);
-  //   console.log('notice', notice);
-  // }, [content, notice]);
 
   return (
     <>
@@ -90,8 +91,8 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
                     setPriceA(item.price_adu);
                     setPriceE(item.price_eld);
                     setPriceC(item.price_chi);
-                    // setContent(JSON.parse(item.content));
-                    // setNotice(JSON.parse(item.plan_notice));
+                    setContent(item.plan_content);
+                    setNotice(item.plan_notice);
                   }}
                 >
                   {item.plan_name}
@@ -141,7 +142,7 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
           </div>
         </div>
       </div>
-      <PlanDetails />
+      <PlanDetails content={initContent} notice={initNotice} />
     </>
   );
 }

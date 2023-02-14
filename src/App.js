@@ -25,8 +25,9 @@ import Pay from './pages/Profile/pages/Pay/Pay';
 import Setting from './pages/Profile/pages/Setting/Setting';
 import ListDetail from './pages/Profile/pages/List/ListDetail/ListDetail';
 import Demo from './utils/Demo';
-import TripList from './pages/TripList/TripList';
+import TripList from './pages/TripList/TripList0214bk';
 import TripProductDetails from './pages/TripProductDetails/TripProductDetails';
+import TripListTest from './pages/TripList/TripListTest';
 
 import { JwtCsrfTokenProvider } from './utils/csrf-hook/useJwtCsrfToken';
 
@@ -62,6 +63,7 @@ function App() {
               path="TripProductDetails/:URLkeyword"
               element={<TripProductDetails />}
             ></Route>
+            <Route path="TripListTest" element={<TripListTest />}></Route>
 
             <Route path="login" element={<Demo />} />
             <Route path="token/:token" element={<Token />} />

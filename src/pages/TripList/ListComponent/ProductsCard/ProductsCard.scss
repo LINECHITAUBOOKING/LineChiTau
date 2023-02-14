@@ -2,6 +2,13 @@
 
 $general-padding:10px;
 
+a { 
+    color:$textColor;
+  &:link,&:active,&:visited,&:hover {
+    color: $textColor;
+  }
+} 
+
 @mixin unfilled-google-icons{
     font-variation-settings: "FILL" 0, "wght" 700, "GRAD" 0, "opsz" 48;
     font-size: 28px;
@@ -60,14 +67,11 @@ $general-padding:10px;
 
 
 .products-card-link {
-  width:0px;
+  width:60px;
+  height: 250px;
   color:$textColor;
   background-color: $main;
-
-  &.active {
-    width: 60px;
-  }
-
+  border-radius: 0px 10px 10px 0px;
 }
 
 

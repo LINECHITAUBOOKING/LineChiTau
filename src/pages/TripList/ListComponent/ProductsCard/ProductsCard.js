@@ -7,6 +7,7 @@ export default function ProductCard(props) {
   let { key, tripName, introduction, service, price_adu, grade, pic } = props;
   const introJSON = JSON.parse(introduction);
   const introText = introJSON.introduction;
+  console.log('PRODUCTCARD收到的GRADE', grade);
 
   // const [focusState, SetStateToFocus] = useState(false);
 
@@ -71,45 +72,44 @@ export default function ProductCard(props) {
                   </button>
                 </li>
               ))}
-              {/* <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li> */}
             </ul>
-            <div className="d-flex justify-content-between my-p">
+            <div className="d-flex justify-content-between my-p align-items-center">
               <div className="d-flex">
-                {/* <div class="material-symbols-outlined">location_on</div>
-                <p>{region}</p> */}
+                <p className="d-flex align-items-center">
+                  <span class="material-symbols-outlined">grade</span>
+                  {'\t' + grade}
+                </p>
               </div>
               <div className="d-flex">
-                <div class="material-symbols-outlined">monetization_on</div>
-                <p>{price_adu}</p>
+                <p className="d-flex align-items-center">
+                  <span className="material-symbols-outlined">
+                    monetization_on
+                  </span>
+                  {'\t' + price_adu}
+                </p>
               </div>
               <div className="d-flex">
-                <div class="material-symbols-outlined bookmark">bookmark</div>
-                <p>收藏</p>
+                <p className="d-flex align-items-center">
+                  <span class="material-symbols-outlined bookmark">
+                    bookmark
+                  </span>
+                  收藏
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="products-card-link"
-          // className={
-          //   `products-card-link\t` + (focusState ? 'active' : 'none-active')
-          // }
-        >
-          <Link to={`/TripProductDetails/${tripName}`}>訂房去</Link>
+        <div className="products-card-link d-flex align-items-center justify-content-center">
+          <Link to={`/TripProductDetails/${tripName}`}>
+            馬
+            <br />
+            上
+            <br />
+            行
+            <br />
+            動
+            <br />！
+          </Link>
         </div>
       </div>
     </>

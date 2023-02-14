@@ -31,6 +31,9 @@ export default function TripProductDetail() {
   const [grade, setGrade] = useState();
   const [cartPic, setCartPic] = useState();
 
+  const [content, setContent] = useState();
+  const [notice, setNotice] = useState();
+
   // const [ReturnedContractData, setReturnedContractData] = useState();
 
   //! fetch會用到的變數
@@ -62,9 +65,9 @@ export default function TripProductDetail() {
 
   useEffect(() => {
     //! 在tripData的物件資料上加上service屬性
-    console.log('returnedData', returnedData);
+    console.log('Returned Data:', returnedData);
     const rawTripDataArr = returnedData.tripData;
-    console.log(rawTripDataArr);
+    console.log('取得Data中的陣列', rawTripDataArr);
     console.log(typeof rawTripDataArr);
     const newTripData = rawTripDataArr.map((item) => {
       const {
@@ -100,7 +103,6 @@ export default function TripProductDetail() {
     console.log('NewTripData', newTripData);
     console.log('NewTripData[0]', newTripData[0]);
     const newTripDataObj = newTripData[0];
-    console.log(newTripDataObj);
     if (newTripDataObj) {
       const {
         trip_id,
@@ -134,6 +136,8 @@ export default function TripProductDetail() {
       setGeoLocationY(geo_locationY);
       setRegion(region);
       setGrade(comment_grade / comment_amount);
+      setContent(returnedData.planData[0].plan_content);
+      setNotice(returnedData.planData[0].plan_content);
       setCartPic(picForCart);
     }
   }, [returnedData]);
@@ -145,8 +149,6 @@ export default function TripProductDetail() {
   // useEffect(() => {
   //   console.log(returnedData.planData);
   // }, [returnedData]);
-
-  console.log('outsideOfEffect', serviceArr);
 
   return (
     <>
@@ -190,6 +192,10 @@ export default function TripProductDetail() {
               tripId={tripId}
               tripName={tripName}
               cartPic={cartPic}
+              initContent={content}
+              initNotice={notice}
+              setContent={setContent}
+              setNotice={setNotice}
             />
           )}
         </div>

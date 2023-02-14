@@ -1,12 +1,9 @@
-import './TripList.scss';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
-import ListMap from '../layouts/ListMap/ListMap';
-import FilterBox from './ListComponent/FilterBox/FilterBox';
 import SortSelect from './ListComponent/SortSelect/SortSelect';
-// import Pagination from './ListComponent/Pagination/Pagination';
-// import TripSearchBar from './ListComponent/TripSearchBar/TripSearchBar';
+import ListMap from '../layouts/ListMap/ListMap';
+import ProductsCard from './ListComponent/ProductsCard/ProductsCard';
+import FilterBox from './ListComponent/FilterBox/FilterBox';
 // import { useParams } from 'react-router-dom';
 
 export default function TestList() {
@@ -22,6 +19,15 @@ export default function TestList() {
   const [serviceAddedData, setServiceAddedData] = useState([]);
   //最終要render成卡片的資料
   const [dataForDisplay, setDataForDisplay] = useState([]);
+
+  const [newRawKeyword, setNewRawKeyword] = useState();
+
+  //! filter時會使用的state
+  // 行程特色
+  const [selectedServiceFilter, setSelectedServiceFilter] = useState([]);
+
+  // 價格單選
+  const [priceRange, setPriceRange] = useState('所有');
 
   //!處理關鍵字的函式
 
@@ -99,10 +105,6 @@ export default function TestList() {
     }
   }
 
-  //! filter時會使用的state
-  // 行程特色
-  const [selectedServiceFilter, setSelectedServiceFilter] = useState([]);
-
   const tripServiceList = [
     '人文歷史',
     '娛樂享受',
@@ -114,8 +116,6 @@ export default function TestList() {
     '自助旅行',
     '導遊帶隊',
   ];
-  // 價格單選
-  const [priceRange, setPriceRange] = useState('所有');
 
   const tripPriceArr = [
     '所有',
@@ -275,6 +275,7 @@ export default function TestList() {
   console.log('現在的價錢篩選', priceRange);
   console.log('現在的條件篩選', selectedServiceFilter);
   console.log('篩選完的data', dataForDisplay);
+
   //! 當資料第一次載入和當表單有更動時，開始篩選
   useEffect(() => {
     let filteredData = [];
@@ -310,6 +311,7 @@ export default function TestList() {
 
   return (
     <>
+      {/* <TripSearchBar setNewRawKeyword={setNewRawKeyword} /> */}
       {/* <TripSearchBar setNewRawKeyword={setNewRawKeyword} /> */}
       <div className="page-wrapper container-xl">
         <div className="result-sort d-flex justify-content-between align-items-end">
