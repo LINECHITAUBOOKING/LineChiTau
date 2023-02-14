@@ -10,6 +10,7 @@ import {
   Outlet,
   useNavigate,
 } from 'react-router-dom';
+import cuteCat from '../../Hotel/img/cute-cat.png';
 import { set } from 'date-fns';
 import Modal from 'react-bootstrap/Modal';
 
@@ -140,8 +141,11 @@ export default function ShoppingCart() {
                   updateValue={updateValue}
                 />
               ) : (
-                <div className="d-flex justify-content-center align-items-center my-heading">
+                <div className="d-flex flex-column align-items-center my-heading">
                   購物車為空，快去加入商品吧!
+                  <div className="  ">
+                    <img src={cuteCat} className="object-cover cat-mt" />
+                  </div>
                 </div>
               )}
             </div>
