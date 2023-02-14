@@ -56,14 +56,11 @@ export default function ShoppingCartCard(props) {
   // }, [isChecked]);
   // console.log('itemDEtail', itemDetail);
   // // console.log(`cartItemINCard+${cartItemDetail.planId}`, cartItemDetail);
-  const handleRemove = function (e, index) {
-    const newCartItems = [...props.cartItem];
-    console.log('remove props.cart', props.cartItem);
-    props.updateValue.setCartItems(newCartItems.splice(index, 1));
-  };
+
   return (
     <>
       {props.cartItem.map((item, index) => {
+        console.log('props.cartItem.cartPic', item.cartPic);
         return (
           <div className="cart-item-card" key={index}>
             <div className="cart-item-body d-flex row align-items-center justify-content-between mx-0 py-4">
@@ -86,7 +83,7 @@ export default function ShoppingCartCard(props) {
               <div className="item-box col-7">
                 <div className="img-box">
                   <img
-                    src={ProductImg}
+                    src={`/images/${item.cartPic}`}
                     alt="海豚圖片"
                     className="object-cover my-border-radius"
                   />
@@ -99,7 +96,8 @@ export default function ShoppingCartCard(props) {
                   <div className="d-flex ">
                     <span
                       className={
-                        'amountA d-flex pe-3 align-items-center' + (item.amountA === 0 ? ' d-none' : ' ')
+                        'amountA d-flex pe-3 align-items-center' +
+                        (item.amountA === 0 ? ' d-none' : ' ')
                       }
                     >
                       <span class="material-symbols-rounded">man</span> 成人 x
@@ -108,7 +106,8 @@ export default function ShoppingCartCard(props) {
 
                     <span
                       className={
-                        'amountC d-flex pe-3 align-items-center' + (item.amountC === 0 ? ' d-none' : ' ')
+                        'amountC d-flex pe-3 align-items-center' +
+                        (item.amountC === 0 ? ' d-none' : ' ')
                       }
                     >
                       <span class="material-symbols-rounded">
