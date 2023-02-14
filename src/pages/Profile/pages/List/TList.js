@@ -8,6 +8,8 @@ import TListLayout from './Spinner/TListLayout';
 const TList = ({ value }) => {
   const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
   console.log('userF', userF.email);
+  const moment = require('moment');
+
   console.log(jwtToken);
   console.log('jwtDecodedData', jwtDecodedData);
   const [items, setItems] = useState({});
@@ -53,7 +55,7 @@ const TList = ({ value }) => {
   };
   console.log('list', list);
   // console.log(items);
- 
+
   if (list === undefined) {
     return (
       <>
@@ -119,10 +121,12 @@ const TList = ({ value }) => {
             />
             <div className="text">
               <div className="notosans-normal-old-copper-20px">
-                {item.order_id}
+                {/* {item.order_id} */}
+                {item.company_name}&nbsp;
+                {item.room_name}
               </div>
               <div className="notosans-normal-sepia-16px">
-                {item.order_date}
+                {moment(item.order_date).format('YYYY/MM/DD')}
               </div>
               <div className="notosans-normal-sepia-16px">
                 實付金額：NT$ {item.total_price}
@@ -141,9 +145,12 @@ const TList = ({ value }) => {
                   查看更多
                 </button>
               </Link>
-              <button className="button-1 notosans-normal-old-copper-16px">
+              <Link
+                to={`/hotelDetail/${item.company_name}`}
+                className="button-1 notosans-normal-old-copper-16px"
+              >
                 撰寫評價
-              </button>
+              </Link>
             </div>
           </div>
         );

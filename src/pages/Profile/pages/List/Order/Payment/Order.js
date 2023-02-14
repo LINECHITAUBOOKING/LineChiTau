@@ -57,7 +57,7 @@ function Order(props) {
   console.log('data', listdata);
   console.log('listdatadetail', listdatadetail);
 
-  const handleLinePay = () => {
+  const handleLinePay = async () => {
     confirmAlert({
       title: '確認付款',
       message: '確認要導向至LINE Pay進行付款？',
@@ -82,6 +82,10 @@ function Order(props) {
         },
       ],
     });
+    const insertresponse = await axios.post(
+      `/api/userlist/order/${result.order_id}/${order.orderId}`
+    );
+    console.log(order.orderId);
   };
 
   const createOrder = async () => {
@@ -104,10 +108,7 @@ function Order(props) {
         // },
       ],
     });
-    const insertresponse = await axios.post(
-      `/api/userlist/order/${result.order_id}/${order.orderId}`
-    );
-    console.log(order.orderId);
+
     // TODO: try-catch錯誤處理
     setOrder(response.data);
   };

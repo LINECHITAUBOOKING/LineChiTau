@@ -134,13 +134,22 @@ const ListDetail = () => {
         <div className="bottom">
           <div className="left">
             <div className="letf-1">
-              實付金額：NT${result.total_price * (result.discount / 10)}
+              實付金額：NT$
+              {result.discount === 0
+                ? result.total_price
+                : result.total_price * (result.discount / 10)}
             </div>
             <div className="left-2">付款詳情：{statusText}</div>
           </div>
           <div className="btn">
             {/* <button className="my-btn mx-2">查看憑證</button> */}
-            <button className="my-btn ">撰寫評價</button>
+
+            {/* <Link
+              to={`/hotelDetail/${result.company_name}`}
+              className="my-btn "
+            >
+              撰寫評價
+            </Link> */}
           </div>
         </div>
       </div>
