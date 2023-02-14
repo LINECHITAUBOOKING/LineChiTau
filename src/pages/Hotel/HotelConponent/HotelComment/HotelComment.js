@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { async } from 'q';
 import React, { useEffect, useState } from 'react';
+import cat from '../../img/cute-cat.png';
 import { useContext } from 'react';
 import { Rating } from 'react-simple-star-rating';
 import { JwtCsrfTokenContext } from '../../../../utils/csrf-hook/useJwtCsrfToken';
@@ -188,10 +189,20 @@ function HotelComment({ hotelDetail }) {
         {commentList.map((comment, index) => {
           return (
             <div className="my-5" key={comment.id}>
-              {displayStars(comment.comment_stars)}
-              <div className="text-part">
+              {/* <div className="text-part">
                 <p className="">{comment.name}</p>
                 <p>{comment.comment}</p>
+              </div> */}
+
+              <div className="text-part d-flex">
+                <div className="me-5">
+                  <p className="my-p">{comment.name}</p>
+                  <img src={cat} alt="cat" width="125" />
+                </div>
+                <div>
+                  {displayStars(comment.comment_stars)}
+                  <p className="my-p">{comment.comment}</p>
+                </div>
               </div>
               <div className="comment-pic-box d-flex my-2">
                 {comment.comment_image.split(',').map((pic, pic_index) => {
