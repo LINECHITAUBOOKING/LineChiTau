@@ -10,7 +10,9 @@ export default function ShoppingCart() {
   const currentStep = 1;
   const storage = localStorage;
   const cartStorage = storage.getItem('cart');
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    storage.getItem('cart') === null || [] ? [] : storage.getItem('cart')
+  );
   const [cartItemsToPay, setCartItemsToPay] = useState([]);
   const [cartItemsLength, setCartItemsLenght] = useState(
     cartItems.length === 0 ? 0 : cartItems.length
