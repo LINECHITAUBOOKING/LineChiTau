@@ -29,7 +29,9 @@ export default function MainSelector({
   const [priceA, setPriceA] = useState(0);
   const [priceC, setPriceC] = useState(0);
   const [priceE, setPriceE] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(
+    storage.getItem('cart') === null ? [] : JSON.parse(storage.getItem('cart'))
+  );
   const [totalPrice, setTotalPrice] = useState(0);
 
   //要傳給購物車的格式

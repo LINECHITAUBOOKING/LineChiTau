@@ -14,6 +14,7 @@ import axios from 'axios';
 import ProductImg from '../../Hotel/img/banner.svg';
 import ProgressBar from '../PaymentComponent/ProgressBar/ProgressBar';
 import UserData from '../PaymentComponent/UserData/UserData';
+import Modal from 'react-bootstrap/Modal';
 
 import PaymentMethod from '../PaymentComponent/PaymentMethod/PaymentMethod';
 import CheckOutItemList from '../PaymentComponent/CheckOutItemList/CheckOutItemList';
@@ -32,6 +33,10 @@ const TravelPaymentCheckOut = () => {
   const [initTab, setInitTab] = useState(0);
   const [description, setDescription] = useState('');
   const [booker, setBooker] = useState('');
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     console.log('orderId', orderId);
@@ -151,7 +156,7 @@ const TravelPaymentCheckOut = () => {
       } catch (e) {
         alert('付款失敗');
       }
-      navigate(`/profile/listdetail/${orderId}`);
+      handleShow();
     }
   }
   console.log('=======Detail===', orderDetail);
@@ -207,6 +212,22 @@ const TravelPaymentCheckOut = () => {
             </button>
           </div>
         </div>
+        <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>完成購買</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>已付款完成，感謝您的購買～祝您旅遊愉快！</Modal.Body>
+          <Modal.Footer>
+            <button
+              className="my-btn"
+              onClick={() => {
+                navigate(`/TripList`);
+              }}
+            >
+              繼續購買
+            </button>
+          </Modal.Footer>
+        </Modal>
       </main>
     </>
   );

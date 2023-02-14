@@ -17,7 +17,7 @@ div[class$='container'] {
 
 .product-wrapper {
   display: grid;
-  grid-auto-rows: repeat(auto-fill 194px);
+  grid-auto-rows: repeat(1fr 194px);
   row-gap: 48px;
 }
 
@@ -45,3 +45,6 @@ input[type='checkbox'] {
   
 }
 
+.cat-mt{
+  margin-top: -50px;
+}
