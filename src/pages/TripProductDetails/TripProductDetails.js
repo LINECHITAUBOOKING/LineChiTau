@@ -29,6 +29,7 @@ export default function TripProductDetail() {
   const [geoLocationY, setGeoLocationY] = useState();
   const [region, setRegion] = useState();
   const [grade, setGrade] = useState();
+  const [cartPic, setCartPic] = useState();
 
   // const [ReturnedContractData, setReturnedContractData] = useState();
 
@@ -118,6 +119,9 @@ export default function TripProductDetail() {
       } = newTripDataObj;
       const stringIntro = JSON.parse(introduction).introduction;
 
+      const allPicArr = all_pic.split(',');
+      const picForCart = allPicArr[0];
+
       setTripID(trip_id);
       setTripName(trip_name);
       setServiceArr(service);
@@ -130,6 +134,7 @@ export default function TripProductDetail() {
       setGeoLocationY(geo_locationY);
       setRegion(region);
       setGrade(comment_grade / comment_amount);
+      setCartPic(picForCart);
     }
   }, [returnedData]);
 
@@ -184,6 +189,7 @@ export default function TripProductDetail() {
               planData={returnedData.planData}
               tripId={tripId}
               tripName={tripName}
+              cartPic={cartPic}
             />
           )}
         </div>

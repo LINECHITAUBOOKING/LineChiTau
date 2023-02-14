@@ -5,7 +5,7 @@ import 'react-confirm-alert/src/react-confirm-alert.css';
 import { JwtCsrfTokenContext } from '../../../../../../utils/csrf-hook/useJwtCsrfToken';
 import { useParams, useNavigate, Navigate, Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-
+import './Order.scss';
 function Order(props) {
   const { jwtToken, userF, jwtDecodedData } = useContext(JwtCsrfTokenContext);
 
@@ -121,36 +121,51 @@ function Order(props) {
         id將由server產生
       </p> */}
       <div>
-        id=prod1 商品名稱:
-        <br />
-        <input
-          type="text"
-          name="productName1"
-          value={result.company_name}
-          onChange={(e) => {
-            setProductName1(e.target.value);
-          }}
-        />
-        數量:
-        <input
-          type="number"
-          name="quantity1"
-          // value={quantity1 === 0 ? '' : quantity1}
-          value={result.total_amount}
-          onChange={(e) => {
-            setQuantity1(Number(e.target.value));
-          }}
-        />
-        單價:
-        <input
-          type="number"
-          name="price1"
-          // value={price1 === 0 ? '' : price1}
-          value={result.total_price}
-          onChange={(e) => {
-            setPrice1(Number(e.target.value));
-          }}
-        />
+        <div className="line-name my-2">
+          <label htmlFor="" className="mx-2">
+            商品:
+          </label>
+          <input
+            type="text"
+            name="productName1"
+            value={result.company_name}
+            onChange={(e) => {
+              setProductName1(e.target.value);
+            }}
+            disabled
+          />
+        </div>
+        <div className="line-amount my-2">
+          <label htmlFor="" className="mx-2">
+            數量:
+          </label>
+          <input
+            type="number"
+            name="quantity1"
+            // value={quantity1 === 0 ? '' : quantity1}
+            value={result.total_amount}
+            onChange={(e) => {
+              setQuantity1(Number(e.target.value));
+            }}
+            disabled
+          />
+        </div>
+        <div className="line-price">
+          <label htmlFor="" className="mx-2">
+            單價:
+          </label>
+
+          <input
+            type="number"
+            name="price1"
+            // value={price1 === 0 ? '' : price1}
+            value={result.total_price}
+            onChange={(e) => {
+              setPrice1(Number(e.target.value));
+            }}
+            disabled
+          />
+        </div>
         <br />
         小計: {result.total_amount * result.total_price}
       </div>
@@ -189,7 +204,9 @@ function Order(props) {
       </div> */}
       <br />
       總價: {result.total_amount * result.total_price}
-      <button onClick={createOrder}>產生訂單</button>
+      <button className="my-btn mx-2" onClick={createOrder}>
+        確認付款
+      </button>
       <hr />
       <h2>訂單明細</h2>
       <p>Order ID: {order.orderId}</p>
@@ -207,6 +224,7 @@ function Order(props) {
         src={`${process.env.REACT_APP_REACT_URL}/linepay/LINE-Pay(h)_W85_n.png`}
       />
       <button
+        className="my-btn"
         onClick={handleLinePay}
         // 限制有orderId產生後才能點按
         disabled={!order.orderId}

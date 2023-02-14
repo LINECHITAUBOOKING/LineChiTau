@@ -6,7 +6,9 @@ import { useEffect } from 'react';
 import AmountSelector from './AmountSelector/AmountSelector';
 // import AmountSelector from './AmountSelector/AmountSelector';
 
-export default function MainSelector({ planData, tripId, tripName }) {
+export default function MainSelector({ planData, tripId, tripName, cartPic }) {
+  //圖片檔案名稱
+  console.log(cartPic);
   //購買用的state
   const storage = localStorage;
   const [departTime, setDepartTime] = useState('');
@@ -38,6 +40,7 @@ export default function MainSelector({ planData, tripId, tripName }) {
     priceE: priceE,
     totalPrice: totalPrice,
     departTime: departTime,
+    cartPic: cartPic,
   };
 
   function checkDate() {
@@ -50,10 +53,10 @@ export default function MainSelector({ planData, tripId, tripName }) {
     setTotalPrice(amountA * priceA + amountE * priceE + amountC * priceC);
   }, [priceA, priceE, priceC, amountA, amountE, amountC]);
 
-  useEffect(() => {
-    console.log('Content', content);
-    console.log('notice', notice);
-  }, [content, notice]);
+  // useEffect(() => {
+  //   console.log('Content', content);
+  //   console.log('notice', notice);
+  // }, [content, notice]);
 
   return (
     <>

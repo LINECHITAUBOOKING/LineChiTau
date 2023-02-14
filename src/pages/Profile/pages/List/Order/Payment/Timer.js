@@ -16,7 +16,7 @@ const Timer = () => {
     navigate('/profile');
     return null;
   }
-  return <div>剩余时间：{seconds} 秒</div>;
+  return <div>{seconds} 秒後跳轉回清單頁頁面</div>;
 };
 
 export default Timer;

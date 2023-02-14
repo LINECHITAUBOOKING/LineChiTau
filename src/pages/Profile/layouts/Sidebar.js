@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-
+import React, { useContext, useEffect, useState } from 'react';
+import logo from '../../Hotel/img/cute-cat.png';
 import { Link } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 // import { Toast } from 'react-toastify/dist/components';
@@ -33,20 +33,31 @@ const linkList = [
   '設定',
   '登出',
 ];
+
 // const notify = () => toast('Wow so easy!');
 const Sidebatr = () => {
-  const { init, jwtToken, logout } = useContext(JwtCsrfTokenContext);
-
+  const { init, jwtToken, logout, jwtDecodedData } =
+    useContext(JwtCsrfTokenContext);
+  const [user, setUser] = useState('');
   init(axios);
+  useEffect(() => {
+    const user = async function () {
+      let res = await axios.get(`/auth/user/${jwtDecodedData.email}`);
+      console.log('side', res.data[0][0].account);
+      setUser(res.data[0][0].account);
+    };
+    user();
+  }, []);
+  console.log('user', user);
   return (
     <div className="sidebar">
       {/* 用戶照片 姓名 */}
       <div className="user-pic">
-        <img className="pic" src={mask} alt="" />
-        <div className="name">Jerry</div>
+        <img className="pic" src={logo} alt="" />
+        <div className="name">{user}</div>
       </div>
       {/*用戶點數 */}
-      <div className="side-point">
+      {/* <div className="side-point">
         <div className="side-point-item">
           <div className="overview microsoftjhenghei-regular-normal-old-copper-12px">
             point
@@ -73,7 +84,7 @@ const Sidebatr = () => {
             426
           </div>
         </div>
-      </div>
+      </div> */}
       {/* sidebar-btn */}
       <div className="side-bar-item">
         <div className="side-container">
