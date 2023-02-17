@@ -16,6 +16,18 @@
   padding-inline: 50px;
   padding-block: 45px;
   width: 400px;
+  max-height: 455px;
+  overflow-y: auto;
+}
+
+
+
+.prop {
+  padding: 2px;
+  border:1px solid $main;
+  background-color: $main;
+  color: $textColor;
+  border-radius: 10px;
 }
 
 .material-symbols-outlined.show-btn {
@@ -29,9 +41,9 @@
   }
 }
 
-.collapse-details {
-  display: none;
-}
+// .collapse-details {
+//   display: none;
+// }
 
 .details-container {
   &:hover + .collapse-details {

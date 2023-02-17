@@ -17,30 +17,18 @@ import Modal from 'react-bootstrap/Modal';
 // import AmountSelector from './AmountSelector/AmountSelector';
 
 export default function MainSelector({ planData, tripId, tripName, cartPic }) {
-  //圖片檔案名稱
-  console.log(cartPic);
-  //購買用的state
+  console.log(`planData是什麼:`, planData);
+
   const storage = localStorage;
   const navigate = useNavigate();
 
-  const [showModal, setShowModal] = useState(false);
-  const [modalType, setModalType] = useState(null);
-  const handleShowModal = (type) => {
-    setModalType(type);
-    setShowModal(true);
-  };
-  const handleCloseModal = () => {
-    setShowModal(false);
-    setModalType(null);
-  };
-
+  //! state
   const [departTime, setDepartTime] = useState('');
   const [amountA, setAmountA] = useState(0);
   const [amountC, setAmountC] = useState(0);
   const [amountE, setAmountE] = useState(0);
   const [planId, setPlanId] = useState('');
   const [planName, setPlanName] = useState('');
-  //單價
   const [priceA, setPriceA] = useState(0);
   const [priceC, setPriceC] = useState(0);
   const [priceE, setPriceE] = useState(0);
@@ -48,9 +36,8 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
     storage.getItem('cart') === null ? [] : JSON.parse(storage.getItem('cart'))
   );
   const [totalPrice, setTotalPrice] = useState(0);
-
-  const [content, setContent] = useState();
-  const [notice, setNotice] = useState();
+  const [content, setContent] = useState('');
+  const [notice, setNotice] = useState('');
 
   //要傳給購物車的格式
   const cartItem = {
@@ -68,13 +55,14 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
     departTime: departTime,
     cartPic: cartPic,
   };
-
+  //日期防呆
   function checkDate() {
     if (!departTime) {
       alert('請記得選擇出發日期');
     }
   }
 
+  //傳給購物車
   const handleAddCart = function () {
     if (amountA === 0 && amountE === 0 && amountC === 0) {
       handleShowModal('noChosenAmount');
@@ -104,10 +92,17 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
     setTotalPrice(amountA * priceA + amountE * priceE + amountC * priceC);
   }, [priceA, priceE, priceC, amountA, amountE, amountC]);
 
-  // useEffect(() => {
-  //   console.log('Content', content);
-  //   console.log('notice', notice);
-  // }, [content, notice]);
+  //modal
+  const [showModal, setShowModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
+  const handleShowModal = (type) => {
+    setModalType(type);
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+    setModalType(null);
+  };
 
   return (
     <>
@@ -144,8 +139,9 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
                     setPriceA(item.price_adu);
                     setPriceE(item.price_eld);
                     setPriceC(item.price_chi);
-                    // setContent(JSON.parse(item.content));
-                    // setNotice(JSON.parse(item.plan_notice));
+                    setContent(item.plan_content);
+                    setNotice(item.plan_notice);
+                    // console.log(`MAINSELECTOR中的content DT:`,typeof content)
                   }}
                 >
                   {item.plan_name}
@@ -171,26 +167,7 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
           {`NT$\t` + totalPrice}
           <div className="cart-and-buy d-flex justify-content-evenly">
             <button
-              onClick={
-                handleAddCart
-                //   () => {
-                //   if (cartItems.length > 0) {
-                //     const newCartItems = [...cartItems];
-                //     newCartItems.push(cartItem);
-                //     setCartItems(newCartItems);
-                //     console.log('cart-detail', newCartItems);
-                //     // setModalOpen(true);
-                //     storage.setItem('cart', JSON.stringify(newCartItems));
-                //   } else {
-                //     const newCartItems = [];
-                //     newCartItems.push(cartItem);
-                //     setCartItems(newCartItems);
-                //     console.log('cart-detail', newCartItems);
-                //     // setModalOpen(true);
-                //     storage.setItem('cart', JSON.stringify(newCartItems));
-                //   }
-                // }
-              }
+              onClick={handleAddCart}
               className="d-flex align-items-center py-0 px-3 my-btn my-p my-2"
             >
               加入購物車
@@ -234,8 +211,18 @@ export default function MainSelector({ planData, tripId, tripName, cartPic }) {
           </Modal.Footer>
         </Modal>
       )}
-
-      <PlanDetails />
+      <PlanDetails
+        content={
+          content
+            ? content
+            : `{"time":["目前沒有選擇方案"],"prop":[""],"location":[""]}`
+        }
+        notice={
+          notice ? notice : `{"warning":["目前沒有選擇方案"],"wearing":[""]}`
+        }
+        setContent={setContent}
+        setNotice={setNotice}
+      />
     </>
   );
 }

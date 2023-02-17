@@ -1,0 +1,17 @@
+@import '../../../../css/global-style.scss';
+
+.area-box {
+  color:$textColor;
+  .region-btn {
+    background-color: transparent;
+    padding: 2px;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 95%;
+    margin-block:2px
+  }
+  .region-btn:hover{
+    background-color: $main;
+  }
+}
+

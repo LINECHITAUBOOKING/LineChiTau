@@ -6,16 +6,22 @@ const SummaryNav = ({ listItems = ['客房', '地圖', '評論區', '注意事�
 
   return (
     <>
-      <nav>
-        <ul className="list-unstyled d-flex justify-content-around p-2 align-content-center">
+      <nav className="trip-summary-nav">
+        <ul className="list-unstyled d-flex justify-content-around px-1 py-2 mb-0">
           <li>
-            <a href="#intro">行程介紹</a>
+            <a href="#intro" className="nav-a">
+              行程介紹
+            </a>
           </li>
           <li>
-            <a href="#map">地圖</a>
+            <a href="#map" className="nav-a">
+              地圖
+            </a>
           </li>
           <li>
-            <a href="#comment">評論區</a>
+            <a href="#comment" className="nav-a">
+              評論區
+            </a>
           </li>
         </ul>
       </nav>

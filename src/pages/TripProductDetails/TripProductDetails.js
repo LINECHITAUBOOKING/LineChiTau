@@ -1,4 +1,9 @@
 import './TripProductDetails.scss';
+import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import L from 'leaflet';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import ProductPictures from './DetailComponet/ProductPictures/ProductPictures';
 import SummaryNav from './DetailComponet/SummaryNav/SummaryNav';
 import ListMap from '../layouts/ListMap/ListMap';
@@ -12,7 +17,13 @@ import TripIntro from './DetailComponet/TripIntro/TripIntro';
 // import Comment from './DetailComponet/Comment/Comment';
 
 export default function TripProductDetail() {
-  //! state: 1.fetch 產品取得的資料 2. fetch 訂單取得的資料
+  //! 地圖的bookmark
+  let DefaultIcon = L.icon({
+    iconUrl: icon,
+  });
+  L.Marker.prototype.options.icon = DefaultIcon;
+
+  //! top level state
   const [returnedData, setReturnedData] = useState({
     tripData: [],
     planData: [],
@@ -31,11 +42,8 @@ export default function TripProductDetail() {
   const [grade, setGrade] = useState();
   const [cartPic, setCartPic] = useState();
 
-  // const [ReturnedContractData, setReturnedContractData] = useState();
-
   //! fetch會用到的變數
   const { URLkeyword } = useParams();
-  // const nowDate = new Date();
 
   //! 使用fetchData
   useEffect(() => {
@@ -47,8 +55,6 @@ export default function TripProductDetail() {
         const returnedPlanData = await axios.get(
           `http://localhost:3001/api/tripProductDetails/${URLkeyword}/plans`
         );
-        console.log(returnedTripData.data);
-        console.log(returnedPlanData.data);
         setReturnedData({
           tripData: returnedTripData.data,
           planData: returnedPlanData.data,
@@ -60,12 +66,9 @@ export default function TripProductDetail() {
     fetchData();
   }, []);
 
+  //! 在tripData的物件資料上加上service屬性
   useEffect(() => {
-    //! 在tripData的物件資料上加上service屬性
-    console.log('returnedData', returnedData);
     const rawTripDataArr = returnedData.tripData;
-    console.log(rawTripDataArr);
-    console.log(typeof rawTripDataArr);
     const newTripData = rawTripDataArr.map((item) => {
       const {
         culture_history,
@@ -97,11 +100,10 @@ export default function TripProductDetail() {
       item.service = ItemActualService;
       return item;
     });
-    console.log('NewTripData', newTripData);
-    console.log('NewTripData[0]', newTripData[0]);
     const newTripDataObj = newTripData[0];
-    console.log(newTripDataObj);
-    if (newTripDataObj) {
+    const planDataArr = returnedData.planData;
+    const defaultPlanData = planDataArr[0];
+    if (newTripDataObj && defaultPlanData) {
       const {
         trip_id,
         trip_name,
@@ -117,8 +119,8 @@ export default function TripProductDetail() {
         comment_amount,
         comment_grade,
       } = newTripDataObj;
-      const stringIntro = JSON.parse(introduction).introduction;
 
+      const stringIntro = JSON.parse(introduction).introduction;
       const allPicArr = all_pic.split(',');
       const picForCart = allPicArr[0];
 
@@ -129,7 +131,7 @@ export default function TripProductDetail() {
       setIntroduction(stringIntro);
       setIntroPic(intro_pic);
       setPicIntro(pic_intro);
-      setAllPic(all_pic);
+      setAllPic(allPicArr);
       setGeoLocationX(geo_locationX);
       setGeoLocationY(geo_locationY);
       setRegion(region);
@@ -138,20 +140,10 @@ export default function TripProductDetail() {
     }
   }, [returnedData]);
 
-  useEffect(() => {
-    console.log(serviceArr);
-  }, [serviceArr]);
-
-  // useEffect(() => {
-  //   console.log(returnedData.planData);
-  // }, [returnedData]);
-
-  console.log('outsideOfEffect', serviceArr);
-
   return (
     <>
       <div className="container-xxl" style={{ backgroundColor: 'white' }}>
-        <ProductPictures />
+        <ProductPictures allPicArr={allPic} />
         <div className="row mt-4">
           <div className="col-8 d-flex flex-column justify-content-between">
             <SummaryNav listItems={['行程介紹', '地圖', '評論區']} />
@@ -176,7 +168,24 @@ export default function TripProductDetail() {
           </div>
 
           <div className="col-4">
-            <ListMap maxWidth={420} height={215} />
+            {geoLocationY && (
+              <MapContainer
+                center={[geoLocationY, geoLocationX]}
+                zoom={10}
+                scrollWheelZoom={false}
+                style={{ height: '250px' }}
+                className="leaflet-hotel-list"
+              >
+                <TileLayer
+                  attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                  url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                />
+
+                <Marker position={[geoLocationY, geoLocationX]} key={tripName}>
+                  <Popup>{tripName}</Popup>
+                </Marker>
+              </MapContainer>
+            )}
           </div>
         </div>
       </div>
@@ -193,7 +202,11 @@ export default function TripProductDetail() {
             />
           )}
         </div>
-        <TripIntro tripIntroduction={introduction} />
+        <TripIntro
+          tripIntroduction={introduction}
+          introPic={introPic ? introPic : '1,2'}
+          picIntro={picIntro ? introPic : '1,2'}
+        />
         {/* <TripMap /> */}
         {/* <Comment/> */}
         {/* <TripRecommend/> */}

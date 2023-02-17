@@ -1,10 +1,18 @@
 @import '../../../../css/global-style.scss';
 
-nav {
+
+
+
+.trip-summary-nav {
   background: $textColor;
   color: $secondary;
   font-size: 20px;
-  margin-bottom: 0 !important;
+  // margin-bottom: 0 !important;
+  .nav-a {
+    color: $secondary;
   }
-
-
+  .nav-a:hover {
+    color: $secondary;
+    border-bottom: 3px solid $secondary;
+  }
+}

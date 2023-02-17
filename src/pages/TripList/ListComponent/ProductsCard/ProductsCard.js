@@ -1,57 +1,23 @@
 import './ProductsCard.scss';
-import pic3 from './dolphins_hotel.jpg';
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
+// import '../../../../../public/images/';
 
 export default function ProductCard(props) {
-  let { key, tripName, introduction, service, price_adu, grade, pic } = props;
+  let { tripName, introduction, service, price_adu, grade, pic } = props;
   const introJSON = JSON.parse(introduction);
   const introText = introJSON.introduction;
 
-  // const [focusState, SetStateToFocus] = useState(false);
+  const picArr = pic.split(`,`);
 
-  // function activateTheCard(e) {
-  //   console.log('active');
-  //   SetStateToFocus(true);
-  // }
-  // function deactivateTheCard(e) {
-  //   console.log('deactivate');
-  //   SetStateToFocus(false);
-  // }
-
-  // function throttle(fn, timeout = 200) {
-  //   let last;
-  //   let timer;
-
-  //   return function () {
-  //     const context = this;
-  //     const args = arguments;
-  //     const now = +new Date();
-
-  //     if (last && now < last + timeout) {
-  //       clearTimeout(timer);
-  //       timer = setTimeout(function () {
-  //         last = now;
-  //         fn.apply(context, args);
-  //       }, timeout);
-  //     } else {
-  //       last = now;
-  //       fn.apply(context, args);
-  //     }
-  //   };
-  // }
+  const pictureOfTrip = picArr[0];
 
   return (
     <>
-      <div
-        className="products-card-wrapper d-flex"
-        // onMouseEnter={activateTheCard}
-        // onMouseLeave={deactivateTheCard}
-      >
+      <div className="products-card-wrapper d-flex">
         <div className="products-card d-flex mb-4">
           <div>
             <img
-              src={pic3}
+              src={`/images/${pictureOfTrip}`}
               className="products-card-pic my-border-radius"
               alt="pic3"
             ></img>
@@ -71,45 +37,44 @@ export default function ProductCard(props) {
                   </button>
                 </li>
               ))}
-              {/* <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li>
-              <li>
-                <button className="tag my-border-radius my-p mx-1">泳池</button>
-              </li> */}
             </ul>
-            <div className="d-flex justify-content-between my-p">
+            <div className="d-flex justify-content-between my-p align-items-center">
               <div className="d-flex">
-                {/* <div class="material-symbols-outlined">location_on</div>
-                <p>{region}</p> */}
+                <p className="d-flex align-items-center">
+                  <span class="material-symbols-outlined">grade</span>
+                  {'\t' + grade}
+                </p>
               </div>
               <div className="d-flex">
-                <div class="material-symbols-outlined">monetization_on</div>
-                <p>{price_adu}</p>
+                <p className="d-flex align-items-center">
+                  <span className="material-symbols-outlined">
+                    monetization_on
+                  </span>
+                  {'\t' + price_adu}
+                </p>
               </div>
               <div className="d-flex">
-                <div class="material-symbols-outlined bookmark">bookmark</div>
-                <p>收藏</p>
+                <p className="d-flex align-items-center">
+                  <span class="material-symbols-outlined bookmark">
+                    bookmark
+                  </span>
+                  收藏
+                </p>
               </div>
             </div>
           </div>
         </div>
-        <div
-          className="products-card-link"
-          // className={
-          //   `products-card-link\t` + (focusState ? 'active' : 'none-active')
-          // }
-        >
-          <Link to={`/TripProductDetails/${tripName}`}>訂房去</Link>
+        <div className="products-card-link d-flex align-items-center justify-content-center">
+          <Link to={`/TripProductDetails/${tripName}`}>
+            馬
+            <br />
+            上
+            <br />
+            行
+            <br />
+            動
+            <br />！
+          </Link>
         </div>
       </div>
     </>

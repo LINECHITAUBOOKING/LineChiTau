@@ -9,12 +9,22 @@ export default function SortSelect(props) {
         <li className="top-sort-btn">排序：</li>
         <li className="top-sort-btn grades">
           價格
-          <button className="my-btn">
+          <button
+            className="my-btn"
+            onClick={() => {
+              setSortBy('1');
+            }}
+          >
             <span className="arrow material-symbols-outlined">
               keyboard_arrow_up
             </span>
           </button>
-          <button className="my-btn">
+          <button
+            className="my-btn"
+            onClick={() => {
+              setSortBy('2');
+            }}
+          >
             <span className="arrow material-symbols-outlined">
               keyboard_arrow_down
             </span>
@@ -22,12 +32,22 @@ export default function SortSelect(props) {
         </li>
         <li className="top-sort-btn price">
           評價
-          <button className="my-btn">
+          <button
+            className="my-btn"
+            onClick={() => {
+              setSortBy('3');
+            }}
+          >
             <span className="arrow material-symbols-outlined">
               keyboard_arrow_up
             </span>
           </button>
-          <button className="my-btn">
+          <button
+            className="my-btn"
+            onClick={() => {
+              setSortBy('4');
+            }}
+          >
             <span className="arrow material-symbols-outlined">
               keyboard_arrow_down
             </span>
