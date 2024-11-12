@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddParticipantModal from './ParticipantModal/AddParticipantModal';
 import ParticipantTabTitle from './ParticipantTab/ParticipantTabTitle';
 import ParticipantTabBody from './ParticipantTab/ParticipantTabBody';
+
 const Participant = (props) => {
   const [addModalOpen, setAddModalOpen] = useState(false);
   const [editModalOpen, setEditModalOpen] = useState(false);
