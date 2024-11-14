@@ -20,7 +20,8 @@
   .fixed {
     position: fixed;
     top: 0;
-    left: 293px;
+    left: calc(50%);
+    transform: translateX(-50%);
     z-index: 998;
     width: 1320px;
   }
